@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        LoginView()
+//        CalendarDisplayView(token: "123", selectDate: Date()) { (event) in
+//            print(event)
+//        }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

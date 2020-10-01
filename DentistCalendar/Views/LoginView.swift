@@ -1,0 +1,46 @@
+//
+//  LoginView.swift
+//  DentistCalendar
+//
+//  Created by Даник 💪 on 9/26/20.
+//
+
+import SwiftUI
+
+struct LoginView: View {
+    @StateObject var loginData = LoginViewModel()
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 15) {
+                CustomTextField(label: "Email", title: "example@gmail.com", text: $loginData.emailAddress, isSecure: false, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20).padding(.top, 20)
+                CustomTextField(label: "Пароль", title: "example123", text: $loginData.password, isSecure: true, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20)
+                NavigationLink(
+                    destination: RegisterView(),
+                    label: {
+                    Text("Нет аккаунта? Зарегистрируйтесь").fontWeight(.bold)
+                        .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
+                }).padding(.horizontal, 20)
+                CustomButton(action: {
+                    loginData.login()
+                }, imageName: "arrowshape.zigzag.forward", label: "Войти", isLoading: $loginData.isLoading)
+                
+                Spacer(minLength: 0)
+                    .navigationBarTitle(Text("Вход"))
+                    .alert(isPresented: $loginData.isAlertPresented, content: {
+                    Alert(title: Text("Ошибка"), message: Text(loginData.error) , dismissButton: .cancel())
+                })
+            }.navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: UIColor(.white))
+            
+            
+            
+        }
+    }
+}
+
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
