@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct DentistCalendarApp: App {
+    @AppStorage("isLogged") var status = Api().checkAndUpdateUser()
     var body: some Scene {
         WindowGroup {
             ContentView()

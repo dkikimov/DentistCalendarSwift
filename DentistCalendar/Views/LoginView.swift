@@ -14,7 +14,7 @@ struct LoginView: View {
         NavigationView {
             VStack(spacing: 15) {
                 CustomTextField(label: "Email", title: "example@gmail.com", text: $loginData.emailAddress, isSecure: false, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20).padding(.top, 20)
-                CustomTextField(label: "Пароль", title: "example123", text: $loginData.password, isSecure: true, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20)
+                CustomTextField(label: "Пароль", title: "example123", text: $loginData.password, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
                 NavigationLink(
                     destination: RegisterView(),
                     label: {

@@ -7,11 +7,17 @@
 
 import SwiftUI
 struct ContentView: View {
+    @AppStorage("isLogged") var status = false
     var body: some View {
-        LoginView()
-//        CalendarDisplayView(token: "123", selectDate: Date()) { (event) in
-//            print(event)
-//        }
+        if status {
+            CalendarDisplayView(token: "123", selectDate: Date()) { (event) in
+                print(event)
+            }
+        } else {
+            LoginView()
+        }
+        
+
     }
     
 }

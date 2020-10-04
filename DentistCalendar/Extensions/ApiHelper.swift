@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ServerMessage: Codable {
     let success : Bool
-    let data : DataClass
-    let message: [Message]?
+    let data : ServerMessageData?
+    let message: String?
 }
 
 
 // MARK: - DataClass
-struct DataClass: Codable {
+struct ServerMessageData: Codable {
     let accessToken, refreshToken, id, email: String
     let fullname, password: String
 
@@ -25,9 +25,26 @@ struct DataClass: Codable {
         case email, fullname, password
     }
 }
-// MARK: - ErrorArray
 
-// MARK: - Message
-struct Message: Codable {
-    let msg, param, location: String
+struct User: Codable {
+    let success : Bool
+    let data : UserData
+    
+}
+struct UserData: Codable {
+    let id, email, fullname : String
+    enum CodingKeys: String, CodingKey {
+        case email, fullname
+        case id = "_id"
+    }
+}
+struct UpdateTokens: Codable {
+    let success: Bool
+    let message: String?
+    let data: UpdateTokensData?
+}
+
+// MARK: - DataClass
+struct UpdateTokensData: Codable {
+    let accessToken, refreshToken: String
 }

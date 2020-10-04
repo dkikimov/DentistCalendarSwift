@@ -17,25 +17,26 @@ struct CustomButton: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                if !isLoading {
+                if isLoading == false {
                     Image(systemName: imageName)
                         .font(.title3)
-                
                 Text(label)
                     .fontWeight(.semibold)
                     .font(.title3)
                 } else {
-                    ProgressView()
+                    ProgressView().font(.title3).foregroundColor(.white)
                 }
             }
+            .frame(width: UIScreen.main.bounds.width - 20, height: 25)
             .frame(minWidth: 0, maxWidth: 450)
+
             .padding()
             .foregroundColor(textColor)
             .background(Color(color))
             .cornerRadius(40)
             .padding(.horizontal, 20)
             
-        }
+        }.disabled(isLoading)
     }
 }
 

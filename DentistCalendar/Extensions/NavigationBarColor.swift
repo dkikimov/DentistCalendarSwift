@@ -35,3 +35,11 @@ extension View {
     self.modifier(NavigationBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
   }
 }
+
+extension UserDefaults {
+
+    func valueExists(forKey key: String) -> Bool {
+        return object(forKey: key) != nil
+    }
+
+}
