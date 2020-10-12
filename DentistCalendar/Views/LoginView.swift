@@ -25,12 +25,14 @@ struct LoginView: View {
                     loginData.login()
                 }, imageName: "arrowshape.zigzag.forward", label: "Войти", isLoading: $loginData.isLoading)
                 
+                
                 Spacer(minLength: 0)
                     .navigationBarTitle(Text("Вход"))
                     .alert(isPresented: $loginData.isAlertPresented, content: {
                     Alert(title: Text("Ошибка"), message: Text(loginData.error) , dismissButton: .cancel())
                 })
-            }.navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: UIColor(.white))
+            }
+            .navigationBarColor( backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
             
             
             

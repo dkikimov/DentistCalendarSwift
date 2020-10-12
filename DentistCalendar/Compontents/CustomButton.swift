@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomButton: View {
     var action:  () -> Void
-    var imageName: String
+    var imageName: String?
     var label : String
     var color : String = "Green"
     var textColor : Color = .white
@@ -18,8 +18,10 @@ struct CustomButton: View {
         Button(action: action) {
             HStack {
                 if isLoading == false {
-                    Image(systemName: imageName)
-                        .font(.title3)
+                    if imageName != nil {
+                        Image(systemName: imageName!)
+                            .font(.title3)
+                    }
                 Text(label)
                     .fontWeight(.semibold)
                     .font(.title3)

@@ -11,6 +11,8 @@ class Api {
     //    let mainUrl = "https://boiling-taiga-93711.herokuapp.com"
     let mainUrl = "http://localhost:5000"
     let userDefaults = UserDefaults.standard
+    @AppStorage("isLogged") var status = false
+
     func login(email : String, password : String, compelition: @escaping(ServerMessageData?, String?) -> ()) {
         guard let url = URL(string: "\(mainUrl)/login") else {return}
         var request = URLRequest(url: url)
@@ -79,6 +81,14 @@ class Api {
             
         }.resume()
     }
+    func logOut() {
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "fullname")
+        UserDefaults.standard.removeObject(forKey: "refreshToken")
+        UserDefaults.standard.removeObject(forKey: "accessToken")
+        UserDefaults.standard.removeObject(forKey: "id")
+        status = false
+    }
     func getMe(compelition: @escaping(UserData?, String?) -> ()) {
         
         if !userDefaults.valueExists(forKey: "accessToken") {
@@ -86,6 +96,7 @@ class Api {
             DispatchQueue.main.async {
                 compelition(nil, "empty")
             }
+            status = false
             return
         }
         
@@ -130,6 +141,7 @@ class Api {
             DispatchQueue.main.async {
                 compelition(nil, "empty")
             }
+            status = false
             return
         }
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
@@ -164,24 +176,119 @@ class Api {
             }
         }.resume()
     }
+    func updateFullname(fullname: String, compelition: @escaping(Bool, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            DispatchQueue.main.async {
+                compelition(false, "empty")
+            }
+            status = false
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/updateFullname") else {return}
+        var request = URLRequest(url: url)
+        let body: [String: String] = ["fullname": fullname]
+        let finalBody = try! JSONSerialization.data(withJSONObject: body)
+        request.httpMethod = "POST"
+        request.httpBody = finalBody
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(false, err.localizedDescription)
+                }
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+                if finalData.success {
+                    UserDefaults.standard.set(fullname, forKey: "fullname")
+                    DispatchQueue.main.async {
+                        compelition(true, nil)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        compelition(false, finalData.message!)
+                    }
+                }
+            }
+        }.resume()
+    }
+    func updatePassword(currentPassword: String, newPassword: String, compelition: @escaping(Bool, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            DispatchQueue.main.async {
+                compelition(false, "empty")
+            }
+            status = false
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/updatePassword") else {return}
+        var request = URLRequest(url: url)
+        let body: [String: String] = ["password": newPassword, "currentPassword": currentPassword]
+        let finalBody = try! JSONSerialization.data(withJSONObject: body)
+        request.httpMethod = "POST"
+        request.httpBody = finalBody
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(false, err.localizedDescription)
+                }
+                self.status = false
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+                if finalData.success {
+                    DispatchQueue.main.async {
+                        compelition(true, nil)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        compelition(false, finalData.message!)
+                    }
+                }
+            }
+        }.resume()
+    }
     func checkAndUpdateUser() -> Bool {
         var isLogged = false
         Api().getMe(){(data, err) in
             if err == "empty" {
+                self.status = false
                 return
             }
             
             if err != nil {
                 Api().updateTokens { (tokens, error) in
-                    print(tokens!)
                     if error != nil {
                         print(error!)
                         return
                     } else {
-                        UserDefaults.standard.setValue(tokens!.refreshToken, forKey: "refreshToken")
-                        UserDefaults.standard.setValue(tokens!.accessToken, forKey: "accessToken")
-                        isLogged = true
-                        print("YEAH ISLOGGED")
+                        if tokens?.refreshToken != nil && tokens?.accessToken != nil {
+                            UserDefaults.standard.setValue(tokens!.refreshToken, forKey: "refreshToken")
+                            UserDefaults.standard.setValue(tokens!.accessToken, forKey: "accessToken")
+                            isLogged = true
+                            print("YEAH ISLOGGED")
+                            return
+                        }
                         return
                     }
                     
@@ -194,6 +301,94 @@ class Api {
         }
         return isLogged
         
+    }
+    func fetchPatients(compelition: @escaping(Array<PatientData>?, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            status = false
+            DispatchQueue.main.async {
+                compelition(nil, "empty")
+            }
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/patients") else {return}
+        var request = URLRequest(url: url)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(nil, err.localizedDescription)
+                }
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(PatientsList.self, from: data)
+                if finalData.success {
+                    DispatchQueue.main.async {
+                        compelition(finalData.data, nil)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        compelition(finalData.data, finalData.message!)
+                    }
+                }
+            }
+        }.resume()
+    }
+    func deletePatient(id: String, compelition: @escaping(Bool, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            status = false
+            DispatchQueue.main.async {
+                compelition(false, "empty")
+            }
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/patients/\(id)") else {return}
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "DELETE"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(false, err.localizedDescription)
+                }
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(PatientDelete.self, from: data)
+                if finalData.success {
+                    DispatchQueue.main.async {
+                        compelition(true, nil)
+                    }
+                }
+                else if finalData.message != nil {
+                    DispatchQueue.main.async {
+                        compelition(false, finalData.message!)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        compelition(false, nil)
+                    }
+                }
+            }
+        }.resume()
     }
 }
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,7 +20,21 @@
 		6F418C0625262FEE008FD40F /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F418C0525262FEE008FD40F /* Api.swift */; };
 		6F418C0925263684008FD40F /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F418C0825263684008FD40F /* ApiHelper.swift */; };
 		6F418C102526421C008FD40F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F418C0F2526421C008FD40F /* LoginViewModel.swift */; };
+		6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4403BA2530B6740025BB9A /* PatientsListView.swift */; };
+		6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4403BE2530BE460025BB9A /* PatientsListRow.swift */; };
+		6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F457283252E1C94008B1857 /* ProfileSettingsViewModel.swift */; };
+		6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */; };
+		6F4AFCE62531B1E500F842BA /* AvatarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCE52531B1E500F842BA /* AvatarBlock.swift */; };
+		6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */; };
+		6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */; };
+		6F4AFCF12531D05C00F842BA /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */; };
+		6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */; };
 		6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55F04B2526F0340095729D /* RegisterViewModel.swift */; };
+		6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA69269252B60F500711A88 /* ProfileSettingsView.swift */; };
+		6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6926C252B630500711A88 /* CalendarDay.swift */; };
+		6FD91C28252F600E00231625 /* getTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD91C27252F600E00231625 /* getTokens.swift */; };
+		6FD91C2C252F606B00231625 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD91C2B252F606B00231625 /* JWTDecode */; };
+		6FD91C31252F682700231625 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD91C30252F682700231625 /* SPAlert */; };
 		6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */; };
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
@@ -45,7 +59,18 @@
 		6F418C0525262FEE008FD40F /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		6F418C0825263684008FD40F /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
 		6F418C0F2526421C008FD40F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6F4403BA2530B6740025BB9A /* PatientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListView.swift; sourceTree = "<group>"; };
+		6F4403BE2530BE460025BB9A /* PatientsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListRow.swift; sourceTree = "<group>"; };
+		6F457283252E1C94008B1857 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
+		6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsUserDataView.swift; sourceTree = "<group>"; };
+		6F4AFCE52531B1E500F842BA /* AvatarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarBlock.swift; sourceTree = "<group>"; };
+		6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getAvatarColor.swift; sourceTree = "<group>"; };
+		6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListViewModel.swift; sourceTree = "<group>"; };
+		6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsDetailView.swift; sourceTree = "<group>"; };
 		6F55F04B2526F0340095729D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		6FA69269252B60F500711A88 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		6FA6926C252B630500711A88 /* CalendarDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
+		6FD91C27252F600E00231625 /* getTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTokens.swift; sourceTree = "<group>"; };
 		6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		6FF64F01251E3CBE0094C0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -59,7 +84,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F4AFCF12531D05C00F842BA /* SwiftUIRefresh in Frameworks */,
+				6FD91C31252F682700231625 /* SPAlert in Frameworks */,
 				9F139879DE51D1A3B3C1EE30 /* Pods_DentistCalendar.framework in Frameworks */,
+				6FD91C2C252F606B00231625 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				6F418C0525262FEE008FD40F /* Api.swift */,
+				6FD91C27252F600E00231625 /* getTokens.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,7 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				6F418C0F2526421C008FD40F /* LoginViewModel.swift */,
+				6F457283252E1C94008B1857 /* ProfileSettingsViewModel.swift */,
 				6F55F04B2526F0340095729D /* RegisterViewModel.swift */,
+				6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -88,6 +119,7 @@
 			children = (
 				6F2FB4EB251F391600A046F9 /* CustomTextField.swift */,
 				6F2FB4EF251F3C3D00A046F9 /* CustomButton.swift */,
+				6F4AFCE52531B1E500F842BA /* AvatarBlock.swift */,
 			);
 			path = Compontents;
 			sourceTree = "<group>";
@@ -136,12 +168,34 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		6F4403BD2530BE380025BB9A /* Patients */ = {
+			isa = PBXGroup;
+			children = (
+				6F4403BA2530B6740025BB9A /* PatientsListView.swift */,
+				6F4403BE2530BE460025BB9A /* PatientsListRow.swift */,
+				6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */,
+			);
+			path = Patients;
+			sourceTree = "<group>";
+		};
+		6F457286252E1D2E008B1857 /* ProfileSettings */ = {
+			isa = PBXGroup;
+			children = (
+				6FA69269252B60F500711A88 /* ProfileSettingsView.swift */,
+				6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */,
+			);
+			path = ProfileSettings;
+			sourceTree = "<group>";
+		};
 		6FF64EF5251E34AF0094C0E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6F4403BD2530BE380025BB9A /* Patients */,
+				6F457286252E1D2E008B1857 /* ProfileSettings */,
 				6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */,
 				6F2FB4E0251F228600A046F9 /* LoginView.swift */,
 				6F2FB4F2251F3DDE00A046F9 /* RegisterView.swift */,
+				6FA6926C252B630500711A88 /* CalendarDay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +208,7 @@
 				6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */,
 				6F2FB4E6251F2EED00A046F9 /* ContentHostingController.swift */,
 				6F418C0825263684008FD40F /* ApiHelper.swift */,
+				6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -193,6 +248,11 @@
 			dependencies = (
 			);
 			name = DentistCalendar;
+			packageProductDependencies = (
+				6FD91C2B252F606B00231625 /* JWTDecode */,
+				6FD91C30252F682700231625 /* SPAlert */,
+				6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */,
+			);
 			productName = DentistCalendar;
 			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
 			productType = "com.apple.product-type.application";
@@ -220,6 +280,11 @@
 				Base,
 			);
 			mainGroup = 6F3A1A782519118F0042E7C4;
+			packageReferences = (
+				6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
+				6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */,
+				6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -290,6 +355,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F2FB4F3251F3DDE00A046F9 /* RegisterView.swift in Sources */,
+				6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */,
+				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
 				6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */,
 				6F2FB4E1251F228600A046F9 /* LoginView.swift in Sources */,
 				6FF64F06251E44580094C0E0 /* Item.swift in Sources */,
@@ -297,11 +364,20 @@
 				6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */,
 				6F2FB4F0251F3C3D00A046F9 /* CustomButton.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
+				6FD91C28252F600E00231625 /* getTokens.swift in Sources */,
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
+				6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */,
 				6F418C102526421C008FD40F /* LoginViewModel.swift in Sources */,
+				6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */,
+				6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */,
+				6F4AFCE62531B1E500F842BA /* AvatarBlock.swift in Sources */,
+				6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */,
 				6F418C0625262FEE008FD40F /* Api.swift in Sources */,
 				6F418C0925263684008FD40F /* ApiHelper.swift in Sources */,
 				6F3A1A87251911900042E7C4 /* ContentView.swift in Sources */,
+				6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */,
+				6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */,
+				6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */,
 				6F3A1A85251911900042E7C4 /* DentistCalendarApp.swift in Sources */,
 				6F2FB4EC251F391600A046F9 /* CustomTextField.swift in Sources */,
 			);
@@ -494,6 +570,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+		6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+		6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
+			productName = SwiftUIRefresh;
+		};
+		6FD91C2B252F606B00231625 /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */;
+			productName = JWTDecode;
+		};
+		6FD91C30252F682700231625 /* SPAlert */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */;
+			productName = SPAlert;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6F3A1A792519118F0042E7C4 /* Project object */;
 }

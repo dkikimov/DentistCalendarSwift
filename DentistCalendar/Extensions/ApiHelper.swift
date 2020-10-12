@@ -48,3 +48,30 @@ struct UpdateTokens: Codable {
 struct UpdateTokensData: Codable {
     let accessToken, refreshToken: String
 }
+
+struct AvatarColor: Codable {
+    let background, color: String
+}
+
+struct Patient: Codable {
+    let fullname, id, phone: String
+}
+
+struct PatientsList: Codable {
+    let success: Bool
+    let data: [PatientData]?
+    let message: String?
+}
+struct PatientData: Codable, Hashable {
+    let id, fullname, phone, user: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case fullname, phone, user
+    }
+}
+struct PatientDelete: Codable {
+    let success: Bool
+    let message: String?
+}
+

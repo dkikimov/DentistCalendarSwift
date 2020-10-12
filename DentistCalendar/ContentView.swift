@@ -6,18 +6,45 @@
 //
 
 import SwiftUI
+
+
+//struct BasicView: View {
+//    let item: BottomBarItem
+//
+//    var navigateButton: some View {
+//        NavigationLink(destination: destination) {
+//            ZStack {
+//                Rectangle()
+//                    .fill(item.color)
+//                    .cornerRadius(8)
+//                    .frame(height: 52)
+//                    .padding(.horizontal)
+//
+//                Text("Navigate")
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//            }
+//        }
+//    }
+//    var body: some View {
+//        VStack {
+//            Spacer()
+//            Spacer()
+//        }
+//    }
+//}
+
+
+
+
 struct ContentView: View {
     @AppStorage("isLogged") var status = false
     var body: some View {
         if status {
-            CalendarDisplayView(token: "123", selectDate: Date()) { (event) in
-                print(event)
-            }
+            CalendarDayView().transition(.slide)
         } else {
-            LoginView()
+            LoginView().transition(.slide)
         }
-        
-
     }
     
 }

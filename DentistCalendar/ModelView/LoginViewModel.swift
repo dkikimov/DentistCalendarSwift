@@ -27,7 +27,6 @@ class LoginViewModel : ObservableObject {
             if err != nil {
                 self.error = err!
                 self.isAlertPresented.toggle()
-                return
             }
             
             if data != nil{
