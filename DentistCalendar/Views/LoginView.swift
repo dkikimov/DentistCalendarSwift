@@ -32,7 +32,7 @@ struct LoginView: View {
                     Alert(title: Text("Ошибка"), message: Text(loginData.error) , dismissButton: .cancel())
                 })
             }
-            .navigationBarColor( backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+//            .navigationBarColor( backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
             
             
             

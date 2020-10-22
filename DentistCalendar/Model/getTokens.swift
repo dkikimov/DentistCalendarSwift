@@ -10,11 +10,12 @@ import JWTDecode
 func getToken() -> String? {
     do {
         let token = UserDefaults.standard.string(forKey: "accessToken")
-        if token == nil {
+        let token2 = UserDefaults.standard.string(forKey: "refreshToken")
+        if token == nil || token2 == nil {
             return nil
         }
         let accessToken = try decode(jwt: token!)
-        let refreshToken = try decode(jwt: UserDefaults.standard.string(forKey: "refreshToken")!)
+        let refreshToken = try decode(jwt: token2!)
         var res: String? = nil
         if accessToken.expired && !refreshToken.expired {
             Api().updateTokens { (tokens, err) in

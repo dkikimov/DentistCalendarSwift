@@ -62,7 +62,7 @@ struct PatientsList: Codable {
     let data: [PatientData]?
     let message: String?
 }
-struct PatientData: Codable, Hashable {
+struct PatientData: Codable, Hashable, Identifiable {
     let id, fullname, phone, user: String
 
     enum CodingKeys: String, CodingKey {
@@ -75,3 +75,33 @@ struct PatientDelete: Codable {
     let message: String?
 }
 
+
+struct Appointments: Codable {
+    let success: Bool
+    let data: AppointmentsListData?
+    let message: String?
+}
+
+// MARK: - DataClass
+struct AppointmentsListData: Codable, Hashable, Identifiable {
+    let id, fullname, phone, user: String
+    let appointments: [AppointmentData]?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case fullname, phone, user
+        case appointments
+    }
+}
+
+// MARK: - Appointment
+struct AppointmentData: Codable, Hashable, Identifiable {
+    let id, patient, user, toothNumber, date, timeStart, timeEnd, diagnosis: String
+    let price: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case patient, user, toothNumber, diagnosis, price, date, timeStart, timeEnd
+        
+    }
+}

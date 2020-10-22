@@ -41,7 +41,7 @@ struct ContentView: View {
     @AppStorage("isLogged") var status = false
     var body: some View {
         if status {
-            CalendarDayView().transition(.slide)
+            CalendarDayView()
         } else {
             LoginView().transition(.slide)
         }

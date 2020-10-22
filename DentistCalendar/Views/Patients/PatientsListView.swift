@@ -13,23 +13,22 @@ struct PatientsListView: View {
     var body: some View {
         NavigationView{
             Group {
-                if listData.patientsList != nil && listData.patientsList!.count > 0{
+                if listData.patientsList != nil{
                     List{
-                        ForEach(listData.patientsList!, id: \.self) { patient in
+                        ForEach(listData.patientsList!) { patient in
                             NavigationLink(
-                                destination: PatientsDetailView(patient: patient),
+                                destination: PatientsDetailView(patientInput: patient),
                                 label: {
                                     PatientsListRow(fullname: patient.fullname, id: patient.id, phoneNumber: patient.phone)
                                 })
-
+                            
                         }.onDelete(perform: deleteItem)
                     }
-    
                     .pullToRefresh(isShowing: $listData
                                     .isLoading) {
                         listData.fetchPatients()
                     }
-                    }
+                }
                  else if listData.patientsList?.count == 0 {
                     Text("Самое время добавить пациентов!").foregroundColor(.gray)
 
@@ -37,13 +36,17 @@ struct PatientsListView: View {
                     ProgressView()
                 }
             }.navigationTitle("Пациенты").navigationBarTitleDisplayMode(.large)
-            .navigationBarColor( backgroundColor: .white, tintColor: .black)
+            .edgesIgnoringSafeArea(.all)
+
             
         }
-
+        
+        .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
             listData.fetchPatients()
         })
+
+        
     }
     func deleteItem(at offsets: IndexSet) {
         if let first = offsets.first {

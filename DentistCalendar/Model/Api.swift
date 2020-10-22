@@ -12,7 +12,7 @@ class Api {
     let mainUrl = "http://localhost:5000"
     let userDefaults = UserDefaults.standard
     @AppStorage("isLogged") var status = false
-
+    
     func login(email : String, password : String, compelition: @escaping(ServerMessageData?, String?) -> ()) {
         guard let url = URL(string: "\(mainUrl)/login") else {return}
         var request = URLRequest(url: url)
@@ -194,7 +194,7 @@ class Api {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
-
+        
         URLSession.shared.dataTask(with: request) {
             data, response, err in
             if let err = err {
@@ -240,7 +240,7 @@ class Api {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
-
+        
         URLSession.shared.dataTask(with: request) {
             data, response, err in
             if let err = err {
@@ -316,7 +316,7 @@ class Api {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
-
+        
         URLSession.shared.dataTask(with: request) {
             data, response, err in
             if let err = err {
@@ -359,7 +359,7 @@ class Api {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
-
+        
         URLSession.shared.dataTask(with: request) {
             data, response, err in
             if let err = err {
@@ -390,5 +390,58 @@ class Api {
             }
         }.resume()
     }
+    
+    func fetchAppointments(patient: String, compelition: @escaping(Array<AppointmentData>?, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            status = false
+            DispatchQueue.main.async {
+                compelition(nil, "empty")
+            }
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/patients/\(patient)") else {return}
+        var request = URLRequest(url: url)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(nil, err.localizedDescription)
+                }
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(Appointments.self, from: data)
+                if finalData.success {
+                    if finalData.data!.appointments?.count ?? 0 > 0 {
+                        DispatchQueue.main.async {
+                            compelition(finalData.data!.appointments, nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            compelition(nil, nil)
+                        }
+                    }
+                    
+                }
+                else {
+                    if finalData.message != nil {
+                        DispatchQueue.main.async {
+                            compelition(nil, finalData.message!)
+                        }
+                    }
+                }
+                
+            }
+        }
+        .resume()
+        
+    }
 }
-

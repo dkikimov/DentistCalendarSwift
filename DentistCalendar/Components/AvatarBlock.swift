@@ -29,4 +29,3 @@ struct AvatarBlock: View {
         }
     }
 }
-
