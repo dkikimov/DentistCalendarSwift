@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct PatientsListRow: View {
-    @State var fullname: String
-    @State var id: String
-    @State var phoneNumber: String
+//    @State var fullname: String
+//    @State var id: String
+//    @State var phoneNumber: String
+    var patient: PatientData
     var body: some View {
         HStack (spacing: 10){
-            AvatarBlock(fullname: fullname.split(separator: " "))
+            AvatarBlock(fullname: patient.fullname.split(separator: " "))
             
             VStack(alignment: .leading) {
-                Text(fullname).fontWeight(.bold)
-                Text(phoneNumber).foregroundColor(.gray)
+                Text(patient.fullname).fontWeight(.bold)
+                Text(patient.phone).foregroundColor(.gray)
             }
             
         }.frame(height: 55)

@@ -444,4 +444,54 @@ class Api {
         .resume()
         
     }
+    func updatePatient(fullname: String, phone: String, patient: String, compelition: @escaping(Bool, String?) -> ()) {
+        let accessToken = getToken()
+        if accessToken == nil {
+            status = false
+            DispatchQueue.main.async {
+                compelition(false, "empty")
+            }
+            return
+        }
+        guard let url = URL(string: "\(mainUrl)/patients/\(patient)") else {return}
+        var request = URLRequest(url: url)
+        
+        let body: [String: String] = ["fullname": fullname, "phone": phone]
+        let finalBody = try! JSONSerialization.data(withJSONObject: body)
+        request.httpMethod = "PATCH"
+        request.httpBody = finalBody
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(String(describing: accessToken!))", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) {
+            data, response, err in
+            if let err = err {
+                print("Error took place \(err)")
+                DispatchQueue.main.async {
+                    compelition(false, err.localizedDescription)
+                }
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data {
+                let finalData = try! JSONDecoder().decode(PatientEdit.self, from: data)
+                if finalData.success {
+                    DispatchQueue.main.async {
+                        compelition(true, nil)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        compelition(false, finalData.message!)
+                    }
+                }
+                
+                
+            }
+        }
+        .resume()
+        
+    }
+    
 }

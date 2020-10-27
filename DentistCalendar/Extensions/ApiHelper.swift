@@ -53,8 +53,12 @@ struct AvatarColor: Codable {
     let background, color: String
 }
 
-struct Patient: Codable {
-    let fullname, id, phone: String
+struct PatientEdit: Codable {
+    let success: Bool
+    let message: String?
+    enum CodingKeys: String, CodingKey {
+        case success, message
+    }
 }
 
 struct PatientsList: Codable {
@@ -63,7 +67,7 @@ struct PatientsList: Codable {
     let message: String?
 }
 struct PatientData: Codable, Hashable, Identifiable {
-    let id, fullname, phone, user: String
+    var id, fullname, phone, user: String
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"

@@ -16,7 +16,12 @@ struct AvatarBlock: View {
         let b = getAvatarColor(name: Character(String(fullname[0])[0])).background
         backgroundColor = UIColor.hexStringToColor(hex: b )
         foregroundColor = UIColor.hexStringToColor(hex: a )
-        finalName = String(fullname[0])[0] + String(fullname[1])[0]
+        if fullname.count == 2 {
+            finalName = String(fullname[0])[0] + String(fullname[1])[0]
+        }
+        else {
+            finalName = String(fullname[0])[0]
+        }
         
     }
     var body: some View {

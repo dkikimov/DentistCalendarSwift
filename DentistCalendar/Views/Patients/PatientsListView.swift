@@ -9,43 +9,49 @@ import SwiftUI
 import SwiftUIRefresh
 
 struct PatientsListView: View {
-    @StateObject var listData = PatientsListViewModel()
+    @ObservedObject var listData = PatientsListViewModel()
     var body: some View {
         NavigationView{
             Group {
                 if listData.patientsList != nil{
                     List{
-                        ForEach(listData.patientsList!) { patient in
-                            NavigationLink(
-                                destination: PatientsDetailView(patientInput: patient),
-                                label: {
-                                    PatientsListRow(fullname: patient.fullname, id: patient.id, phoneNumber: patient.phone)
-                                })
-                            
-                        }.onDelete(perform: deleteItem)
+                        ForEach(Array(listData.patientsList!.enumerated()), id: \.element) { index, patient in
+                            NavigationLink(destination: PatientsDetailView(index: index, listData: self.listData),
+                                           label: {
+                                PatientsListRow(patient: patient)
+                            })
+                        }.onDelete(perform: { indexSet in
+//                            listData.isAlertPresented = true
+//                            listData.deleteIndexSet = indexSet
+                            deleteItem(at: indexSet)
+                        })
                     }
                     .pullToRefresh(isShowing: $listData
                                     .isLoading) {
                         listData.fetchPatients()
                     }
                 }
-                 else if listData.patientsList?.count == 0 {
+                else if listData.patientsList?.count == 0 {
                     Text("Самое время добавить пациентов!").foregroundColor(.gray)
-
+                    
                 } else {
                     ProgressView()
                 }
             }.navigationTitle("Пациенты").navigationBarTitleDisplayMode(.large)
             .edgesIgnoringSafeArea(.all)
-
+            
             
         }
-        
+//        .alert(isPresented: $listData.isAlertPresented, content: {
+//            Alert(title: Text("Подтверждение"), message: Text("Вы уверены, что хотите удалить пациента?"), primaryButton: .default(Text("Да"), action: {
+//                deleteItem()
+//            }), secondaryButton: .cancel())
+//        })
         .edgesIgnoringSafeArea(.all)
-        .onAppear(perform: {
-            listData.fetchPatients()
-        })
-
+//        .onAppear(perform: {
+//            listData.fetchPatients()
+//        })
+        
         
     }
     func deleteItem(at offsets: IndexSet) {

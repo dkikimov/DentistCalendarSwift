@@ -31,10 +31,10 @@ struct ProfileSettingsUserDataView: View {
                     
                 }
                 if profileData.password.count < 6 || profileData.repeatPassword.count < 6 {
-                    Text("Минимальное количество символом - 6").foregroundColor(.red)
+                    Text("Минимальное количество символов - 6").foregroundColor(.red).font(.callout)
                 }
                 else if profileData.password != profileData.repeatPassword {
-                    Text("Пароли не совпадают").foregroundColor(.red)
+                    Text("Пароли не совпадают").foregroundColor(.red).font(.callout)
                 }
             }.navigationBarTitleDisplayMode(.inline).listStyle(GroupedListStyle())
             

@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct CustomButton: View {
+struct CustomButton: View{
     var action:  () -> Void
     var imageName: String
     var label : String
     var color : String = "Green"
     var textColor : Color = .white
+    var disabled: Bool = false
     @Binding var isLoading: Bool
     var body: some View {
         Button(action: action) {
@@ -20,21 +21,22 @@ struct CustomButton: View {
                 if !isLoading {
                     Image(systemName: imageName)
                         .font(.title3)
-                
-                Text(label)
-                    .fontWeight(.semibold)
-                    .font(.title3)
+                    
+                    Text(label)
+                        .fontWeight(.semibold)
+                        .font(.title3)
                 } else {
                     ProgressView()
                 }
             }
             .frame(minWidth: 0, maxWidth: 450)
             .padding()
-            .foregroundColor(textColor)
-            .background(Color(color))
+            .foregroundColor(disabled ? textColor.opacity(0.6) : textColor)
+            .background(disabled ? Color.gray : Color(color))
             .cornerRadius(40)
             .padding(.horizontal, 20)
-            
         }
+        .disabled(disabled)
+        
     }
 }
