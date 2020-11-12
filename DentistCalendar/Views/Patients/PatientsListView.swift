@@ -12,33 +12,45 @@ struct PatientsListView: View {
     @ObservedObject var listData = PatientsListViewModel()
     var body: some View {
         NavigationView{
-            Group {
-                if listData.patientsList != nil{
-                    List{
-                        ForEach(Array(listData.patientsList!.enumerated()), id: \.element) { index, patient in
-                            NavigationLink(destination: PatientsDetailView(index: index, listData: self.listData),
-                                           label: {
-                                PatientsListRow(patient: patient)
+            ZStack {
+                Group {
+                    if listData.patientsList.count > 0{
+                        List{
+                            ForEach(Array(listData.patientsList)) {  patient in
+                                NavigationLink(destination: PatientsDetailView(patient: patient),
+                                               label: {
+                                    PatientsListRow(patient: patient)
+                                })
+                            }.onDelete(perform: { indexSet in
+    //                            listData.isAlertPresented = true
+    //                            listData.deleteIndexSet = indexSet
+                                deleteItem(at: indexSet)
                             })
-                        }.onDelete(perform: { indexSet in
-//                            listData.isAlertPresented = true
-//                            listData.deleteIndexSet = indexSet
-                            deleteItem(at: indexSet)
+                        }
+                        .pullToRefresh(isShowing: $listData
+                                        .isLoading) {
+                            listData.fetchPatients()
+                        }
+                    }
+                    else if listData.patientsList.count == 0 {
+                        Text("Самое время добавить пациентов!").foregroundColor(.gray)
+                        
+                    } else if listData.isLoading {
+                        ProgressView()
+                    }
+                }.navigationTitle("Пациенты").navigationBarTitleDisplayMode(.large)
+                .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        FloatingButton(moreButtonAction: {
+                            print("clicked")
                         })
-                    }
-                    .pullToRefresh(isShowing: $listData
-                                    .isLoading) {
-                        listData.fetchPatients()
-                    }
+                    }.padding([.bottom, .trailing], 30)
                 }
-                else if listData.patientsList?.count == 0 {
-                    Text("Самое время добавить пациентов!").foregroundColor(.gray)
-                    
-                } else {
-                    ProgressView()
-                }
-            }.navigationTitle("Пациенты").navigationBarTitleDisplayMode(.large)
-            .edgesIgnoringSafeArea(.all)
+            }
             
             
         }
@@ -56,8 +68,8 @@ struct PatientsListView: View {
     }
     func deleteItem(at offsets: IndexSet) {
         if let first = offsets.first {
-            let id = listData.patientsList![first].id
-            self.listData.patientsList?.remove(at: first)
+            let id = listData.patientsList[first].id
+            self.listData.patientsList.remove(at: first)
             listData.deletePatient(id: id)
         }
     }

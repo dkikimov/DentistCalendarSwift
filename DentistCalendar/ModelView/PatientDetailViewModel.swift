@@ -6,40 +6,36 @@
 //
 
 import SwiftUI
-
+import Amplify
 class PatientDetailViewModel : ObservableObject {
     
-    @Published var appointments: Array<AppointmentData>? = nil
+    @Published  var appointments = [Appointment]()
+
     @Published var isAlertPresented: Bool = false
     @Published var isSheetPresented: Bool = false
-    @Published var isLoading = true
+    @Published var isLoading = false
     @Published var error = ""
-    
-    @Published var patient: PatientData
-    
+    @State var patient: Patient
+//    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
+    init(patient: Patient) {
+        self.patient = patient
+        fetchAppointments()
+    }
     
     @AppStorage("isLogged") var status = false
-    init (patient: PatientData) {
-        self.patient = patient
-        
-    }
     func fetchAppointments() {
         self.isLoading = true
-        Api().fetchAppointments(patient: self.patient.id) { (appointments, errMessage) in
-            if errMessage != nil {
-                if errMessage != "empty" {
-                    self.error = errMessage!
-                    self.isAlertPresented = true
-                    
-                }
+        Amplify.DataStore.query(Appointment.self, where: Appointment.keys.patientID == patient.id) { res in
+            switch res{
+            case .success(let appointments):
+                self.appointments = appointments
+            case .failure(let err):
+                print("DETAILVIEWMODEL ERROR", err)
+                self.error = err.errorDescription
+                self.isAlertPresented = true
             }
-            else if appointments != nil {
-                self.appointments = appointments!
-
-            }
-            self.isLoading = false
-
         }
+        self.isLoading = false
     }
     
     

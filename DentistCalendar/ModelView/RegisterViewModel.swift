@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import Slugify
 
 class RegisterViewModel : ObservableObject {
+    
+    
+    
     @Published var name: String = ""
     @Published var secondName: String = ""
     @Published var emailAddress:String = ""
@@ -17,7 +21,9 @@ class RegisterViewModel : ObservableObject {
     @Published var isLoading = false
     @Published var error = ""
     @AppStorage("isLogged") var status = false
-    func register() {
+    
+    
+    func register(sessionManager: SessionManager) {
         self.isLoading = true
         if emailAddress.trimmingCharacters(in: .whitespaces) == "" || password.trimmingCharacters(in: .whitespaces) == ""  || name.trimmingCharacters(in: .whitespaces) == "" || secondName.trimmingCharacters(in: .whitespaces) == "" {
             error = "Заполните форму!"
@@ -31,28 +37,35 @@ class RegisterViewModel : ObservableObject {
             self.isLoading = false
             return
         }
-        let finalName = secondName.trimmingCharacters(in: .whitespaces) + " " + name.trimmingCharacters(in: .whitespaces)
-        Api().register(fullname: finalName, email: emailAddress, password: password) { data, err in
+        
+        sessionManager.signUp(email: emailAddress, password: password, firstName: name.trimmingCharacters(in: .whitespaces), secondName: secondName.trimmingCharacters(in: .whitespaces)){ err in
+            if let err = err {
 
-            if err != nil {
-                self.error = err!
-                self.isAlertPresented.toggle()
+                self.error = err
+                self.isAlertPresented = true
             }
-            if data != nil{
-                print(data!)
-
-                UserDefaults.standard.set(data!.email, forKey: "email")
-                UserDefaults.standard.set(data!.fullname, forKey: "fullname")
-                UserDefaults.standard.set(data!.refreshToken, forKey: "refreshToken")
-                UserDefaults.standard.set(data!.accessToken, forKey: "accessToken")
-                UserDefaults.standard.set(data!.id, forKey: "id")
-                self.status = true
-            }
-            self.isLoading = false
-            
-
         }
+        //        Api().register(fullname: finalName, email: emailAddress, password: password) { data, err in
+        //
+        //            if err != nil {
+        //                self.error = err!
+        //                self.isAlertPresented.toggle()
+        //            }
+        //            if data != nil{
+        //                print(data!)
+        //
+        //                UserDefaults.standard.set(data!.email, forKey: "email")
+        //                UserDefaults.standard.set(data!.fullname, forKey: "fullname")
+        //                UserDefaults.standard.set(data!.refreshToken, forKey: "refreshToken")
+        //                UserDefaults.standard.set(data!.accessToken, forKey: "accessToken")
+        //                UserDefaults.standard.set(data!.id, forKey: "id")
+        //                self.status = true
+        //            }
+        //            self.isLoading = false
+        //
+        //
+        //        }
     }
     
 }
-    
+

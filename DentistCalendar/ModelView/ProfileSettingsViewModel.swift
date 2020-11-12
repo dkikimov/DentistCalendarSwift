@@ -7,10 +7,16 @@
 
 import SwiftUI
 import SPAlert
+
 class ProfileSettingsViewModel: ObservableObject {
     let fullname = UserDefaults.standard.string(forKey: "fullname")!.split(separator: " ")
+//    let fullname = "123 asdas".split(separator: " ")
     let realFirstName: String
     let realSecondName: String
+    
+    
+    @Published var error: String = ""
+    @Published var isAlertPresented: Bool = false
     @Published var firstName: String = ""
     @Published var secondName: String = ""
     @Published var isLoading:Bool = false
@@ -71,4 +77,6 @@ class ProfileSettingsViewModel: ObservableObject {
         }
         self.isLoading = false
     }
+    
+    
 }

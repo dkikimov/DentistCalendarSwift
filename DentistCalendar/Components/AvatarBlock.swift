@@ -15,7 +15,7 @@ struct AvatarBlock: View {
         let a = getAvatarColor(name: Character(String(fullname[0])[0])).color
         let b = getAvatarColor(name: Character(String(fullname[0])[0])).background
         backgroundColor = UIColor.hexStringToColor(hex: b )
-        foregroundColor = UIColor.hexStringToColor(hex: a )
+        foregroundColor = UIColor.hexStringToColor(hex: a)
         if fullname.count == 2 {
             finalName = String(fullname[0])[0] + String(fullname[1])[0]
         }
@@ -24,6 +24,7 @@ struct AvatarBlock: View {
         }
         
     }
+    
     var body: some View {
         ZStack {
             Circle().foregroundColor(Color(backgroundColor)).frame(width: 50, height: 50)

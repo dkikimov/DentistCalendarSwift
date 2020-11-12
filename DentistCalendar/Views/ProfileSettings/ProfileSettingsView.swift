@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Amplify
 
 struct ProfileSettingsView: View {
+    @EnvironmentObject var sessionManager: SessionManager
+
     @StateObject var profileData = ProfileSettingsViewModel()
     var body: some View {
         Form {
@@ -58,7 +61,12 @@ struct ProfileSettingsView: View {
                     }
             Section {
                 Button(action: {
-                    Api().logOut()
+                    sessionManager.signOut { (err) in
+                        if err != nil {
+                            self.profileData.error = err!
+                            self.profileData.isAlertPresented = true
+                        }
+                    }
                 }, label: {
                     Text("Выйти").foregroundColor(.red)
                 })

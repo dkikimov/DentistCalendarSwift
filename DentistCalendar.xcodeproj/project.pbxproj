@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0828E2405CD24DD5AE92BD96 /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DB883CB2964B6D8C000807 /* Appointment+Schema.swift */; };
+		4DA8D83946004CBF8C054F89 /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323AAE56C2D243D6A4D7D015 /* Patient+Schema.swift */; };
+		6CEC911EBE7849FEA7CAEA2F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D965F94B2AF455BB6BA276C /* Appointment.swift */; };
 		6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */; };
 		6F2FB4E1251F228600A046F9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E0251F228600A046F9 /* LoginView.swift */; };
 		6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */; };
@@ -31,19 +34,23 @@
 		6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */; };
 		6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */; };
 		6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */; };
-		6F4AFCF12531D05C00F842BA /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */; };
 		6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */; };
 		6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55F04B2526F0340095729D /* RegisterViewModel.swift */; };
+		6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65467E25527D22007F4C2D /* SessionManager.swift */; };
+		6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468125527EC7007F4C2D /* ConfirmationView.swift */; };
+		6F65468625528CB0007F4C2D /* Slugify in Frameworks */ = {isa = PBXBuildFile; productRef = 6F65468525528CB0007F4C2D /* Slugify */; };
+		6F6546892552C03A007F4C2D /* CodeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6546882552C03A007F4C2D /* CodeInput.swift */; };
+		6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468C2552C285007F4C2D /* PassCodeInputField.swift */; };
+		6F6546902552C285007F4C2D /* PassCodeInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468D2552C285007F4C2D /* PassCodeInputCell.swift */; };
+		6F6546912552C285007F4C2D /* PassCodeInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468E2552C285007F4C2D /* PassCodeInputModel.swift */; };
 		6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F97FA302542A738004750BF /* PatientUpdateView.swift */; };
 		6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA69269252B60F500711A88 /* ProfileSettingsView.swift */; };
 		6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6926C252B630500711A88 /* CalendarDay.swift */; };
+		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
 		6FD57D57253C3D5E00C64847 /* CalendarKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD57D56253C3D5E00C64847 /* CalendarKitViewController.swift */; };
-		6FD57D5B253C3EAC00C64847 /* CalendarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD57D5A253C3EAC00C64847 /* CalendarKit */; };
 		6FD57D5E253C3F8100C64847 /* DateControllerDelegaet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */; };
 		6FD57D61253C413500C64847 /* TimeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD57D60253C413500C64847 /* TimeChunk.swift */; };
 		6FD91C28252F600E00231625 /* getTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD91C27252F600E00231625 /* getTokens.swift */; };
-		6FD91C2C252F606B00231625 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD91C2B252F606B00231625 /* JWTDecode */; };
-		6FD91C31252F682700231625 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD91C30252F682700231625 /* SPAlert */; };
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
 		6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2E72541E20400F1C74A /* FloatingButton.swift */; };
 		6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */; };
@@ -52,9 +59,16 @@
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
 		6FF64F06251E44580094C0E0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F05251E44580094C0E0 /* Item.swift */; };
 		9F139879DE51D1A3B3C1EE30 /* Pods_DentistCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8414178BE7BAA64D4889AF35 /* Pods_DentistCalendar.framework */; };
+		AB08B9B1F4DC436D9064CA57 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = C401F2C2782241B6B620F78D /* amplifyconfiguration.json */; };
+		BF59C0BD898349219B79C2CF /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D0EF4982034634B6C65F68 /* AmplifyModels.swift */; };
+		EC5E26FE3D994FDEB016C3A8 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = D1EFC331930F43C88C436616 /* awsconfiguration.json */; };
+		F8DE4DC26B10411AAAB8AD5A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0DAEAF837E49F491626C6D /* Patient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		323AAE56C2D243D6A4D7D015 /* Patient+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Patient+Schema.swift"; path = "amplify/generated/models/Patient+Schema.swift"; sourceTree = "<group>"; };
+		4D965F94B2AF455BB6BA276C /* Appointment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Appointment.swift; path = amplify/generated/models/Appointment.swift; sourceTree = "<group>"; };
+		4E3CEA75033C4CD7914D0156 /* amplifytools.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = "<group>"; };
 		4FEA24AC1FE1FBEB1ADB1961 /* Pods-DentistCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.release.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailViewModel.swift; sourceTree = "<group>"; };
 		6F2FB4E0251F228600A046F9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -84,9 +98,16 @@
 		6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListViewModel.swift; sourceTree = "<group>"; };
 		6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsDetailView.swift; sourceTree = "<group>"; };
 		6F55F04B2526F0340095729D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		6F65467E25527D22007F4C2D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		6F65468125527EC7007F4C2D /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
+		6F6546882552C03A007F4C2D /* CodeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeInput.swift; sourceTree = "<group>"; };
+		6F65468C2552C285007F4C2D /* PassCodeInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputField.swift; sourceTree = "<group>"; };
+		6F65468D2552C285007F4C2D /* PassCodeInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputCell.swift; sourceTree = "<group>"; };
+		6F65468E2552C285007F4C2D /* PassCodeInputModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputModel.swift; sourceTree = "<group>"; };
 		6F97FA302542A738004750BF /* PatientUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUpdateView.swift; sourceTree = "<group>"; };
 		6FA69269252B60F500711A88 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		6FA6926C252B630500711A88 /* CalendarDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
+		6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patient+Extensions.swift"; sourceTree = "<group>"; };
 		6FD57D56253C3D5E00C64847 /* CalendarKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarKitViewController.swift; sourceTree = "<group>"; };
 		6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateControllerDelegaet.swift; sourceTree = "<group>"; };
 		6FD57D60253C413500C64847 /* TimeChunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChunk.swift; sourceTree = "<group>"; };
@@ -100,6 +121,12 @@
 		6FF64F05251E44580094C0E0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		7E842148E0DFF37B8A237A7D /* Pods-DentistCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.debug.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		8414178BE7BAA64D4889AF35 /* Pods_DentistCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DentistCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E0DAEAF837E49F491626C6D /* Patient.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Patient.swift; path = amplify/generated/models/Patient.swift; sourceTree = "<group>"; };
+		C401F2C2782241B6B620F78D /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		CC3A01AE4A77470F90F9DA0C /* schema.graphql */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/amplifyDatasource/schema.graphql; sourceTree = "<group>"; };
+		D1EFC331930F43C88C436616 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; path = awsconfiguration.json; sourceTree = "<group>"; };
+		D3D0EF4982034634B6C65F68 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
+		F9DB883CB2964B6D8C000807 /* Appointment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Appointment+Schema.swift"; path = "amplify/generated/models/Appointment+Schema.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,11 +134,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FD57D5B253C3EAC00C64847 /* CalendarKit in Frameworks */,
-				6F4AFCF12531D05C00F842BA /* SwiftUIRefresh in Frameworks */,
-				6FD91C31252F682700231625 /* SPAlert in Frameworks */,
+				6F65468625528CB0007F4C2D /* Slugify in Frameworks */,
 				9F139879DE51D1A3B3C1EE30 /* Pods_DentistCalendar.framework in Frameworks */,
-				6FD91C2C252F606B00231625 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +147,7 @@
 			children = (
 				6F418C0525262FEE008FD40F /* Api.swift */,
 				6FD91C27252F600E00231625 /* getTokens.swift */,
+				6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -151,6 +176,7 @@
 		6F328F3D253CB5B900F28F0F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6F65468B2552C278007F4C2D /* PassCode */,
 				6F328F3E253CB5CC00F28F0F /* CustomTextField.swift */,
 				6F328F41253CB5DC00F28F0F /* AvatarBlock.swift */,
 				6F328F44253CB60600F28F0F /* CustomButton.swift */,
@@ -158,6 +184,7 @@
 				6FE9D2E72541E20400F1C74A /* FloatingButton.swift */,
 				6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */,
 				6F3E74322545EB8700410A6F /* PhoneNumberTextFieldView.swift */,
+				6F6546882552C03A007F4C2D /* CodeInput.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -165,6 +192,8 @@
 		6F3A1A782519118F0042E7C4 = {
 			isa = PBXGroup;
 			children = (
+				8FB363EBF3DA415283C813C7 /* AmplifyModels */,
+				D99CB1A3428641748C6E4D21 /* AmplifyConfig */,
 				6F3A1A83251911900042E7C4 /* DentistCalendar */,
 				6F3A1A82251911900042E7C4 /* Products */,
 				BA77E1F1431B68D974FF156D /* Pods */,
@@ -195,6 +224,7 @@
 				6F3A1A8D251911900042E7C4 /* Info.plist */,
 				6F3A1A8A251911900042E7C4 /* Preview Content */,
 				6FF64EFD251E3A9E0094C0E0 /* events.json */,
+				6F65467E25527D22007F4C2D /* SessionManager.swift */,
 			);
 			path = DentistCalendar;
 			sourceTree = "<group>";
@@ -227,11 +257,21 @@
 			path = ProfileSettings;
 			sourceTree = "<group>";
 		};
+		6F65468B2552C278007F4C2D /* PassCode */ = {
+			isa = PBXGroup;
+			children = (
+				6F65468D2552C285007F4C2D /* PassCodeInputCell.swift */,
+				6F65468C2552C285007F4C2D /* PassCodeInputField.swift */,
+				6F65468E2552C285007F4C2D /* PassCodeInputModel.swift */,
+			);
+			path = PassCode;
+			sourceTree = "<group>";
+		};
 		6FF64EF5251E34AF0094C0E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6F4403BD2530BE380025BB9A /* Patients */,
 				6F457286252E1D2E008B1857 /* ProfileSettings */,
+				6F4403BD2530BE380025BB9A /* Patients */,
 				6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */,
 				6F2FB4E0251F228600A046F9 /* LoginView.swift */,
 				6F2FB4F2251F3DDE00A046F9 /* RegisterView.swift */,
@@ -239,6 +279,7 @@
 				6FD57D56253C3D5E00C64847 /* CalendarKitViewController.swift */,
 				6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */,
 				6FD57D60253C413500C64847 /* TimeChunk.swift */,
+				6F65468125527EC7007F4C2D /* ConfirmationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +305,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8FB363EBF3DA415283C813C7 /* AmplifyModels */ = {
+			isa = PBXGroup;
+			children = (
+				D3D0EF4982034634B6C65F68 /* AmplifyModels.swift */,
+				4D965F94B2AF455BB6BA276C /* Appointment.swift */,
+				F9DB883CB2964B6D8C000807 /* Appointment+Schema.swift */,
+				9E0DAEAF837E49F491626C6D /* Patient.swift */,
+				323AAE56C2D243D6A4D7D015 /* Patient+Schema.swift */,
+			);
+			name = AmplifyModels;
+			path = .;
+			sourceTree = "<group>";
+		};
 		BA77E1F1431B68D974FF156D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +325,18 @@
 				4FEA24AC1FE1FBEB1ADB1961 /* Pods-DentistCalendar.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D99CB1A3428641748C6E4D21 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				4E3CEA75033C4CD7914D0156 /* amplifytools.xcconfig */,
+				C401F2C2782241B6B620F78D /* amplifyconfiguration.json */,
+				D1EFC331930F43C88C436616 /* awsconfiguration.json */,
+				CC3A01AE4A77470F90F9DA0C /* schema.graphql */,
+			);
+			name = AmplifyConfig;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +347,7 @@
 			buildConfigurationList = 6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "DentistCalendar" */;
 			buildPhases = (
 				F347D2FA68CB98874C2DAD60 /* [CP] Check Pods Manifest.lock */,
+				6F29AC232551BCC50059F6F1 /* ShellScript */,
 				6F3A1A7D2519118F0042E7C4 /* Sources */,
 				6F3A1A7E2519118F0042E7C4 /* Frameworks */,
 				6F3A1A7F2519118F0042E7C4 /* Resources */,
@@ -292,10 +359,7 @@
 			);
 			name = DentistCalendar;
 			packageProductDependencies = (
-				6FD91C2B252F606B00231625 /* JWTDecode */,
-				6FD91C30252F682700231625 /* SPAlert */,
-				6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */,
-				6FD57D5A253C3EAC00C64847 /* CalendarKit */,
+				6F65468525528CB0007F4C2D /* Slugify */,
 			);
 			productName = DentistCalendar;
 			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
@@ -325,10 +389,7 @@
 			);
 			mainGroup = 6F3A1A782519118F0042E7C4;
 			packageReferences = (
-				6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
-				6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */,
-				6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
-				6FD57D59253C3EAC00C64847 /* XCRemoteSwiftPackageReference "CalendarKit" */,
+				6F65468425528CB0007F4C2D /* XCRemoteSwiftPackageReference "slugify" */,
 			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
@@ -347,12 +408,31 @@
 				6F3A1A8C251911900042E7C4 /* Preview Assets.xcassets in Resources */,
 				6F3A1A89251911900042E7C4 /* Assets.xcassets in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
+				AB08B9B1F4DC436D9064CA57 /* amplifyconfiguration.json in Resources */,
+				EC5E26FE3D994FDEB016C3A8 /* awsconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6F29AC232551BCC50059F6F1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "    #${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
+		};
 		866B6B3D6BBA3AFC5BFBA612 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,6 +485,7 @@
 				6F3E742D2545E5FC00410A6F /* PatientUpdateViewModel.swift in Sources */,
 				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
 				6F328F45253CB60700F28F0F /* CustomButton.swift in Sources */,
+				6F6546912552C285007F4C2D /* PassCodeInputModel.swift in Sources */,
 				6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */,
 				6FD57D57253C3D5E00C64847 /* CalendarKitViewController.swift in Sources */,
 				6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */,
@@ -414,9 +495,13 @@
 				6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */,
 				6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */,
 				6F3E74332545EB8700410A6F /* PhoneNumberTextFieldView.swift in Sources */,
+				6F6546902552C285007F4C2D /* PassCodeInputCell.swift in Sources */,
+				6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
 				6FD91C28252F600E00231625 /* getTokens.swift in Sources */,
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
+				6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */,
+				6F6546892552C03A007F4C2D /* CodeInput.swift in Sources */,
 				6F328F3F253CB5CC00F28F0F /* CustomTextField.swift in Sources */,
 				6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */,
 				6F328F42253CB5DC00F28F0F /* AvatarBlock.swift in Sources */,
@@ -427,15 +512,22 @@
 				6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */,
 				6F328EB6253CADE900F28F0F /* LoginViewController.swift in Sources */,
 				6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */,
+				6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */,
 				6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */,
 				6F418C0625262FEE008FD40F /* Api.swift in Sources */,
 				6F418C0925263684008FD40F /* ApiHelper.swift in Sources */,
 				6F3A1A87251911900042E7C4 /* ContentView.swift in Sources */,
+				6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */,
 				6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */,
 				6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */,
 				6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */,
 				6F3A1A85251911900042E7C4 /* DentistCalendarApp.swift in Sources */,
 				6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */,
+				BF59C0BD898349219B79C2CF /* AmplifyModels.swift in Sources */,
+				6CEC911EBE7849FEA7CAEA2F /* Appointment.swift in Sources */,
+				0828E2405CD24DD5AE92BD96 /* Appointment+Schema.swift in Sources */,
+				F8DE4DC26B10411AAAB8AD5A /* Patient.swift in Sources */,
+				4DA8D83946004CBF8C054F89 /* Patient+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,60 +720,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+		6F65468425528CB0007F4C2D /* XCRemoteSwiftPackageReference "slugify" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
+			repositoryURL = "https://github.com/nodes-vapor/slugify";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
-			};
-		};
-		6FD57D59253C3EAC00C64847 /* XCRemoteSwiftPackageReference "CalendarKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/richardtop/CalendarKit.git";
-			requirement = {
-				kind = revision;
-				revision = e6c8c8acefe6585da076d6b1b61976ad9f5a4b91;
-			};
-		};
-		6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/auth0/JWTDecode.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.1;
-			};
-		};
-		6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.4;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6F4AFCF02531D05C00F842BA /* SwiftUIRefresh */ = {
+		6F65468525528CB0007F4C2D /* Slugify */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6F4AFCEF2531D05C00F842BA /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
-			productName = SwiftUIRefresh;
-		};
-		6FD57D5A253C3EAC00C64847 /* CalendarKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FD57D59253C3EAC00C64847 /* XCRemoteSwiftPackageReference "CalendarKit" */;
-			productName = CalendarKit;
-		};
-		6FD91C2B252F606B00231625 /* JWTDecode */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FD91C2A252F606B00231625 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */;
-			productName = JWTDecode;
-		};
-		6FD91C30252F682700231625 /* SPAlert */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FD91C2F252F682700231625 /* XCRemoteSwiftPackageReference "SPAlert" */;
-			productName = SPAlert;
+			package = 6F65468425528CB0007F4C2D /* XCRemoteSwiftPackageReference "slugify" */;
+			productName = Slugify;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

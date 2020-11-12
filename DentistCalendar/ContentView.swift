@@ -38,19 +38,29 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @AppStorage("isLogged") var status = false
+    
+    @EnvironmentObject var sessionManager: SessionManager
+
     var body: some View {
-        if status {
-            CalendarDayView()
-        } else {
-            LoginView().transition(.slide)
+        switch sessionManager.authState {
+        case .login:
+            LoginView()
+                .environmentObject(sessionManager)
+        case .session(let user):
+            CalendarDayView(user: user)
+                .environmentObject(sessionManager)
+
+        case .confirmCode(username: let username):
+            ConfirmationView(username: username)
+                .environmentObject(sessionManager)
+
         }
     }
     
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

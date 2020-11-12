@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var sessionManager: SessionManager
+
     @StateObject var loginData = LoginViewModel()
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 15) {
@@ -22,9 +23,8 @@ struct LoginView: View {
                         .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
                 }).padding(.horizontal, 20)
                 CustomButton(action: {
-                    loginData.login()
+                    loginData.login(sessionManager: self.sessionManager)
                 }, imageName: "arrowshape.zigzag.forward", label: "Войти", isLoading: $loginData.isLoading)
-                
                 
                 Spacer(minLength: 0)
                     .navigationBarTitle(Text("Вход"))

@@ -7,21 +7,36 @@
 
 import SwiftUI
 import SPAlert
-
+import Amplify
 class PatientsListViewModel: ObservableObject {
-    @Published var patientsList: Array<PatientData>? = nil
+    @Published var patientsList = [Patient]()
     @Published var isLoading = false
+    init() {
+        fetchPatients()
+    }
     func fetchPatients(){
         self.isLoading = true
-        Api().fetchPatients { (data, err) in
-            if err != nil {
-                print("error")
-            } else {
-                self.patientsList = data!
-            }
+        
+        Amplify.DataStore.query(Patient.self) { result in
+            switch result {
+            case .success(let patients):
+                
+                print("PATIENT lIST", patients)
+                patientsList = patients
+            case .failure(let error):
+                print("ERROR LIST", error.errorDescription)
             
         }
+//        Api().fetchPatients { (data, err) in
+//            if err != nil {
+//                print("error")
+//            } else {
+//                self.patientsList = data!
+//            }
+//
+//        }
         self.isLoading = false
+    }
     }
     func deletePatient(id: String) {
         var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно удален!", preset: .done)

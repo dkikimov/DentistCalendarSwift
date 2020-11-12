@@ -9,10 +9,9 @@ import SwiftUI
 
 struct PatientUpdateView: View {
     @ObservedObject var data: PatientUpdateViewModel
-
     @Environment(\.presentationMode) var presentationMode
-    init(patient: PatientsListViewModel, index: Int){
-        self.data = PatientUpdateViewModel(patient: patient, index: index)
+    init(patient: Patient){
+        self.data = PatientUpdateViewModel(patient: patient)
     }
     var body: some View {
         VStack(spacing: 15) {
@@ -25,13 +24,13 @@ struct PatientUpdateView: View {
                 Divider()
             }.padding(.horizontal, 20).frame(height: 45)
 
-            CustomButton(action: {
-                data.updatePatient { (res) in
-                    if res {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
-            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == data.listData.patientsList![data.index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == data.listData.patientsList![data.index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
+//            CustomButton(action: {
+//                data.updatePatient { (res) in
+//                    if res {
+//                        presentationMode.wrappedValue.dismiss()
+//                    }
+//                }
+//            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == data.listData.patientsList[data.index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == data.listData.patientsList[data.index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
             CustomButton(action: {
                 data.isAlertPresented = true
             },
