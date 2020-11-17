@@ -12,58 +12,46 @@ struct PatientsListView: View {
     @ObservedObject var listData = PatientsListViewModel()
     var body: some View {
         NavigationView{
-            ZStack {
-                Group {
-                    if listData.patientsList.count > 0{
-                        List{
-                            ForEach(Array(listData.patientsList)) {  patient in
-                                NavigationLink(destination: PatientsDetailView(patient: patient),
-                                               label: {
-                                    PatientsListRow(patient: patient)
-                                })
-                            }.onDelete(perform: { indexSet in
-    //                            listData.isAlertPresented = true
-    //                            listData.deleteIndexSet = indexSet
-                                deleteItem(at: indexSet)
-                            })
-                        }
-                        .pullToRefresh(isShowing: $listData
-                                        .isLoading) {
-                            listData.fetchPatients()
-                        }
-                    }
-                    else if listData.patientsList.count == 0 {
-                        Text("Самое время добавить пациентов!").foregroundColor(.gray)
-                        
-                    } else if listData.isLoading {
-                        ProgressView()
-                    }
-                }.navigationTitle("Пациенты").navigationBarTitleDisplayMode(.large)
-                .edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    Spacer()
-                    HStack{
-                        Spacer()
-                        FloatingButton(moreButtonAction: {
-                            print("clicked")
+            Group {
+                if listData.patientsList.count > 0{
+                    List{
+                        ForEach(listData.patientsList.indices, id: \.self) { index in
+                            NavigationLink(destination: PatientsDetailView(index: index, listData: listData),
+                                           label: {
+                                            PatientsListRow(patient: $listData.patientsList[index])
+                                           })
+                        }.onDelete(perform: { indexSet in
+                            //                            listData.isAlertPresented = true
+                            //                            listData.deleteIndexSet = indexSet
+                            deleteItem(at: indexSet)
                         })
-                    }.padding([.bottom, .trailing], 30)
+                    }.listStyle(PlainListStyle())
+                    
+                    .pullToRefresh(isShowing: $listData
+                                    .isLoading) {
+                        listData.fetchPatients()
+                    }
+                }
+                else if listData.patientsList.count == 0 {
+                    Text("Самое время добавить пациентов!").foregroundColor(.gray)
+                    
+                } else if listData.isLoading {
+                    ProgressView()
                 }
             }
+            .navigationTitle("Пациенты")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarItems(trailing: NavigationLink(destination: PatientCreateView(patientsListData: listData), label: {
+                Image(systemName: "plus").foregroundColor(.white)
+            }))
+            
             
             
         }
-//        .alert(isPresented: $listData.isAlertPresented, content: {
-//            Alert(title: Text("Подтверждение"), message: Text("Вы уверены, что хотите удалить пациента?"), primaryButton: .default(Text("Да"), action: {
-//                deleteItem()
-//            }), secondaryButton: .cancel())
-//        })
-        .edgesIgnoringSafeArea(.all)
-//        .onAppear(perform: {
-//            listData.fetchPatients()
-//        })
-        
+        .onAppear(perform: {
+            listData.fetchPatients()
+        })
+        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         
     }
     func deleteItem(at offsets: IndexSet) {

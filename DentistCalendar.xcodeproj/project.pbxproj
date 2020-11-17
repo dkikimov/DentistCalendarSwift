@@ -11,6 +11,11 @@
 		4DA8D83946004CBF8C054F89 /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323AAE56C2D243D6A4D7D015 /* Patient+Schema.swift */; };
 		6CEC911EBE7849FEA7CAEA2F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D965F94B2AF455BB6BA276C /* Appointment.swift */; };
 		6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */; };
+		6F0BF647255D8D69004ACD4F /* PatientCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */; };
+		6F0BF64A255D8DE8004ACD4F /* PatientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF649255D8DE8004ACD4F /* PatientCreateViewModel.swift */; };
+		6F0BF64E255DA191004ACD4F /* AppointmentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */; };
+		6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */; };
+		6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */; };
 		6F2FB4E1251F228600A046F9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E0251F228600A046F9 /* LoginView.swift */; };
 		6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */; };
 		6F2FB4E7251F2EED00A046F9 /* ContentHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E6251F2EED00A046F9 /* ContentHostingController.swift */; };
@@ -43,6 +48,11 @@
 		6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468C2552C285007F4C2D /* PassCodeInputField.swift */; };
 		6F6546902552C285007F4C2D /* PassCodeInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468D2552C285007F4C2D /* PassCodeInputCell.swift */; };
 		6F6546912552C285007F4C2D /* PassCodeInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468E2552C285007F4C2D /* PassCodeInputModel.swift */; };
+		6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE315255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld */; };
+		6F7CE31A255FC76E00D8D521 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE319255FC76E00D8D521 /* Persistence.swift */; };
+		6F7CE31D255FCE5500D8D521 /* AlertControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */; };
+		6F7CE321255FE2D300D8D521 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE320255FE2D300D8D521 /* SearchBar.swift */; };
+		6F7CE325255FE2E400D8D521 /* ViewControllerResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE324255FE2E400D8D521 /* ViewControllerResolver.swift */; };
 		6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F97FA302542A738004750BF /* PatientUpdateView.swift */; };
 		6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA69269252B60F500711A88 /* ProfileSettingsView.swift */; };
 		6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6926C252B630500711A88 /* CalendarDay.swift */; };
@@ -71,6 +81,11 @@
 		4E3CEA75033C4CD7914D0156 /* amplifytools.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = "<group>"; };
 		4FEA24AC1FE1FBEB1ADB1961 /* Pods-DentistCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.release.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailViewModel.swift; sourceTree = "<group>"; };
+		6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCreateView.swift; sourceTree = "<group>"; };
+		6F0BF649255D8DE8004ACD4F /* PatientCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCreateViewModel.swift; sourceTree = "<group>"; };
+		6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateView.swift; sourceTree = "<group>"; };
+		6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateViewModel.swift; sourceTree = "<group>"; };
+		6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisCreateView.swift; sourceTree = "<group>"; };
 		6F2FB4E0251F228600A046F9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarColor.swift; sourceTree = "<group>"; };
 		6F2FB4E6251F2EED00A046F9 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
@@ -104,6 +119,11 @@
 		6F65468C2552C285007F4C2D /* PassCodeInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputField.swift; sourceTree = "<group>"; };
 		6F65468D2552C285007F4C2D /* PassCodeInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputCell.swift; sourceTree = "<group>"; };
 		6F65468E2552C285007F4C2D /* PassCodeInputModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCodeInputModel.swift; sourceTree = "<group>"; };
+		6F7CE316255FC6A700D8D521 /* DiagnosisModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiagnosisModel.xcdatamodel; sourceTree = "<group>"; };
+		6F7CE319255FC76E00D8D521 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControlView.swift; sourceTree = "<group>"; };
+		6F7CE320255FE2D300D8D521 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		6F7CE324255FE2E400D8D521 /* ViewControllerResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerResolver.swift; sourceTree = "<group>"; };
 		6F97FA302542A738004750BF /* PatientUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUpdateView.swift; sourceTree = "<group>"; };
 		6FA69269252B60F500711A88 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		6FA6926C252B630500711A88 /* CalendarDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
@@ -142,12 +162,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F0BF64C255DA181004ACD4F /* Appointments */ = {
+			isa = PBXGroup;
+			children = (
+				6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */,
+				6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */,
+			);
+			path = Appointments;
+			sourceTree = "<group>";
+		};
 		6F2FB4D9251F223600A046F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				6F418C0525262FEE008FD40F /* Api.swift */,
 				6FD91C27252F600E00231625 /* getTokens.swift */,
 				6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */,
+				6F7CE315255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +191,8 @@
 				6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */,
 				6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */,
 				6F3E742C2545E5FC00410A6F /* PatientUpdateViewModel.swift */,
+				6F0BF649255D8DE8004ACD4F /* PatientCreateViewModel.swift */,
+				6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -176,6 +208,7 @@
 		6F328F3D253CB5B900F28F0F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6F7CE31F255FE2C300D8D521 /* SearchBar */,
 				6F65468B2552C278007F4C2D /* PassCode */,
 				6F328F3E253CB5CC00F28F0F /* CustomTextField.swift */,
 				6F328F41253CB5DC00F28F0F /* AvatarBlock.swift */,
@@ -244,6 +277,7 @@
 				6F4403BE2530BE460025BB9A /* PatientsListRow.swift */,
 				6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */,
 				6F97FA302542A738004750BF /* PatientUpdateView.swift */,
+				6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -267,9 +301,19 @@
 			path = PassCode;
 			sourceTree = "<group>";
 		};
+		6F7CE31F255FE2C300D8D521 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				6F7CE320255FE2D300D8D521 /* SearchBar.swift */,
+				6F7CE324255FE2E400D8D521 /* ViewControllerResolver.swift */,
+			);
+			path = SearchBar;
+			sourceTree = "<group>";
+		};
 		6FF64EF5251E34AF0094C0E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6F0BF64C255DA181004ACD4F /* Appointments */,
 				6F457286252E1D2E008B1857 /* ProfileSettings */,
 				6F4403BD2530BE380025BB9A /* Patients */,
 				6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */,
@@ -293,6 +337,8 @@
 				6F2FB4E6251F2EED00A046F9 /* ContentHostingController.swift */,
 				6F418C0825263684008FD40F /* ApiHelper.swift */,
 				6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */,
+				6F7CE319255FC76E00D8D521 /* Persistence.swift */,
+				6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -431,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "    #${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
+			shellScript = "    #\"${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
 		};
 		866B6B3D6BBA3AFC5BFBA612 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -483,6 +529,7 @@
 				6F2FB4F3251F3DDE00A046F9 /* RegisterView.swift in Sources */,
 				6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */,
 				6F3E742D2545E5FC00410A6F /* PatientUpdateViewModel.swift in Sources */,
+				6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */,
 				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
 				6F328F45253CB60700F28F0F /* CustomButton.swift in Sources */,
 				6F6546912552C285007F4C2D /* PassCodeInputModel.swift in Sources */,
@@ -493,14 +540,20 @@
 				6FF64F06251E44580094C0E0 /* Item.swift in Sources */,
 				6F2FB4E7251F2EED00A046F9 /* ContentHostingController.swift in Sources */,
 				6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */,
+				6F7CE325255FE2E400D8D521 /* ViewControllerResolver.swift in Sources */,
 				6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */,
 				6F3E74332545EB8700410A6F /* PhoneNumberTextFieldView.swift in Sources */,
+				6F7CE31A255FC76E00D8D521 /* Persistence.swift in Sources */,
 				6F6546902552C285007F4C2D /* PassCodeInputCell.swift in Sources */,
 				6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
+				6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */,
 				6FD91C28252F600E00231625 /* getTokens.swift in Sources */,
+				6F0BF64E255DA191004ACD4F /* AppointmentCreateView.swift in Sources */,
+				6F7CE31D255FCE5500D8D521 /* AlertControlView.swift in Sources */,
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
 				6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */,
+				6F0BF647255D8D69004ACD4F /* PatientCreateView.swift in Sources */,
 				6F6546892552C03A007F4C2D /* CodeInput.swift in Sources */,
 				6F328F3F253CB5CC00F28F0F /* CustomTextField.swift in Sources */,
 				6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */,
@@ -508,6 +561,7 @@
 				6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */,
 				6FD57D61253C413500C64847 /* TimeChunk.swift in Sources */,
 				6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */,
+				6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */,
 				6F418C102526421C008FD40F /* LoginViewModel.swift in Sources */,
 				6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */,
 				6F328EB6253CADE900F28F0F /* LoginViewController.swift in Sources */,
@@ -519,8 +573,10 @@
 				6F3A1A87251911900042E7C4 /* ContentView.swift in Sources */,
 				6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */,
 				6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */,
+				6F7CE321255FE2D300D8D521 /* SearchBar.swift in Sources */,
 				6FA6926D252B630500711A88 /* CalendarDay.swift in Sources */,
 				6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */,
+				6F0BF64A255D8DE8004ACD4F /* PatientCreateViewModel.swift in Sources */,
 				6F3A1A85251911900042E7C4 /* DentistCalendarApp.swift in Sources */,
 				6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */,
 				BF59C0BD898349219B79C2CF /* AmplifyModels.swift in Sources */,
@@ -737,6 +793,19 @@
 			productName = Slugify;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		6F7CE315255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6F7CE316255FC6A700D8D521 /* DiagnosisModel.xcdatamodel */,
+			);
+			currentVersion = 6F7CE316255FC6A700D8D521 /* DiagnosisModel.xcdatamodel */;
+			path = DiagnosisModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6F3A1A792519118F0042E7C4 /* Project object */;
 }

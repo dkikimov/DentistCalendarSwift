@@ -17,7 +17,7 @@ class PatientsListViewModel: ObservableObject {
     func fetchPatients(){
         self.isLoading = true
         
-        Amplify.DataStore.query(Patient.self) { result in
+        Amplify.DataStore.query(Patient.self, sort: .ascending(Patient.keys.fullname)) { result in
             switch result {
             case .success(let patients):
                 
@@ -25,29 +25,40 @@ class PatientsListViewModel: ObservableObject {
                 patientsList = patients
             case .failure(let error):
                 print("ERROR LIST", error.errorDescription)
-            
+                
+            }
+            //        Api().fetchPatients { (data, err) in
+            //            if err != nil {
+            //                print("error")
+            //            } else {
+            //                self.patientsList = data!
+            //            }
+            //
+            //        }
+            self.isLoading = false
         }
-//        Api().fetchPatients { (data, err) in
-//            if err != nil {
-//                print("error")
-//            } else {
-//                self.patientsList = data!
-//            }
-//
-//        }
-        self.isLoading = false
-    }
     }
     func deletePatient(id: String) {
         var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно удален!", preset: .done)
-        Api().deletePatient(id: id) { (success, err) in
-            if err != nil {
-                alertView = SPAlertView(title: "Ошибка", message: "При удалении произошла ошибка!", preset: .error)
-                print(err!)
+        Amplify.DataStore.delete(Patient.self, withId: id) { res in
+            switch res {
+            case .success:
+                alertView.duration = 2
+                alertView.present()
+            case .failure(let error):
+                alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
+                alertView.duration = 3.5
+                alertView.present()
             }
-            alertView.duration = 1.5
-            alertView.present()
         }
+//        Api().deletePatient(id: id) { (success, err) in
+//            if err != nil {
+//                alertView = SPAlertView(title: "Ошибка", message: "При удалении произошла ошибка!", preset: .error)
+//                print(err!)
+//            }
+//            alertView.duration = 1.5
+//            alertView.present()
+//        }
         
     }
     

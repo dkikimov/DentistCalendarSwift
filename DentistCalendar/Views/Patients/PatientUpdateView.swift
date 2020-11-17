@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct PatientUpdateView: View {
+    var listData: PatientsListViewModel
     @ObservedObject var data: PatientUpdateViewModel
     @Environment(\.presentationMode) var presentationMode
-    init(patient: Patient){
-        self.data = PatientUpdateViewModel(patient: patient)
+    var index: Int
+    init(patient: Patient, index: Int, listData: PatientsListViewModel){
+        self.data = PatientUpdateViewModel(patient: patient, index: index)
+        self.index = index
+        self.listData = listData
     }
     var body: some View {
         VStack(spacing: 15) {
@@ -23,25 +27,25 @@ struct PatientUpdateView: View {
                 PhoneNumberTextFieldView(phoneNumber: $data.phone)
                 Divider()
             }.padding(.horizontal, 20).frame(height: 45)
-
-//            CustomButton(action: {
-//                data.updatePatient { (res) in
-//                    if res {
-//                        presentationMode.wrappedValue.dismiss()
-//                    }
-//                }
-//            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == data.listData.patientsList[data.index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == data.listData.patientsList[data.index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
+            
+            CustomButton(action: {
+                data.updatePatient(listData: self.listData) { (res) in
+                    if res {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == listData.patientsList[index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == listData.patientsList[index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
             CustomButton(action: {
                 data.isAlertPresented = true
             },
-                         imageName: "trash", label: "Удалить", color: "Red1", isLoading: $data.isLoading)
+            imageName: "trash", label: "Удалить", color: "Red1", isLoading: $data.isLoading)
             
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Изменить данные"))
-                
+            
         }.alert(isPresented: $data.isAlertPresented, content: {
             var alert: Alert = Alert(title: Text("Подтверждение"), message: Text("Вы точно хотите удалить пациента?"), primaryButton: .default(Text("Да"), action: {
-                data.deletePatient()
+                data.deletePatient(listData: listData)
             }), secondaryButton: .cancel())
             if data.error != "" {
                 alert = Alert(title: Text("Ошибка"), message: Text(data.error) , dismissButton: .cancel())

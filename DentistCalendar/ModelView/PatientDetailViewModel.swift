@@ -12,6 +12,7 @@ class PatientDetailViewModel : ObservableObject {
     @Published  var appointments = [Appointment]()
 
     @Published var isAlertPresented: Bool = false
+    @Published var isModalPresented: Bool = false
     @Published var isSheetPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""
@@ -25,7 +26,7 @@ class PatientDetailViewModel : ObservableObject {
     @AppStorage("isLogged") var status = false
     func fetchAppointments() {
         self.isLoading = true
-        Amplify.DataStore.query(Appointment.self, where: Appointment.keys.patientID == patient.id) { res in
+        Amplify.DataStore.query(Appointment.self, where: Appointment.keys.patientID == patient.id, sort: .descending(Appointment.keys.dateStart)) { res in
             switch res{
             case .success(let appointments):
                 self.appointments = appointments

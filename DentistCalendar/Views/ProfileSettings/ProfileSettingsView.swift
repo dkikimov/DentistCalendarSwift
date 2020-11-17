@@ -77,6 +77,7 @@ struct ProfileSettingsView: View {
         .menuStyle(BorderlessButtonMenuStyle())
         .navigationTitle("Настройки")
         .navigationBarTitleDisplayMode(.large)
+        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
 //        .alert(isPresented: $profileData.isAlertPresented, content: {
 //            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
 //        })

@@ -8,7 +8,16 @@
 import Foundation
 
 extension Patient: Identifiable {}
-
+extension Patient: Equatable {
+    public static func ==(lhs: Patient, rhs: Patient) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+extension Patient: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 extension Appointment: Identifiable {}
 
 extension Appointment: Equatable {

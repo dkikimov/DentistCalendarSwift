@@ -8,91 +8,119 @@
 import SwiftUI
 
 func stringToDate(date: String) -> String {
-    let formatter4 = DateFormatter()
-    formatter4.dateFormat = "YYYY-MMMM-DD"
-    formatter4.locale = .autoupdatingCurrent
-    let date = formatter4.date(from: date) ?? Date()
-    return date.format(with: "d MMMM YYYY", locale: .autoupdatingCurrent)
-    
+    let convertedDate = Date(timeIntervalSince1970: Double(date)!)
+    let dateFormatter = DateFormatter() //Set timezone that you want
+    dateFormatter.locale = NSLocale.current
+    dateFormatter.dateFormat = "d MMMM YYYY - HH:mm" //Specify your format that you want
+    let strDate = dateFormatter.string(from: convertedDate)
+    return strDate
 }
 
 struct PatientDetailCard: View {
-    var toothNumber: String
-    var diagnosis: String
-    var date: String
-    var time: String
-    var price: Int
+    var appointment: Appointment
     var moreButtonAction: () -> Void
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-            HStack{
-                Spacer()
-            }
-            HStack(){
+                    
+        //        Text(diagnosis)
+//        VStack(spacing: 10) {
+//            HStack(spacing: 10){
+//                Text("Зуб: ").bold()
+//                Spacer(minLength: 0)
+//                Button(action: moreButtonAction, label: {
+//                    Image("menu")
+//                        .renderingMode(.template)
+//                        .resizable()
+//                        .frame(width: 18, height: 18)
+//                        .foregroundColor(Color("Gray1"))
+//                })
+//
+//            }
+//            HStack(spacing: 10){
+//
+//                Text("Диагноз: ").bold()
+//
+//                Spacer(minLength: 0)
+//                Button(action: moreButtonAction, label: {
+//                    Image("menu")
+//                        .renderingMode(.template)
+//                        .resizable()
+//                        .frame(width: 18, height: 18)
+//                        .foregroundColor(.white)
+//                })
+//
+//            }
+//            HStack(spacing: 10) {
+//                Text(stringToDate(date: appointment.dateStart))
+//                    .font(.system(size: 14, weight: .bold, design: .default))
+//                    .fontWeight(.bold)
+//                    .clipShape(Rectangle()).padding(10)
+//                    .background(Color("Blue"))
+//                    .foregroundColor(.white)
+//                    .frame(height: 32)
+//                    .cornerRadius(18)
+//
+//                Text(String(appointment.price))
+//                    .font(.system(size: 14, weight: .bold, design: .default))
+//                    .fontWeight(.bold)
+//                    .clipShape(Rectangle()).padding(10)
+//                    .foregroundColor(Color(hex: "#61BB42"))
+//                    .background(Color(hex: "#e5f6e0"))
+//                    .frame(height: 32)
+//                    .cornerRadius(18)
+//                    }
+//        }
+        VStack(alignment: .leading) {
+            HStack(alignment: .center, spacing:3){
+                Image("tooth").resizable().aspectRatio(contentMode: .fit)
+                    .frame(width: 18, height: 18)
+                    .padding(.horizontal, 10)
+                    .foregroundColor(Color("Gray1"))
+                Text("Зуб:")
+                Text(String(appointment.toothNumber)).fontWeight(.bold)
                 Spacer()
                 Button(action: moreButtonAction, label: {
                     Image(systemName: "ellipsis")
+                        .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color("Gray1"))
-                        .frame(width: 50, height: 50)
-                        .zIndex(10000)
-                        .rotationEffect(.init(degrees: 90))
-                    
-                }).frame(width: 36, height: 50)
-
-                
-                
-            }.padding(.horizontal, 15)
-            .zIndex(10)
-            VStack(alignment: .leading) {
-                HStack(alignment: .center, spacing:3){
-                    
-                    Image("tooth").resizable().aspectRatio(contentMode: .fit)
                         .frame(width: 18, height: 18)
-                        .padding(.horizontal, 10)
                         .foregroundColor(Color("Gray1"))
-                    Text("Зуб:")
-                    Text(toothNumber).fontWeight(.bold)
-                }
-                HStack(alignment: VerticalAlignment.firstTextBaseline, spacing:3){
-                    Image("id-card").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
-                        .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
-                    Text("Диагноз: ")
-                        + Text(diagnosis).fontWeight(.bold)
+                        .rotationEffect(.init(degrees: 90))
 
-                    
-                }
-                HStack{
-                    Spacer()
-                    Text("\(stringToDate(date: date)) - \(self.time)")
-                        .font(.system(size: 14, weight: .bold, design: .default))
-                        .fontWeight(.bold)
-                        .clipShape(Rectangle()).padding(10)
-                        .background(Color("Blue"))
-                        .foregroundColor(.white)
-                        .frame(height: 32 )
-                        .cornerRadius(18)
-                        
-                    Text(String(price))
-                        .font(.system(size: 14, weight: .bold, design: .default))
-                        .fontWeight(.bold)
-                        .clipShape(Rectangle()).padding(10)
-                        .foregroundColor(Color(hex: "#61BB42"))
-                        .background(Color(hex: "#e5f6e0"))
-                        .frame(height: 32).cornerRadius(18)
-                    Spacer()
-
-                }.padding(.top, 7)
+                })
+                .padding(.horizontal, 15)
             }
-            
-            .padding(.vertical, 20)
-            .padding(.horizontal, 20)
-            .shadow(color: Color(.black).opacity(0.03), radius: 10, x: 0, y: 1)
-            .background(Color.white)
+            HStack(alignment: VerticalAlignment.firstTextBaseline, spacing:3){
+                Image("id-card").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
+                    .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
+                Text("Диагноз: ")
+                    + Text(appointment.diagnosis).fontWeight(.bold)
+            }
+            HStack{
+                Spacer()
+                Text(stringToDate(date: appointment.dateStart))
+                    .font(.system(size: 14, weight: .bold, design: .default))
+                    .fontWeight(.bold)
+                    .clipShape(Rectangle()).padding(10)
+                    .background(Color("Blue"))
+                    .foregroundColor(.white)
+                    .frame(height: 32)
+                    .cornerRadius(18)
 
+                Text(String(appointment.price))
+                    .font(.system(size: 14, weight: .bold, design: .default))
+                    .fontWeight(.bold)
+                    .clipShape(Rectangle()).padding(10)
+                    .foregroundColor(Color(hex: "#61BB42"))
+                    .background(Color(hex: "#e5f6e0"))
+                    .frame(height: 32).cornerRadius(18)
+                Spacer()
+
+            }.padding(.top, 7)
         }
-        .cornerRadius(10)
-.shadow(color: Color(.black).opacity(0.03), radius: 10, x: 0, y: 1)
+        .padding(12)
+//        .shadow(color: Color(.black).opacity(0.03), radius: 10, x: 0, y: 1)
+        .background(Color.white)
+        .cornerRadius(20)
     }
 }
 

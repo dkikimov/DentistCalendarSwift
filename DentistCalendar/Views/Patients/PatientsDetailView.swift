@@ -11,10 +11,12 @@ import SwiftUIRefresh
 
 struct PatientsDetailView: View {
     @ObservedObject var detailData: PatientDetailViewModel
-//    @ObservedObject var listData: PatientsListViewModel
-    
-    init(patient: Patient) {
-        self.detailData = PatientDetailViewModel(patient: patient)
+    @ObservedObject var listData: PatientsListViewModel
+    var index: Int
+    init(index: Int, listData: PatientsListViewModel) {
+        self.detailData = PatientDetailViewModel(patient: listData.patientsList[index])
+        self.index = index
+        self.listData = listData
     }
     var body: some View {
         ZStack {
@@ -22,12 +24,12 @@ struct PatientsDetailView: View {
                 
                 VStack(alignment: .leading) {
                     Group {
-                        Text(detailData.patient.fullname).fontWeight(.bold).font(.title2)
-                        Text(detailData.patient.phone).foregroundColor(.gray).font(.body)
+                        Text(listData.patientsList[index].fullname).fontWeight(.bold).font(.title2)
+                        Text(listData.patientsList[index].phone).foregroundColor(.gray).font(.body)
                     }
                     HStack(spacing: 10) {
                         NavigationLink(
-                            destination: PatientUpdateView(patient: detailData.patient),
+                            destination: PatientUpdateView(patient: listData.patientsList[index], index: index, listData: listData),
                             label: {
                                 Spacer()
                                 Text("Изменить").frame(height: 25).foregroundColor(.white).padding([.vertical, .horizontal], 10)
@@ -41,26 +43,16 @@ struct PatientsDetailView: View {
                 .padding(16)
                 .background(Color.white)
                 VStack(spacing: 10) {
-//                    List(detailData.appointments) { app in
-//                        PatientDetailCard(toothNumber: String(app.toothNumber), diagnosis: app.diagnosis, date: app.date, time: app.timeStart, price: app.price, moreButtonAction: {
-//                            detailData.isSheetPresented.toggle()
-//                        } )
-//                        .cornerRadius(20)
-//                        .padding(.horizontal, 12)
-//                        .padding(.vertical, 8)
-//                    }
-                if detailData.appointments.count > 0 {
-                    ForEach(detailData.appointments) { app in
-                            PatientDetailCard(toothNumber: String(app.toothNumber), diagnosis: app.diagnosis, date: app.date, time: app.timeStart, price: app.price, moreButtonAction: {
+                    if detailData.appointments.count > 0 {
+                        ForEach(detailData.appointments) { app in
+                            PatientDetailCard(appointment: app, moreButtonAction: {
                                 detailData.isSheetPresented.toggle()
                             } )
-                            .cornerRadius(20)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-
-//                            PatientDetailCard(toothNumber: app.fullname, diagnosis: app.diagnosis, date: app.date, time: app.timeStart, price: app.price, moreButtonAction: <#() -> Void#>)
+                            .padding(.horizontal, 15)
+                            
                         }
-
+                        
+                        
                     }
                     else if detailData.isLoading == true{
                         ProgressView()
@@ -71,12 +63,12 @@ struct PatientsDetailView: View {
                     else {
                         Text("Произошла ошибка").foregroundColor(.gray)
                     }
-            }
+                }
                 .padding(.top, 5)
                 .padding(.bottom, 20)
                 .navigationTitle("Карта пациента")
                 .navigationBarTitleDisplayMode(.inline)
-//                .onAppear(perform: detailData.fetchAppointments)
+                //                .onAppear(perform: detailData.fetchAppointments)
                 .alert(isPresented: $detailData.isAlertPresented, content: {
                     Alert(title: Text("Ошибка"), message: Text(detailData.error), dismissButton: .cancel())
                 })
@@ -87,27 +79,34 @@ struct PatientsDetailView: View {
                         .cancel(Text("Отменить"))
                     ])
                 }
-            
-            
+                .sheet(isPresented: $detailData.isModalPresented, content: {
+                    AppointmentCreateView(patientID: detailData.patient.id, isAppointmentPresented: $detailData.isModalPresented)
+                        .presentation(isModal: true)
+                        .environmentObject(detailData)
+                    
+                })
+                
             }
             VStack {
                 Spacer()
                 HStack{
                     Spacer()
-                    FloatingButton(moreButtonAction: {
-                        print("clicked")
-                    })
-                }.padding([.bottom, .trailing], 30)
+                    FloatingButton {
+                        self.detailData.isModalPresented.toggle()
+                    }
+                }.padding([.bottom, .trailing], 15)
             }
-        
-//        .onAppear(perform: {
-//            print("PATIENT", patient.appointments!)
-//            if patient.appointments != nil {
-//                self.appointments = Array(patient.appointments!)
-//            }
-//
-//        })
+            
+            //        .onAppear(perform: {
+            //            print("PATIENT", patient.appointments!)
+            //            if patient.appointments != nil {
+            //                self.appointments = Array(patient.appointments!)
+            //            }
+            //
+            //        })
         }
+        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+        
         .background(Color(hex: "#F8F8F8"))
         
         
