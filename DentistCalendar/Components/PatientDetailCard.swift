@@ -117,7 +117,7 @@ struct PatientDetailCard: View {
 
             }.padding(.top, 7)
         }
-        .padding(12)
+        .padding(20)
 //        .shadow(color: Color(.black).opacity(0.03), radius: 10, x: 0, y: 1)
         .background(Color.white)
         .cornerRadius(20)

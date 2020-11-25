@@ -46,8 +46,8 @@ struct ContentView: View {
         case .login:
             LoginView()
                 .environmentObject(sessionManager)
-        case .session(let user):
-            CalendarDayView(user: user)
+        case .session:
+            CalendarDayView()
                 .environmentObject(sessionManager)
 
         case .confirmCode(username: let username):

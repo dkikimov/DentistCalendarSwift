@@ -7,17 +7,20 @@
 
 import SwiftUI
 import Amplify
+import SPAlert
 class PatientDetailViewModel : ObservableObject {
     
     @Published  var appointments = [Appointment]()
-
+    
+    @Published var viewType: AppointmentType = .create
+    @Published var selectedAppointment: Appointment?
     @Published var isAlertPresented: Bool = false
     @Published var isModalPresented: Bool = false
     @Published var isSheetPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""
     @State var patient: Patient
-//    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
+    //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     init(patient: Patient) {
         self.patient = patient
         fetchAppointments()
@@ -38,6 +41,25 @@ class PatientDetailViewModel : ObservableObject {
         }
         self.isLoading = false
     }
-    
+    func deleteAppointment() {
+        if let appoint = selectedAppointment {
+            var alertView: SPAlertView = SPAlertView(title: "Успех!", message: "Запись успешно удалена!", preset: .done)
+            Amplify.DataStore.delete(Appointment.self, withId: appoint.id) { res in
+                switch res {
+                case .success:
+                    alertView.duration = 2
+                    alertView.present()
+                    self.appointments = self.appointments.filter({ (app) -> Bool in
+                        app.id != appoint.id
+                    })
+                case .failure(let error):
+                    alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
+                    alertView.duration = 3.5
+                    alertView.present()
+                }}
+        } else {
+            print("Error")
+        }
+    }
     
 }

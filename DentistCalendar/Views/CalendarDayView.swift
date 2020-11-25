@@ -3,10 +3,9 @@ import SwiftUI
 import Amplify
 
 struct CalendarDayView: View {
-    let user: AuthUser
     var body: some View {
             TabView {
-                CalendarKitView(user: user).tabItem({
+                CalendarKitView().tabItem({
                         Image(systemName: "calendar")
                         Text("Календарь")
                         

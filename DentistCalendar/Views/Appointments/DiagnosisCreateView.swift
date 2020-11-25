@@ -29,21 +29,19 @@ struct DiagnosisCreateView: View {
                                 $0.text!.localizedStandardContains(searchText)
                         }, id: \.self) { (diag) in
                             Button (action:{
-                                if data.selectedDiagnosisList.contains(diag) {
-                                    data.selectedDiagnosisList.remove(at: data.selectedDiagnosisList.firstIndex(of: diag)!)
+                                if data.selectedDiagnosisList.contains(diag.text!) {
+                                    data.selectedDiagnosisList.remove(at: data.selectedDiagnosisList.firstIndex(of: diag.text!)!)
                                 } else {
-                                    data.selectedDiagnosisList.append(diag)
+                                    data.selectedDiagnosisList.append(diag.text!)
+                                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                                 }
                             },label: {
-                                Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList.contains(diag) ? .blue : .black)
+                                Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList.contains(diag.text!) ? .blue : .black)
                             })
                         }
                         .onDelete(perform: deleteDiagnosis)
-                        
-                        
-                        
                     }
-                                        .listStyle(PlainListStyle())
+                   .listStyle(PlainListStyle())
                     
                     
                 }

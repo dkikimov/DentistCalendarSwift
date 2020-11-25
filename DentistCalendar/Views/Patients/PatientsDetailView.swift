@@ -46,13 +46,12 @@ struct PatientsDetailView: View {
                     if detailData.appointments.count > 0 {
                         ForEach(detailData.appointments) { app in
                             PatientDetailCard(appointment: app, moreButtonAction: {
+                                detailData.selectedAppointment = app
                                 detailData.isSheetPresented.toggle()
                             } )
-                            .padding(.horizontal, 15)
-                            
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
                         }
-                        
-                        
                     }
                     else if detailData.isLoading == true{
                         ProgressView()
@@ -74,13 +73,18 @@ struct PatientsDetailView: View {
                 })
                 .actionSheet(isPresented: $detailData.isSheetPresented) {
                     ActionSheet(title: Text("Выберите опции"), buttons: [
-                        .default(Text("Изменить")),
-                        .destructive((Text("Удалить"))),
+                        .default(Text("Изменить")) {
+                            detailData.viewType = .edit
+                            detailData.isModalPresented = true
+                        },
+                                    .destructive((Text("Удалить"))) {
+                                        detailData.deleteAppointment()
+                                    },
                         .cancel(Text("Отменить"))
                     ])
                 }
                 .sheet(isPresented: $detailData.isModalPresented, content: {
-                    AppointmentCreateView(patientID: detailData.patient.id, isAppointmentPresented: $detailData.isModalPresented)
+                    AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
                         .presentation(isModal: true)
                         .environmentObject(detailData)
                     
@@ -92,6 +96,8 @@ struct PatientsDetailView: View {
                 HStack{
                     Spacer()
                     FloatingButton {
+                        self.detailData.selectedAppointment = nil
+                        self.detailData.viewType = .create
                         self.detailData.isModalPresented.toggle()
                     }
                 }.padding([.bottom, .trailing], 15)
