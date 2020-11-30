@@ -11,7 +11,6 @@ import Amplify
 import PhoneNumberKit
 import SPAlert
 class PatientCreateViewModel : ObservableObject {
-    @Published var phoneNumberKit = PhoneNumberKit()
     
     @Published var patientName = ""
     @Published var patientNumber = ""
@@ -19,9 +18,8 @@ class PatientCreateViewModel : ObservableObject {
     
     @Published var isLoading = false
     @Published var error = ""
-//    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
+    //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     
-    @AppStorage("isLogged") var status = false
     func createPatient(patientData: PatientsListViewModel,completion: @escaping(Bool) -> ()){
         self.isLoading = true
         if phoneNumberKit.isValidPhoneNumber(patientNumber) {
@@ -51,7 +49,7 @@ class PatientCreateViewModel : ObservableObject {
                 completion(false)
             }
         }
-       
+        
         
         self.isLoading = false
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var sessionManager: SessionManager
 
-    @StateObject var loginData = LoginViewModel()
+    @ObservedObject var loginData = LoginViewModel()
     var body: some View {
         NavigationView {
             VStack(spacing: 15) {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import EventKit
 extension Patient: Identifiable {}
 extension Patient: Equatable {
     public static func ==(lhs: Patient, rhs: Patient) -> Bool {
@@ -22,7 +22,7 @@ extension Appointment: Identifiable {}
 
 extension Appointment: Equatable {
     public static func ==(lhs: Appointment, rhs: Appointment) -> Bool {
-    lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 }
 
@@ -30,4 +30,6 @@ extension Appointment: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+}
+extension EKEvent: Identifiable {
 }

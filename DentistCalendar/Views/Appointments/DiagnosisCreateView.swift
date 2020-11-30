@@ -36,7 +36,7 @@ struct DiagnosisCreateView: View {
                                     print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                                 }
                             },label: {
-                                Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList.contains(diag.text!) ? .blue : .black)
+                                Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList.contains(diag.text!) ? .blue : Color("Black1"))
                             })
                         }
                         .onDelete(perform: deleteDiagnosis)

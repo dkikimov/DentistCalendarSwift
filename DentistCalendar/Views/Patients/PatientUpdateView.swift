@@ -34,7 +34,7 @@ struct PatientUpdateView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == listData.patientsList[index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == listData.patientsList[index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
+            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == listData.patientsList[index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == listData.patientsList[index].phone) || !phoneNumberKit.isValidPhoneNumber(data.phone) ), isLoading: $data.isLoading).padding(.top, 10)
             CustomButton(action: {
                 data.isAlertPresented = true
             },

@@ -132,7 +132,6 @@ final class SessionManager: ObservableObject {
                             UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
                         }
                     }
-                    UserDefaults.standard.setValue("123 123" , forKey: "fullname")
 
                     DispatchQueue.main.async {
                         self?.getCurrentAuthUser()

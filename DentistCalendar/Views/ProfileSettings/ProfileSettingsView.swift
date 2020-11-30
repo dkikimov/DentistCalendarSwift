@@ -10,7 +10,7 @@ import Amplify
 
 struct ProfileSettingsView: View {
     @EnvironmentObject var sessionManager: SessionManager
-
+    
     @StateObject var profileData = ProfileSettingsViewModel()
     var body: some View {
         Form {
@@ -52,13 +52,16 @@ struct ProfileSettingsView: View {
                     }
                 }).disabled(profileData.isDisabled).animation(.easeInOut)
             }
-                Section {
-                    NavigationLink(
-                        destination: ProfileSettingsUserDataView(),
-                        label: {
-                            Text("Изменить пароль")
-                        })
-                    }
+            Section {
+                NavigationLink(
+                    destination: ProfileSettingsUserDataView(),
+                    label: {
+                        Text("Изменить пароль")
+                    })
+                NavigationLink(destination: EventAddView()) {
+                    Text("Импортировать записи")
+                }
+            }
             Section {
                 Button(action: {
                     sessionManager.signOut { (err) in
@@ -78,9 +81,9 @@ struct ProfileSettingsView: View {
         .navigationTitle("Настройки")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-//        .alert(isPresented: $profileData.isAlertPresented, content: {
-//            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
-//        })
+        //        .alert(isPresented: $profileData.isAlertPresented, content: {
+        //            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
+        //        })
     }
 }
 

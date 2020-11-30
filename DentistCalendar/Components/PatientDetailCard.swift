@@ -101,7 +101,7 @@ struct PatientDetailCard: View {
                     .font(.system(size: 14, weight: .bold, design: .default))
                     .fontWeight(.bold)
                     .clipShape(Rectangle()).padding(10)
-                    .background(Color("Blue"))
+                    .background(Color("Blue2"))
                     .foregroundColor(.white)
                     .frame(height: 32)
                     .cornerRadius(18)
@@ -119,7 +119,7 @@ struct PatientDetailCard: View {
         }
         .padding(20)
 //        .shadow(color: Color(.black).opacity(0.03), radius: 10, x: 0, y: 1)
-        .background(Color.white)
+        .background(Color("White1"))
         .cornerRadius(20)
     }
 }

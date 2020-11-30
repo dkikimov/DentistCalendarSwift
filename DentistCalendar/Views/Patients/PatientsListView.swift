@@ -13,7 +13,7 @@ struct PatientsListView: View {
     var body: some View {
         NavigationView{
             Group {
-                if listData.patientsList.count > 0{
+                if listData.patientsList.count > 0 {
                     List{
                         ForEach(listData.patientsList.indices, id: \.self) { index in
                             NavigationLink(destination: PatientsDetailView(index: index, listData: listData),
@@ -32,11 +32,15 @@ struct PatientsListView: View {
                         listData.fetchPatients()
                     }
                 }
+                else if listData.isLoading {
+                    ProgressView()
+                }
                 else if listData.patientsList.count == 0 {
                     Text("Самое время добавить пациентов!").foregroundColor(.gray)
-                    
-                } else if listData.isLoading {
-                    ProgressView()
+                    Text("Если вы создавали данные ранее, то они находятся в загрузке").font(.caption).foregroundColor(.gray)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 6)
+                        .multilineTextAlignment(.center)
                 }
             }
             .navigationTitle("Пациенты")
@@ -50,6 +54,7 @@ struct PatientsListView: View {
         }
         .onAppear(perform: {
             listData.fetchPatients()
+            listData.observePatients()
         })
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         

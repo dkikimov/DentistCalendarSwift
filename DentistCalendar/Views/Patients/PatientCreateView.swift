@@ -35,7 +35,7 @@ struct PatientCreateView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-            }, imageName: "plus", label: "Создать", color: "Green", disabled: data.patientName.isEmpty || !data.phoneNumberKit.isValidPhoneNumber(data.patientNumber), isLoading: $data.isLoading)
+            }, imageName: "plus", label: "Создать", color: "Green", disabled: data.patientName.isEmpty || !phoneNumberKit.isValidPhoneNumber(data.patientNumber), isLoading: $data.isLoading)
             
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Создать пациента"))

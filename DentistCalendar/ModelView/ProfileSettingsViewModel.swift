@@ -38,18 +38,7 @@ class ProfileSettingsViewModel: ObservableObject {
         self.isLoading = true
         let finalName = secondName.trimmingCharacters(in: .whitespaces) + " " + firstName.trimmingCharacters(in: .whitespaces)
         var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Имя успешно изменено!", preset: .done)
-        Api().updateFullname(fullname: finalName) { (success, error) in
-            if error != nil {
-                if error == "empty" {
-                    self.status = false
-                } else {
-                    alertView = SPAlertView(title: "Ошибка", message: error!, preset: .error)
-                }
-                
-            }
-            alertView.duration = 2
-            alertView.present()
-        }
+       
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }
@@ -59,22 +48,22 @@ class ProfileSettingsViewModel: ObservableObject {
         var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пароль успешно изменен!", preset: .done)
         alertView.haptic = .success
         
-        Api().updatePassword(currentPassword: currentPassword.trimmingCharacters(in: .whitespaces), newPassword: password.trimmingCharacters(in: .whitespaces)) { (success, error) in
-            if error != nil {
-                if error == "empty" {
-                    self.status = false
-                } else {
-                    alertView = SPAlertView(title: "Ошибка", message: error!, preset: .error)
-                    alertView.haptic = .error
-                }
-            }
-            
-            alertView.duration = 2
-            alertView.present()
-            if success {
-                mode.wrappedValue.dismiss()
-            }
-        }
+//        Api().updatePassword(currentPassword: currentPassword.trimmingCharacters(in: .whitespaces), newPassword: password.trimmingCharacters(in: .whitespaces)) { (success, error) in
+//            if error != nil {
+//                if error == "empty" {
+//                    self.status = false
+//                } else {
+//                    alertView = SPAlertView(title: "Ошибка", message: error!, preset: .error)
+//                    alertView.haptic = .error
+//                }
+//            }
+//            
+//            alertView.duration = 2
+//            alertView.present()
+//            if success {
+//                mode.wrappedValue.dismiss()
+//            }
+//        }
         self.isLoading = false
     }
     

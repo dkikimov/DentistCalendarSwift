@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-
+import PhoneNumberKit
 
 enum AppointmentType {
     case create
@@ -47,8 +47,8 @@ struct AppointmentCreateView: View {
     var body: some View {
         NavigationView{
             List{
-                Section{
-                    if data.viewType == .createWithPatient {
+                if data.viewType == .createWithPatient {
+                    Section {
                         TextField("Имя пациента", text: $data.patientName).autocapitalization(.words)
                             .onReceive(Just(data.patientName)) { newText in
                                 if data.selectedPatient?.fullname != newText {
@@ -59,7 +59,6 @@ struct AppointmentCreateView: View {
                             List{
                                 ForEach(data.foundedPatientsList.indices, id: \.self) { index in
                                     Button(action: {
-                                        print("IM HERE")
                                         let patient = data.foundedPatientsList[index]
                                         data.selectedPatient = patient
                                         data.patientName = patient.fullname
@@ -69,15 +68,16 @@ struct AppointmentCreateView: View {
                                 }
                             }
                             .listStyle(PlainListStyle())
-                            .frame(minHeight: 55, maxHeight: 110)
+                            .frame(minHeight: 65, maxHeight: 130)
                         }
                         if data.selectedPatient == nil {
-                            TextField("Номер телефона пациента", text: $data.patientPhone)
+                            PhoneNumberTextFieldView(phoneNumber: $data.patientPhone)
                         }
                     }
-                    
-                    
                 }
+                
+                
+                
                 Section {
                     TextField("Цена", text: $data.price).keyboardType(.numberPad)
                     TextField("Номер зуба", text: $data.toothNumber).keyboardType(.numberPad)
@@ -85,7 +85,7 @@ struct AppointmentCreateView: View {
                     Button(action: {
                         data.isDiagnosisCreatePresented.toggle()
                     }, label: {
-                        Text("Диагнозы: ") + Text(data.selectedDiagnosisList.count > 0 ? data.selectedDiagnosisList.joined(separator: ", ") : "Пусто").foregroundColor(.black).bold()
+                        Text("Диагнозы: ") + Text(data.selectedDiagnosisList.count > 0 ? data.selectedDiagnosisList.joined(separator: ", ") : "Пусто").foregroundColor(Color("Black1")).bold()
                     })
                 }
                 Section {
@@ -101,7 +101,7 @@ struct AppointmentCreateView: View {
                     }, label: {
                         
                         HStack {
-                            Text("Начало приема").foregroundColor(.black)
+                            Text("Начало приема").foregroundColor(Color("Black1"))
                             Spacer()
                             Text(stringFromDate(date: data.dateStart))
                         }
@@ -120,7 +120,7 @@ struct AppointmentCreateView: View {
                         }
                     }, label: {
                         HStack {
-                            Text("Конец приема").foregroundColor(.black)
+                            Text("Конец приема").foregroundColor(Color("Black1"))
                             Spacer()
                             Text(stringFromDate(date: data.dateEnd))
                         }
@@ -141,7 +141,7 @@ struct AppointmentCreateView: View {
                     }, label: {
                         Text("Сохранить")
                     })
-//                    .disabled(data.price.isEmpty || data.selectedDiagnosisList.count == 0 || data.toothNumber.isEmpty || data.dateEnd < data.dateStart)
+                    .disabled(data.price.isEmpty || data.selectedDiagnosisList.count == 0 || data.toothNumber.isEmpty || data.dateEnd < data.dateStart || data.patientName.isEmpty)
                 }
             }
             .listStyle(GroupedListStyle())
@@ -155,16 +155,14 @@ struct AppointmentCreateView: View {
             }, label: {
                 Text("Отменить").foregroundColor(.blue)
             }))
-            //            , trailing: Button(action: {
-            //
-            //            }, label: {
-            //                Image(systemName: "plus").foregroundColor(.blue)
-            //            }))
         }
+        .alert(isPresented: $data.isAlertPresented, content: {
+            Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
+        })
         .sheet(isPresented: $data.isDiagnosisCreatePresented, content: {
             DiagnosisCreateView(data: data).environment(\.managedObjectContext, persistenceContainer.container.viewContext)
         })
-        .navigationBarColor(backgroundColor: .white, tintColor: .black)
+        .navigationBarColor(backgroundColor: UIColor(named: "White1")!, tintColor: UIColor(named: "Black1")!)
     }
     
 }

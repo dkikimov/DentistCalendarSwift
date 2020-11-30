@@ -8,6 +8,12 @@
 import SwiftUI
 import Amplify
 import AmplifyPlugins
+
+
+import PhoneNumberKit
+
+public var phoneNumberKit = PhoneNumberKit()
+
 @main
 struct DentistCalendarApp: App {
     @ObservedObject var sessionManager = SessionManager()

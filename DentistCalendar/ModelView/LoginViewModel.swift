@@ -16,22 +16,21 @@ class LoginViewModel : ObservableObject {
     @Published var isAlertPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""
-    @AppStorage("isLogged") var status = false
     func login(sessionManager: SessionManager) {
         self.isLoading = true
-        if emailAddress.trimmingCharacters(in: .whitespaces) == "" || password.trimmingCharacters(in: .whitespaces) == "" {
+        if emailAddress.isEmpty || password.isEmpty {
             error = "Заполните форму!"
             isAlertPresented = true
-            self.isLoading = false
+            isLoading = false
             return
         }
         sessionManager.login(email: emailAddress, password: password) { err in
             if let err = err {
                 self.error = err
                 self.isAlertPresented = true
-            } 
+            }
+            self.isLoading = false
         }
-        self.isLoading = false
 
 //        Api().login(email: emailAddress, password: password) { data, err in
 //
