@@ -40,8 +40,11 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var sessionManager: SessionManager
-
-    var body: some View {
+    var calendar = Calendar(identifier: .gregorian)
+    init() {
+        calendar.locale = Locale(identifier: Locale.preferredLanguages.first!)
+    }
+    @ViewBuilder var body: some View {
         switch sessionManager.authState {
         case .login:
             LoginView()
@@ -49,7 +52,9 @@ struct ContentView: View {
         case .session:
             CalendarDayView()
                 .environmentObject(sessionManager)
-
+                .environment(\.locale, Locale.init(identifier: Locale.preferredLanguages[0]))
+                .environment(\.calendar, calendar)
+            Print("Current Locale", Locale.preferredLanguages[0])
         case .confirmCode(username: let username):
             ConfirmationView(username: username)
                 .environmentObject(sessionManager)

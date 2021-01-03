@@ -7,51 +7,62 @@
 
 import SwiftUI
 import SwiftUIRefresh
-
+import UIKit
 struct PatientsListView: View {
     @ObservedObject var listData = PatientsListViewModel()
     var body: some View {
-        NavigationView{
-            Group {
-                if listData.patientsList.count > 0 {
-                    List{
-                        ForEach(listData.patientsList.indices, id: \.self) { index in
-                            NavigationLink(destination: PatientsDetailView(index: index, listData: listData),
-                                           label: {
-                                            PatientsListRow(patient: $listData.patientsList[index])
-                                           })
-                        }.onDelete(perform: { indexSet in
-                            //                            listData.isAlertPresented = true
-                            //                            listData.deleteIndexSet = indexSet
-                            deleteItem(at: indexSet)
-                        })
-                    }.listStyle(PlainListStyle())
-                    
-                    .pullToRefresh(isShowing: $listData
-                                    .isLoading) {
-                        listData.fetchPatients()
+        NavigationView {
+            ZStack {
+                Group {
+                    if listData.patientsList.count > 0 {
+                        List{
+                            ForEach(listData.patientsList.indices, id: \.self) { index in
+                                NavigationLink(destination: PatientsDetailView(index: index, listData: listData),
+                                               label: {
+                                                PatientsListRow(patient: $listData.patientsList[index])
+                                               })
+                            }.onDelete(perform: { indexSet in
+                                //                            listData.isAlertPresented = true
+                                //                            listData.deleteIndexSet = indexSet
+                                deleteItem(at: indexSet)
+                            })
+                        }
+                        .listStyle(PlainListStyle())
+    //                    .pullToRefresh(isShowing: $listData
+    //                                    .isLoading) {
+    //                        listData.fetchPatients()
+    //                    }
+                        .introspectTableView { (tableView: UITableView) in
+                            tableView.refreshControl = listData.refreshControl
+                        }
+                    }
+                    else if listData.isLoading {
+                        ProgressView()
+                    }
+                    else if listData.patientsList.count == 0 {
+                        VStack(spacing: 6) {
+                            Text("Самое время добавить пациентов!").foregroundColor(.gray)
+                            Text("Если вы создавали данные ранее, то они находятся в загрузке")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 20)
+                                .multilineTextAlignment(.center)
+                        }
                     }
                 }
-                else if listData.isLoading {
-                    ProgressView()
-                }
-                else if listData.patientsList.count == 0 {
-                    Text("Самое время добавить пациентов!").foregroundColor(.gray)
-                    Text("Если вы создавали данные ранее, то они находятся в загрузке").font(.caption).foregroundColor(.gray)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 6)
-                        .multilineTextAlignment(.center)
+                VStack {
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        FloatingButton(moreButtonAction: {}, isNavigationLink: true, patientsListData: listData)
+                    }.padding([.bottom, .trailing], 15)
                 }
             }
-            .navigationTitle("Пациенты")
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing: NavigationLink(destination: PatientCreateView(patientsListData: listData), label: {
-                Image(systemName: "plus").foregroundColor(.white)
-            }))
-            
-            
-            
+            .navigationBarTitle("Пациенты", displayMode: .large)
         }
+        
+       
+        
         .onAppear(perform: {
             listData.fetchPatients()
             listData.observePatients()

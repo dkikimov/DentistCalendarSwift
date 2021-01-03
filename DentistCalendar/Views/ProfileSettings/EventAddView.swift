@@ -10,28 +10,43 @@ import SwiftUI
 struct EventAddView: View {
     @StateObject var data = EventAddViewModel()
     var body: some View {
-        Group {
-            if data.eventsList.count > 0{
-                List( selection: $data.selectedEvents) {
-                    ForEach(data.eventsList, id: \.self) { event in
-                        Text(event.title).id(UUID().uuidString)
-                    }.id(UUID().uuidString)
-                }.id(UUID().uuidString)
+        ZStack {
+            if data.isLoading {
+                Color.gray
+                    .edgesIgnoringSafeArea(.all)
+                
+                ProgressView()
                 
             }
-            
-            else {
-                Text("Нет данных")
+            Group {
+                if data.eventsList.count > 0{
+                    List {
+                        ForEach(data.eventsList, id: \.self) { event in
+                            MultipleSelectionRow(title: event.title, isSelected: self.data.selectedEvents.contains(event), action:  {
+                                if self.data.selectedEvents.contains(event) {
+                                    self.data.selectedEvents.removeAll(where: { $0 == event })
+                                }
+                                else {
+                                    self.data.selectedEvents.append(event)
+                                }
+                            })
+                        }
+                        
+                    }
+                }
+                else if data.eventsList.count == 0 && !data.isLoading {
+                    Text("Нет данных")
+                }
             }
         }
         .sheet(isPresented: $data.isSheetPresented, content: {
             EventCalendarChooserView(calendars: $data.calendars, eventStore: data.eventStore, fetchEvents: data.getEvents)
         })
-        .environment(\.editMode, $data.isEditMode)
+        //        .environment(\.editMode, $data.isEditMode)
         .navigationBarItems(trailing: Button(action: {
             data.addEvents()
         }, label: {
-            data.isLoading ? Text("Загрузка").disabled(true) as! Text : Text("Добавить")
+            data.isLoading ?  Text("Загрузка...") : Text("Добавить")
         }))
         .navigationBarTitle("Импорт записей", displayMode: .inline)
         //        .onAppear(perform: data.getEvents)

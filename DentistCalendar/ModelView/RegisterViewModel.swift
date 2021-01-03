@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Slugify
 
 class RegisterViewModel : ObservableObject {
     

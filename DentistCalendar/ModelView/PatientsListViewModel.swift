@@ -9,10 +9,11 @@ import SwiftUI
 import SPAlert
 import Amplify
 import Combine
-
+import UIKit
 class PatientsListViewModel: ObservableObject {
     @Published var patientsList = [Patient]()
     @Published var isLoading = false
+     var refreshControl = UIRefreshControl()
     var observationToken: AnyCancellable?
     
     deinit {
@@ -20,19 +21,17 @@ class PatientsListViewModel: ObservableObject {
     }
     init() {
         fetchPatients()
+        refreshControl.addTarget(self, action: #selector(fetchPatients), for: .valueChanged)
     }
-    func fetchPatients(){
-        isLoading = true
+    @objc func fetchPatients(){
         Amplify.DataStore.query(Patient.self, sort: .ascending(Patient.keys.fullname)) { result in
             switch result {
             case .success(let patients):
 //                print("PATIENT lIST", patients)
                 patientsList = patients
-                isLoading = false
             case .failure(let error):
                 print("ERROR LIST", error.errorDescription)
-                
-            }
+        }
             //        Api().fetchPatients { (data, err) in
             //            if err != nil {
             //                print("error")
@@ -43,6 +42,10 @@ class PatientsListViewModel: ObservableObject {
             //        }
 
         }
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            self.refreshControl.endRefreshing()
+        }
+
     }
     func deletePatient(id: String) {
         var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно удален!", preset: .done)

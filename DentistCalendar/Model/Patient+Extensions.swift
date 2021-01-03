@@ -33,3 +33,8 @@ extension Appointment: Hashable {
 }
 extension EKEvent: Identifiable {
 }
+
+struct Favor {
+    var price: Int32
+    var prePayment: String
+}

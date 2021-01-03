@@ -26,3 +26,19 @@ func getAvatarColor(name: Character) -> AvatarColor {
     }
     return AvatarColor(background: "#f38383", color: "#FFF")
 }
+
+func convertDiagnosisString(str: String, _ onlyTitle: Bool = false) -> String {
+    
+    let parsedArray = str.split(separator: ";")
+    var res = [String]()
+    parsedArray.forEach { (a) in
+        let b = a.split(separator: ":")
+        if b.count >= 2 {
+            res.append(String(b[0]))
+        }
+    }
+    if res.count == 0 {
+        return "Пусто"
+    }
+    return res.joined(separator: ", ")
+}

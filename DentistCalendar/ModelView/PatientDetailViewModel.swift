@@ -17,6 +17,7 @@ class PatientDetailViewModel : ObservableObject {
     @Published var isAlertPresented: Bool = false
     @Published var isModalPresented: Bool = false
     @Published var isSheetPresented: Bool = false
+    @Published var isDetailViewPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""
     @State var patient: Patient

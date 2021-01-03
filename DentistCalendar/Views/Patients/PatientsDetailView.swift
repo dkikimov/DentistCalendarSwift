@@ -20,7 +20,7 @@ struct PatientsDetailView: View {
     }
     var body: some View {
         ZStack {
-            if listData.patientsList.count + 1 >= index || listData.patientsList.count != 0 {
+            if listData.patientsList.count + 1 >= index && listData.patientsList.count != 0 {
                 ScrollView {
                     
                     VStack(alignment: .leading) {
@@ -36,7 +36,7 @@ struct PatientsDetailView: View {
                                     Text("Изменить").frame(height: 25).foregroundColor(.white).padding([.vertical, .horizontal], 10)
                                     Spacer()
                                 }).background(Color("Blue2")).cornerRadius(40)
-                            Link(destination: URL(string: "tel:\(detailData.patient.phone)")!) {
+                            Link(destination: URL(string: "tel:\(detailData.patient.phone.replacingOccurrences(of: " ", with: ""))")!) {
                                 Image(systemName: "phone.fill").frame(width: 50, height: 45).padding([.vertical, .horizontal], 10).foregroundColor(.white)
                             }.background(Color("Green")).frame(width: 50, height: 45).clipShape(Circle())
                         }
@@ -46,10 +46,14 @@ struct PatientsDetailView: View {
                     VStack(spacing: 10) {
                         if detailData.appointments.count > 0 {
                             ForEach(detailData.appointments) { app in
-                                PatientDetailCard(appointment: app, moreButtonAction: {
+                                PatientDetailCard(appointment: app, detailButtonAction: {
+                                    detailData.selectedAppointment = app
+                                    detailData.viewType = .detailView
+                                    detailData.isModalPresented.toggle()
+                                }, moreButtonAction: {
                                     detailData.selectedAppointment = app
                                     detailData.isSheetPresented.toggle()
-                                } )
+                                })
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 8)
                             }
@@ -77,6 +81,7 @@ struct PatientsDetailView: View {
                             .default(Text("Изменить")) {
                                 detailData.viewType = .edit
                                 detailData.isModalPresented = true
+                                print("SET")
                             },
                                         .destructive((Text("Удалить"))) {
                                             detailData.deleteAppointment()
@@ -85,9 +90,14 @@ struct PatientsDetailView: View {
                         ])
                     }
                     .sheet(isPresented: $detailData.isModalPresented, content: {
-                        AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
-                            .presentation(isModal: true)
-                            .environmentObject(detailData)
+                        if detailData.viewType == .detailView {
+                            AppointmentCalendarView(appointment: detailData.selectedAppointment!, false)
+                        } else {
+                            AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
+                                .presentation(isModal: true)
+                                .environmentObject(detailData)
+                        }
+                        
                         
                     })
                     

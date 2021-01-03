@@ -152,7 +152,7 @@ final class SessionManager: ObservableObject {
             switch result {
             case .success:
                 UserDefaults.standard.removeObject(forKey: "fullname")
-                Amplify.DataStore.clear()
+//                Amplify.DataStore.clear()
                 print("signed out successfully")
                 DispatchQueue.main.async {
                     self?.getCurrentAuthUser()

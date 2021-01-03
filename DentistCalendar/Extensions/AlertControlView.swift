@@ -10,6 +10,7 @@ import SwiftUI
 struct AlertControlView: UIViewControllerRepresentable {
     
     @Binding var textString: String
+    @Binding var priceString: String
     @Binding var showAlert: Bool
     var action:  () -> Void
     var title: String
@@ -34,11 +35,15 @@ struct AlertControlView: UIViewControllerRepresentable {
             
             // Adds UITextField & make sure that coordinator is delegate to UITextField.
             alert.addTextField { textField in
-                textField.placeholder = "Пульпит"
+                textField.placeholder = "Диагноз"
                 textField.text = self.textString            // setting initial value
                 textField.delegate = context.coordinator    // using coordinator as delegate
             }
-            
+            alert.addTextField { textField in
+                textField.placeholder = "Цена"
+                textField.text = self.priceString            // setting initial value
+                textField.delegate = context.coordinator    // using coordinator as delegate
+            }
             // As usual adding actions
             alert.addAction(UIAlertAction(title: NSLocalizedString("Отменить", comment: "") , style: .cancel) { _ in
                 
@@ -50,10 +55,14 @@ struct AlertControlView: UIViewControllerRepresentable {
             
             alert.addAction(UIAlertAction(title: NSLocalizedString("Добавить", comment: ""), style: .default) { _ in
                 // On submit action, get texts from TextField & set it on SwiftUI View's two-way binding varaible `textString` so that View receives enter response.
-                if let textField = alert.textFields?.first, let text = textField.text {
-                    self.textString = text
-                    action()
+                for textField in alert.textFields! {
+                    if textField.placeholder == "Диагноз" {
+                        self.textString = textField.text ?? ""
+                    } else {
+                        self.priceString = textField.text ?? ""
+                    }
                 }
+                action()
                 
                 alert.dismiss(animated: true) {
                     self.showAlert = false

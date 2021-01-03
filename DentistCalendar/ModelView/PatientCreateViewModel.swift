@@ -27,7 +27,7 @@ class PatientCreateViewModel : ObservableObject {
             Amplify.DataStore.save(newPatient) { result in
                 switch result{
                 case .success(let patient):
-                    patientData.patientsList.append(patient)
+//                    patientData.patientsList.append(patient)
                     let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно добавлена!", preset: .done)
                     alertView.duration = 3
                     alertView.present()

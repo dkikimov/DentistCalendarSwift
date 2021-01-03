@@ -19,13 +19,13 @@ struct CustomTextField: View {
                 Text(label)
                     .font(.callout)
                     .bold()
-                SecureField(title, text: self.$text).keyboardType(keyboardType)
+                SecureField(title, text: self.$text).keyboardType(keyboardType).textContentType(.password)
                 Divider()
             } else {
                 Text(label)
                     .font(.callout)
                     .bold()
-                TextField(title, text: self.$text).keyboardType(keyboardType)
+                TextField(title, text: self.$text).keyboardType(keyboardType).textContentType(.password)
                 Divider()
             }
             

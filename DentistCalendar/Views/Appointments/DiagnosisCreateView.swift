@@ -11,6 +11,7 @@ struct DiagnosisCreateView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
     @State var diagnosisText = ""
+    @State var diagnosisPrice = ""
     @State var isAlertPresented = false
     @ObservedObject var data: AppointmentCreateViewModel
     @FetchRequest(sortDescriptors: [])
@@ -29,26 +30,33 @@ struct DiagnosisCreateView: View {
                                 $0.text!.localizedStandardContains(searchText)
                         }, id: \.self) { (diag) in
                             Button (action:{
-                                if data.selectedDiagnosisList.contains(diag.text!) {
-                                    data.selectedDiagnosisList.remove(at: data.selectedDiagnosisList.firstIndex(of: diag.text!)!)
+                                if data.selectedDiagnosisList[diag.text!] != nil {
+                                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+                                    data.generateMoneyData()
                                 } else {
-                                    data.selectedDiagnosisList.append(diag.text!)
+                                    data.selectedDiagnosisList[diag.text!] = Favor(price: diag.price, prePayment: "")
+                                    data.generateMoneyData()
                                     print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                                 }
                             },label: {
-                                Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList.contains(diag.text!) ? .blue : Color("Black1"))
+                                HStack {
+                                    Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList[diag.text!] != nil ? .blue : Color("Black1"))
+                                    Spacer()
+                                    Text("Цена: " + String(diag.price))
+                                        .foregroundColor(data.selectedDiagnosisList[diag.text!] != nil ? .blue : Color("Black1")).multilineTextAlignment(.trailing)
+                                }
                             })
                         }
                         .onDelete(perform: deleteDiagnosis)
                     }
-                   .listStyle(PlainListStyle())
+                    .listStyle(PlainListStyle())
                     
                     
                 }
                 if isAlertPresented {
-                    AlertControlView(textString: $diagnosisText, showAlert: $isAlertPresented, action: {
+                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
                         addDiagnosis()
-                    }, title: "Диагноз", message: "Введите название диагноза")
+                    }, title: "Услуга", message: "Введите данные услуги")
                 }
             }
             
@@ -56,11 +64,11 @@ struct DiagnosisCreateView: View {
             .navigationBarItems(leading: Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Готово").foregroundColor(.blue)
+                Text("Готово")
             }), trailing: Button(action: {
                 isAlertPresented = true
             }, label: {
-                Image(systemName: "plus").foregroundColor(.blue)
+                Image(systemName: "plus")
             }))
             
         }
@@ -79,8 +87,10 @@ struct DiagnosisCreateView: View {
             withAnimation{
                 let newDiagnosis = Diagnosis(context: viewContext)
                 newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
+                newDiagnosis.price = Int32(diagnosisPrice) ?? 0
                 saveContext()
                 diagnosisText = ""
+                diagnosisPrice = ""
             }
         }
     }

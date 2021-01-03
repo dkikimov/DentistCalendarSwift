@@ -9,7 +9,7 @@ import SwiftUI
 import SPAlert
 
 class ProfileSettingsViewModel: ObservableObject {
-    let fullname = UserDefaults.standard.string(forKey: "fullname")!.split(separator: " ")
+    let fullname = UserDefaults.standard.string(forKey: "fullname")?.split(separator: " ") ?? ["",""]
 //    let fullname = "123 asdas".split(separator: " ")
     let realFirstName: String
     let realSecondName: String
