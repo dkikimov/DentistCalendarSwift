@@ -11,11 +11,21 @@
 		6F05F3CC257947410099BB94 /* amplifytools.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3C9257947410099BB94 /* amplifytools.xcconfig */; };
 		6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
 		6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
+		6F0B35A825AF650600E7C722 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F0B35AA25AF650600E7C722 /* Localizable.strings */; };
 		6F0BF647255D8D69004ACD4F /* PatientCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */; };
 		6F0BF64A255D8DE8004ACD4F /* PatientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF649255D8DE8004ACD4F /* PatientCreateViewModel.swift */; };
 		6F0BF64E255DA191004ACD4F /* AppointmentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */; };
 		6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */; };
 		6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */; };
+		6F1047DA25A33B5900A8341F /* IntersistititalAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047D925A33B5900A8341F /* IntersistititalAdView.swift */; };
+		6F1047DD25A33DE200A8341F /* BannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047DC25A33DE200A8341F /* BannerAdView.swift */; };
+		6F1047E025A34A4500A8341F /* RewardedVideoAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047DF25A34A4500A8341F /* RewardedVideoAd.swift */; };
+		6F1047E425A3560300A8341F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047E325A3560300A8341F /* Store.swift */; };
+		6F1047E725A371E500A8341F /* PriceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047E625A371E500A8341F /* PriceExtension.swift */; };
+		6F1A3FD525B2EF5D00EC448E /* DatePickersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A3FD425B2EF5D00EC448E /* DatePickersSection.swift */; };
+		6F1A3FD825B3021E00EC448E /* ServicesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A3FD725B3021E00EC448E /* ServicesSection.swift */; };
+		6F1A3FDB25B3028100EC448E /* SumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A3FDA25B3028100EC448E /* SumSection.swift */; };
+		6F1A3FDE25B307F900EC448E /* DiagnosisRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A3FDD25B307F900EC448E /* DiagnosisRow.swift */; };
 		6F2B89AC257CCA5900D717EC /* AppointmentCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2B89AB257CCA5900D717EC /* AppointmentCalendarView.swift */; };
 		6F2FB4E1251F228600A046F9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E0251F228600A046F9 /* LoginView.swift */; };
 		6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */; };
@@ -61,12 +71,28 @@
 		6F7CE31D255FCE5500D8D521 /* AlertControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */; };
 		6F7CE321255FE2D300D8D521 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE320255FE2D300D8D521 /* SearchBar.swift */; };
 		6F7CE325255FE2E400D8D521 /* ViewControllerResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE324255FE2E400D8D521 /* ViewControllerResolver.swift */; };
+		6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81973D25B2CE8A00022321 /* EventKit.framework */; };
+		6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81973E25B2CE8A00022321 /* EventKitUI.framework */; };
+		6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974125B2CEA200022321 /* CoreTelephony.framework */; };
+		6F81974425B2CEF700022321 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974325B2CEF700022321 /* AdSupport.framework */; };
+		6F81974625B2CF0300022321 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974525B2CF0300022321 /* AudioToolbox.framework */; };
+		6F81974825B2CF0600022321 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974725B2CF0600022321 /* AVFoundation.framework */; };
+		6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974925B2CF1000022321 /* CoreGraphics.framework */; };
+		6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974B25B2CF1E00022321 /* SystemConfiguration.framework */; };
+		6F81976A25B2CFAF00022321 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81976925B2CFAF00022321 /* MessageUI.framework */; };
+		6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81976D25B2CFCA00022321 /* CFNetwork.framework */; };
+		6F81977525B2EC8700022321 /* PickerCalendarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F81977425B2EC8700022321 /* PickerCalendarSection.swift */; };
+		6F81977A25B2ECEA00022321 /* PatientCreateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F81977925B2ECEA00022321 /* PatientCreateSection.swift */; };
 		6F836C5A257FD1470078BDE1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 6F836C59257FD1470078BDE1 /* Introspect */; };
+		6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F87E88B25A2F521000B4834 /* UnifiedNativeAdView.xib */; };
 		6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F97FA302542A738004750BF /* PatientUpdateView.swift */; };
 		6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA69269252B60F500711A88 /* ProfileSettingsView.swift */; };
 		6FA795D525924B9800992EAE /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 6FA795D425924B9800992EAE /* iPhoneNumberField */; };
 		6FA795DA2592658100992EAE /* ServiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA795D92592658100992EAE /* ServiceList.swift */; };
 		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
+		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
+		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
+		6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024C25A23EEE0043A70F /* NativeAdView.swift */; };
 		6FCC65CD257E7E9300505115 /* AppointmentCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC65CC257E7E9300505115 /* AppointmentCalendarViewModel.swift */; };
 		6FD57D57253C3D5E00C64847 /* CalendarKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD57D56253C3D5E00C64847 /* CalendarKitViewController.swift */; };
 		6FD57D5E253C3F8100C64847 /* DateControllerDelegaet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */; };
@@ -97,11 +123,23 @@
 		6F05F3C9257947410099BB94 /* amplifytools.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = SOURCE_ROOT; };
 		6F05F3CA257947410099BB94 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 		6F05F3CB257947410099BB94 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
+		6F0B35A925AF650600E7C722 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6F0B35AC25AF650A00E7C722 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCreateView.swift; sourceTree = "<group>"; };
 		6F0BF649255D8DE8004ACD4F /* PatientCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCreateViewModel.swift; sourceTree = "<group>"; };
 		6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateView.swift; sourceTree = "<group>"; };
 		6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateViewModel.swift; sourceTree = "<group>"; };
 		6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisCreateView.swift; sourceTree = "<group>"; };
+		6F1047D925A33B5900A8341F /* IntersistititalAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntersistititalAdView.swift; sourceTree = "<group>"; };
+		6F1047DC25A33DE200A8341F /* BannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdView.swift; sourceTree = "<group>"; };
+		6F1047DF25A34A4500A8341F /* RewardedVideoAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAd.swift; sourceTree = "<group>"; };
+		6F1047E225A353D800A8341F /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
+		6F1047E325A3560300A8341F /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		6F1047E625A371E500A8341F /* PriceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceExtension.swift; sourceTree = "<group>"; };
+		6F1A3FD425B2EF5D00EC448E /* DatePickersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickersSection.swift; sourceTree = "<group>"; };
+		6F1A3FD725B3021E00EC448E /* ServicesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesSection.swift; sourceTree = "<group>"; };
+		6F1A3FDA25B3028100EC448E /* SumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumSection.swift; sourceTree = "<group>"; };
+		6F1A3FDD25B307F900EC448E /* DiagnosisRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisRow.swift; sourceTree = "<group>"; };
 		6F2B89AB257CCA5900D717EC /* AppointmentCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCalendarView.swift; sourceTree = "<group>"; };
 		6F2FB4E0251F228600A046F9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6F2FB4E3251F274C00A046F9 /* NavigationBarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarColor.swift; sourceTree = "<group>"; };
@@ -149,10 +187,28 @@
 		6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControlView.swift; sourceTree = "<group>"; };
 		6F7CE320255FE2D300D8D521 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		6F7CE324255FE2E400D8D521 /* ViewControllerResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerResolver.swift; sourceTree = "<group>"; };
+		6F81973D25B2CE8A00022321 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		6F81973E25B2CE8A00022321 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		6F81974125B2CEA200022321 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6F81974325B2CEF700022321 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		6F81974525B2CF0300022321 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6F81974725B2CF0600022321 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6F81974925B2CF1000022321 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6F81974B25B2CF1E00022321 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6F81976925B2CFAF00022321 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		6F81976B25B2CFB600022321 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		6F81976D25B2CFCA00022321 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6F81976F25B2CFDD00022321 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		6F81977425B2EC8700022321 /* PickerCalendarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCalendarSection.swift; sourceTree = "<group>"; };
+		6F81977925B2ECEA00022321 /* PatientCreateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCreateSection.swift; sourceTree = "<group>"; };
+		6F87E88B25A2F521000B4834 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		6F97FA302542A738004750BF /* PatientUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUpdateView.swift; sourceTree = "<group>"; };
 		6FA69269252B60F500711A88 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		6FA795D92592658100992EAE /* ServiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceList.swift; sourceTree = "<group>"; };
 		6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patient+Extensions.swift"; sourceTree = "<group>"; };
+		6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySubscriptionView.swift; sourceTree = "<group>"; };
+		6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleAdsVariables + Constants.swift"; sourceTree = "<group>"; };
+		6FC9024C25A23EEE0043A70F /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
 		6FCC65CC257E7E9300505115 /* AppointmentCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCalendarViewModel.swift; sourceTree = "<group>"; };
 		6FD57D56253C3D5E00C64847 /* CalendarKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarKitViewController.swift; sourceTree = "<group>"; };
 		6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateControllerDelegaet.swift; sourceTree = "<group>"; };
@@ -182,6 +238,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
+				6F81976A25B2CFAF00022321 /* MessageUI.framework in Frameworks */,
+				6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */,
+				6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */,
+				6F81974825B2CF0600022321 /* AVFoundation.framework in Frameworks */,
+				6F81974625B2CF0300022321 /* AudioToolbox.framework in Frameworks */,
+				6F81974425B2CEF700022321 /* AdSupport.framework in Frameworks */,
+				6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */,
+				6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */,
+				6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */,
 				6F836C5A257FD1470078BDE1 /* Introspect in Frameworks */,
 				9F139879DE51D1A3B3C1EE30 /* Pods_DentistCalendar.framework in Frameworks */,
 				6FA795D525924B9800992EAE /* iPhoneNumberField in Frameworks */,
@@ -272,6 +338,7 @@
 		6F3A1A782519118F0042E7C4 = {
 			isa = PBXGroup;
 			children = (
+				6F0B35AA25AF650600E7C722 /* Localizable.strings */,
 				6FEF3E08257A961500D1A304 /* AmplifyModels */,
 				6F05F3B7257946E40099BB94 /* AmplifyConfig */,
 				6F3A1A83251911900042E7C4 /* DentistCalendar */,
@@ -299,8 +366,9 @@
 				6F2FB4D9251F223600A046F9 /* Model */,
 				6FF64F00251E3CAF0094C0E0 /* Extensions */,
 				6FF64EF5251E34AF0094C0E0 /* Views */,
-				6F3A1A84251911900042E7C4 /* DentistCalendarApp.swift */,
+				6F81977325B2EC6E00022321 /* SubViews */,
 				6F3A1A86251911900042E7C4 /* ContentView.swift */,
+				6F3A1A84251911900042E7C4 /* DentistCalendarApp.swift */,
 				6F3A1A88251911900042E7C4 /* Assets.xcassets */,
 				6F3A1A8D251911900042E7C4 /* Info.plist */,
 				6F3A1A8A251911900042E7C4 /* Preview Content */,
@@ -360,6 +428,43 @@
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
+		6F81977325B2EC6E00022321 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				6F81977825B2ECB100022321 /* AppointmentCreate */,
+				6F1A3FDD25B307F900EC448E /* DiagnosisRow.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		6F81977825B2ECB100022321 /* AppointmentCreate */ = {
+			isa = PBXGroup;
+			children = (
+				6F81977425B2EC8700022321 /* PickerCalendarSection.swift */,
+				6F81977925B2ECEA00022321 /* PatientCreateSection.swift */,
+				6F1A3FD425B2EF5D00EC448E /* DatePickersSection.swift */,
+				6F1A3FD725B3021E00EC448E /* ServicesSection.swift */,
+				6F1A3FDA25B3028100EC448E /* SumSection.swift */,
+			);
+			path = AppointmentCreate;
+			sourceTree = "<group>";
+		};
+		6FC9022925A21ED00043A70F /* Subscriptions + Ads */ = {
+			isa = PBXGroup;
+			children = (
+				6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */,
+				6FC9024C25A23EEE0043A70F /* NativeAdView.swift */,
+				6F87E88B25A2F521000B4834 /* UnifiedNativeAdView.xib */,
+				6F1047D925A33B5900A8341F /* IntersistititalAdView.swift */,
+				6F1047DC25A33DE200A8341F /* BannerAdView.swift */,
+				6F1047DF25A34A4500A8341F /* RewardedVideoAd.swift */,
+				6F1047E225A353D800A8341F /* StoreKitConfiguration.storekit */,
+				6F1047E325A3560300A8341F /* Store.swift */,
+				6F1047E625A371E500A8341F /* PriceExtension.swift */,
+			);
+			path = "Subscriptions + Ads";
+			sourceTree = "<group>";
+		};
 		6FEF3E08257A961500D1A304 /* AmplifyModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +480,7 @@
 		6FF64EF5251E34AF0094C0E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6FC9022925A21ED00043A70F /* Subscriptions + Ads */,
 				6F0BF64C255DA181004ACD4F /* Appointments */,
 				6F457286252E1D2E008B1857 /* ProfileSettings */,
 				6F4403BD2530BE380025BB9A /* Patients */,
@@ -404,6 +510,7 @@
 				6F7CE319255FC76E00D8D521 /* Persistence.swift */,
 				6F7CE31C255FCE5500D8D521 /* AlertControlView.swift */,
 				6F795F26257A53620013E2BB /* Enums.swift */,
+				6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -411,6 +518,18 @@
 		76A24443FC2B74DB6A077BE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F81976F25B2CFDD00022321 /* GLKit.framework */,
+				6F81976D25B2CFCA00022321 /* CFNetwork.framework */,
+				6F81976B25B2CFB600022321 /* StoreKit.framework */,
+				6F81976925B2CFAF00022321 /* MessageUI.framework */,
+				6F81974B25B2CF1E00022321 /* SystemConfiguration.framework */,
+				6F81974925B2CF1000022321 /* CoreGraphics.framework */,
+				6F81974725B2CF0600022321 /* AVFoundation.framework */,
+				6F81974525B2CF0300022321 /* AudioToolbox.framework */,
+				6F81974325B2CEF700022321 /* AdSupport.framework */,
+				6F81974125B2CEA200022321 /* CoreTelephony.framework */,
+				6F81973D25B2CE8A00022321 /* EventKit.framework */,
+				6F81973E25B2CE8A00022321 /* EventKitUI.framework */,
 				8414178BE7BAA64D4889AF35 /* Pods_DentistCalendar.framework */,
 			);
 			name = Frameworks;
@@ -434,6 +553,7 @@
 			buildPhases = (
 				F347D2FA68CB98874C2DAD60 /* [CP] Check Pods Manifest.lock */,
 				6F29AC232551BCC50059F6F1 /* Run Script */,
+				FBC734DB382E93DE2D4EB207 /* [CP] Prepare Artifacts */,
 				6F3A1A7D2519118F0042E7C4 /* Sources */,
 				6F3A1A7E2519118F0042E7C4 /* Frameworks */,
 				6F3A1A7F2519118F0042E7C4 /* Resources */,
@@ -498,8 +618,10 @@
 				6F3A1A89251911900042E7C4 /* Assets.xcassets in Resources */,
 				6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */,
 				6F58A8D7257BFB7B00CC98B5 /* schema.graphql in Resources */,
+				6F0B35A825AF650600E7C722 /* Localizable.strings in Resources */,
 				6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
+				6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */,
 				6F05F3CC257947410099BB94 /* amplifytools.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +686,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FBC734DB382E93DE2D4EB207 /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -573,33 +712,42 @@
 			files = (
 				6FD57D5E253C3F8100C64847 /* DateControllerDelegaet.swift in Sources */,
 				6F2FB4F3251F3DDE00A046F9 /* RegisterView.swift in Sources */,
+				6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */,
 				6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */,
 				6F67377E2572C1E70092B81B /* EventCalendarChooserView.swift in Sources */,
 				6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */,
 				6F3E742D2545E5FC00410A6F /* PatientUpdateViewModel.swift in Sources */,
+				6F1A3FD525B2EF5D00EC448E /* DatePickersSection.swift in Sources */,
 				6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */,
 				6F795F27257A53620013E2BB /* Enums.swift in Sources */,
 				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
+				6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */,
+				6F1A3FD825B3021E00EC448E /* ServicesSection.swift in Sources */,
 				6F328F45253CB60700F28F0F /* CustomButton.swift in Sources */,
 				6F6546912552C285007F4C2D /* PassCodeInputModel.swift in Sources */,
 				6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */,
 				6FEF3E1C257A963E00D1A304 /* Patient.swift in Sources */,
 				6FCC65CD257E7E9300505115 /* AppointmentCalendarViewModel.swift in Sources */,
 				6FD57D57253C3D5E00C64847 /* CalendarKitViewController.swift in Sources */,
+				6F81977A25B2ECEA00022321 /* PatientCreateSection.swift in Sources */,
 				6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */,
 				6F2FB4E1251F228600A046F9 /* LoginView.swift in Sources */,
 				6FF64F06251E44580094C0E0 /* Item.swift in Sources */,
 				6F2FB4E7251F2EED00A046F9 /* ContentHostingController.swift in Sources */,
 				6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */,
+				6F1047DD25A33DE200A8341F /* BannerAdView.swift in Sources */,
 				6F7CE325255FE2E400D8D521 /* ViewControllerResolver.swift in Sources */,
+				6F1A3FDE25B307F900EC448E /* DiagnosisRow.swift in Sources */,
 				6F2FB4E4251F274C00A046F9 /* NavigationBarColor.swift in Sources */,
 				6F3E74332545EB8700410A6F /* PhoneNumberTextFieldView.swift in Sources */,
+				6F1047E025A34A4500A8341F /* RewardedVideoAd.swift in Sources */,
 				6F7CE31A255FC76E00D8D521 /* Persistence.swift in Sources */,
 				6F6546902552C285007F4C2D /* PassCodeInputCell.swift in Sources */,
 				6FA795DA2592658100992EAE /* ServiceList.swift in Sources */,
 				6F32DB11256417D5008EED03 /* AppointmentEditView.swift in Sources */,
 				6FEF3E1A257A963E00D1A304 /* Appointment.swift in Sources */,
 				6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */,
+				6F1047E425A3560300A8341F /* Store.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
 				6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */,
 				6FD91C28252F600E00231625 /* getTokens.swift in Sources */,
@@ -607,6 +755,7 @@
 				6F2B89AC257CCA5900D717EC /* AppointmentCalendarView.swift in Sources */,
 				6F7CE31D255FCE5500D8D521 /* AlertControlView.swift in Sources */,
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
+				6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */,
 				6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */,
 				6F0BF647255D8D69004ACD4F /* PatientCreateView.swift in Sources */,
 				6F6546892552C03A007F4C2D /* CodeInput.swift in Sources */,
@@ -616,8 +765,10 @@
 				6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */,
 				6FD57D61253C413500C64847 /* TimeChunk.swift in Sources */,
 				6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */,
+				6F81977525B2EC8700022321 /* PickerCalendarSection.swift in Sources */,
 				6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */,
 				6FE4226E2589355000E62B55 /* HalfModalView.swift in Sources */,
+				6F1047E725A371E500A8341F /* PriceExtension.swift in Sources */,
 				6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */,
 				6F418C102526421C008FD40F /* LoginViewModel.swift in Sources */,
 				6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */,
@@ -629,12 +780,14 @@
 				6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */,
 				6F418C0625262FEE008FD40F /* Api.swift in Sources */,
 				6FE4225C2589287500E62B55 /* KeyboardAwareModifier.swift in Sources */,
+				6F1A3FDB25B3028100EC448E /* SumSection.swift in Sources */,
 				6F418C0925263684008FD40F /* ApiHelper.swift in Sources */,
 				6F3A1A87251911900042E7C4 /* ContentView.swift in Sources */,
 				6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */,
 				6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */,
 				6FEF3E1E257A963E00D1A304 /* AmplifyModels.swift in Sources */,
 				6F7CE321255FE2D300D8D521 /* SearchBar.swift in Sources */,
+				6F1047DA25A33B5900A8341F /* IntersistititalAdView.swift in Sources */,
 				6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */,
 				6F0BF64A255D8DE8004ACD4F /* PatientCreateViewModel.swift in Sources */,
 				6F3A1A85251911900042E7C4 /* DentistCalendarApp.swift in Sources */,
@@ -646,6 +799,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6F0B35AA25AF650600E7C722 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F0B35A925AF650600E7C722 /* en */,
+				6F0B35AC25AF650A00E7C722 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6F3A1A8E251911900042E7C4 /* Debug */ = {

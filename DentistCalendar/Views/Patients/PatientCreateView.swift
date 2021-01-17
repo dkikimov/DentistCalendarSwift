@@ -35,12 +35,15 @@ struct PatientCreateView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-            }, imageName: "plus", label: "Создать", color: "Green", disabled: data.patientName.isEmpty || !phoneNumberKit.isValidPhoneNumber(data.patientNumber), isLoading: $data.isLoading)
+            }, imageName: "plus", label: "Создать", color: "Green", disabled: data.patientName.isEmpty, isLoading: $data.isLoading)
             
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Создать пациента"))
             
         }
+        .alert(isPresented: $data.isAlertPresented, content: {
+            Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
+        })
         
     }
 }

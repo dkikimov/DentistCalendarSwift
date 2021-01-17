@@ -24,31 +24,39 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var segmentedMode: CurrentSegmentedState = .withPatient
     
     @Published var foundedPatientsList = [Patient]()
-    @Published var title = ""
-    @Published var patientPhone = ""
-    @Published var price = "0"
-    @Published var toothNumber = ""
+    var title = ""
+     var price = "0"
+     var toothNumber = ""
     @Published var dateStart = Date()
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-    @Published var selectedDiagnosisList = [String: Favor]()
+     var selectedDiagnosisList = [String: Favor]()
     @Published var isDiagnosisCreatePresented = false
     @Published var isAlertPresented: Bool = false
     @Published var error = ""
     
-    var selectedPatient: Patient?
-    @Published var sumPrices = 0
-    @Published var sumPayments = 0
+//    @Published var isPaidFully: Bool = false
+    
+    @Published var selectedPatient: Patient?
+    @Published var sumPrices: Decimal = 0
+    @Published var sumPayment: Decimal = 0
+    var didSave: Bool = false
     //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     var patient: Patient?
     var appointment: Appointment?
     var viewType: AppointmentType
     var group: DispatchGroup?
-//    var debouncedFunction = Debouncer(delay: 0.5)
+    var debouncedFunction: Debouncer?
+    
+    
+    var generateMoneyData = Debouncer(delay: 0.5)
     init(patient: Patient?, viewType: AppointmentType, appointment: Appointment?, dateStart: Date?, dateEnd: Date?, group: DispatchGroup?) {
         self.viewType = viewType
         self.appointment = appointment
+        self.generateMoneyData = Debouncer(delay: 0.50) {
+            self.generateMoneyDataFunc()
+        }
         if viewType == .create {
             self.patient = patient!
         }
@@ -70,33 +78,38 @@ class AppointmentCreateViewModel : ObservableObject {
                 for diagnosis in appointment!.diagnosis!.components(separatedBy: ";") {
                     let diagData = diagnosis.split(separator: ":")
                     if diagData.count == 3 {
-                        selectedDiagnosisList[String(diagData[0])] = Favor(price: Int32(diagData[1])!, prePayment: String(diagData[2]))
+                        selectedDiagnosisList[String(diagData[0])] = Favor(price: String(diagData[1]), prePayment: String(diagData[2]))
                     }
                     else if diagData.count == 2 {
-                        selectedDiagnosisList[String(diagData[0])] = Favor(price: Int32(diagData[1])!, prePayment: "0")
+                        selectedDiagnosisList[String(diagData[0])] = Favor(price: String(diagData[1]), prePayment: "0")
                     }
                      else if diagData.count == 1{
-                            selectedDiagnosisList[String(diagData[0])] = Favor(price: 0, prePayment: "0")
+                            selectedDiagnosisList[String(diagData[0])] = Favor(price: "0", prePayment: "0")
                     }
                 }
-                generateMoneyData()
+                generateMoneyData.call()
             }
             
             
         }
         if viewType == .createWithPatient {
             self.group = group
-            cancellable = AnyCancellable(
-                $title.removeDuplicates()
-                    .debounce(for: 0.5, scheduler: DispatchQueue.main)
-                    .sink { searchText in
-                        self.findPatientsByName(name: searchText)
-                    })
+            self.debouncedFunction = Debouncer(delay: 0.5) {
+                self.findPatientsByName(name: self.title)
+                if self.selectedPatient?.fullname != self.title{
+                    self.selectedPatient = nil
+                    //                                    data.debouncedFunction.call()
+                }
+                }
+//            cancellable = AnyCancellable(
+//                title.removeDuplicates()
+//                    .debounce(for: 0.5, scheduler: DispatchQueue.main)
+//                    .sink { searchText in
+//                        self.findPatientsByName(name: searchText)
+//                    })
             self.dateStart = dateStart ?? Date()
             self.dateEnd = dateEnd ?? Date().addingTimeInterval(3600)
-//            self.debouncedFunction = Debouncer(delay: 0.50) {
-//                self.findPatientsByName()
-//            }
+           
 //            self.debouncedFunction.callback = {
 //                self.findPatientsByName()
 //            }
@@ -114,6 +127,8 @@ class AppointmentCreateViewModel : ObservableObject {
                 let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно добавлена!", preset: .done)
                 alertView.duration = 2
                 alertView.present()
+                self.didSave = true
+
                 isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
@@ -139,6 +154,8 @@ class AppointmentCreateViewModel : ObservableObject {
                 let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно обновлена!", preset: .done)
                 alertView.duration = 2
                 alertView.present()
+                self.didSave = true
+
                 isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
@@ -167,6 +184,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно обновлена!", preset: .done)
                 alertView.duration = 2
                 alertView.present()
+                self.didSave = true
                 isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
@@ -175,14 +193,15 @@ class AppointmentCreateViewModel : ObservableObject {
             
         }
     }
-    func createAppointmentAndPatient() {
+    func createAppointmentAndPatient(phoneNumber: String) {
         print(group!)
         print("HEY I CRAETEded IT")
-        print("PHONE", patientPhone)
-        print(phoneNumberKit.isValidPhoneNumber(patientPhone))
-        if phoneNumberKit.isValidPhoneNumber(patientPhone) {
+//        print("PHONE", patientPhone)
+//        print(phoneNumberKit.isValidPhoneNumber(patientPhone))
+        
+        
             if self.selectedPatient == nil {
-                let newPatient = Patient(fullname: self.title, phone: self.patientPhone.replacingOccurrences(of: " ", with: ""))
+                let newPatient = Patient(fullname: self.title, phone: phoneNumber.replacingOccurrences(of: " ", with: ""))
                 Amplify.DataStore.save(newPatient) { [self] res in
                     switch res {
                     case .success(let patient):
@@ -191,12 +210,15 @@ class AppointmentCreateViewModel : ObservableObject {
                             switch result {
                             case .success(let newApp):
                                 newModel.appointment = newApp
+                                self.didSave = true
+
                                 //                            newAppointmentModel.set(app: newApp, pat: newPatient)
                                 print("SUCCESSFUL CREATION OF PATIENT AND APPOINTMENT!!!!!")
                                 self.group!.leave()
                             case .failure(let error):
                                 self.error = error.errorDescription
                                 self.isAlertPresented = true
+                                
                                 self.group!.leave()
                             }
                         }
@@ -221,11 +243,7 @@ class AppointmentCreateViewModel : ObservableObject {
                     }
                 }
             }
-        } else {
-            print("NUMBER", patientPhone)
-            error = "Введите корректный номер"
-            isAlertPresented = true
-        }
+        
         print("I LEFT!!!")
         
         
@@ -237,6 +255,8 @@ class AppointmentCreateViewModel : ObservableObject {
             switch res {
             case .success:
                 print("Successful creation")
+                self.didSave = true
+
                 isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
@@ -260,20 +280,20 @@ class AppointmentCreateViewModel : ObservableObject {
         }
     }
     func generateDiagnosisString(_ onlyTitle: Bool = false) -> String {
-        var res: String = ""
-        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" + String($0.value.price).trimmingCharacters(in: .whitespaces)  + ($0.value.prePayment.isEmpty ? "" : ":" + $0.value.prePayment.trimmingCharacters(in: .whitespaces) )}
+        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" + $0.value.price.trimmingCharacters(in: .whitespaces)  + ($0.value.prePayment.isEmpty ? "" : ":" + $0.value.prePayment.trimmingCharacters(in: .whitespaces) )}
             .joined(separator: ";")
         
     }
     
-    func generateMoneyData(){
-        var sumPayments = 0
-        var sumPrices = 0
+    func generateMoneyDataFunc() {
+        var sumPayments: Decimal = 0
+        var sumPrices: Decimal = 0
         selectedDiagnosisList.map {
-            sumPayments +=  Int($1.prePayment) ?? 0
-            sumPrices += Int($1.price)
+            sumPayments += Decimal(string: String($1.prePayment.doubleValue)) ?? 0
+            sumPrices += Decimal(string: String($1.price.doubleValue)) ?? 0
         }
         self.sumPrices = sumPrices
-        self.sumPayments = sumPayments
+        self.sumPayment = sumPayments
     }
+    
 }

@@ -1,0 +1,50 @@
+{
+  "products" : [
+
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "8D71A83F",
+      "localizations" : [
+
+      ],
+      "name" : "DentistApp Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "3.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "073048C8",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Get a lot of benefits",
+              "displayName" : "Premium 1 month",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "Получите множество дополнительных привелегий",
+              "displayName" : "1 месяц Premium",
+              "locale" : "ru"
+            }
+          ],
+          "productID" : "com.katsushooter.DentistCalendar.1monthPremium",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "1 month Premium",
+          "subscriptionGroupID" : "8D71A83F",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}

@@ -22,6 +22,8 @@ class PatientCreateViewModel : ObservableObject {
     
     func createPatient(patientData: PatientsListViewModel,completion: @escaping(Bool) -> ()){
         self.isLoading = true
+//        print("CURRENT NUMBER", patientNumber)
+//        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
         if phoneNumberKit.isValidPhoneNumber(patientNumber) {
             let newPatient = Patient(fullname: patientName, phone: patientNumber.replacingOccurrences(of: " ", with: ""), owner: Amplify.Auth.getCurrentUser()!.userId)
             Amplify.DataStore.save(newPatient) { result in
@@ -43,7 +45,7 @@ class PatientCreateViewModel : ObservableObject {
                 }
             }
         } else {
-            self.error = "Введите корректный номер"
+            self.error = "Введите корректный номер".localized
             self.isAlertPresented = true
             DispatchQueue.main.async {
                 completion(false)

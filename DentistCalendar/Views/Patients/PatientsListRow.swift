@@ -11,7 +11,7 @@ struct PatientsListRow: View {
 //    @State var fullname: String
 //    @State var id: String
 //    @State var phoneNumber: String
-    @Binding var patient: Patient
+     var patient: Patient
     var body: some View {
         HStack (spacing: 10){
             AvatarBlock(fullname: patient.fullname.split(separator: " "))

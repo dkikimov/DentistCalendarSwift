@@ -35,6 +35,6 @@ extension EKEvent: Identifiable {
 }
 
 struct Favor {
-    var price: Int32
+    var price: String
     var prePayment: String
 }

@@ -64,6 +64,13 @@ struct ProfileSettingsView: View {
             }
             Section {
                 Button(action: {
+                    profileData.isSheetPresented.toggle()
+                }, label: {
+                    Text("Подписка")
+                })
+            }
+            Section {
+                Button(action: {
                     sessionManager.signOut { (err) in
                         if err != nil {
                             self.profileData.error = err!
@@ -81,6 +88,9 @@ struct ProfileSettingsView: View {
         .navigationTitle("Настройки")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+        .sheet(isPresented: $profileData.isSheetPresented, content: {
+            BuySubscriptionView()
+        })
         //        .alert(isPresented: $profileData.isAlertPresented, content: {
         //            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
         //        })

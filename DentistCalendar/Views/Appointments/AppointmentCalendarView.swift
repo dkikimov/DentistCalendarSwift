@@ -21,11 +21,12 @@ private func dateFormatter(date: String, _ time: Bool = false) -> String{
 struct AppointmentCalendarView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var data: AppointmentCalendarViewModel
+    var intestital: Interstitial?
     var diagnosisList = [[Substring]]()
     var serviceSum = 0
     var servicePaid = 0
 
-    init(appointment: Appointment, _ isEditAllowed: Bool = true, fullScreenIsCalendar: Binding<Bool>? = nil) {
+    init(appointment: Appointment, _ isEditAllowed: Bool = true, fullScreenIsCalendar: Binding<Bool>? = nil, intestital: Interstitial? = nil) {
         data = AppointmentCalendarViewModel(appointment: appointment, isEditAllowed: isEditAllowed, fullScreenIsCalendar: fullScreenIsCalendar)
         if appointment.diagnosis != nil {
             var sum = 0
@@ -45,12 +46,22 @@ struct AppointmentCalendarView: View {
             
             print("DIAGNOSIs LIST", diagnosisList)
         }
+        self.intestital = intestital
+        
+        
     }
     var body: some View {
         NavigationView {
             content()
                 .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
         }
+//        .onDisappear(perform: {
+//            if intestital != nil {
+//                print("INTESTITAL", intestital!)
+//
+//                intestital!.showAd()
+//            }
+//        })
 //        .navigationViewWrapper()
         
         
@@ -87,7 +98,7 @@ struct AppointmentCalendarView: View {
                     if diagnosisList.count > 0 {
                         Spacer(minLength: 10)
                             VStack(alignment: .leading) {
-                                Text("Услуги:").font(.title2).bold()
+                                Text("Услуги: ").font(.title2).bold()
                                 ServiceList(diagnosisList: diagnosisList)
                             }
                             Spacer(minLength: 25)
@@ -98,7 +109,9 @@ struct AppointmentCalendarView: View {
                             }
                         
                     } else {
-                        Text("Список услуг пуст").font(.title2).bold()
+                        if data.appointment.patientID != nil {
+                            Text("Список услуг пуст").font(.title2).bold()
+                        }
                     }
                     Spacer()
                 }
@@ -107,7 +120,6 @@ struct AppointmentCalendarView: View {
                 
                 
             }
-            
             VStack {
                 Spacer()
                 HStack{
@@ -119,14 +131,16 @@ struct AppointmentCalendarView: View {
                             .foregroundColor(.red)
                             .frame(width: UIScreen.main.bounds.width, height: 49)
                     })
-                    .background(Color("White2"))
                     
                     
                     Spacer()
-                } .overlay(Divider(), alignment: .top)
+                }
+                .overlay(Divider(), alignment: .top)
+                .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
+)
             }
             .actionSheet(isPresented: $data.isActionSheetPresented, content: {
-                ActionSheet(title: Text("Вы уверены, что хотите удалить запись?"), message: nil, buttons: [
+                ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
                     .destructive(Text("Удалить")){
                         data.deleteAppointment(presentationMode: presentationMode)
                     },
@@ -153,9 +167,9 @@ struct AppointmentCalendarView: View {
         .onDisappear(perform: {
             if data.fullScreenIsCalendar != nil {
                 data.fullScreenIsCalendar!.wrappedValue = false
-                
             }
         })
+        
     }
     
 }

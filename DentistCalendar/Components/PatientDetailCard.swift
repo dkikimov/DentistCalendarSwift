@@ -103,7 +103,7 @@ struct PatientDetailCard: View {
                 Image("id-card").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
                     .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
                 Text("Услуги: ")
-                    + Text(convertDiagnosisString(str: appointment.diagnosis!))
+                    + Text(convertDiagnosisString(str: appointment.diagnosis!).localized)
                     .fontWeight(.bold)
                     
             }

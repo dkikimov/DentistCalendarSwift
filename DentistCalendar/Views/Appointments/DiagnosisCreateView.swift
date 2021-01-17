@@ -13,6 +13,7 @@ struct DiagnosisCreateView: View {
     @State var diagnosisText = ""
     @State var diagnosisPrice = ""
     @State var isAlertPresented = false
+    @State var isErrorAlertPresented = false
     @ObservedObject var data: AppointmentCreateViewModel
     @FetchRequest(sortDescriptors: [])
     var diagnosisList: FetchedResults<Diagnosis>
@@ -23,29 +24,14 @@ struct DiagnosisCreateView: View {
         NavigationView{
             ZStack {
                 VStack {
-                    SearchBarTest(text: $searchText, placeholder: "Поиск")
+                    SearchBarTest(text: $searchText, placeholder: "Поиск".localized)
                     List {
                         ForEach(diagnosisList.filter {
                             searchText.isEmpty ||
                                 $0.text!.localizedStandardContains(searchText)
                         }, id: \.self) { (diag) in
-                            Button (action:{
-                                if data.selectedDiagnosisList[diag.text!] != nil {
-                                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
-                                    data.generateMoneyData()
-                                } else {
-                                    data.selectedDiagnosisList[diag.text!] = Favor(price: diag.price, prePayment: "")
-                                    data.generateMoneyData()
-                                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
-                                }
-                            },label: {
-                                HStack {
-                                    Text(diag.text ?? "Error").foregroundColor(data.selectedDiagnosisList[diag.text!] != nil ? .blue : Color("Black1"))
-                                    Spacer()
-                                    Text("Цена: " + String(diag.price))
-                                        .foregroundColor(data.selectedDiagnosisList[diag.text!] != nil ? .blue : Color("Black1")).multilineTextAlignment(.trailing)
-                                }
-                            })
+                            DiagnosisRow(diag: diag)
+                                .environmentObject(data)
                         }
                         .onDelete(perform: deleteDiagnosis)
                     }
@@ -59,6 +45,11 @@ struct DiagnosisCreateView: View {
                     }, title: "Услуга", message: "Введите данные услуги")
                 }
             }
+            .onDisappear(perform: {
+                DispatchQueue.main.async {
+                    data.generateMoneyDataFunc()
+                }
+            })
             
             .navigationBarTitle(Text("Диагноз"), displayMode: .inline)
             .navigationBarItems(leading: Button(action: {
@@ -72,6 +63,9 @@ struct DiagnosisCreateView: View {
             }))
             
         }
+        .alert(isPresented: $isErrorAlertPresented, content: {
+            Alert(title: Text("Ошибка"), message: Text("Название услуги слишком длинное"), dismissButton: .cancel())
+        })
     }
     
     private func saveContext() {
@@ -83,16 +77,20 @@ struct DiagnosisCreateView: View {
         }
     }
     private func addDiagnosis() {
-        if diagnosisText != "" {
+        guard diagnosisText != "" else { return }
+        guard diagnosisText.count <= 100 else {
+            isErrorAlertPresented = true
+            return
+        }
             withAnimation{
                 let newDiagnosis = Diagnosis(context: viewContext)
                 newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
-                newDiagnosis.price = Int32(diagnosisPrice) ?? 0
+                newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : String(diagnosisPrice.doubleValue))
                 saveContext()
                 diagnosisText = ""
                 diagnosisPrice = ""
             }
-        }
+        
     }
     private func deleteDiagnosis(at offsets: IndexSet) {
         withAnimation{

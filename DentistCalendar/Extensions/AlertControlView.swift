@@ -37,12 +37,41 @@ struct AlertControlView: UIViewControllerRepresentable {
             alert.addTextField { textField in
                 textField.placeholder = "Диагноз"
                 textField.text = self.textString            // setting initial value
-                textField.delegate = context.coordinator    // using coordinator as delegate
+                textField.delegate = context.coordinator // using coordinator as delegate
+                textField.autocapitalizationType = .sentences
+//                func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//                    // get the current text, or use an empty string if that failed
+//                    let currentText = textField.text ?? ""
+//
+//                    // attempt to read the range they are trying to change, or exit if we can't
+//                    guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//                    // add their new text to the existing text
+//                    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+//
+//                    // make sure the result is under 16 characters
+//                    return updatedText.count <= 100
+//                }
+
             }
             alert.addTextField { textField in
                 textField.placeholder = "Цена"
                 textField.text = self.priceString            // setting initial value
                 textField.delegate = context.coordinator    // using coordinator as delegate
+                textField.keyboardType = .decimalPad
+//                func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//                    // get the current text, or use an empty string if that failed
+//                    let currentText = textField.text ?? ""
+//
+//                    // attempt to read the range they are trying to change, or exit if we can't
+//                    guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//                    // add their new text to the existing text
+//                    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+//
+//                    // make sure the result is under 16 characters
+//                    return updatedText.count <= 20
+//                }
             }
             // As usual adding actions
             alert.addAction(UIAlertAction(title: NSLocalizedString("Отменить", comment: "") , style: .cancel) { _ in

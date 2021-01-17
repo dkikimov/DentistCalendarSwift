@@ -33,10 +33,9 @@ class EventAddViewModel: ObservableObject {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
                 // Create start and end date NSDate instances to build a predicate for which events to select
-                let startDate = dateFormatter.date(from: "2019-08-01")
-                let endDate = dateFormatter.date(from: "2021-01-01")
+                let startDate = Date().addingTimeInterval(-2628000)
+                let endDate = Date().addingTimeInterval(2628000)
                 
-                if let startDate = startDate, let endDate = endDate {
                     
                     // Use an event store instance to create and properly configure an NSPredicate
                     //                    print("CALENDARS", self.calendars)
@@ -45,7 +44,7 @@ class EventAddViewModel: ObservableObject {
                         self.eventsList = self.eventStore.events(matching: eventsPredicate)
                         self.selectedEvents = self.eventsList.map { $0 }
                     }
-                }
+                
             }
             
         }
@@ -53,7 +52,7 @@ class EventAddViewModel: ObservableObject {
     }
     func addEvents() {
         isLoading = true
-        let perEvent = Float(100 / selectedEvents.count)
+//        let perEvent = Float(100 / selectedEvents.count)
         
         for i in selectedEvents {
             let data = i.title

@@ -17,6 +17,7 @@ class ProfileSettingsViewModel: ObservableObject {
     
     @Published var error: String = ""
     @Published var isAlertPresented: Bool = false
+    @Published var isSheetPresented: Bool = false
     @Published var firstName: String = ""
     @Published var secondName: String = ""
     @Published var isLoading:Bool = false

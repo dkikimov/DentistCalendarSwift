@@ -16,10 +16,14 @@ struct PatientsListView: View {
                 Group {
                     if listData.patientsList.count > 0 {
                         List{
-                            ForEach(listData.patientsList.indices, id: \.self) { index in
-                                NavigationLink(destination: PatientsDetailView(index: index, listData: listData),
+                            ForEach(Array(zip(listData.patientsList.indices, listData.patientsList)), id: \.0) { (index, item) in
+//                                if index % 5 == 0 {
+//                                    NativeAdView()
+//                                        .frame(height: 250)
+//                                }
+                                NavigationLink(destination: PatientsDetailView(index: index, listData: listData, item: item),
                                                label: {
-                                                PatientsListRow(patient: $listData.patientsList[index])
+                                                PatientsListRow(patient: item)
                                                })
                             }.onDelete(perform: { indexSet in
                                 //                            listData.isAlertPresented = true
@@ -72,9 +76,16 @@ struct PatientsListView: View {
     }
     func deleteItem(at offsets: IndexSet) {
         if let first = offsets.first {
-            let id = listData.patientsList[first].id
-            self.listData.patientsList.remove(at: first)
-            listData.deletePatient(id: id)
+            if listData.patientsList.count >= first {
+                let id = listData.patientsList[first].id
+    //            self.listData.patientsList.remove(at: first)
+                print("LISTDATA", listData.patientsList)
+                print("INDEX", first)
+                listData.deletePatient(id: id)
+//                self.listData.patientsList.remove(atOffsets: offsets)
+                print("DELETED OK", listData.patientsList)
+            }
+
         }
     }
 }

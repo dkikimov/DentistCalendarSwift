@@ -10,18 +10,20 @@ import SPAlert
 import Amplify
 import Combine
 import UIKit
+import GoogleMobileAds
 class PatientsListViewModel: ObservableObject {
     @Published var patientsList = [Patient]()
     @Published var isLoading = false
      var refreshControl = UIRefreshControl()
     var observationToken: AnyCancellable?
-    
+    var interstital: Interstitial!
     deinit {
         observationToken?.cancel()
     }
     init() {
         fetchPatients()
         refreshControl.addTarget(self, action: #selector(fetchPatients), for: .valueChanged)
+        self.interstital = Interstitial()
     }
     @objc func fetchPatients(){
         Amplify.DataStore.query(Patient.self, sort: .ascending(Patient.keys.fullname)) { result in
@@ -32,6 +34,7 @@ class PatientsListViewModel: ObservableObject {
             case .failure(let error):
                 print("ERROR LIST", error.errorDescription)
         }
+            print("FETCHED PATIENT")
             //        Api().fetchPatients { (data, err) in
             //            if err != nil {
             //                print("error")
