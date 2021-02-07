@@ -16,16 +16,28 @@ let detectorType: NSTextCheckingResult.CheckingType = [.phoneNumber]
 class EventAddViewModel: ObservableObject {
     @Published var eventStore = EKEventStore()
     @Published var calendars: Set<EKCalendar>?
-    @Published var isSheetPresented = true
-    @Published var exampleData = ["1", "2", "3", "4"]
+    @Published var isSheetPresented = false
     @Published var isEditMode: EditMode = .active
     @Published var eventsList = [EKEvent]()
     @Published var selectedEvents = [EKEvent]()
     @Published var isLoading: Bool = false
-    func getEvents(){
+    @Published var errorText = ""
+    var wasCalled: Bool = false
+    func requestAccess(completion: @escaping (Bool, Error?) -> () ) {
         eventStore.requestAccess(to: .event) { (status, err) in
             if err != nil {
-                print("ERROR", err!)
+                self.errorText = err!.localizedDescription
+            }
+            DispatchQueue.main.async {
+                completion(status, err)
+            }
+        }
+    }
+    
+    func getEvents(){
+        requestAccess { (status, err) in
+            if err != nil {
+                print("ERROR REQUESTING ACCESS", err!)
                 return
             }
             if status {

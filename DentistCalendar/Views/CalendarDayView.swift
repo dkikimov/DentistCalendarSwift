@@ -4,15 +4,17 @@ import Amplify
 
 struct CalendarDayView: View {
     @State var tabSelection: Tabs = .tab1
+    @EnvironmentObject var modalManager: ModalManager
     var body: some View {
-        VStack {
+//        VStack {
             TabView(selection: $tabSelection) {
-                    CalendarKitView()
+                
+        CalendarKitView()
                     .tag(Tabs.tab1)
                     .tabItem({
                         Image(systemName: "calendar")
                         Text("Календарь")
-                        
+
                     }).toolbar(content: {
                         ToolbarItem(placement: .status, content: {})
                     })
@@ -25,11 +27,11 @@ struct CalendarDayView: View {
                     Text("Пациенты")
                 })
             }
-        
+    
 //        BannerVC()
 //            .frame(width: 320, height: 50, alignment: .center)
 //        }
-        }
+//        }
 
 //            .navigationBarTitle(returnNaviBarTitle(tabSelection: self.tabSelection))//add the
 //            .navigationBarTitleDisplayMode(returnDisplayMode(tabSelection: self.tabSelection))

@@ -16,12 +16,22 @@ struct LoginView: View {
             VStack(spacing: 15) {
                 CustomTextField(label: "Email", title: "example@gmail.com", text: $loginData.emailAddress, isSecure: false, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20).padding(.top, 20)
                 CustomTextField(label: "Пароль", title: "example123", text: $loginData.password, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
-                NavigationLink(
-                    destination: RegisterView(),
-                    label: {
-                    Text("Нет аккаунта? Зарегистрируйтесь").fontWeight(.bold)
-                        .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
-                }).padding(.horizontal, 20)
+                HStack() {
+                    NavigationLink(
+                        destination: RegisterView(),
+                        label: {
+                        Text("Нет аккаунта? Зарегистрируйтесь").fontWeight(.bold)
+                            .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
+                    }).padding(.horizontal, 20)
+                    Spacer()
+                    NavigationLink(
+                        destination: ForgotPasswordView(),
+                        label: {
+                            Text("Забыли пароль?")
+                                .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
+                        }).padding(.horizontal, 20)
+                }
+                
                 CustomButton(action: {
                     loginData.login(sessionManager: self.sessionManager)
                 }, imageName: "arrowshape.zigzag.forward", label: "Войти", isLoading: $loginData.isLoading)

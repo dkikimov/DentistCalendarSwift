@@ -15,14 +15,13 @@ class PatientUpdateViewModel : ObservableObject {
 
     @Published var isAlertPresented: Bool = false
     @Published var isLoading = false
-    @Published var error = ""
+    var error = ""
     
-    @Published var patient: Patient
+    var patient: Patient
     var index: Int
-    @Published  var fullname: String = ""
-    @Published  var phone: String = ""
+    var fullname: String = ""
+    var phone: String = ""
     
-    @AppStorage("isLogged") var status = false
 //    init (patient: PatientData) {
 //        self.patient = patient
 //    }
@@ -34,26 +33,36 @@ class PatientUpdateViewModel : ObservableObject {
     }
     func updatePatient(listData: PatientsListViewModel, compelition: @escaping(Bool) -> () ){
         self.isLoading = true
+        let finalFullname = fullname.trimmingCharacters(in: .whitespaces)
+        let finalPhone = phone.replacingOccurrences(of: " ", with: "")
+        guard (finalFullname != patient.fullname || finalPhone != patient.phone)  else {
+            error = "Имя и фамилия не были изменены".localized
+            isAlertPresented = true
+            isLoading = false
+            return
+        }
+        guard !finalFullname.isEmpty && !finalPhone.isEmpty else {
+            error = "Заполните форму".localized
+            isAlertPresented = true
+            isLoading = false
+            return
+        }
         var newPatient = patient
-        newPatient.fullname = fullname.trimmingCharacters(in: .whitespaces)
-        newPatient.phone = phone.replacingOccurrences(of: " ", with: "")
-        var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Данные успешно изменены!", preset: .done)
+        newPatient.fullname = finalFullname
+        newPatient.phone = finalPhone
         Amplify.DataStore.save(newPatient) { res in
             switch res {
             case .success(let patient):
                 print("INDEX", self.index)
                 listData.patientsList[self.index].fullname = patient.fullname
                 listData.patientsList[self.index].phone = patient.phone
-                alertView.duration = 3
-                alertView.present()
+                presentSuccessAlert(message: "Данные успешно изменены!")
                 DispatchQueue.main.async {
                     compelition(true)
                 }
                 print("UPDATED PATIENT", patient)
             case .failure(let error):
-                alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
-                alertView.duration = 4
-                alertView.present()
+                presentErrorAlert(message: error.errorDescription)
                 DispatchQueue.main.async {
                     compelition(false)
                 }
@@ -63,17 +72,13 @@ class PatientUpdateViewModel : ObservableObject {
         self.isLoading = false
     }
     func deletePatient(listData: PatientsListViewModel) {
-        var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно удален!", preset: .done)
         Amplify.DataStore.delete(Patient.self, withId: patient.id) { res in
             switch res {
             case .success:
-                alertView.duration = 2
-                alertView.present()
+                presentSuccessAlert(message: "Пациент успешно удален!")
                 listData.patientsList.remove(at: self.index)
             case .failure(let error):
-                alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
-                alertView.duration = 3.5
-                alertView.present()
+                presentSuccessAlert(message: error.errorDescription)
             }
         }
     }

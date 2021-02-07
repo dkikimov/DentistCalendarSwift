@@ -21,7 +21,6 @@ class PatientsListViewModel: ObservableObject {
         observationToken?.cancel()
     }
     init() {
-        fetchPatients()
         refreshControl.addTarget(self, action: #selector(fetchPatients), for: .valueChanged)
         self.interstital = Interstitial()
     }
@@ -55,12 +54,9 @@ class PatientsListViewModel: ObservableObject {
         Amplify.DataStore.delete(Patient.self, withId: id) { res in
             switch res {
             case .success:
-                alertView.duration = 2
-                alertView.present()
+                presentSuccessAlert(message: "Пациент успешно удален!")
             case .failure(let error):
-                alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
-                alertView.duration = 3.5
-                alertView.present()
+                presentErrorAlert(message: error.errorDescription)
             }
         }
 //        Api().deletePatient(id: id) { (success, err) in

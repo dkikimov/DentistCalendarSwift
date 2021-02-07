@@ -44,19 +44,15 @@ class PatientDetailViewModel : ObservableObject {
     }
     func deleteAppointment() {
         if let appoint = selectedAppointment {
-            var alertView: SPAlertView = SPAlertView(title: "Успех!", message: "Запись успешно удалена!", preset: .done)
             Amplify.DataStore.delete(Appointment.self, withId: appoint.id) { res in
                 switch res {
                 case .success:
-                    alertView.duration = 2
-                    alertView.present()
+                    presentSuccessAlert(message: "Запись успешно удалена!")
                     self.appointments = self.appointments.filter({ (app) -> Bool in
                         app.id != appoint.id
                     })
                 case .failure(let error):
-                    alertView = SPAlertView(title: "Ошибка", message: error.errorDescription, preset: .error)
-                    alertView.duration = 3.5
-                    alertView.present()
+                    presentErrorAlert(message: error.errorDescription)
                 }}
         } else {
             print("Error")

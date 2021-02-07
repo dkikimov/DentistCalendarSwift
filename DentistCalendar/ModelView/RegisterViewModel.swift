@@ -24,25 +24,35 @@ class RegisterViewModel : ObservableObject {
     
     func register(sessionManager: SessionManager) {
         self.isLoading = true
+        
+        
         if emailAddress.trimmingCharacters(in: .whitespaces) == "" || password.trimmingCharacters(in: .whitespaces) == ""  || name.trimmingCharacters(in: .whitespaces) == "" || secondName.trimmingCharacters(in: .whitespaces) == "" {
-            error = "Заполните форму!"
+            error = "Заполните форму"
             isAlertPresented = true
             self.isLoading = false
             return
         }
-        if password.trimmingCharacters(in: .whitespaces) != repeatPassword.trimmingCharacters(in: .whitespaces) {
-            error = "Пароли не совпадают"
-            isAlertPresented = true
-            self.isLoading = false
+        let (isValid, err) = checkEmail(emailAddress)
+        guard isValid else {
+            self.error = err!
+            self.isAlertPresented = true
+            return
+        }
+        let (status, error) = checkPassword(a: password, b: repeatPassword)
+        
+        guard status else {
+            self.error = error!
+            self.isAlertPresented = true
             return
         }
         
         sessionManager.signUp(email: emailAddress, password: password, firstName: name.trimmingCharacters(in: .whitespaces), secondName: secondName.trimmingCharacters(in: .whitespaces)){ err in
             if let err = err {
-
                 self.error = err
                 self.isAlertPresented = true
+                
             }
+            self.isLoading = false
         }
         //        Api().register(fullname: finalName, email: emailAddress, password: password) { data, err in
         //

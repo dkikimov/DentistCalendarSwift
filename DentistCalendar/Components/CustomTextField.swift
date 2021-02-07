@@ -16,13 +16,13 @@ struct CustomTextField: View {
     var body: some View {
         VStack(alignment: .leading) {
             if isSecure {
-                Text(label)
+                Text(label.localized)
                     .font(.callout)
                     .bold()
                 SecureField(title, text: self.$text).keyboardType(keyboardType).textContentType(.password)
                 Divider()
             } else {
-                Text(label)
+                Text(label.localized)
                     .font(.callout)
                     .bold()
                 TextField(title, text: self.$text).keyboardType(keyboardType).textContentType(.password)

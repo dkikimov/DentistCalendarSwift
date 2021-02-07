@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import PhoneNumberKit
-import iPhoneNumberField
 
 
 func stringFromDate(date: Date) -> String {
@@ -50,7 +49,7 @@ struct AppointmentCreateView: View {
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group))
         //       data = AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group)
-        print("DATE START", dateStart)
+//        print("DATE START", dateStart)
         self.group = group
         
     }
@@ -82,7 +81,7 @@ struct AppointmentCreateView: View {
                     Button(action: {
                         
                          if data.segmentedMode == .withPatient {
-                            guard phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
+                            guard data.selectedPatient != nil  || data.viewType != .createWithPatient || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
                                     print("NUMBER", phoneNumber)
                                     data.error = "Введите корректный номер".localized
                                     data.isAlertPresented = true
@@ -94,20 +93,27 @@ struct AppointmentCreateView: View {
                                 return
                             }
                             
-                            if data.viewType == .editCalendar {
-                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
-                            }
-                               else if data.viewType == .create {
+//                            if data.viewType == .editCalendar {
+//                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
+//                            }
+                                if data.viewType == .create {
                                     data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                                } else if data.viewType == .edit{
-                                    data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                                } else if data.viewType == .createWithPatient {
+                                }
+//                               else if data.viewType == .edit{
+//                                    data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)       }
+                         else if data.viewType == .createWithPatient {
                                     data.createAppointmentAndPatient(phoneNumber: phoneNumber)
                                 }
-                            
-                            
                         } else if data.segmentedMode == .nonPatient {
-                            data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
+                            if data.viewType == .create || data.viewType == .createWithPatient{
+                                data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
+                            }
+                        }
+                        if data.viewType == .editCalendar {
+                            data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
+                        }
+                        else if data.viewType == .edit{
+                            data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
                         }
                     }, label: {
                         Text("Сохранить")

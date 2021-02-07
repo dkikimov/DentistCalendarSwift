@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIRefresh
 import GoogleMobileAds
 
 struct PatientsDetailView: View {
@@ -94,6 +93,7 @@ struct PatientsDetailView: View {
                         AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
                             .presentation(isModal: true)
                             .environmentObject(detailData)
+                            .allowAutoDismiss(false)
                     }
                     
                     
@@ -122,7 +122,6 @@ struct PatientsDetailView: View {
             //        })
             
         }
-        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         .background(Color("Gray2"))
     }
     //        .onAppear(perform: self.listData.interstital.showAd)

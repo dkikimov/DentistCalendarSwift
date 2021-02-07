@@ -28,8 +28,7 @@ class AppointmentCalendarViewModel: ObservableObject {
         Amplify.DataStore.delete(appointment) { res in
             switch res {
             case .success:
-                alert.duration = 2
-                alert.present()
+                alert.present(duration: 2, haptic: .success)
                 print("DELETED")
                 presentationMode.wrappedValue.dismiss()
             case .failure(let error):

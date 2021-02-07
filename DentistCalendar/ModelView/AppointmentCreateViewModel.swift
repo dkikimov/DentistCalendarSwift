@@ -78,7 +78,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 for diagnosis in appointment!.diagnosis!.components(separatedBy: ";") {
                     let diagData = diagnosis.split(separator: ":")
                     if diagData.count == 3 {
-                        selectedDiagnosisList[String(diagData[0])] = Favor(price: String(diagData[1]), prePayment: String(diagData[2]))
+                        selectedDiagnosisList[String(diagData[0])] = Favor(price: Decimal(string: String(diagData[1]))!.formatted, prePayment: Decimal(string: String(diagData[2]))!.formatted)
                     }
                     else if diagData.count == 2 {
                         selectedDiagnosisList[String(diagData[0])] = Favor(price: String(diagData[1]), prePayment: "0")
@@ -124,9 +124,7 @@ class AppointmentCreateViewModel : ObservableObject {
             switch res{
             case .success(let appointment):
                 patientDetailData.appointments.append(appointment)
-                let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно добавлена!", preset: .done)
-                alertView.duration = 2
-                alertView.present()
+                presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
 
                 isModalPresented.wrappedValue = false
@@ -151,9 +149,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 if patientDetailData != nil {
                     patientDetailData!.appointments[patientDetailData!.appointments.firstIndex(of: self.appointment!)!] = app
                 }
-                let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно обновлена!", preset: .done)
-                alertView.duration = 2
-                alertView.present()
+                presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
 
                 isModalPresented.wrappedValue = false
@@ -181,9 +177,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 DispatchQueue.main.async {
                     appointment.wrappedValue = app
                 }
-                let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Запись успешно обновлена!", preset: .done)
-                alertView.duration = 2
-                alertView.present()
+                presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
                 isModalPresented.wrappedValue = false
             case .failure(let error):
@@ -280,7 +274,9 @@ class AppointmentCreateViewModel : ObservableObject {
         }
     }
     func generateDiagnosisString(_ onlyTitle: Bool = false) -> String {
-        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" + $0.value.price.trimmingCharacters(in: .whitespaces)  + ($0.value.prePayment.isEmpty ? "" : ":" + $0.value.prePayment.trimmingCharacters(in: .whitespaces) )}
+        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" +
+            NSDecimalNumber(string: $0.value.price.isEmpty ? "0" : String($0.value.price.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue
+              + ":" + NSDecimalNumber(string: $0.value.prePayment.isEmpty ? "0" : String($0.value.prePayment.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue}
             .joined(separator: ";")
         
     }

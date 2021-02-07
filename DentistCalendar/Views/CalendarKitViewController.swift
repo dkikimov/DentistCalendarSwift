@@ -10,6 +10,7 @@ import CalendarKit
 import SwiftUI
 import Amplify
 import Combine
+import BottomSheet
 let group = DispatchGroup()
 
 public struct newModel {
@@ -39,19 +40,19 @@ func getAppointment() {
     group.leave()
 }
 class CustomDayViewController: ObservableObject {
+    let id = UUID()
     var customDayView: DayView?
     var fullScreenIsCalendar: Bool = false
-    var selectedAppointment: Appointment = Appointment(title: "Загрузка...", dateStart: "0", dateEnd: "0")
+     var selectedAppointment: Appointment = Appointment(title: "Загрузка...", dateStart: "0", dateEnd: "0")
     @Published var selectedDate: Date =  Date()
+    @Published var isDatePickerPresented = false
+    @Published var isFullScreenPresented = false
     var dateStart: Date = Date()
     var dateEnd: Date = Date()
-    
 }
 class CustomCalendarExampleController: DayViewController {
     
     var observationToken: AnyCancellable?
-    var isModalPresented: Binding<Bool>
-    var isViewPresented: Binding<Bool>
     var dateStart: Binding<Date>
     var selectedAppointment: Binding<Appointment>
     var dateEnd: Binding<Date>
@@ -120,7 +121,6 @@ class CustomCalendarExampleController: DayViewController {
                 case "delete":
                     if let index = self.generatedEvents.firstIndex(where: {$0.id == app.id}) {
                         self.generatedEvents.remove(at: index)
-                        //                        self.endEventEditing()
                         self.reloadData()
                     }
                     break
@@ -170,7 +170,8 @@ class CustomCalendarExampleController: DayViewController {
         style.header.daySelector.todayActiveBackgroundColor = UIColor(Color(hex: "#2A86FF"))
         dayView.updateStyle(style)
         view = dayView
-        viewData.customDayView = dayView
+            viewData.customDayView = dayView
+        print("DAYVIEW", dayView)
         //        customDayViewControlle
         print("LOADVIEW")
     }
@@ -182,21 +183,23 @@ class CustomCalendarExampleController: DayViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dayView.autoScrollToFirstEvent = false
+        dayView.autoScrollToFirstEvent = true
         reloadData()
         print("VIEWDIDLOAD")
         
     }
-    init(isModalPresented: Binding<Bool>, dateStart: Binding<Date>, dateEnd: Binding<Date>, isViewPresented: Binding<Bool>, selectedAppointment: Binding<Appointment>, viewData: CustomDayViewController)
+    override func viewDidDisappear(_ animated: Bool) {
+        observationToken?.cancel()
+    }
+    init(dateStart: Binding<Date>, dateEnd: Binding<Date>, selectedAppointment: Binding<Appointment>, viewData: CustomDayViewController)
     {
-        self.isModalPresented = isModalPresented
         self.dateStart = dateStart
         self.dateEnd = dateEnd
-        self.isViewPresented = isViewPresented
         self.selectedAppointment = selectedAppointment
         self.viewData = viewData
         super.init(nibName: nil, bundle: nil)
-        viewData.customDayView = self.dayView
+//        viewData.customDayView = self.dayView
+        print("VIEWDATA", viewData.id)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -207,7 +210,7 @@ class CustomCalendarExampleController: DayViewController {
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         let formattedDate = Date(year: date.year, month: date.month, day: date.day, hour: 0, minute: 0, second: 0)
-        viewData.selectedDate = dayView.state!.selectedDate
+//        viewData.selectedDate = dayView.state!.selectedDate
         if !alreadyGeneratedSet.contains(formattedDate) {
             print("generate events", date)
             alreadyGeneratedSet.insert(formattedDate)
@@ -260,7 +263,7 @@ class CustomCalendarExampleController: DayViewController {
             case .success(let appointments):
                 self.viewData.fullScreenIsCalendar = true
                 self.selectedAppointment.wrappedValue = appointments[0]
-                self.isViewPresented.wrappedValue = true
+                self.viewData.isFullScreenPresented = true
                 
                 print("GOT APPOINTMENTS", appointments)
             //                print("FULLSCREENISCALENDAR", fullScreenIsCalendar.wrappedValue)
@@ -279,7 +282,6 @@ class CustomCalendarExampleController: DayViewController {
         endEventEditing()
         print("Event has been longPressed: \(descriptor) \(String(describing: descriptor.userInfo))")
         beginEditing(event: descriptor, animated: true)
-        print(Date())
     }
     
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
@@ -299,7 +301,8 @@ class CustomCalendarExampleController: DayViewController {
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
         print("DayView = \(dayView) did move to: \(date)")
-        viewData.customDayView?.move(to: date)
+        viewData.selectedDate = dayView.state!.selectedDate
+//        viewData.customDayView?.move(to: date)
     }
     
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
@@ -342,11 +345,11 @@ class CustomCalendarExampleController: DayViewController {
     }
     
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
-//        self.dateStart.wrappedValue = event.startDate
-//        self.dateEnd.wrappedValue = event.endDate
+        //        self.dateStart.wrappedValue = event.startDate
+        //        self.dateEnd.wrappedValue = event.endDate
         viewData.dateStart = event.startDate
         viewData.dateEnd = event.endDate
-        print("did finish editing \(event)")
+//        print("did finish editing \(event)")
         print("new startDate: \(event.startDate) new endDate: \(event.endDate)")
         
         
@@ -357,10 +360,10 @@ class CustomCalendarExampleController: DayViewController {
             //            if self.isModalPresented.wrappedValue == true || event.startDate == event.endDate{
             //                return
             //            }
-            guard self.isModalPresented.wrappedValue == false && event.startDate != event.endDate else {return}
+            guard self.viewData.isFullScreenPresented == false && event.startDate != event.endDate else {return}
             print("START DATE", event.startDate)
             //            self.viewData.fullScreenIsCalendar = false
-            self.isModalPresented.wrappedValue = true
+            self.viewData.isFullScreenPresented = true
             group.enter()
             print("GROUP ENTER")
             group.notify(queue: .main) {
@@ -370,12 +373,12 @@ class CustomCalendarExampleController: DayViewController {
                 print("I WAS NOTIFIED")
                 if newModel.appointment == nil{
                     self.endEventEditing()
-                    self.isModalPresented.wrappedValue = false
+                    self.viewData.isFullScreenPresented = false
                     return
                 }
                 
                 print("OK I GOT IT")
-                self.isModalPresented.wrappedValue = false
+                self.viewData.isFullScreenPresented = false
                 
                 
                 print("CREATED EVENT")
@@ -424,47 +427,45 @@ class CustomCalendarExampleController: DayViewController {
 }
 
 struct CustomController: UIViewControllerRepresentable {
-    @Binding var isModalPresented: Bool
     @Binding var dateStart: Date
     @Binding var dateEnd: Date
     @Binding var generatedEvents: [EventDescriptor]
-    @Binding var isViewPresented: Bool
     @Binding var selectedAppointment: Appointment
     var viewData: CustomDayViewController
     func updateUIViewController(_ uiViewController: UIViewController, context: Context){
     }
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let dayViewController = CustomCalendarExampleController(isModalPresented: $isModalPresented, dateStart: $dateStart, dateEnd: $dateEnd, isViewPresented: $isViewPresented, selectedAppointment: $selectedAppointment, viewData: viewData)
+        let dayViewController = CustomCalendarExampleController( dateStart: $dateStart, dateEnd: $dateEnd, selectedAppointment: $selectedAppointment, viewData: viewData)
+        dayViewController.navigationController?.hidesBarsWhenKeyboardAppears = true
         return dayViewController
     }
 }
 
 
 struct CalendarKitView: View {
-    @State var isFullScreenPresented = false
+    
     @State var dateStart = Date()
     @State var dateEnd = Date()
     @State var cancellable: AnyCancellable?
     @State var generatedEvents = [EventDescriptor]()
-    @State var selectedDate: Date = Date()
-    @ObservedObject var data = CustomDayViewController()
-    
+//    @State var selectedDate: Date = Date()
+    @StateObject var data = CustomDayViewController()
     @State var isShown = false
     @State var isTodayShown = false
-    @State var isDataPickerPresented = false
+//    @State var isDataPickerPresented = false
     @State var intestial = Interstitial()
+    @State var isSettingsPresented = false
+    
+    @StateObject var modalManager = ModalManager()
     var body: some View {
-        ZStack {
             NavigationView {
-                Group {
+                ZStack {
                     ZStack {
-                        CustomController(isModalPresented: $isFullScreenPresented, dateStart: $dateStart, dateEnd: $dateEnd, generatedEvents: $generatedEvents, isViewPresented: $isFullScreenPresented, selectedAppointment: $data.selectedAppointment, viewData: data)
+                        CustomController(dateStart: $dateStart, dateEnd: $dateEnd, generatedEvents: $generatedEvents,selectedAppointment: $data.selectedAppointment, viewData: data)
                         if isTodayShown {
-                            //                        Print(data.customDayView!.state!.selectedDate)
                             VStack {
                                 Spacer()
-                                
                                 HStack{
                                     Button(action: {
                                         moveDate(Date())
@@ -490,66 +491,57 @@ struct CalendarKitView: View {
                             })
                         }
                     }
-                    
-                    //                    NavigationLink(destination: AppointmentCalendarView(appointment: selectedAppointment), isActive: $isViewPresented, label: {EmptyView()})
-                    //                    NavigationLink(destination: AppointmentCreateView(isAppointmentPresented: $isModalPresented, viewType: .createWithPatient, dateStart: dateStart, dateEnd: dateEnd, group: group), isActive: $isModalPresented, label: {EmptyView()})
-                    //                    .isDetailLink(false)
-                    //                if isDatePickerPresented {
-                    //
-                    //                }
-                }
-                .onChange(of: data.selectedDate, perform: { (newDate) in
-                    if newDate.isToday {
-                        isShown = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-                            isTodayShown = false
-                        })
-                    } else {
-                        isTodayShown = true
-                    }
-                    selectedDate = newDate
-                })
-                .onChange(of: selectedDate, perform: { (newDate) in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-                        if newDate != data.selectedDate {
-                            data.customDayView?.move(to: newDate)
+                    .onChange(of: data.selectedDate, perform: { (newDate) in
+                        print("NEWDATE", data.selectedDate)
+                        if newDate.isToday {
+                            isShown = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                                isTodayShown = false
+                            })
+                        } else {
+                            isTodayShown = true
                         }
                     })
-                })
-                .navigationBarTitle("Календарь", displayMode: .inline)
-                .navigationBarItems(leading: NavigationLink(destination: ProfileSettingsView(), label: {
-                    Image(systemName: "gearshape.fill").font(.title3)
-                }), trailing:
-                    Button(action: {
-                        isDataPickerPresented = true
-                    }, label: {
-                        //                Image(systemName: "calendar.circle")
-                        Image(systemName: "calendar")
-                            .font(.title3)
-                        
+                    .onChange(of: modalManager.selectedDate, perform: { (newDate) in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                            if newDate != data.selectedDate {
+                                data.customDayView?.move(to: newDate)
+                            }
+                        })
+//                        print("DAYVIEW", data.customDayView)
+//                        print("VIEWDATA", data.id)
+
                     })
-                
-                
-                )
-                .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+                    .navigationBarTitle("Календарь", displayMode: .inline)
+                    .navigationBarItems(leading:
+                                            NavigationLink(destination: ProfileSettingsView(), label: {
+                                                Image(systemName: "gearshape.fill").font(.title3)
+                                            }).isDetailLink(false), trailing:
+                                            Button(action: {
+                                                modalManager.selectedDate = data.selectedDate
+                                                modalManager.isDatePickerPresented.toggle()
+                                            }, label: {
+                                                Image(systemName: "calendar")
+                                                    .font(.title3)
+                                                
+                                            })
+                    )
+            }
                 
             }
-            HalfModalView(isShown: $isDataPickerPresented) {
-                DatePicker("", selection: $selectedDate, displayedComponents: .date)
+            .halfModalSheet(isPresented: $modalManager.isDatePickerPresented) {
+                DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())
                     .labelsHidden()
             }
-        }
-        
-        
-        
-        //        .onAppear(perform: observe)
-        .fullScreenCover(isPresented: $isFullScreenPresented, content: {
-            Print("FULL ScREEN", data.fullScreenIsCalendar)
+            .sheet(isPresented: $data.isFullScreenPresented, content: {
+//            Print("FULL ScREEN", data.fullScreenIsCalendar)
             if data.fullScreenIsCalendar {
                 AppointmentCalendarView(appointment: data.selectedAppointment, fullScreenIsCalendar: $data.fullScreenIsCalendar, intestital: intestial)
+                    .allowAutoDismiss(true)
             } else {
-                AppointmentCreateView(isAppointmentPresented: $isFullScreenPresented, viewType: .createWithPatient, dateStart: data.dateStart, dateEnd: data.dateEnd, group: group)
+                AppointmentCreateView(isAppointmentPresented: $data.isFullScreenPresented, viewType: .createWithPatient, dateStart: data.dateStart, dateEnd: data.dateEnd, group: group)
+                    .allowAutoDismiss(false)
             }
             
         })
@@ -564,9 +556,9 @@ struct CalendarKitView: View {
                 }
             } receiveValue: { (changes) in
                 print("CHANGES ", changes)
-                guard let app = try? changes.decodeModel(as: Appointment.self) else {return}
+//                guard let app = try? changes.decodeModel(as: Appointment.self) else {return}
                 
-                print(app)
+//                print(app)
             }
     }
     func dateOnly(date: Date, calendar: Calendar) -> Date {
@@ -590,7 +582,8 @@ struct CalendarKitView: View {
     func moveDate(_ date: Date) {
         let offsetDate = dateOnly(date: date, calendar: data.customDayView!.calendar)
         data.customDayView!.state?.move(to: offsetDate)
-        print("DAY VIEW", data.customDayView!)
+//        print("DAY VIEW", data.customDayView!)
     }
 }
+
 

@@ -10,12 +10,21 @@ import Amplify
 import AmplifyPlugins
 import PhoneNumberKit
 import GoogleMobileAds
+import Firebase
 public var phoneNumberKit = PhoneNumberKit()
+
+class ModalManager: ObservableObject {
+    @Published var isDatePickerPresented = false
+    @Published var selectedDate = Date()
+}
+
+
 
 @main
 struct DentistCalendarApp: App {
     @ObservedObject var sessionManager = SessionManager()
-//    @StateObject private var store = Store()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    //    @StateObject private var store = Store()
     init() {
         configureAmplify()
         sessionManager.getCurrentAuthUser()
@@ -23,11 +32,13 @@ struct DentistCalendarApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(sessionManager)
-//                .environmentObject(store)
-        }
-    }
+                ContentView()
+                    .environmentObject(sessionManager)
+                    .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+                }
+            
+        }}
+    
     
     private func configureAmplify() {
         let dataStorePlugin = AWSDataStorePlugin(modelRegistration: AmplifyModels())
@@ -46,4 +57,4 @@ struct DentistCalendarApp: App {
     private func configureGoogleAds() {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
     }
-}
+

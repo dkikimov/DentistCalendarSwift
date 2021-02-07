@@ -24,7 +24,7 @@ struct BuySubscriptionView: View {
                 }, label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 16, weight: .bold, design: .serif))
-                        .foregroundColor(Color("Blue"))
+                        .foregroundColor(Color("StaticBlue"))
                         
                 }).padding(.bottom, 5)
                 Text("DentistApp Premium")
@@ -38,7 +38,7 @@ struct BuySubscriptionView: View {
                 ForEach(benefitsList, id: \.self) { item in
                     HStack(alignment: .top, spacing: 8) {
                         Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color("Blue"))
+                            .foregroundColor(Color("StaticBlue"))
                         Text(item.localized)
                             .bold()
                             .lineLimit(3)
@@ -54,7 +54,7 @@ struct BuySubscriptionView: View {
                 }
                 .frame(maxWidth: 450)
                 .padding()
-                .background(Color("Blue"))
+                .background(Color("StaticBlue"))
                 .foregroundColor(.white)
                 .clipShape(Rectangle())
                 .cornerRadius(8)
@@ -79,7 +79,7 @@ struct BuySubscriptionView: View {
                         Text("Условия использования")
                             .font(.caption2)
                             .bold()
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("Black1"))
                         
                     })
                     Button(action: {
@@ -88,7 +88,7 @@ struct BuySubscriptionView: View {
                         Text("Политика конфиденциальности")
                             .font(.caption2)
                             .bold()
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("Black1"))
                             .lineLimit(1)
                     })
                     Spacer()
@@ -112,7 +112,7 @@ struct BuySubscriptionView: View {
                         .frame(maxWidth: 450)
                         .padding()
                 })
-                .background(Color("Blue"))
+                .background(Color("StaticBlue"))
                 .foregroundColor(.white)
                 .clipShape(Rectangle())
                 .cornerRadius(8)

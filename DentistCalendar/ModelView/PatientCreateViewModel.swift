@@ -12,27 +12,31 @@ import PhoneNumberKit
 import SPAlert
 class PatientCreateViewModel : ObservableObject {
     
-    @Published var patientName = ""
-    @Published var patientNumber = ""
+    var patientName = ""
+    var patientNumber = ""
     @Published var isAlertPresented: Bool = false
     
     @Published var isLoading = false
-    @Published var error = ""
+    var error = ""
     //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     
     func createPatient(patientData: PatientsListViewModel,completion: @escaping(Bool) -> ()){
         self.isLoading = true
+        guard !patientName.isEmpty else {
+            error = "Заполните форму".localized
+            isAlertPresented = true
+            isLoading = false
+            return
+        }
 //        print("CURRENT NUMBER", patientNumber)
 //        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
         if phoneNumberKit.isValidPhoneNumber(patientNumber) {
             let newPatient = Patient(fullname: patientName, phone: patientNumber.replacingOccurrences(of: " ", with: ""), owner: Amplify.Auth.getCurrentUser()!.userId)
             Amplify.DataStore.save(newPatient) { result in
                 switch result{
-                case .success(let patient):
+                case .success(_):
 //                    patientData.patientsList.append(patient)
-                    let alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно добавлена!", preset: .done)
-                    alertView.duration = 3
-                    alertView.present()
+                    presentSuccessAlert(message: "Пациент успешно добавлен!")
                     DispatchQueue.main.async {
                         completion(true)
                     }

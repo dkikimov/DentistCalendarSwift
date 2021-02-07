@@ -11,9 +11,9 @@ struct SumSection: View {
     @EnvironmentObject var data: AppointmentCreateViewModel
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Общая стоимость: ").bold() + Text(NSDecimalNumber(decimal: data.sumPrices).stringValue)
-            Text("Оплачено: ").bold() + Text(NSDecimalNumber(decimal: data.sumPayment).stringValue)
-            Text("Осталось к оплате: ").bold() + Text(NSDecimalNumber(decimal: data.sumPrices - data.sumPayment).stringValue)
+            Text("Общая стоимость: ").bold() + Text(data.sumPrices.formatted)
+            Text("Оплачено: ").bold() + Text(data.sumPayment.formatted)
+            Text("Осталось к оплате: ").bold() + Text((data.sumPrices - data.sumPayment).formatted)
         }
     }
 }

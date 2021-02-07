@@ -19,7 +19,7 @@ class LoginViewModel : ObservableObject {
     func login(sessionManager: SessionManager) {
         self.isLoading = true
         if emailAddress.isEmpty || password.isEmpty {
-            error = "Заполните форму!"
+            error = "Заполните форму"
             isAlertPresented = true
             isLoading = false
             return
@@ -51,5 +51,11 @@ class LoginViewModel : ObservableObject {
 //
 //
 //        }
-    }}
+    }
+    
+    func resetPassword(sessionManager: SessionManager) {
+        
+    }
+    
+}
     

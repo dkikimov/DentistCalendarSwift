@@ -16,7 +16,6 @@ struct EventAddView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ProgressView()
-                
             }
             Group {
                 if data.eventsList.count > 0{
@@ -34,14 +33,26 @@ struct EventAddView: View {
                         
                     }
                 }
+                else if !data.errorText.isEmpty {
+                    Text(data.errorText)
+                }
                 else if data.eventsList.count == 0 && !data.isLoading {
                     Text("Нет данных")
                 }
             }
+            .onAppear(perform: {
+                data.requestAccess { (status, err) in
+                    if status && !data.wasCalled {
+                        data.wasCalled = true
+                        data.isSheetPresented = true
+                    }
+                }
+            })
+            .sheet(isPresented: $data.isSheetPresented, content: {
+                EventCalendarChooserView(calendars: $data.calendars, eventStore: data.eventStore, fetchEvents: data.getEvents)
+            })
         }
-        .sheet(isPresented: $data.isSheetPresented, content: {
-            EventCalendarChooserView(calendars: $data.calendars, eventStore: data.eventStore, fetchEvents: data.getEvents)
-        })
+        
         //        .environment(\.editMode, $data.isEditMode)
         .navigationBarItems(trailing: Button(action: {
             data.addEvents()

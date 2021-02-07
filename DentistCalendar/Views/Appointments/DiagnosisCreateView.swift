@@ -85,7 +85,7 @@ struct DiagnosisCreateView: View {
             withAnimation{
                 let newDiagnosis = Diagnosis(context: viewContext)
                 newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
-                newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : String(diagnosisPrice.doubleValue))
+                newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : diagnosisPrice)
                 saveContext()
                 diagnosisText = ""
                 diagnosisPrice = ""

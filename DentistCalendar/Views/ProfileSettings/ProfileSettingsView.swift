@@ -53,11 +53,12 @@ struct ProfileSettingsView: View {
                 }).disabled(profileData.isDisabled).animation(.easeInOut)
             }
             Section {
-                NavigationLink(
-                    destination: ProfileSettingsUserDataView(),
-                    label: {
-                        Text("Изменить пароль")
-                    })
+                Button(action: {
+                    profileData.isPasswordPresented = true
+                }, label: {
+                    Text("Изменить пароль")
+                        .foregroundColor(Color("Black1"))
+                })
                 NavigationLink(destination: EventAddView()) {
                     Text("Импортировать записи")
                 }
@@ -70,24 +71,38 @@ struct ProfileSettingsView: View {
                 })
             }
             Section {
-                Button(action: {
-                    sessionManager.signOut { (err) in
-                        if err != nil {
-                            self.profileData.error = err!
-                            self.profileData.isAlertPresented = true
+                    Button(action: {
+                        sessionManager.signOut { (err) in
+                            if err != nil {
+                                self.profileData.error = err!
+                                self.profileData.isAlertPresented = true
+                            }
                         }
-                    }
-                }, label: {
-                    Text("Выйти").foregroundColor(.red)
-                })
+                    }, label: {
+                        Text("Выйти").foregroundColor(.red)
+                    })
+                    
+                    
+                
             }
-        }.listStyle(GroupedListStyle())
-        .labelStyle(TitleOnlyLabelStyle())
-        .groupBoxStyle(DefaultGroupBoxStyle())
-        .menuStyle(BorderlessButtonMenuStyle())
-        .navigationTitle("Настройки")
-        .navigationBarTitleDisplayMode(.large)
-        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+            Button(action: {
+                print(UserDefaults.standard.string(forKey: "13123213")!)
+            }, label: {
+                Text("Crash")
+            })
+            .sheet(isPresented: $profileData.isPasswordPresented, content: {
+                ProfileSettingsUserDataView()
+            })
+            
+            
+        }
+        .navigationBarTitle("Настройки", displayMode: .large)
+        
+        .ignoresSafeArea(.keyboard)
+        //        .listStyle(GroupedListStyle())
+        //        .labelStyle(TitleOnlyLabelStyle())
+        //        .groupBoxStyle(DefaultGroupBoxStyle())
+        //        .menuStyle(BorderlessButtonMenuStyle())
         .sheet(isPresented: $profileData.isSheetPresented, content: {
             BuySubscriptionView()
         })

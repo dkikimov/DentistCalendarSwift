@@ -48,20 +48,22 @@
 "Выберите начало приема" = "Select start of appointment";
 "Выберите конец приема" = "Select end of appointment";
 "Зуб:" = "Tooth:";
-
+"Пароли не совпадают" = "Passwords don't match";
+"Введите корректный адрес электронной почты" = "Enter a valid email address";
+"Имя и фамилия" = "Full name";
 // Premium
 "Разблокируйте:" = "Unlock:";
 "Больше никакой рекламы" =  "No ads ever";
 "Синхронизируйте ваши данные" = "Sync your data";
-"Используйте на нескольких устройствах";
-"Импортируйте данные из календаря";
-"В будущем: генерируйте документы и выписки";
+"Используйте на нескольких устройствах" = "Use on multiple devices";
+"Импортируйте данные из календаря" = "Import data from your Calendar app";
+"В будущем: генерируйте документы и выписки" = "In the future: generate documents and statements";
 "1 месяц" = "1 month";
 "Восстановить покупки" = "Restore purchases";
 "Условия использования" = "Terms of use";
 "Политика конфиденциальности" = "Privacy policy";
 "Подписаться" = "Subscribe";
-
+"Восстановить" = "Recover";
 
 // Diagnosis Create View;
 
@@ -83,9 +85,8 @@
 "Текущий пароль" = "Current password";
 "Новый пароль" = "New password";
 "Повторите новый пароль" = "Repeat new password";
-"Минимальное количество символов - 6" = "Minimum length of password is 6";
+"Минимальное количество символов - 8" = "Minimum length of password is 8";
 "Пароли не совпадают" = "Passwords do not match";
-
 
 // Event add view
 "Нет данных" = "No data";
@@ -97,7 +98,7 @@
 
 //Appointment
 "Введите номер зуба" = "Enter the tooth number";
-
+"Введите название" = "Enter the title";
 // Patients view
 
 "Записей нет" = "No appointments";
@@ -105,15 +106,18 @@
 "Карта пациента" = "Patient card";
 "Выберите опции" = "Select options";
 
-"Вася Пупкин" = "Full name";
+"Вася Пупкин" = "John Doe";
+"Вася" = "John";
+"Пупкин" = "Doe";
 "Номер телефона" = "Phone number";
 "Изменить данные" = "Change data";
 "Подтверждение" = "Confirmation";
 "Вы точно хотите удалить пациента?" = "Are you sure you want to delete the patient?";
 "Да" = "Yes";
 "Создать пациента" = "Create patient";
-
-
+"Создать" = "Create";
+"Имя и фамилия не были изменены" = "Name and surname have not been changed";
+"Заполните форму" = "Fill the form";
 // Login Register;
 "Войти" = "Sign in";
 "Пароль" = "Password";
@@ -122,9 +126,19 @@
 "Вход" = "Sign in";
 "Зарегистрироваться" = "Register";
 "Регистрация" = "Registration";
+"Забыли пароль?" = "Forgot password?";
+"Восстановление" = "Password Recovery";
 // One time code;
-
+"Минимальная длина пароля 8 символов" = "The minimum password length is 8 characters";
 "Подтверждение " = "Confirmation";
 "Одноразовый код был отправлен вам на почту" = "A one-time code was sent to your email address";
 "Подтвердить" = "Confirm";
 "Пусто" = "Empty";
+//ALERT
+"Пациент успешно удален!" = "The patient was successfully deleted!";
+"Успех!" = "Success!";
+"Ошибка!" = "Error!";
+"Данные успешно изменены!" = "Data changed successfully!";
+"Пароль успешно изменен!"  = "Password changed successfully!";
+"Запись успешно добавлена!" = "Entry added successfully!";
+"Имя успешно изменено!" = "Name changed successfully!";

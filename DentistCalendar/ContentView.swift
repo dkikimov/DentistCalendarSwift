@@ -56,9 +56,11 @@ struct ContentView: View {
                 .environment(\.calendar, calendar)
             Print("Current Locale", Locale.preferredLanguages[0])
         case .confirmCode(username: let username):
-            ConfirmationView(username: username)
+            ConfirmationView(viewType: .signUp, username: username)
                 .environmentObject(sessionManager)
-
+        case .forgotCode(username: let username, newPassword: let newPassword):
+            ConfirmationView(viewType: .forgotPassword, newPassword: newPassword, username: username)
+                .environmentObject(sessionManager)
         }
     }
     

@@ -23,21 +23,20 @@ struct AppointmentCalendarView: View {
     @ObservedObject var data: AppointmentCalendarViewModel
     var intestital: Interstitial?
     var diagnosisList = [[Substring]]()
-    var serviceSum = 0
-    var servicePaid = 0
-
+    var serviceSum: Decimal = 0
+    var servicePaid: Decimal = 0
     init(appointment: Appointment, _ isEditAllowed: Bool = true, fullScreenIsCalendar: Binding<Bool>? = nil, intestital: Interstitial? = nil) {
         data = AppointmentCalendarViewModel(appointment: appointment, isEditAllowed: isEditAllowed, fullScreenIsCalendar: fullScreenIsCalendar)
         if appointment.diagnosis != nil {
-            var sum = 0
-            var paid = 0
+            var sum: Decimal = 0
+            var paid: Decimal = 0
             let a = appointment.diagnosis!.split(separator: ";")
             a.forEach({
                 let b = $0.split(separator: ":")
-                print("FOREACH B", b )
+//                print("FOREACH B", b )
                 if b.count == 3 {
-                    sum += Int(b[1])!
-                    paid += Int(b[2])!
+                    sum += Decimal(string: String(String(b[1]).doubleValue)) ?? 0
+                    paid += Decimal(string: String(String(b[2]).doubleValue)) ?? 0
                     diagnosisList.append(b)
                 }
             })
@@ -100,12 +99,15 @@ struct AppointmentCalendarView: View {
                             VStack(alignment: .leading) {
                                 Text("Услуги: ").font(.title2).bold()
                                 ServiceList(diagnosisList: diagnosisList)
+//                                Print(Decimal(0).formatted)
+//                                Print(Decimal(49.12).formatted)
+
                             }
                             Spacer(minLength: 25)
                             VStack(alignment: .leading) {
-                                Text("Общая стоимость: ").bold() + Text(String(serviceSum))
-                                Text("Оплачено: ").bold() + Text(String(servicePaid))
-                                Text("Осталось к оплате: ").bold() + Text(String(serviceSum - servicePaid))
+                                Text("Общая стоимость: ").bold() + Text(serviceSum.formatted)
+                                Text("Оплачено: ").bold() + Text(servicePaid.formatted)
+                                Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).formatted)
                             }
                         
                     } else {

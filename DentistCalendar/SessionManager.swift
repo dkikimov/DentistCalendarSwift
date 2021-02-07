@@ -10,30 +10,31 @@ enum AuthState {
     case login
     case confirmCode(username: String)
     case session(user: AuthUser)
+    case forgotCode(username: String, newPassword: String)
 }
 
 
 final class SessionManager: ObservableObject {
     @Published var authState: AuthState = .login
     
-//    func getCurrentAuthUser() {
-////        Amplify.Auth.signOut()
-//        _ = Amplify.Auth.fetchAuthSession { result in
-//            switch result {
-//            case .success(let session):
-//                print("Is user signed in - \(session.isSignedIn)")
-//                if session.isSignedIn  {
-//                    self.authState = .session(user: )
-//
-//                } else {
-//                    self.authState = .login
-//                }
-//            case .failure(let error):
-//                print("Fetch session failed with error \(error)")
-//                self.authState = .login
-//            }
-//        }
-//    }
+    //    func getCurrentAuthUser() {
+    ////        Amplify.Auth.signOut()
+    //        _ = Amplify.Auth.fetchAuthSession { result in
+    //            switch result {
+    //            case .success(let session):
+    //                print("Is user signed in - \(session.isSignedIn)")
+    //                if session.isSignedIn  {
+    //                    self.authState = .session(user: )
+    //
+    //                } else {
+    //                    self.authState = .login
+    //                }
+    //            case .failure(let error):
+    //                print("Fetch session failed with error \(error)")
+    //                self.authState = .login
+    //            }
+    //        }
+    //    }
     
     func getCurrentAuthUser() {
         if let user = Amplify.Auth.getCurrentUser() {
@@ -76,12 +77,56 @@ final class SessionManager: ObservableObject {
             case .failure(let error):
                 print("Sign up error", error)
                 DispatchQueue.main.async {
-                    compelition(error.localizedDescription)
+                    compelition(error.errorDescription)
+                }
+            }
+        }
+        
+    }
+    
+    func resetPassword(email: String, newPassword: String, compelition: @escaping( String?) -> ()) {
+        Amplify.Auth.resetPassword(for: email, options: .none) { [weak self] (result) in
+            switch result {
+            case .success(let res):
+                switch res.nextStep {
+                case .confirmResetPasswordWithCode(let details, _):
+                    print("DETAILS", details)
+                    DispatchQueue.main.async {
+                        self?.authState = .forgotCode(username: email, newPassword: newPassword)
+                        compelition(nil)
+                    }
+                case .done:
+                    DispatchQueue.main.async {
+                        self?.authState = .login
+                        compelition(nil)
+                    }
+                }
+            case .failure(let error):
+                print("ERROR")
+                DispatchQueue.main.async {
+                    compelition(error.errorDescription)
                 }
             }
         }
     }
-    
+    func updatePassword(oldPassword: String, newPassword: String,compelition: @escaping( String?) -> ()) {
+        _ = Amplify.Auth.update(oldPassword: oldPassword, to: newPassword) { result in
+            switch result {
+            case .success(let confirmResult):
+                print(confirmResult)
+                DispatchQueue.main.async {
+                    compelition(nil)
+                }
+                
+            case .failure(let error):
+                print("ERROR UPDATE PASSWORD", error)
+                DispatchQueue.main.async {
+                    compelition(error.errorDescription)
+                }
+            }
+        }
+        
+    }
     func confirm(username: String, code: String,compelition: @escaping( String?) -> ()) {
         _ = Amplify.Auth.confirmSignUp(for: username, confirmationCode: code, listener: { [weak self] (result) in
             switch result {
@@ -103,7 +148,24 @@ final class SessionManager: ObservableObject {
             }
         })
     }
-    
+    func confirmResetPassword(username: String, newPassword: String, code: String, compelition: @escaping( String?) -> ()) {
+        _ = Amplify.Auth.confirmResetPassword(for: username, with: newPassword, confirmationCode: code, listener: { [weak self] (result) in
+            switch result {
+            case .success(let confirmResult):
+                print(confirmResult)
+                DispatchQueue.main.async {
+                    self?.showLogin()
+                    compelition(nil)
+                }
+            case .failure(let error):
+                print("FAILED TO CONFIRM CODE ", error)
+                DispatchQueue.main.async {
+                    compelition(error.localizedDescription)
+                }
+                
+            }
+        })
+    }
     func login(email: String, password: String, compelition: @escaping( String?) -> ()) {
         _ = Amplify.Auth.signIn(
             username: email,
@@ -129,10 +191,12 @@ final class SessionManager: ObservableObject {
                                     name = item.value
                                 }
                             }
-                            UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
+                            DispatchQueue.main.async {
+                                UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
+                            }
                         }
                     }
-
+                    
                     DispatchQueue.main.async {
                         self?.getCurrentAuthUser()
                         compelition(nil)
@@ -152,7 +216,7 @@ final class SessionManager: ObservableObject {
             switch result {
             case .success:
                 UserDefaults.standard.removeObject(forKey: "fullname")
-                Amplify.DataStore.clear()
+//                Amplify.DataStore.clear()
                 print("signed out successfully")
                 DispatchQueue.main.async {
                     self?.getCurrentAuthUser()

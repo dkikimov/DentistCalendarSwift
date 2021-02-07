@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
-import SwiftUIRefresh
 import UIKit
+import Introspect
 struct PatientsListView: View {
     @ObservedObject var listData = PatientsListViewModel()
     var body: some View {
         NavigationView {
             ZStack {
-                Group {
                     if listData.patientsList.count > 0 {
                         List{
                             ForEach(Array(zip(listData.patientsList.indices, listData.patientsList)), id: \.0) { (index, item) in
@@ -32,15 +31,11 @@ struct PatientsListView: View {
                             })
                         }
                         .listStyle(PlainListStyle())
-    //                    .pullToRefresh(isShowing: $listData
-    //                                    .isLoading) {
-    //                        listData.fetchPatients()
-    //                    }
                         .introspectTableView { (tableView: UITableView) in
                             tableView.refreshControl = listData.refreshControl
                         }
                     }
-                    else if listData.isLoading {
+                     if listData.isLoading {
                         ProgressView()
                     }
                     else if listData.patientsList.count == 0 {
@@ -53,7 +48,7 @@ struct PatientsListView: View {
                                 .multilineTextAlignment(.center)
                         }
                     }
-                }
+                
                 VStack {
                     Spacer()
                     HStack{
@@ -71,7 +66,6 @@ struct PatientsListView: View {
             listData.fetchPatients()
             listData.observePatients()
         })
-        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         
     }
     func deleteItem(at offsets: IndexSet) {
