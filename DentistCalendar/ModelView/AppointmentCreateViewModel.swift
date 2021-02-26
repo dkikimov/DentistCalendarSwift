@@ -284,7 +284,7 @@ class AppointmentCreateViewModel : ObservableObject {
     func generateMoneyDataFunc() {
         var sumPayments: Decimal = 0
         var sumPrices: Decimal = 0
-        selectedDiagnosisList.map {
+        _ = selectedDiagnosisList.map {
             sumPayments += Decimal(string: String($1.prePayment.doubleValue)) ?? 0
             sumPrices += Decimal(string: String($1.price.doubleValue)) ?? 0
         }

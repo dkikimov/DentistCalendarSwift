@@ -65,10 +65,14 @@ class ProfileSettingsViewModel: ObservableObject {
         }
         sessionManager.updatePassword(oldPassword: currentPassword, newPassword: password) { (err) in
             if let error = err {
-                presentErrorAlert(message: error)
+                DispatchQueue.main.async {
+                    presentErrorAlert(message: error)
+                }
             } else {
-                presentSuccessAlert(message: "Пароль успешно изменен!")
-                mode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    presentSuccessAlert(message: "Пароль успешно изменен!")
+                    mode.wrappedValue.dismiss()
+                }
             }
         }
         self.isLoading = false

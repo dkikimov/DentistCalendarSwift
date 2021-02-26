@@ -5,6 +5,7 @@
 //  Created by Даник 💪 on 21.01.2021.
 //
 import Foundation
+import Amplify
 let emailRegex = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}" +
     "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
     "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-" +
@@ -48,4 +49,37 @@ func checkEmail(_ email: String) -> (Bool, String?) {
         return (status, "Введите корректный адрес электронной почты".localized)
     }
     return (status, nil)
+}
+
+
+func generatePatientString(patient: Patient?) -> String {
+    guard patient != nil else {return ""}
+    return "\(patient!.fullname) | \(patient!.phone)"
+}
+
+func parsePatientString(patient: String) -> Patient? {
+    let a = patient.components(separatedBy: " | ")
+    if a.count == 2 {
+        return Patient(fullname: a[0], phone: a[1])
+    }
+    return nil
+}
+//func parseCalendarString(str: String, dateStart: String, dateEnd: String) -> Appointment {
+//    let splitedStr = str.split(separator: " | ")
+//    var newApp = Appointment(title: str[0], patientID: str[1], toothNumber: str[2], diagnosis: str[3], price: str[4], dateStart: dateStart, dateEnd: dateEnd)
+//    return newApp
+//}
+
+func findPatientByID(id: String) -> Patient?{
+    var result:Patient?
+    Amplify.DataStore.query(Patient.self, byId: id) { res in
+        switch res {
+        case .success(let patient):
+            result = patient
+        case .failure(_):
+            break;
+        }
+        
+    }
+    return result
 }

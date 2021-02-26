@@ -36,7 +36,7 @@ struct EventCalendarChooserView: UIViewControllerRepresentable {
 
         init(_ parent: EventCalendarChooserView) {
             self.parent = parent
-        }
+        } 
 
         func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
             parent.calendars = calendarChooser.selectedCalendars

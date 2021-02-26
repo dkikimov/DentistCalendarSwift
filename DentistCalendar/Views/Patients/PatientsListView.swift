@@ -57,6 +57,7 @@ struct PatientsListView: View {
                     }.padding([.bottom, .trailing], 15)
                 }
             }
+            .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
             .navigationBarTitle("Пациенты", displayMode: .large)
         }
         

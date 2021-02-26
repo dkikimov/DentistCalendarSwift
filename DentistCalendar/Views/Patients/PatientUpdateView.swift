@@ -31,7 +31,9 @@ struct PatientUpdateView: View {
             CustomButton(action: {
                 data.updatePatient(listData: self.listData) { (res) in
                     if res {
-                        presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
             }, imageName: "pencil", label: "Изменить", disabled: false

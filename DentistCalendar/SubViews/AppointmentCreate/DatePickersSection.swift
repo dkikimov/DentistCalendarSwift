@@ -13,35 +13,39 @@ struct DatePickersSection: View {
         Section {
             Button(action: {
                 withAnimation {
-                    if data.isSecondDatePresented {
-                        data.isFirstDatePresented.toggle()
-                        data.isSecondDatePresented.toggle()
-                    } else {
-                        data.isFirstDatePresented.toggle()
-                    }
+                    data.isSecondDatePresented = false
+                    data.isFirstDatePresented.toggle()
+//                    if data.isSecondDatePresented {
+//                        data.isFirstDatePresented.toggle()
+//                        data.isSecondDatePresented.toggle()
+//                    } else {
+//                        data.isFirstDatePresented.toggle()
+//                    }
                 }
             }, label: {
-                
                 HStack {
                     Text("Начало приема").foregroundColor(Color("Black1"))
                     Spacer()
                     Text(stringFromDate(date: data.dateStart))
                 }
             }).lineLimit(1)
+            //                        DatePicker("Выберите начало приема", selection: $data.dateStart)
+            //                            .datePickerStyle(GraphicalDatePickerStyle())
             if data.isFirstDatePresented {
-                //                        DatePicker("Выберите начало приема", selection: $data.dateStart)
-                //                            .datePickerStyle(GraphicalDatePickerStyle())
-                startDatePicker()
-                
+                VStack {
+                    DatePicker("Выберите начало приема", selection: $data.dateStart)
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .labelsHidden()
+                        .id(1)
+                }
+                .animation(.linear)
+                .transition(.move(edge: .bottom))
             }
+            
             Button(action: {
                 withAnimation {
-                    if data.isFirstDatePresented {
-                        data.isFirstDatePresented.toggle()
-                        data.isSecondDatePresented.toggle()
-                    } else {
-                        data.isSecondDatePresented.toggle()
-                    }
+                data.isFirstDatePresented = false
+                data.isSecondDatePresented.toggle()
                 }
             }, label: {
                 HStack {
@@ -52,16 +56,14 @@ struct DatePickersSection: View {
             }).lineLimit(1)
             if data.isSecondDatePresented {
                 //                        DatePicker("Выберите конец приема", selection: $data.dateEnd).datePickerStyle(GraphicalDatePickerStyle())
-                endDatePicker()
+                VStack {
+                    DatePicker("Выберите конец приема", selection: $data.dateEnd)
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .labelsHidden()
+                        .id(2)
+                }
             }
         }
-    }
-    func startDatePicker() -> some View {
-        DatePicker("Выберите начало приема", selection: $data.dateStart)
-            .datePickerStyle(GraphicalDatePickerStyle())
-    }
-    func endDatePicker() -> some View {
-        DatePicker("Выберите конец приема", selection: $data.dateEnd).datePickerStyle(GraphicalDatePickerStyle())
     }
 }
 

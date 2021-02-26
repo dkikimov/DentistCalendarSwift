@@ -22,6 +22,7 @@ class ModalManager: ObservableObject {
 
 @main
 struct DentistCalendarApp: App {
+    
     @ObservedObject var sessionManager = SessionManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //    @StateObject private var store = Store()
@@ -32,29 +33,31 @@ struct DentistCalendarApp: App {
     }
     var body: some Scene {
         WindowGroup {
-                ContentView()
-                    .environmentObject(sessionManager)
-                    .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-                }
-            
-        }}
-    
-    
-    private func configureAmplify() {
-        let dataStorePlugin = AWSDataStorePlugin(modelRegistration: AmplifyModels())
-        do {
-            try Amplify.add(plugin: dataStorePlugin)
-            try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
-            try Amplify.configure()
-            print("Initialized Amplify");
-        } catch {
-            // simplified error handling for the tutorial
-            print("Could not initialize Amplify: \(error)")
+            ContentView()
+                .environmentObject(sessionManager)
+                .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         }
+        
     }
     
-    private func configureGoogleAds() {
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+}
+
+
+private func configureAmplify() {
+    let dataStorePlugin = AWSDataStorePlugin(modelRegistration: AmplifyModels())
+    do {
+        try Amplify.add(plugin: dataStorePlugin)
+        try Amplify.add(plugin: AWSCognitoAuthPlugin())
+        try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
+        try Amplify.configure()
+        print("Initialized Amplify");
+    } catch {
+        // simplified error handling for the tutorial
+        print("Could not initialize Amplify: \(error)")
     }
+}
+
+private func configureGoogleAds() {
+    GADMobileAds.sharedInstance().start(completionHandler: nil)
+}
 

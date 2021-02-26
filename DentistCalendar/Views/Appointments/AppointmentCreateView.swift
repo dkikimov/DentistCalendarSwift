@@ -49,7 +49,7 @@ struct AppointmentCreateView: View {
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group))
         //       data = AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group)
-//        print("DATE START", dateStart)
+        //        print("DATE START", dateStart)
         self.group = group
         
     }
@@ -80,12 +80,12 @@ struct AppointmentCreateView: View {
                     
                     Button(action: {
                         
-                         if data.segmentedMode == .withPatient {
+                        if data.segmentedMode == .withPatient {
                             guard data.selectedPatient != nil  || data.viewType != .createWithPatient || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
-                                    print("NUMBER", phoneNumber)
-                                    data.error = "Введите корректный номер".localized
-                                    data.isAlertPresented = true
-                                    return
+                                print("NUMBER", phoneNumber)
+                                data.error = "Введите корректный номер".localized
+                                data.isAlertPresented = true
+                                return
                             }
                             guard !data.toothNumber.isEmpty else {
                                 data.error = "Введите номер зуба".localized
@@ -93,17 +93,17 @@ struct AppointmentCreateView: View {
                                 return
                             }
                             
-//                            if data.viewType == .editCalendar {
-//                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
-//                            }
-                                if data.viewType == .create {
-                                    data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                                }
-//                               else if data.viewType == .edit{
-//                                    data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)       }
-                         else if data.viewType == .createWithPatient {
-                                    data.createAppointmentAndPatient(phoneNumber: phoneNumber)
-                                }
+                            //                            if data.viewType == .editCalendar {
+                            //                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
+                            //                            }
+                            if data.viewType == .create {
+                                data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
+                            }
+                            //                               else if data.viewType == .edit{
+                            //                                    data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)       }
+                            else if data.viewType == .createWithPatient {
+                                data.createAppointmentAndPatient(phoneNumber: phoneNumber)
+                            }
                         } else if data.segmentedMode == .nonPatient {
                             if data.viewType == .create || data.viewType == .createWithPatient{
                                 data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
@@ -122,17 +122,20 @@ struct AppointmentCreateView: View {
                 }
             }
             .environmentObject(data)
-            
             .listStyle(GroupedListStyle())
             .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
             
             .navigationBarItems(leading: Button(action: {
                 if data.viewType == .createWithPatient {
-                    group!.leave()
-                    data.cancellable?.cancel()
+                    DispatchQueue.main.async {
+                        group!.leave()
+                        data.cancellable?.cancel()
+                    }
                     
                 }
-                isModalPresented.wrappedValue = false
+                DispatchQueue.main.async {
+                    isModalPresented.wrappedValue = false
+                }
                 
             }, label: {
                 Text("Отменить")

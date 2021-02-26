@@ -74,7 +74,18 @@ struct NavigationBarColor: ViewModifier {
     }
 }
 
-
+func setNavigationBarColor(backgroundColor: UIColor, tintColor: UIColor) {
+    let coloredAppearance = UINavigationBarAppearance()
+    coloredAppearance.configureWithOpaqueBackground()
+    coloredAppearance.backgroundColor = backgroundColor
+    coloredAppearance.titleTextAttributes = [.foregroundColor: tintColor]
+    coloredAppearance.largeTitleTextAttributes = [.foregroundColor: tintColor]
+    
+    UINavigationBar.appearance().standardAppearance = coloredAppearance
+    UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+    UINavigationBar.appearance().compactAppearance = coloredAppearance
+    UINavigationBar.appearance().tintColor = tintColor
+}
 
 
 //struct NavigationViewModifier: ViewModifier {
@@ -92,12 +103,12 @@ extension View {
     func navigationBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
         self.modifier(NavigationBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
     }
-//    func navigationViewWrapper(_ isEditAllowed: Bool) -> some View {
-//        if isEditAllowed {
-//            self.modifier(NavigationViewModifier(isEditAllowed: isEditAllowed))
-//        }
-//        
-//    }
+    //    func navigationViewWrapper(_ isEditAllowed: Bool) -> some View {
+    //        if isEditAllowed {
+    //            self.modifier(NavigationViewModifier(isEditAllowed: isEditAllowed))
+    //        }
+    //
+    //    }
 }
 extension UserDefaults {
     

@@ -15,17 +15,19 @@ struct BuySubscriptionView: View {
 
 
     var body: some View {
-        
+
         VStack(alignment: .leading, spacing: 25) {
-            
+
             VStack(alignment: .leading) {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.async {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }, label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 16, weight: .bold, design: .serif))
                         .foregroundColor(Color("StaticBlue"))
-                        
+
                 }).padding(.bottom, 5)
                 Text("DentistApp Premium")
                     .font(.largeTitle)
@@ -58,12 +60,12 @@ struct BuySubscriptionView: View {
                 .foregroundColor(.white)
                 .clipShape(Rectangle())
                 .cornerRadius(8)
-                
-                
+
+
                 HStack {
                     Spacer()
                     Button(action: {
-                        
+
                     }, label: {
                         Text("Восстановить покупки")
                             .font(.caption)
@@ -74,16 +76,16 @@ struct BuySubscriptionView: View {
                 HStack(spacing: 5) {
                     Spacer()
                     Button(action: {
-                        
+
                     }, label: {
                         Text("Условия использования")
                             .font(.caption2)
                             .bold()
                             .foregroundColor(Color("Black1"))
-                        
+
                     })
                     Button(action: {
-                        
+
                     }, label: {
                         Text("Политика конфиденциальности")
                             .font(.caption2)
@@ -94,19 +96,19 @@ struct BuySubscriptionView: View {
                     Spacer()
                 }
             }
-            
-            
-            
-            
+
+
+
+
             Spacer()
                 .frame(maxHeight: 300)
-            
+
             HStack {
                 Spacer()
                 Button(action: {
-                    
+
                 }, label: {
-                    
+
                     Text("Подписаться")
                         .bold()
                         .frame(maxWidth: 450)
@@ -120,11 +122,19 @@ struct BuySubscriptionView: View {
             }
         }
         .padding()
-        
+
         //        }.frame(maxHeight: UIScreen.main.bounds.height)
     }
 }
-
+//struct BuySubscriptionView: View {
+//    @State var selectedDate = Date()
+//    var body: some View {
+//        Form {
+//            DatePicker("When is your birthday?", selection: $selectedDate, displayedComponents: .date)
+//                .datePickerStyle(GraphicalDatePickerStyle())
+//        }
+//    }
+//}
 //struct BuySubscriptionView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Group {

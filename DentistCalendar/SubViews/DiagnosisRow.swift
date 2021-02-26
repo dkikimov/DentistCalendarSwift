@@ -15,9 +15,13 @@ struct DiagnosisRow: View {
         Button (action:{
             isSelected.toggle()
             if data.selectedDiagnosisList[diag.text!] != nil {
-                data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+                DispatchQueue.main.async {
+                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+                }
             } else {
-                data.selectedDiagnosisList[diag.text!] = Favor(price: diag.price!.decimalValue.formatted, prePayment: "")
+                DispatchQueue.main.async {
+                    data.selectedDiagnosisList[diag.text!] = Favor(price: diag.price!.decimalValue.formatted, prePayment: "")
+                }
                 print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
             }
         },label: {

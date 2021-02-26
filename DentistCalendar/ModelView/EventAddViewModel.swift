@@ -143,7 +143,7 @@ class EventAddViewModel: ObservableObject {
                 }
             } else {
                 let newAppointment = Appointment(title: data!, dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
-                Amplify.DataStore.save(newAppointment)
+               _ = Amplify.DataStore.save(newAppointment)
                 //                Amplify.API.mutate(request: .create(newAppointment))
                 
             }

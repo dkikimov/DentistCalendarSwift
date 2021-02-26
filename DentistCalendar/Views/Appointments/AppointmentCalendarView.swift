@@ -150,7 +150,9 @@ struct AppointmentCalendarView: View {
                 ])
             })
             .navigationBarItems(leading: Button(action: {
-                presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    presentationMode.wrappedValue.dismiss()
+                }
             }, label: {
                 Text("Отменить")
             })  ,trailing:  data.isEditAllowed ? Button(action: {

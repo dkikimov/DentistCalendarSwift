@@ -53,7 +53,10 @@ struct DiagnosisCreateView: View {
             
             .navigationBarTitle(Text("Диагноз"), displayMode: .inline)
             .navigationBarItems(leading: Button(action: {
-                presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                
             }, label: {
                 Text("Готово")
             }), trailing: Button(action: {
@@ -82,14 +85,14 @@ struct DiagnosisCreateView: View {
             isErrorAlertPresented = true
             return
         }
-            withAnimation{
-                let newDiagnosis = Diagnosis(context: viewContext)
-                newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
-                newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : diagnosisPrice)
-                saveContext()
-                diagnosisText = ""
-                diagnosisPrice = ""
-            }
+        withAnimation{
+            let newDiagnosis = Diagnosis(context: viewContext)
+            newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
+            newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : diagnosisPrice)
+            saveContext()
+            diagnosisText = ""
+            diagnosisPrice = ""
+        }
         
     }
     private func deleteDiagnosis(at offsets: IndexSet) {

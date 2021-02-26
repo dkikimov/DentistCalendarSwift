@@ -60,8 +60,16 @@ struct ProfileSettingsView: View {
                         .foregroundColor(Color("Black1"))
                 })
                 NavigationLink(destination: EventAddView()) {
-                    Text("Импортировать записи")
+                    Text("Импортировать записи из календаря")
                 }
+                NavigationLink(
+                    destination: ImportEvents(),
+                    label: {
+                        Text("Импортировать записи из файла")
+                    })
+                NavigationLink(destination: ExportEvents(), label: {
+                    Text("Экспортировать записи")
+                })
             }
             Section {
                 Button(action: {
@@ -69,40 +77,54 @@ struct ProfileSettingsView: View {
                 }, label: {
                     Text("Подписка")
                 })
+                #if DEBUG
+                Button(action: {
+                    Amplify.DataStore.start { result in
+                        switch result {
+                        case .success:
+                            print("DataStore started")
+                        case .failure(let error):
+                            print("Error starting DataStore: \(error)")
+                        }
+                    }
+                }, label: {
+                    Text("Синхронизировать")
+                })
+                Button(action: {
+                    Amplify.DataStore.clear()
+                }, label: {
+                    Text("Очистить локальные данные")
+                })
+                #endif
             }
             Section {
-                    Button(action: {
-                        sessionManager.signOut { (err) in
-                            if err != nil {
-                                self.profileData.error = err!
-                                self.profileData.isAlertPresented = true
-                            }
+                Button(action: {
+                    sessionManager.signOut { (err) in
+                        if err != nil {
+                            self.profileData.error = err!
+                            self.profileData.isAlertPresented = true
                         }
-                    }, label: {
-                        Text("Выйти").foregroundColor(.red)
-                    })
-                    
-                    
+                    }
+                }, label: {
+                    Text("Выйти").foregroundColor(.red)
+                })
+                
+                
                 
             }
-            Button(action: {
-                print(UserDefaults.standard.string(forKey: "13123213")!)
-            }, label: {
-                Text("Crash")
-            })
+            //            Button(action: {
+            //                fatalError
+            //            }, label: {
+            //                Text("Crash")
+            //            })
             .sheet(isPresented: $profileData.isPasswordPresented, content: {
                 ProfileSettingsUserDataView()
             })
             
-            
         }
+        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+        //        .keyboardAdaptive()
         .navigationBarTitle("Настройки", displayMode: .large)
-        
-        .ignoresSafeArea(.keyboard)
-        //        .listStyle(GroupedListStyle())
-        //        .labelStyle(TitleOnlyLabelStyle())
-        //        .groupBoxStyle(DefaultGroupBoxStyle())
-        //        .menuStyle(BorderlessButtonMenuStyle())
         .sheet(isPresented: $profileData.isSheetPresented, content: {
             BuySubscriptionView()
         })

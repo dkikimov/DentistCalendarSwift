@@ -32,7 +32,9 @@ struct PatientCreateView: View {
             CustomButton(action: {
                 data.createPatient(patientData: patientsListData) { success in
                     if success {
-                        presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
             }, imageName: "plus", label: "Создать", color: "Green", disabled: false, isLoading: $data.isLoading)

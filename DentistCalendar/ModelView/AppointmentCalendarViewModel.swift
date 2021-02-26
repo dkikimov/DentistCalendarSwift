@@ -8,7 +8,6 @@
 import SwiftUI
 import Amplify
 import SPAlert
-let alert = SPAlertView(title: "Успех!", message: "Запись успешно удалена", preset: .done)
 class AppointmentCalendarViewModel: ObservableObject {
     @Published var isSheetPresented = false
     @Published var error = ""
@@ -28,9 +27,11 @@ class AppointmentCalendarViewModel: ObservableObject {
         Amplify.DataStore.delete(appointment) { res in
             switch res {
             case .success:
-                alert.present(duration: 2, haptic: .success)
-                print("DELETED")
-                presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    presentSuccessAlert(message: "Запись успешно удалена!")
+                    print("DELETED")
+                    presentationMode.wrappedValue.dismiss()
+                }
             case .failure(let error):
                 print("ERROR", error.localizedDescription)
                 self.error = error.localizedDescription

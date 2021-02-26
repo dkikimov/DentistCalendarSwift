@@ -2,17 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SKAdNetworkItems</key>
-	<array>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>cstr6suwn9.skadnetwork</string>
-		</dict>
-	</array>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-4771086826108788~1356374157</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Calendar data</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.katsushooter.DentistCalendar</string>
+			</array>
+			<key>UTExportedTypeDeclarations</key>
+			<array>
+				<dict>
+					<key>UTTypeConformsTo</key>
+					<array>
+						<string>com.katsushooter.DentistCalendar</string>
+					</array>
+					<key>UTTypeIdentifier</key>
+					<string>com.katsushooter.DentistCalendar</string>
+					<key>UTTypeTagSpecification</key>
+					<dict/>
+				</dict>
+			</array>
+		</dict>
+		<dict/>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -34,6 +52,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4771086826108788~1356374157</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -47,6 +67,13 @@
 	<string>$(PRODUCT_NAME) запрашивает доступ к календарю.</string>
 	<key>NSContactsUsageDescription</key>
 	<string></string>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -70,8 +97,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -82,5 +107,45 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.katsushooter.DentistCalendar.ics</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.ics</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Calendar Document</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ics</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+    <key>UTImportedTypeDeclarations</key>
+    <array>
+        <dict>
+            <key>UTTypeIdentifier</key>
+            <string>com.katsushooter.DentistCalendar.ics</string>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.ics</string>
+            </array>
+            <key>UTTypeDescription</key>
+            <string>Calendar Document</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>ics</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>

@@ -50,7 +50,6 @@ class PatientsListViewModel: ObservableObject {
 
     }
     func deletePatient(id: String) {
-        var alertView: SPAlertView = SPAlertView(title: "Успех", message: "Пациент успешно удален!", preset: .done)
         Amplify.DataStore.delete(Patient.self, withId: id) { res in
             switch res {
             case .success:

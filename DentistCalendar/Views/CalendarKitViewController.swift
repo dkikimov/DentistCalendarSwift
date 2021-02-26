@@ -10,7 +10,7 @@ import CalendarKit
 import SwiftUI
 import Amplify
 import Combine
-import BottomSheet
+//import BottomSheet
 let group = DispatchGroup()
 
 public struct newModel {
@@ -226,7 +226,7 @@ class CustomCalendarExampleController: DayViewController {
         Amplify.DataStore.query(Appointment.self, where:
                                     
                                     //                                    Appointment.keys.owner == Amplify.Auth.getCurrentUser()!.userId &&
-                                    Appointment.self.keys.dateStart >= data.0 && Appointment.self.keys.dateEnd <= data.1) { res in
+                                    Appointment.keys.dateStart >= data.0 && Appointment.keys.dateEnd <= data.1) { res in
             switch res {
             case .success(let appointments):
                 fetchedData = appointments
@@ -258,14 +258,14 @@ class CustomCalendarExampleController: DayViewController {
             return
         }
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
-        Amplify.DataStore.query(Appointment.self, where: Appointment.keys.id == descriptor.id) { res in
+        Amplify.DataStore.query(Appointment.self, byId: descriptor.id) { res in
             switch res {
-            case .success(let appointments):
+            case .success(let appointment):
                 self.viewData.fullScreenIsCalendar = true
-                self.selectedAppointment.wrappedValue = appointments[0]
+                self.selectedAppointment.wrappedValue = appointment!
                 self.viewData.isFullScreenPresented = true
                 
-                print("GOT APPOINTMENTS", appointments)
+                print("GOT APPOINTMENTS", appointment)
             //                print("FULLSCREENISCALENDAR", fullScreenIsCalendar.wrappedValue)
             //                let vc = UIHostingController(rootView: AppointmentCalendarView(appointment: appointments[0]))
             //                show(vc, sender: self)
