@@ -77,7 +77,7 @@ struct ProfileSettingsView: View {
                 }, label: {
                     Text("Подписка")
                 })
-                #if DEBUG
+//                #if DEBUG
                 Button(action: {
                     Amplify.DataStore.start { result in
                         switch result {
@@ -95,7 +95,7 @@ struct ProfileSettingsView: View {
                 }, label: {
                     Text("Очистить локальные данные")
                 })
-                #endif
+//                #endif
             }
             Section {
                 Button(action: {

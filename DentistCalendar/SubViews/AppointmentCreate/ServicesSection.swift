@@ -15,40 +15,50 @@ struct ServicesSection: View {
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
             ForEach(data.selectedDiagnosisList.keys.sorted(), id: \.self) { key in
-                HStack {
+                
+                HStack() {
                     Text(key)
                         .fixedSize()
                     Spacer()
-                    TextField("Оплачено: 0", text: self.bindingPrePayment(for: key))
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                    Text(" / ")
                     HStack(spacing: 5) {
-                        TextField("Цена: ", text: self.bindingPrice(for: key))
+                        Text("Цена: ")
+                            .fixedSize()
+                        TextField("", text: self.bindingPrice(for: key))
                             .keyboardType(.decimalPad)
                             .fixedSize()
-                        Menu {
-                            Button(action: {
-                                self.bindingPrice(for: key).wrappedValue = self.bindingPrePayment(for: key).wrappedValue
-                                data.generateMoneyData.call()
-
-                            }, label: {
-                                Text("Приравнять к первому")
-                            })
-                            Button(action: {
-                                self.bindingPrePayment(for: key).wrappedValue = self.bindingPrice(for: key).wrappedValue
-                                data.generateMoneyData.call()
-                            }, label: {
-                                Text("Приравнять к второму")
-                            })
-                            
-
-                        } label:{
-                            Image(systemName: "doc.on.doc")
-                                .multilineTextAlignment(.trailing)
-                        }
                     }
                 }
+                //                    Spacer()
+                //                    TextField("Оплачено: 0", text: self.bindingPrePayment(for: key))
+                //                        .keyboardType(.decimalPad)
+                //                        .multilineTextAlignment(.trailing)
+                //                    Text(" / ")
+                //                    HStack(spacing: 5) {
+                //                        TextField("Цена: ", text: self.bindingPrice(for: key))
+                //                            .keyboardType(.decimalPad)
+                //                            .fixedSize()
+                //                        Menu {
+                //                            Button(action: {
+                //                                self.bindingPrice(for: key).wrappedValue = self.bindingPrePayment(for: key).wrappedValue
+                //                                data.generateMoneyData.call()
+                //
+                //                            }, label: {
+                //                                Text("Приравнять к первому")
+                //                            })
+                //                            Button(action: {
+                //                                self.bindingPrePayment(for: key).wrappedValue = self.bindingPrice(for: key).wrappedValue
+                //                                data.generateMoneyData.call()
+                //                            }, label: {
+                //                                Text("Приравнять к второму")
+                //                            })
+                //
+                //
+                //                        } label:{
+                //                            Image(systemName: "doc.on.doc")
+                //                                .multilineTextAlignment(.trailing)
+                //                        }
+                //                    }
+                //                }
             }
             .onDelete(perform: { indexSet in
                 if let first = indexSet.first {
@@ -61,34 +71,24 @@ struct ServicesSection: View {
                 data.isDiagnosisCreatePresented.toggle()
             }, label: {
                 HStack {
-                    Image(systemName: "plus").padding(.trailing, 8)
+                    Image(systemName: "plus")
                     Text("Добавить услугу")
                 }
             })
         }
     }
-    private func bindingPrePayment(for key: String) -> Binding<String> {
-        return .init(
-            get: { self.data.selectedDiagnosisList[key]!.prePayment },
-            set: {
-                self.data.selectedDiagnosisList[key]!.prePayment = $0
-                data.generateMoneyData.call()
-            })
-    }
-   
+    
     private func bindingPrice(for key: String) -> Binding<String> {
         
         
-
+        
         return .init(
             get: {
-//                self.data.selectedDiagnosisList[key]!.price == 0 ? "" : String(self.data.selectedDiagnosisList[key]!.price)
-                self.data.selectedDiagnosisList[key]!.price
+                self.data.selectedDiagnosisList[key]!
             },
             set: {
-                self.data.selectedDiagnosisList[key]!.price = $0
+                self.data.selectedDiagnosisList[key]! = $0
                 data.generateMoneyData.call()
-
             })
     }
 }

@@ -77,7 +77,7 @@ struct PatientDetailCard: View {
                     .padding(.horizontal, 10)
                     .foregroundColor(Color("Gray1"))
                 Text("Зуб:")
-                Text(String(appointment.toothNumber!)).fontWeight(.bold)
+                Text(String(appointment.toothNumber ?? "Пусто".localized)).fontWeight(.bold)
                 Spacer()
                     HStack(spacing:10) {
                         Button(action: detailButtonAction) {

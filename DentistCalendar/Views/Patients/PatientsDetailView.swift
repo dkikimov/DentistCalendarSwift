@@ -23,7 +23,7 @@ struct PatientsDetailView: View {
                 VStack(alignment: .leading) {
                     Group {
                         Text(detailData.patient.fullname).fontWeight(.bold).font(.title2)
-                        Text(detailData.patient.phone).foregroundColor(.gray).font(.body)
+                        Text(detailData.patient.phone ?? "").foregroundColor(.gray).font(.body)
                     }
                     HStack(spacing: 10) {
                         NavigationLink(
@@ -33,9 +33,11 @@ struct PatientsDetailView: View {
                                 Text("Изменить").frame(height: 25).foregroundColor(.white).padding([.vertical, .horizontal], 10)
                                 Spacer()
                             }).background(Color("Blue2")).cornerRadius(40)
-                        Link(destination: URL(string: "tel:\(detailData.patient.phone.replacingOccurrences(of: " ", with: ""))")!) {
-                            Image(systemName: "phone.fill").frame(width: 50, height: 45).padding([.vertical, .horizontal], 10).foregroundColor(.white)
-                        }.background(Color("Green")).frame(width: 50, height: 45).clipShape(Circle())
+//                        Link(destination: URL(string: "tel:\(String(describing: detailData.patient.phone?.replacingOccurrences(of: " ", with: "")))")!) {
+//                            Image(systemName: "phone.fill").frame(width: 50, height: 45).padding([.vertical, .horizontal], 10).foregroundColor(.white)
+//                        }
+//                        .background(Color("Green")).frame(width: 50, height: 45).clipShape(Circle())
+//                        .disabled(detailData.patient.phone?.isEmpty ?? true)
                     }
                 }
                 .padding(16)

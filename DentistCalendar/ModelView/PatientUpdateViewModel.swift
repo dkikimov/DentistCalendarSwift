@@ -28,7 +28,7 @@ class PatientUpdateViewModel : ObservableObject {
     init(patient: Patient, index: Int) {
         self.patient = patient
         self.fullname = patient.fullname
-        self.phone = patient.phone
+        self.phone = patient.phone ?? ""
         self.index = index
     }
     func updatePatient(listData: PatientsListViewModel, compelition: @escaping(Bool) -> () ){

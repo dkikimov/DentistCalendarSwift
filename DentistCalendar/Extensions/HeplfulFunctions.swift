@@ -16,7 +16,7 @@ let emailRegex = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'
 let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$"
 //(?:(?:(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_])|(?:(?=.*?[0-9])|(?=.*?[A-Z])|(?=.*?[-!@#$%&*ˆ+=_])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_]))[A-Za-z0-9-!@#$%&*ˆ+=_]{6,15}
 
-func convertDiagnosisString(str: String, _ onlyTitle: Bool = false) -> String {
+func convertDiagnosisString(str: String, _ onlyTitle: Bool = false, returnEmpty: Bool = true) -> String {
     
     let parsedArray = str.split(separator: ";")
     var res = [String]()
@@ -27,7 +27,11 @@ func convertDiagnosisString(str: String, _ onlyTitle: Bool = false) -> String {
         }
     }
     if res.count == 0 {
-        return "Пусто".localized
+        if returnEmpty {
+            return "Пусто".localized
+        } else {
+            return ""
+        }
     }
     return res.joined(separator: ", ")
 }

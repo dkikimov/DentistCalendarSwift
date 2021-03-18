@@ -55,3 +55,33 @@ extension Color {
         )
     }
 }
+
+//type Patient @model @auth(rules: [{ allow: owner, operations: [create, read, delete, update], ownerField: "owner" }])
+// {
+//id: ID!
+//fullname: String!
+//phone: String!
+//owner: String
+//}
+//
+//type Appointment @model @auth(rules: [{ allow: owner, operations: [create, read, delete, update], ownerField: "owner" }]) {
+//id: ID!
+//title: String!
+//patientID: ID
+//owner: String
+//toothNumber: String
+//diagnosis: String
+//price: Int
+//dateStart: String!
+//dateEnd: String!,
+//payments: [Payment] @connection(keyName: "byAppointment", fields: ["id"])
+//}
+//type Payment @model @auth(rules: [{ allow: owner, operations: [create, read, delete, update], ownerField: "owner" }])
+//@key(name: "byAppointment", fields: ["appointmentID", "cost", "date"])
+//{
+//id: ID!
+//appointmentID: ID!
+//cost: String!
+//date: String!
+//owner: String
+//}

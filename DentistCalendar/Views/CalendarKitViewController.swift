@@ -140,7 +140,7 @@ class CustomCalendarExampleController: DayViewController {
         newEvent.startDate = fromTimestampToDate(date: appointment.dateStart)
         newEvent.endDate = fromTimestampToDate(date: appointment.dateEnd)
         if appointment.patientID != nil {
-            let info = [appointment.title, convertDiagnosisString(str: appointment.diagnosis ?? "")]
+            let info = [appointment.title, convertDiagnosisString(str: appointment.diagnosis ?? "", returnEmpty: false)]
             newEvent.text = info.reduce("", {$0 + $1 + "\n"})
             if traitCollection.userInterfaceStyle == .dark {
                 newEvent.textColor = textColorForEventInDarkTheme(baseColor: newEvent.color)
@@ -529,7 +529,7 @@ struct CalendarKitView: View {
             }
                 
             }
-            .halfModalSheet(isPresented: $modalManager.isDatePickerPresented) {
+            .halfModalSheet(isPresented: $modalManager.isDatePickerPresented, height: UIScreen.main.bounds.width + 50) {
                 DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())
                     .labelsHidden()

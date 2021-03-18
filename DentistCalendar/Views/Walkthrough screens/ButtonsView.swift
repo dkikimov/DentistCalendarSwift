@@ -6,7 +6,23 @@
 //
 
 import SwiftUI
+struct BlueButton: View {
+    var buttonLabel: String
+    var action: () -> Void
+    var body: some View {
+        Button(action: action, label: {
+            Text(buttonLabel)
+                .fontWeight(.heavy)
+                .padding()
+                .frame(width: 170, height: 44)
+                .background(Color.blue)
+                .cornerRadius(12)
+                .padding(.horizontal, 5)
+        })
+        .foregroundColor(.white)
 
+    }
+}
 struct ButtonsView: View {
     @Binding var selection: Int
     @Binding var isShown: Bool
@@ -14,18 +30,9 @@ struct ButtonsView: View {
     var body: some View {
         HStack {
             ForEach(buttons, id: \.self) { buttonLabel in
-                Button(action: {
+                BlueButton(buttonLabel: buttonLabel) {
                     buttonAction(buttonLabel)
-                }, label: {
-                    Text(buttonLabel)
-                        .fontWeight(.heavy)
-                        .padding()
-                        .frame(width: 170, height: 44)
-                        .background(Color.blue)
-                        .cornerRadius(12)
-                        .padding(.horizontal, 5)
-                    
-                })
+                }
             }
         }
         .onChange(of: selection, perform: { newValue in
@@ -35,7 +42,6 @@ struct ButtonsView: View {
                 self.buttons[1] = "Следующий".localized
             }
         })
-        .foregroundColor(.white)
         .padding()
     }
     func buttonAction(_ buttonLabel: String) {

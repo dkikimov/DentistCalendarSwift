@@ -25,12 +25,12 @@ struct AppointmentCreateView: View {
     var appointmentCalendar: Binding<Appointment>?
     var persistenceContainer: PersistenceController
     var group: DispatchGroup?
+    @State var isSheetPresented = false
+    @State var text = ""
+    @State var phoneNumber = ""
     var rewardedAd = Rewarded()
     @StateObject var data: AppointmentCreateViewModel
     //    @ObservedObject var data: AppointmentCreateViewModel
-    
-    @State var phoneNumber: String = ""
-    @State var test = ""
     //edit and create
     init(patient: Patient?, isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, appointment: Appointment?, appointmentCalendar: Binding<Appointment>? = nil) {
         isModalPresented = isAppointmentPresented
@@ -74,33 +74,35 @@ struct AppointmentCreateView: View {
                 
                 if data.segmentedMode == .withPatient {
                     ServicesSection()
+                    BillingSection()
                 }
-                Section(header: data.segmentedMode == .withPatient ? SumSection() : nil) {
+                Section {
                     
                     
                     Button(action: {
                         
                         if data.segmentedMode == .withPatient {
-                            guard data.selectedPatient != nil  || data.viewType != .createWithPatient || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
-                                print("NUMBER", phoneNumber)
-                                data.error = "Введите корректный номер".localized
-                                data.isAlertPresented = true
-                                return
+                            if data.viewType == .createWithPatient {
+                                guard !data.title.isEmpty else {
+                                    data.error = "Укажите пациента"
+                                    data.isAlertPresented = true
+                                    return
+                                }
+                                guard data.selectedPatient != nil || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
+                                    print("NUMBER", phoneNumber)
+                                    data.error = "Введите корректный номер".localized
+                                    data.isAlertPresented = true
+                                    return
+                                }
                             }
-                            guard !data.toothNumber.isEmpty else {
-                                data.error = "Введите номер зуба".localized
-                                data.isAlertPresented = true
-                                return
-                            }
-                            
-                            //                            if data.viewType == .editCalendar {
-                            //                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
-                            //                            }
+//                            guard !data.toothNumber.isEmpty else {
+//                                data.error = "Введите номер зуба".localized
+//                                data.isAlertPresented = true
+//                                return
+//                            }
                             if data.viewType == .create {
                                 data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
                             }
-                            //                               else if data.viewType == .edit{
-                            //                                    data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)       }
                             else if data.viewType == .createWithPatient {
                                 data.createAppointmentAndPatient(phoneNumber: phoneNumber)
                             }
@@ -155,25 +157,8 @@ struct AppointmentCreateView: View {
             
         })
         
-        //        .navigationBarColor(backgroundColor: UIColor(named: "White1")!, tintColor: UIColor(named: "Black1")!)
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-        
-        //            .colorScheme(.light)
-        
-        //        .preferredColorScheme(.dark)
-        //            .onAppear(perform: {UIApplication.setStatusBarStyle(.darkContent)})
-        
     }
-    
-    
-    
-    //    func getDisabled() -> Bool {
-    //        switch data.segmentedMode {
-    //        case .nonPatient:
-    //            data.title.isEmpty
-    //
-    //        }
-    //    }
 }
 
 //struct AppointmentCreateView_Previews: PreviewProvider {

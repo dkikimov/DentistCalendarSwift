@@ -11,7 +11,18 @@ import SwiftUI
 import Combine
 
 class PassCodeInputModel : ObservableObject {
-    
+    @Published var code: String = "" {
+        didSet {
+            if code.count == 6 {
+                isValid = true
+            } else if code.count != 6 {
+                isValid = false
+            }
+            if code.count > 6 {
+                code = oldValue
+            }
+        }
+    }
     @Published var passCode: [String]
     @Published var isValid: Bool = false
     

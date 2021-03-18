@@ -20,7 +20,7 @@ struct DiagnosisRow: View {
                 }
             } else {
                 DispatchQueue.main.async {
-                    data.selectedDiagnosisList[diag.text!] = Favor(price: diag.price!.decimalValue.formatted, prePayment: "")
+                    data.selectedDiagnosisList[diag.text!] = diag.price!.stringValue
                 }
                 print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
             }
@@ -29,13 +29,13 @@ struct DiagnosisRow: View {
                 Text(diag.text ?? "Error").foregroundColor(isSelected ? .blue : Color("Black1"))
                 Spacer()
 //                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
-                Text("Цена: \(diag.price != nil ? diag.price!.decimalValue.formatted : "0")")
+                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
 
                     .foregroundColor(isSelected ? .blue : Color("Black1")).multilineTextAlignment(.trailing)
             }
         })
         .onAppear(perform: {
-            isSelected = data.selectedDiagnosisList[diag.text!] != nil
+            isSelected = data.selectedDiagnosisList[diag.text ?? ""] != nil
         })
     }
 }

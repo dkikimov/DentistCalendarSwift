@@ -31,13 +31,14 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-     var selectedDiagnosisList = [String: Favor]()
+     var selectedDiagnosisList = [String: String]()
     @Published var isDiagnosisCreatePresented = false
     @Published var isAlertPresented: Bool = false
     @Published var error = ""
     
+    var id = UUID().uuidString
 //    @Published var isPaidFully: Bool = false
-    
+    @Published var paymentsArray = [Payment]()
     @Published var selectedPatient: Patient?
     @Published var sumPrices: Decimal = 0
     @Published var sumPayment: Decimal = 0
@@ -61,6 +62,7 @@ class AppointmentCreateViewModel : ObservableObject {
             self.patient = patient!
         }
         if viewType == .edit || viewType == .editCalendar{
+            self.id = appointment!.id
             if appointment!.patientID == nil {
                 if appointment!.patientID == nil {
                     self.segmentedMode = .nonPatient
@@ -74,17 +76,17 @@ class AppointmentCreateViewModel : ObservableObject {
                 self.toothNumber = String(appointment!.toothNumber!)
                 self.dateStart = dateFromStr(date: appointment!.dateStart)
                 self.dateEnd = dateFromStr(date: appointment!.dateEnd)
+                if appointment!.payments != nil {
+                    self.paymentsArray = getPayments(appointmentID: appointment!.id)
+                }
                 //                self.selectedDiagnosisList = appointment!.diagnosis!.components(separatedBy: ", ")
                 for diagnosis in appointment!.diagnosis!.components(separatedBy: ";") {
                     let diagData = diagnosis.split(separator: ":")
-                    if diagData.count == 3 {
-                        selectedDiagnosisList[String(diagData[0])] = Favor(price: Decimal(string: String(diagData[1]))!.formatted, prePayment: Decimal(string: String(diagData[2]))!.formatted)
-                    }
-                    else if diagData.count == 2 {
-                        selectedDiagnosisList[String(diagData[0])] = Favor(price: String(diagData[1]), prePayment: "0")
+                    if diagData.count >= 2 {
+                        selectedDiagnosisList[String(diagData[0])] = String(diagData[1])
                     }
                      else if diagData.count == 1{
-                            selectedDiagnosisList[String(diagData[0])] = Favor(price: "0", prePayment: "0")
+                            selectedDiagnosisList[String(diagData[0])] = "0"
                     }
                 }
                 generateMoneyData.call()
@@ -117,16 +119,17 @@ class AppointmentCreateViewModel : ObservableObject {
     }
     
     func createAppointment(isModalPresented: Binding<Bool>, patientDetailData: PatientDetailViewModel) {
-        let newAppointment = Appointment(title: patient!.fullname, patientID: patient!.id, toothNumber: toothNumber.trimmingCharacters(in: .whitespaces),
+        let newAppointment = Appointment(id: id, title: patient!.fullname, patientID: patient!.id, toothNumber: toothNumber.trimmingCharacters(in: .whitespaces),
                                          diagnosis: generateDiagnosisString(),
                                          price: Int(price)!, dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
         Amplify.DataStore.save(newAppointment){ res in
             switch res{
             case .success(let appointment):
-                patientDetailData.appointments.append(appointment)
+                self.savePayments()
+                patientDetailData.appointments.append(self.getAppointmentWithPayments(id: appointment.id) ?? appointment)
                 presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
-
+                
                 isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
@@ -143,11 +146,13 @@ class AppointmentCreateViewModel : ObservableObject {
         newAppointment.dateStart = strFromDate(date: dateStart)
         newAppointment.dateEnd = strFromDate(date: dateEnd)
         newAppointment.diagnosis = generateDiagnosisString()
+
         Amplify.DataStore.save(newAppointment){ res in
             switch res{
             case .success(let app):
+                self.savePayments()
                 if patientDetailData != nil {
-                    patientDetailData!.appointments[patientDetailData!.appointments.firstIndex(of: self.appointment!)!] = app
+                    patientDetailData!.appointments[patientDetailData!.appointments.firstIndex(of: self.appointment!)!] = self.getAppointmentWithPayments(id: app.id) ?? app
                 }
                 presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
@@ -174,8 +179,9 @@ class AppointmentCreateViewModel : ObservableObject {
         Amplify.DataStore.save(newAppointment){ res in
             switch res{
             case .success(let app):
+                self.savePayments()
                 DispatchQueue.main.async {
-                    appointment.wrappedValue = app
+                    appointment.wrappedValue = self.getAppointmentWithPayments(id: self.id) ?? app
                 }
                 presentSuccessAlert(message: "Запись успешно добавлена!")
                 self.didSave = true
@@ -199,20 +205,18 @@ class AppointmentCreateViewModel : ObservableObject {
                 Amplify.DataStore.save(newPatient) { [self] res in
                     switch res {
                     case .success(let patient):
-                        let newAppointment = Appointment(title: patient.fullname, patientID: patient.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), price: Int(self.price)!, dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
+                        var newAppointment = Appointment(id: id, title: patient.fullname, patientID: patient.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), price: Int(self.price)!, dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
                         Amplify.DataStore.save(newAppointment) { result in
                             switch result {
-                            case .success(let newApp):
-                                newModel.appointment = newApp
+                            case .success:
+                                self.savePayments()
                                 self.didSave = true
-
-                                //                            newAppointmentModel.set(app: newApp, pat: newPatient)
                                 print("SUCCESSFUL CREATION OF PATIENT AND APPOINTMENT!!!!!")
                                 self.group!.leave()
                             case .failure(let error):
                                 self.error = error.errorDescription
                                 self.isAlertPresented = true
-                                
+                    
                                 self.group!.leave()
                             }
                         }
@@ -223,11 +227,11 @@ class AppointmentCreateViewModel : ObservableObject {
                     }
                 }
             } else if self.selectedPatient != nil {
-                let newAppointment = Appointment(title: selectedPatient!.fullname, patientID: selectedPatient!.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), price: Int(self.price)!, dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
+                let newAppointment = Appointment(id: id, title: selectedPatient!.fullname, patientID: selectedPatient!.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), price: Int(self.price)!, dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
                 Amplify.DataStore.save(newAppointment) { result in
                     switch result {
-                    case .success(let newApp):
-                        newModel.appointment = newApp
+                    case .success:
+                        self.savePayments()
                         print("SUCCESSFUL CREATION OF PATIENT AND APPOINTMENT!!!!!")
                         self.group!.leave()
                     case .failure(let error):
@@ -244,7 +248,7 @@ class AppointmentCreateViewModel : ObservableObject {
     }
     
     func createNonPatientAppointment(isModalPresented: Binding<Bool>) {
-        let newAppointment = Appointment(title: title, dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
+        let newAppointment = Appointment(id: id, title: title, dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
         Amplify.DataStore.save(newAppointment) { res in
             switch res {
             case .success:
@@ -258,6 +262,31 @@ class AppointmentCreateViewModel : ObservableObject {
             }
             
         }
+    }
+    func getPayments(appointmentID: String) -> [Payment] {
+        var res = [Payment]()
+        Amplify.DataStore.query(Payment.self, where: Payment.keys.appointmentID == appointmentID){ result in
+            switch result {
+            case .success(let payments):
+                res = payments
+            case .failure(let error):
+                break
+            }
+        }
+        return res
+    }
+    func savePayments() {
+        for payment in paymentsArray {
+            Amplify.DataStore.save(payment) { res in
+                switch res {
+                case .failure(let err):
+                    self.error = err.errorDescription
+                    self.isAlertPresented = true
+                default: break
+                }
+            }
+        }
+//        Amplify.DataStore.save(paymentsArray)
     }
     func findPatientsByName(name: String) {
         if !name.isEmpty {
@@ -274,22 +303,31 @@ class AppointmentCreateViewModel : ObservableObject {
         }
     }
     func generateDiagnosisString(_ onlyTitle: Bool = false) -> String {
-        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" +
-            NSDecimalNumber(string: $0.value.price.isEmpty ? "0" : String($0.value.price.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue
-              + ":" + NSDecimalNumber(string: $0.value.prePayment.isEmpty ? "0" : String($0.value.prePayment.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue}
-            .joined(separator: ";")
+//        return selectedDiagnosisList.map {$0.key.trimmingCharacters(in: .whitespaces) + ":" +
+//            NSDecimalNumber(string: $0.value.price.isEmpty ? "0" : String($0.value.price.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue}
+//            .joined(separator: ";")
         
+        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value == "0" || $0.value.isEmpty ? "" : ":" + $0.value)}
+            .joined(separator: ";")
     }
     
     func generateMoneyDataFunc() {
-        var sumPayments: Decimal = 0
         var sumPrices: Decimal = 0
         _ = selectedDiagnosisList.map {
-            sumPayments += Decimal(string: String($1.prePayment.doubleValue)) ?? 0
-            sumPrices += Decimal(string: String($1.price.doubleValue)) ?? 0
+            sumPrices += Decimal(string: $1) ?? 0
         }
         self.sumPrices = sumPrices
-        self.sumPayment = sumPayments
     }
-    
+    func getAppointmentWithPayments(id: String) -> Appointment? {
+        var res: Appointment?
+        Amplify.DataStore.query(Appointment.self, byId: id) { result in
+            switch result {
+            case .failure:
+                break
+            case .success(let app):
+                res = app
+            }
+        }
+        return res
+    }
 }

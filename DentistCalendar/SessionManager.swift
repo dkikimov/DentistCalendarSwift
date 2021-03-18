@@ -11,6 +11,7 @@ enum AuthState {
     case confirmCode(username: String)
     case session(user: AuthUser)
     case forgotCode(username: String, newPassword: String)
+    case confirmSignUp(username: String, password: String)
 }
 
 
@@ -148,6 +149,26 @@ final class SessionManager: ObservableObject {
             }
         })
     }
+    func confirmSignUp(for username: String, with code: String, password: String, completion: @escaping (String?)->()) {
+        _ = Amplify.Auth.confirmSignUp(for: username, confirmationCode: code, listener: { (result) in
+            switch result {
+            case .success:
+                self.login(email: username, password: password) { (err) in
+                    if let err = err {
+                        DispatchQueue.main.async {
+                            self.authState = .login
+                            completion(err)
+                        }
+                    }
+                    self.getCurrentAuthUser()
+                }
+            case .failure(let err):
+                DispatchQueue.main.async {
+                    completion(err.errorDescription)
+                }
+            }
+        })
+    }
     func confirmResetPassword(username: String, newPassword: String, code: String, compelition: @escaping( String?) -> ()) {
         _ = Amplify.Auth.confirmResetPassword(for: username, with: newPassword, confirmationCode: code, listener: { [weak self] (result) in
             switch result {
@@ -200,6 +221,16 @@ final class SessionManager: ObservableObject {
                     DispatchQueue.main.async {
                         self?.getCurrentAuthUser()
                         compelition(nil)
+                    }
+                } else {
+                    switch signInResult.nextStep {
+                    case .confirmSignUp:
+                        DispatchQueue.main.async {
+                            self?.authState = .confirmSignUp(username: email, password: password)
+                            compelition(nil)
+                        }
+                    default:
+                        break
                     }
                 }
             case .failure(let error):

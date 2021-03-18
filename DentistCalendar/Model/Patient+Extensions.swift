@@ -18,6 +18,17 @@ extension Patient: Hashable {
         hasher.combine(id)
     }
 }
+extension Payment: Identifiable {}
+extension Payment: Equatable {
+    public static func ==(lhs: Payment, rhs: Payment) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+extension Payment: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 extension Appointment: Identifiable {}
 
 extension Appointment: Equatable {
@@ -36,5 +47,4 @@ extension EKEvent: Identifiable {
 
 struct Favor {
     var price: String
-    var prePayment: String
 }

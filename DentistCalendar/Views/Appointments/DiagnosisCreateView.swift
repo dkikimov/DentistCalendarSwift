@@ -14,6 +14,7 @@ struct DiagnosisCreateView: View {
     @State var diagnosisPrice = ""
     @State var isAlertPresented = false
     @State var isErrorAlertPresented = false
+    @State var error = ""
     @ObservedObject var data: AppointmentCreateViewModel
     @FetchRequest(sortDescriptors: [])
     var diagnosisList: FetchedResults<Diagnosis>
@@ -40,9 +41,15 @@ struct DiagnosisCreateView: View {
                     
                 }
                 if isAlertPresented {
-                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
+                    AlertControlView(alerts: [
+                        .init(text: $diagnosisText, placeholder: "Диагноз"),
+                        .init(text: $diagnosisPrice, placeholder: "Стоимость")
+                    ], showAlert: $isAlertPresented, action: {
                         addDiagnosis()
                     }, title: "Услуга", message: "Введите данные услуги")
+//                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
+//                        addDiagnosis()
+//                    }, title: "Услуга", message: "Введите данные услуги")
                 }
             }
             .onDisappear(perform: {
@@ -67,7 +74,7 @@ struct DiagnosisCreateView: View {
             
         }
         .alert(isPresented: $isErrorAlertPresented, content: {
-            Alert(title: Text("Ошибка"), message: Text("Название услуги слишком длинное"), dismissButton: .cancel())
+            Alert(title: Text("Ошибка"), message: Text(error), dismissButton: .cancel())
         })
     }
     
@@ -80,14 +87,22 @@ struct DiagnosisCreateView: View {
         }
     }
     private func addDiagnosis() {
+        diagnosisText = diagnosisText.trimmingCharacters(in: .whitespaces)
         guard diagnosisText != "" else { return }
+        guard !diagnosisList.contains(where: { (diag) -> Bool in
+            self.error = "Такой диагноз уже существует"
+            return diag.text == diagnosisText
+        }) else {return}
         guard diagnosisText.count <= 100 else {
+            self.error = "Название услуги слишком длинное"
             isErrorAlertPresented = true
             return
         }
         withAnimation{
             let newDiagnosis = Diagnosis(context: viewContext)
-            newDiagnosis.text = diagnosisText.trimmingCharacters(in: .whitespaces)
+            
+
+            newDiagnosis.text = diagnosisText
             newDiagnosis.price = NSDecimalNumber(string: diagnosisPrice.isEmpty ? "0" : diagnosisPrice)
             saveContext()
             diagnosisText = ""

@@ -18,7 +18,7 @@ struct PatientsListRow: View {
             
             VStack(alignment: .leading) {
                 Text(patient.fullname).fontWeight(.bold)
-                Text(patient.phone).foregroundColor(.gray)
+                Text(patient.phone ?? "").foregroundColor(.gray)
             }
             
         }.frame(height: 55)

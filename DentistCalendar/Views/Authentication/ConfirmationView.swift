@@ -10,6 +10,7 @@ import SwiftUI
 enum ConfirmationType {
     case forgotPassword
     case signUp
+    case confirmSignUp
 }
 
 struct ConfirmationView: View {
@@ -27,33 +28,44 @@ struct ConfirmationView: View {
     var newPassword: String?
     let username: String
     var body: some View {
-        VStack(alignment: .center, spacing: 15) {
+        VStack(alignment: .center, spacing: 8) {
             Spacer().frame(height:50)
-            Text("Подтверждение ").font(.title).bold().padding(.bottom, -10)
-            Text("Одноразовый код был отправлен вам на почту").font(.body).foregroundColor(.gray)
+            VStack(spacing: 15) {
+                Text("Подтверждение ").font(.title).bold().padding(.bottom, -10)
+                Text("Одноразовый код был отправлен вам на почту").font(.body).foregroundColor(.gray)
+            }
             
-            PassCodeInputField(inputModel: model)
+//            PassCodeInputField(inputModel: model)
+            CodeInputView(inputModel: model)
             
             CustomButton(action: {
-                if viewType == .signUp {
-                    sessionManager.confirm(username: username, code: model.passCodeString) { err in
+                switch viewType {
+                case .signUp:
+                    sessionManager.confirm(username: username, code: model.code) { err in
                         if let err = err {
                             self.error = err
                             self.isAlertPresented = true
                         }
                     }
-                } else if viewType == .forgotPassword {
+                case .forgotPassword:
                     guard newPassword != nil else {
                         self.error = "Пустой пароль"
                         self.isAlertPresented = true
                         return
                     }
-                    sessionManager.confirmResetPassword(username: username, newPassword: newPassword!, code: model.passCodeString, compelition: { err in
+                    sessionManager.confirmResetPassword(username: username, newPassword: newPassword!, code: model.code, compelition: { err in
                         if let err = err {
                             self.error = err
                             self.isAlertPresented = true
                         }
                     })
+                case .confirmSignUp:
+                    sessionManager.confirmSignUp(for: username, with: model.code, password: newPassword!) { (err) in
+                        if let err = err{
+                            self.error = err
+                            self.isAlertPresented = true
+                        }
+                    }
                 }
             }, imageName: "checkmark.square", label: "Подтвердить", color: "Blue", textColor: Color.white, disabled: !model.isValid, isLoading: $isLoading)
             Spacer()

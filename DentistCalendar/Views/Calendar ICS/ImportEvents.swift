@@ -9,6 +9,7 @@ import SwiftUI
 import Amplify
 
 struct ImportEvents: View {
+    @State var data: String?
     @State var isImportPresented = false
     @State var error = ""
     @State var isAlertPresented = false
@@ -29,6 +30,21 @@ struct ImportEvents: View {
             switch result {
             case .success(let url):
                 print("SUCCESS")
+                do {
+                                let selectedFile: URL = url
+                                if selectedFile.startAccessingSecurityScopedResource() {
+                                    guard let input = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                                    self.data = input
+                                    print(data)
+                                    defer { selectedFile.stopAccessingSecurityScopedResource() }
+                                } else {
+                                    // Handle denied access
+                                }
+                            } catch {
+                                // Handle failure.
+                                print("Unable to read file contents")
+                                print(error.localizedDescription)
+                            }
                 importEventsFromFile(file: url)
             case .failure(let error):
                 print("ERROR", error.localizedDescription)
@@ -45,7 +61,7 @@ struct ImportEvents: View {
         
     }
     func importEventsFromFile(file: URL) {
-        let cals = try! iCal.load(url: file)
+        let cals = try! iCal.load(string: data!)
         //        let calendar = ICSCalendar(withComponents: cals)
         //        calendar.subComponents.
         
@@ -67,18 +83,20 @@ struct ImportEvents: View {
                     if (patient != nil) {
                         newApp.patientID = event.otherAttrs["patientID"]
                     } else {
-                        let parsedPatient = parsePatientString(patient: event.otherAttrs["patientData"]!)
-                        if (parsedPatient != nil) {
-                            Amplify.DataStore.save(parsedPatient!) { result in
-                                switch result {
-                                case .success(let pat):
-                                    newApp.patientID = pat.id
-                                case .failure(let err):
-                                    self.error = err.errorDescription
-                                    self.isAlertPresented = true
+                        if event.otherAttrs["patientData"] != nil {
+                            let parsedPatient = parsePatientString(patient: event.otherAttrs["patientData"]!)
+                            if (parsedPatient != nil) {
+                                Amplify.DataStore.save(parsedPatient!) { result in
+                                    switch result {
+                                    case .success(let pat):
+                                        newApp.patientID = pat.id
+                                    case .failure(let err):
+                                        self.error = err.errorDescription
+                                        self.isAlertPresented = true
+                                    }
                                 }
+                                
                             }
-                            
                         }
                     }
                 case .failure(let error):
