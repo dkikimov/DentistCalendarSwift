@@ -85,10 +85,8 @@ class CustomCalendarExampleController: DayViewController {
                         let event = self.generateEvent(appointment: app)
                         print("ADDING EVENT", event.text)
                         self.endEventEditing()
-                        
                         self.generatedEvents.append(event)
                         self.endEventEditing()
-                        
                         self.reloadData()
                         
                     }
@@ -102,9 +100,6 @@ class CustomCalendarExampleController: DayViewController {
                     if let index = self.generatedEvents.firstIndex(where: {$0.id == app.id}) {
                         print("UPDATE APPOINTMENT", app)
                         let event = self.generateEvent(appointment: app)
-                        
-                        
-                        
                         DispatchQueue.main.async {
                             print("ADDING EVENT", event.text)
                             self.generatedEvents[index] = event
@@ -113,7 +108,6 @@ class CustomCalendarExampleController: DayViewController {
                                 self.selectedAppointment.wrappedValue = app
                             }
                         }
-                        
                     }
                     DispatchQueue.main.async {
                         self.reloadData()
@@ -135,6 +129,26 @@ class CustomCalendarExampleController: DayViewController {
             }
         
     }
+    
+    func observePayments() {
+        _ = Amplify.DataStore.publisher(for: Payment.self)
+            .receive(on: DispatchQueue.main)
+            .sink { (completion) in
+                if case .failure(let error) = completion {
+                    print("ERROR IN OBSERVE PAYMENTS", error.errorDescription)
+                }
+            } receiveValue: { (changes) in
+                //                print("CHANGES ", changes)
+                guard let payment = try? changes.decodeModel(as: Payment.self) else {return}
+                print("UPDATE PAYMENT", payment)
+                switch changes.mutationType {
+                case "delete":
+                    print("DELETE PAYMENT OBSERVE ", payment)
+                default: break
+                }
+                }
+            }
+    
     private func generateEvent(appointment: Appointment) -> Event{
         let newEvent = Event(id: appointment.id)
         newEvent.startDate = fromTimestampToDate(date: appointment.dateStart)
@@ -177,6 +191,7 @@ class CustomCalendarExampleController: DayViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         observeAppointments()
+        observePayments()
         print("VIEWDIDAPPEAR")
         
     }
@@ -265,7 +280,7 @@ class CustomCalendarExampleController: DayViewController {
                 self.selectedAppointment.wrappedValue = appointment!
                 self.viewData.isFullScreenPresented = true
                 
-                print("GOT APPOINTMENTS", appointment)
+//                print("GOT APPOINTMENTS", appointment)
             //                print("FULLSCREENISCALENDAR", fullScreenIsCalendar.wrappedValue)
             //                let vc = UIHostingController(rootView: AppointmentCalendarView(appointment: appointments[0]))
             //                show(vc, sender: self)
@@ -529,6 +544,7 @@ struct CalendarKitView: View {
             }
                 
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .halfModalSheet(isPresented: $modalManager.isDatePickerPresented, height: UIScreen.main.bounds.width + 50) {
                 DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())

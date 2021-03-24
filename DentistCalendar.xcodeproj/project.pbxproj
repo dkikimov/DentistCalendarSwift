@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		059920771EF644AD87BA9B8F /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9ADCE676F64E58832610AD /* Payment.swift */; };
-		38FC6730070F4F7789C5FD71 /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E910A109BD443DA9125552 /* Patient+Schema.swift */; };
-		6AD7B31C84A64C419E30683E /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601A61E228149A0BE6A0E18 /* AmplifyModels.swift */; };
+		37D3F3C60A514BD289159207 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814CE8A877F4ED3836E7164 /* Appointment.swift */; };
+		6D68240D61E8464682339A2B /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */; };
 		6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */; };
-		6F05F3CC257947410099BB94 /* amplifytools.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3C9257947410099BB94 /* amplifytools.xcconfig */; };
 		6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
 		6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
 		6F0B35A825AF650600E7C722 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F0B35AA25AF650600E7C722 /* Localizable.strings */; };
@@ -77,6 +75,7 @@
 		6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */; };
 		6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */; };
 		6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */; };
+		6F50F3472603C7FB00E740F6 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */; };
 		6F51126F258A7210008D6799 /* MultipleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */; };
 		6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55F04B2526F0340095729D /* RegisterViewModel.swift */; };
 		6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65467E25527D22007F4C2D /* SessionManager.swift */; };
@@ -88,22 +87,7 @@
 		6F67377825727DED0092B81B /* EventAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F67377725727DED0092B81B /* EventAddView.swift */; };
 		6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F67377A25727E830092B81B /* EventAddViewModel.swift */; };
 		6F67377E2572C1E70092B81B /* EventCalendarChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F67377D2572C1E70092B81B /* EventCalendarChooserView.swift */; };
-		6F705F7F25EB82B300AC4458 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6F705F7E25EB82B300AC4458 /* schema.graphql */; };
-		6F705F8B25EB847300AC4458 /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8425EB847300AC4458 /* Patient+Schema.swift */; };
-		6F705F8C25EB847300AC4458 /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8525EB847300AC4458 /* Payment+Schema.swift */; };
-		6F705F8D25EB847300AC4458 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8625EB847300AC4458 /* AmplifyModels.swift */; };
-		6F705F8E25EB847300AC4458 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8725EB847300AC4458 /* Patient.swift */; };
-		6F705F8F25EB847300AC4458 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8825EB847300AC4458 /* Appointment.swift */; };
-		6F705F9025EB847300AC4458 /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8925EB847300AC4458 /* Appointment+Schema.swift */; };
-		6F705F9125EB847300AC4458 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F705F8A25EB847300AC4458 /* Payment.swift */; };
 		6F70B7DF25E93DAC003A66D9 /* BillingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B7DE25E93DAC003A66D9 /* BillingSection.swift */; };
-		6F70B80425E94E84003A66D9 /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B7FD25E94E84003A66D9 /* Patient+Schema.swift */; };
-		6F70B80525E94E84003A66D9 /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B7FE25E94E84003A66D9 /* Payment+Schema.swift */; };
-		6F70B80625E94E84003A66D9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B7FF25E94E84003A66D9 /* AmplifyModels.swift */; };
-		6F70B80725E94E84003A66D9 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B80025E94E84003A66D9 /* Patient.swift */; };
-		6F70B80825E94E84003A66D9 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B80125E94E84003A66D9 /* Appointment.swift */; };
-		6F70B80925E94E84003A66D9 /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B80225E94E84003A66D9 /* Appointment+Schema.swift */; };
-		6F70B80A25E94E84003A66D9 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B80325E94E84003A66D9 /* Payment.swift */; };
 		6F795F27257A53620013E2BB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F795F26257A53620013E2BB /* Enums.swift */; };
 		6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE315255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld */; };
 		6F7CE31A255FC76E00D8D521 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE319255FC76E00D8D521 /* Persistence.swift */; };
@@ -139,6 +123,7 @@
 		6FB5F09025D055AF00FF24B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FB5F08F25D055AF00FF24B8 /* GoogleService-Info.plist */; };
 		6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */; };
 		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
+		6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FC534EB26086D8D00610AE3 /* schema.graphql */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
 		6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024C25A23EEE0043A70F /* NativeAdView.swift */; };
@@ -157,21 +142,20 @@
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
 		6FF64F06251E44580094C0E0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F05251E44580094C0E0 /* Item.swift */; };
-		81AE7520132F4D538B0F63CD /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D3A56E5744B9B8C3544E4 /* Payment+Schema.swift */; };
-		86677BD8D15A4AD6AD77BABB /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F1FC443224D98A0E7E7A9 /* Appointment+Schema.swift */; };
+		9BDB79E3DDC64FF9866CF8CB /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15342B5A8A894B0292EAE456 /* Patient.swift */; };
 		B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */; };
-		D0C5FB0447BB420BB2300A4C /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0673ADDCB3BF4676B01C616B /* Appointment.swift */; };
-		F65947BEFE6345C19CA1C35E /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919AA68588D4EBFA0B33E97 /* Patient.swift */; };
+		D62FF8CA96BB4C7F96C41A23 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
+		E6D88C0A92394FC78904A6BA /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */; };
+		F22EAA83B8FC494FB95BFDAB /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */; };
+		FEF955966CB945ADA3863878 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8390FFFB4F87A079E7DD /* Payment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0673ADDCB3BF4676B01C616B /* Appointment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Appointment.swift; path = amplify/generated/models/Appointment.swift; sourceTree = "<group>"; };
-		179F1FC443224D98A0E7E7A9 /* Appointment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Appointment+Schema.swift"; path = "amplify/generated/models/Appointment+Schema.swift"; sourceTree = "<group>"; };
-		3B5D3A56E5744B9B8C3544E4 /* Payment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Payment+Schema.swift"; path = "amplify/generated/models/Payment+Schema.swift"; sourceTree = "<group>"; };
-		4C9ADCE676F64E58832610AD /* Payment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Payment.swift; path = amplify/generated/models/Payment.swift; sourceTree = "<group>"; };
+		15342B5A8A894B0292EAE456 /* Patient.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Patient.swift; path = amplify/generated/models/Patient.swift; sourceTree = "<group>"; };
+		24BA8390FFFB4F87A079E7DD /* Payment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Payment.swift; path = amplify/generated/models/Payment.swift; sourceTree = "<group>"; };
+		4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Payment+Schema.swift"; path = "amplify/generated/models/Payment+Schema.swift"; sourceTree = "<group>"; };
 		6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailViewModel.swift; sourceTree = "<group>"; };
 		6F032150257FE36900E3F91D /* DentistCalendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DentistCalendar.entitlements; sourceTree = "<group>"; };
-		6F05F3C9257947410099BB94 /* amplifytools.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = SOURCE_ROOT; };
 		6F05F3CA257947410099BB94 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 		6F05F3CB257947410099BB94 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		6F0B35A925AF650600E7C722 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -240,6 +224,7 @@
 		6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getAvatarColor.swift; sourceTree = "<group>"; };
 		6F4AFCEC2531C13600F842BA /* PatientsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListViewModel.swift; sourceTree = "<group>"; };
 		6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsDetailView.swift; sourceTree = "<group>"; };
+		6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionRow.swift; sourceTree = "<group>"; };
 		6F55F04B2526F0340095729D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		6F65467E25527D22007F4C2D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -251,22 +236,7 @@
 		6F67377725727DED0092B81B /* EventAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAddView.swift; sourceTree = "<group>"; };
 		6F67377A25727E830092B81B /* EventAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAddViewModel.swift; sourceTree = "<group>"; };
 		6F67377D2572C1E70092B81B /* EventCalendarChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarChooserView.swift; sourceTree = "<group>"; };
-		6F705F7E25EB82B300AC4458 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/dentistcalendar/schema.graphql; sourceTree = SOURCE_ROOT; };
-		6F705F8425EB847300AC4458 /* Patient+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Patient+Schema.swift"; sourceTree = "<group>"; };
-		6F705F8525EB847300AC4458 /* Payment+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Payment+Schema.swift"; sourceTree = "<group>"; };
-		6F705F8625EB847300AC4458 /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifyModels.swift; sourceTree = "<group>"; };
-		6F705F8725EB847300AC4458 /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
-		6F705F8825EB847300AC4458 /* Appointment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
-		6F705F8925EB847300AC4458 /* Appointment+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Appointment+Schema.swift"; sourceTree = "<group>"; };
-		6F705F8A25EB847300AC4458 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		6F70B7DE25E93DAC003A66D9 /* BillingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingSection.swift; sourceTree = "<group>"; };
-		6F70B7FD25E94E84003A66D9 /* Patient+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Patient+Schema.swift"; sourceTree = "<group>"; };
-		6F70B7FE25E94E84003A66D9 /* Payment+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Payment+Schema.swift"; sourceTree = "<group>"; };
-		6F70B7FF25E94E84003A66D9 /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifyModels.swift; sourceTree = "<group>"; };
-		6F70B80025E94E84003A66D9 /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
-		6F70B80125E94E84003A66D9 /* Appointment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
-		6F70B80225E94E84003A66D9 /* Appointment+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Appointment+Schema.swift"; sourceTree = "<group>"; };
-		6F70B80325E94E84003A66D9 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		6F795F26257A53620013E2BB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6F7CE316255FC6A700D8D521 /* DiagnosisModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiagnosisModel.xcdatamodel; sourceTree = "<group>"; };
 		6F7CE319255FC76E00D8D521 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -303,6 +273,7 @@
 		6FB5F05025D04B7000FF24B8 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		6FB5F08F25D055AF00FF24B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6FC534EB26086D8D00610AE3 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/dentistcalendar/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySubscriptionView.swift; sourceTree = "<group>"; };
 		6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleAdsVariables + Constants.swift"; sourceTree = "<group>"; };
 		6FC9024C25A23EEE0043A70F /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
@@ -321,12 +292,14 @@
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		6FF64F01251E3CBE0094C0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		6FF64F05251E44580094C0E0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		8919AA68588D4EBFA0B33E97 /* Patient.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Patient.swift; path = amplify/generated/models/Patient.swift; sourceTree = "<group>"; };
-		9601A61E228149A0BE6A0E18 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
-		C4E910A109BD443DA9125552 /* Patient+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Patient+Schema.swift"; path = "amplify/generated/models/Patient+Schema.swift"; sourceTree = "<group>"; };
+		783B8691C6F843B193118D04 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
+		8B07802996364501A49A55CA /* amplifytools.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = "<group>"; };
+		B814CE8A877F4ED3836E7164 /* Appointment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Appointment.swift; path = amplify/generated/models/Appointment.swift; sourceTree = "<group>"; };
+		B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Patient+Schema.swift"; path = "amplify/generated/models/Patient+Schema.swift"; sourceTree = "<group>"; };
 		CE282996B18331B02EFFC969 /* Pods-DentistCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.release.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		D3A72237A0EF3FC9EE8AF5C7 /* Pods-DentistCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.debug.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DentistCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Appointment+Schema.swift"; path = "amplify/generated/models/Appointment+Schema.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,10 +330,10 @@
 		6F05F3B7257946E40099BB94 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				6F705F7E25EB82B300AC4458 /* schema.graphql */,
+				6FC534EB26086D8D00610AE3 /* schema.graphql */,
 				6F05F3CA257947410099BB94 /* amplifyconfiguration.json */,
-				6F05F3C9257947410099BB94 /* amplifytools.xcconfig */,
 				6F05F3CB257947410099BB94 /* awsconfiguration.json */,
+				8B07802996364501A49A55CA /* amplifytools.xcconfig */,
 			);
 			path = AmplifyConfig;
 			sourceTree = "<group>";
@@ -449,8 +422,7 @@
 		6F3A1A782519118F0042E7C4 = {
 			isa = PBXGroup;
 			children = (
-				778D12A18C524837A0B1586D /* AmplifyModels */,
-				6F70B7FC25E94E84003A66D9 /* models */,
+				E4D84D8A7EA54BAF91D48368 /* AmplifyModels */,
 				6F0B35AA25AF650600E7C722 /* Localizable.strings */,
 				6F05F3B7257946E40099BB94 /* AmplifyConfig */,
 				6F3A1A83251911900042E7C4 /* DentistCalendar */,
@@ -569,36 +541,6 @@
 				6F7ECB5C25EB89FF0002B91A /* CodeInputView.swift */,
 			);
 			path = PassCode;
-			sourceTree = "<group>";
-		};
-		6F705F8325EB847300AC4458 /* models */ = {
-			isa = PBXGroup;
-			children = (
-				6F705F8425EB847300AC4458 /* Patient+Schema.swift */,
-				6F705F8525EB847300AC4458 /* Payment+Schema.swift */,
-				6F705F8625EB847300AC4458 /* AmplifyModels.swift */,
-				6F705F8725EB847300AC4458 /* Patient.swift */,
-				6F705F8825EB847300AC4458 /* Appointment.swift */,
-				6F705F8925EB847300AC4458 /* Appointment+Schema.swift */,
-				6F705F8A25EB847300AC4458 /* Payment.swift */,
-			);
-			name = models;
-			path = amplify/generated/models;
-			sourceTree = SOURCE_ROOT;
-		};
-		6F70B7FC25E94E84003A66D9 /* models */ = {
-			isa = PBXGroup;
-			children = (
-				6F70B7FD25E94E84003A66D9 /* Patient+Schema.swift */,
-				6F70B7FE25E94E84003A66D9 /* Payment+Schema.swift */,
-				6F70B7FF25E94E84003A66D9 /* AmplifyModels.swift */,
-				6F70B80025E94E84003A66D9 /* Patient.swift */,
-				6F70B80125E94E84003A66D9 /* Appointment.swift */,
-				6F70B80225E94E84003A66D9 /* Appointment+Schema.swift */,
-				6F70B80325E94E84003A66D9 /* Payment.swift */,
-			);
-			name = models;
-			path = amplify/generated/models;
 			sourceTree = "<group>";
 		};
 		6F7CE31F255FE2C300D8D521 /* SearchBar */ = {
@@ -722,6 +664,7 @@
 				6F3A2AEC25C83ACC001E91A0 /* ViewExtension.swift */,
 				6FB5F05025D04B7000FF24B8 /* Alert.swift */,
 				6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */,
+				6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -747,22 +690,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		778D12A18C524837A0B1586D /* AmplifyModels */ = {
-			isa = PBXGroup;
-			children = (
-				6F705F8325EB847300AC4458 /* models */,
-				9601A61E228149A0BE6A0E18 /* AmplifyModels.swift */,
-				0673ADDCB3BF4676B01C616B /* Appointment.swift */,
-				179F1FC443224D98A0E7E7A9 /* Appointment+Schema.swift */,
-				8919AA68588D4EBFA0B33E97 /* Patient.swift */,
-				C4E910A109BD443DA9125552 /* Patient+Schema.swift */,
-				4C9ADCE676F64E58832610AD /* Payment.swift */,
-				3B5D3A56E5744B9B8C3544E4 /* Payment+Schema.swift */,
-			);
-			name = AmplifyModels;
-			path = .;
-			sourceTree = "<group>";
-		};
 		BA77E1F1431B68D974FF156D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -770,6 +697,21 @@
 				CE282996B18331B02EFFC969 /* Pods-DentistCalendar.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E4D84D8A7EA54BAF91D48368 /* AmplifyModels */ = {
+			isa = PBXGroup;
+			children = (
+				783B8691C6F843B193118D04 /* AmplifyModels.swift */,
+				B814CE8A877F4ED3836E7164 /* Appointment.swift */,
+				FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */,
+				15342B5A8A894B0292EAE456 /* Patient.swift */,
+				B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */,
+				24BA8390FFFB4F87A079E7DD /* Payment.swift */,
+				4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */,
+			);
+			name = AmplifyModels;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -850,8 +792,7 @@
 				6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
 				6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */,
-				6F05F3CC257947410099BB94 /* amplifytools.xcconfig in Resources */,
-				6F705F7F25EB82B300AC4458 /* schema.graphql in Resources */,
+				6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */,
 				6FB5F09025D055AF00FF24B8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -875,7 +816,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\"${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
 		};
 		6FB5F09325D058BB00FF24B8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -964,16 +905,13 @@
 				6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */,
 				6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */,
 				6F67377E2572C1E70092B81B /* EventCalendarChooserView.swift in Sources */,
-				6F705F8C25EB847300AC4458 /* Payment+Schema.swift in Sources */,
 				6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */,
 				6F3E742D2545E5FC00410A6F /* PatientUpdateViewModel.swift in Sources */,
 				6F1A3FD525B2EF5D00EC448E /* DatePickersSection.swift in Sources */,
 				6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */,
 				6F795F27257A53620013E2BB /* Enums.swift in Sources */,
-				6F705F8E25EB847300AC4458 /* Patient.swift in Sources */,
 				6F3F8F0025B9DE0900C42CEE /* ForgotPasswordView.swift in Sources */,
 				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
-				6F705F8F25EB847300AC4458 /* Appointment.swift in Sources */,
 				6F43790C25D97CDB00DE722C /* ExportDocument.swift in Sources */,
 				6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */,
 				6F1A3FD825B3021E00EC448E /* ServicesSection.swift in Sources */,
@@ -994,7 +932,6 @@
 				6F1D733B25E6AC110008DCBF /* WalktroughView.swift in Sources */,
 				6F8581C125D43F6100E7BF1F /* KeyboardAwareModifier.swift in Sources */,
 				6F8581BE25D43E2800E7BF1F /* KeyboardHeightPublisher.swift in Sources */,
-				6F705F8B25EB847300AC4458 /* Patient+Schema.swift in Sources */,
 				6F7CE325255FE2E400D8D521 /* ViewControllerResolver.swift in Sources */,
 				6F8581D325D451E700E7BF1F /* ExportEvents.swift in Sources */,
 				6F1A3FDE25B307F900EC448E /* DiagnosisRow.swift in Sources */,
@@ -1010,7 +947,6 @@
 				6F43790025D9764700DE722C /* Event.swift in Sources */,
 				6F65468F2552C285007F4C2D /* PassCodeInputField.swift in Sources */,
 				6F1047E425A3560300A8341F /* Store.swift in Sources */,
-				6F70B80425E94E84003A66D9 /* Patient+Schema.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
 				6F43790225D9764700DE722C /* iCalError.swift in Sources */,
 				6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */,
@@ -1045,14 +981,12 @@
 				6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */,
 				6F7ECB5D25EB89FF0002B91A /* CodeInputView.swift in Sources */,
 				6F1D733E25E6ADE50008DCBF /* TabDetailsView.swift in Sources */,
-				6F70B80525E94E84003A66D9 /* Payment+Schema.swift in Sources */,
+				6F50F3472603C7FB00E740F6 /* ArrayExtension.swift in Sources */,
 				6F418C102526421C008FD40F /* LoginViewModel.swift in Sources */,
 				6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */,
 				6F328EB6253CADE900F28F0F /* LoginViewController.swift in Sources */,
-				6F70B80925E94E84003A66D9 /* Appointment+Schema.swift in Sources */,
 				6F853B3925BB4EDB0063FBBC /* ModalView.swift in Sources */,
 				6F43790425D9764700DE722C /* CalendarComponent.swift in Sources */,
-				6F705F8D25EB847300AC4458 /* AmplifyModels.swift in Sources */,
 				6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */,
 				6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */,
 				6F51126F258A7210008D6799 /* MultipleSelectionRow.swift in Sources */,
@@ -1061,15 +995,10 @@
 				6F43790525D9764700DE722C /* IcsElement.swift in Sources */,
 				6F1A3FDB25B3028100EC448E /* SumSection.swift in Sources */,
 				6F418C0925263684008FD40F /* ApiHelper.swift in Sources */,
-				6F70B80825E94E84003A66D9 /* Appointment.swift in Sources */,
-				6F70B80A25E94E84003A66D9 /* Payment.swift in Sources */,
 				6F3A1A87251911900042E7C4 /* ContentView.swift in Sources */,
 				6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */,
-				6F70B80725E94E84003A66D9 /* Patient.swift in Sources */,
-				6F70B80625E94E84003A66D9 /* AmplifyModels.swift in Sources */,
 				6F4AFCED2531C13600F842BA /* PatientsListViewModel.swift in Sources */,
 				6F43790625D9764700DE722C /* Date.swift in Sources */,
-				6F705F9125EB847300AC4458 /* Payment.swift in Sources */,
 				6F7CE321255FE2D300D8D521 /* SearchBar.swift in Sources */,
 				6F1047DA25A33B5900A8341F /* IntersistititalAdView.swift in Sources */,
 				6F1D734425E6AF770008DCBF /* ButtonsView.swift in Sources */,
@@ -1081,15 +1010,14 @@
 				6F32DB14256417FD008EED03 /* AppointmentEditViewModel.swift in Sources */,
 				6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */,
 				6F67377825727DED0092B81B /* EventAddView.swift in Sources */,
-				6AD7B31C84A64C419E30683E /* AmplifyModels.swift in Sources */,
-				D0C5FB0447BB420BB2300A4C /* Appointment.swift in Sources */,
 				6F7ECB5A25EB89D30002B91A /* CodeView.swift in Sources */,
-				86677BD8D15A4AD6AD77BABB /* Appointment+Schema.swift in Sources */,
-				F65947BEFE6345C19CA1C35E /* Patient.swift in Sources */,
-				38FC6730070F4F7789C5FD71 /* Patient+Schema.swift in Sources */,
-				059920771EF644AD87BA9B8F /* Payment.swift in Sources */,
-				6F705F9025EB847300AC4458 /* Appointment+Schema.swift in Sources */,
-				81AE7520132F4D538B0F63CD /* Payment+Schema.swift in Sources */,
+				D62FF8CA96BB4C7F96C41A23 /* AmplifyModels.swift in Sources */,
+				37D3F3C60A514BD289159207 /* Appointment.swift in Sources */,
+				E6D88C0A92394FC78904A6BA /* Appointment+Schema.swift in Sources */,
+				9BDB79E3DDC64FF9866CF8CB /* Patient.swift in Sources */,
+				F22EAA83B8FC494FB95BFDAB /* Patient+Schema.swift in Sources */,
+				FEF955966CB945ADA3863878 /* Payment.swift in Sources */,
+				6D68240D61E8464682339A2B /* Payment+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1161,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DentistCalendar/DentistCalendar.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"DentistCalendar/Preview Content\"";
@@ -1246,6 +1175,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.katsushooter.DentistCalendar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1258,6 +1188,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DentistCalendar/DentistCalendar.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"DentistCalendar/Preview Content\"";
 				DEVELOPMENT_TEAM = 628BB54ZJN;
@@ -1270,6 +1201,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.katsushooter.DentistCalendar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

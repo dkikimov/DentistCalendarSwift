@@ -44,7 +44,7 @@ final class SessionManager: ObservableObject {
             print("set session")
         } else {
             authState = .login
-            Amplify.Auth.signOut()
+            _ = Amplify.Auth.signOut()
             print("redirect to login view")
         }
     }

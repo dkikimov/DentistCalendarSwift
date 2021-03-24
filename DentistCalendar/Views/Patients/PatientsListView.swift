@@ -60,7 +60,7 @@ struct PatientsListView: View {
             .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
             .navigationBarTitle("Пациенты", displayMode: .large)
         }
-        
+        .navigationViewStyle(StackNavigationViewStyle())
        
         
         .onAppear(perform: {

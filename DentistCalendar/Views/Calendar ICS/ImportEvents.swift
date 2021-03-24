@@ -61,7 +61,7 @@ struct ImportEvents: View {
         
     }
     func importEventsFromFile(file: URL) {
-        let cals = try! iCal.load(string: data!)
+        let cals = iCal.load(string: data!)
         //        let calendar = ICSCalendar(withComponents: cals)
         //        calendar.subComponents.
         

@@ -31,16 +31,16 @@ struct AppointmentCreateView: View {
     var rewardedAd = Rewarded()
     @StateObject var data: AppointmentCreateViewModel
     //    @ObservedObject var data: AppointmentCreateViewModel
-    //edit and create
+    
+    //edit and create in PatientDetailView
     init(patient: Patient?, isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, appointment: Appointment?, appointmentCalendar: Binding<Appointment>? = nil) {
         isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil))
         //        data = AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil)
         
-        if appointmentCalendar != nil {
-            self.appointmentCalendar = appointmentCalendar
-        }
+        self.appointmentCalendar = appointmentCalendar
+        
     }
     
     //createWithPatient
@@ -54,22 +54,20 @@ struct AppointmentCreateView: View {
         
     }
     var body: some View {
-        NavigationView{
-            List{
+        NavigationView {
+            List {
                 if data.viewType == .createWithPatient  {
                     //                    PickerCalendarSection(data: $data)
                     PickerCalendarSection()
                     //                    PickerCalendarSec
                     
                 }
-                
                 if data.viewType == .createWithPatient && data.segmentedMode == .withPatient {
                     PatientCreateSection(phoneNumber: $phoneNumber)
                     
                 } else if data.segmentedMode == .nonPatient{
                     TextField("Название", text: $data.title)
                 }
-                
                 DatePickersSection()
                 
                 if data.segmentedMode == .withPatient {
@@ -77,8 +75,6 @@ struct AppointmentCreateView: View {
                     BillingSection()
                 }
                 Section {
-                    
-                    
                     Button(action: {
                         
                         if data.segmentedMode == .withPatient {
@@ -88,18 +84,18 @@ struct AppointmentCreateView: View {
                                     data.isAlertPresented = true
                                     return
                                 }
-                                guard data.selectedPatient != nil || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
+                                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
                                     print("NUMBER", phoneNumber)
                                     data.error = "Введите корректный номер".localized
                                     data.isAlertPresented = true
                                     return
                                 }
                             }
-//                            guard !data.toothNumber.isEmpty else {
-//                                data.error = "Введите номер зуба".localized
-//                                data.isAlertPresented = true
-//                                return
-//                            }
+                            //                            guard !data.toothNumber.isEmpty else {
+                            //                                data.error = "Введите номер зуба".localized
+                            //                                data.isAlertPresented = true
+                            //                                return
+                            //                            }
                             if data.viewType == .create {
                                 data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
                             }

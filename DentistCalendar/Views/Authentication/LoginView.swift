@@ -20,15 +20,18 @@ struct LoginView: View {
                     NavigationLink(
                         destination: RegisterView(),
                         label: {
-                        Text("Нет аккаунта? Зарегистрируйтесь").fontWeight(.bold)
-                            .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
+                        Text("Нет аккаунта? Зарегистрируйтесь")
+                            .fontWeight(.bold)
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
                     }).padding(.horizontal, 20)
                     Spacer()
                     NavigationLink(
                         destination: ForgotPasswordView(),
                         label: {
                             Text("Забыли пароль?")
-                                .foregroundColor(Color(.black).opacity(0.5)).font(.subheadline)
+                                .foregroundColor(.gray)
+                                .font(.subheadline)
                         }).padding(.horizontal, 20)
                 }
                 

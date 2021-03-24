@@ -23,6 +23,7 @@ struct ServicesSection: View {
                     HStack(spacing: 5) {
                         Text("Цена: ")
                             .fixedSize()
+                            .foregroundColor(.gray)
                         TextField("", text: self.bindingPrice(for: key))
                             .keyboardType(.decimalPad)
                             .fixedSize()

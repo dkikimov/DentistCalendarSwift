@@ -47,7 +47,7 @@ class PatientDetailViewModel : ObservableObject {
             Amplify.DataStore.delete(Appointment.self, withId: appoint.id) { res in
                 switch res {
                 case .success:
-                    presentSuccessAlert(message: "Запись успешно удалена!")
+//                    presentSuccessAlert(message: "Запись успешно удалена!")
                     self.appointments = self.appointments.filter({ (app) -> Bool in
                         app.id != appoint.id
                     })

@@ -12,9 +12,8 @@ struct ServiceList: View {
     var body: some View {
         ForEach(diagnosisList, id: \.self) { service in
             HStack {
-                Text(String(service[0]) + ":")
-                Text(Decimal(string: String(service[2]))!.formatted) + Text(" / ") +
-                    Text(Decimal(string: String(service[1]))!.formatted)
+                Text(String(service[0]) + ": ").bold() +
+                Text(Decimal(string: String(service[1]))!.formatted)
             }
         }
     }

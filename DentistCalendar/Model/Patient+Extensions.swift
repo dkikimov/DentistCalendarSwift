@@ -48,3 +48,23 @@ extension EKEvent: Identifiable {
 struct Favor {
     var price: String
 }
+
+struct PaymentModel: Identifiable {
+    var id: String = UUID().uuidString
+    var cost: String
+    var date: String
+}
+
+extension PaymentModel: Equatable {
+    public static func ==(lhs: PaymentModel, rhs: PaymentModel) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension PaymentModel: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+

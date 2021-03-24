@@ -15,7 +15,7 @@ class AppointmentCalendarViewModel: ObservableObject {
     @Published var isActionSheetPresented = false
     var fullScreenIsCalendar: Binding<Bool>?
     var isEditAllowed: Bool
-    var appointment: Appointment
+    @Published var appointment: Appointment
     
     init(appointment: Appointment, isEditAllowed: Bool, fullScreenIsCalendar: Binding<Bool>?) {
         self.appointment = appointment

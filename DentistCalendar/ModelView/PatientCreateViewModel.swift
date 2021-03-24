@@ -31,7 +31,7 @@ class PatientCreateViewModel : ObservableObject {
 //        print("CURRENT NUMBER", patientNumber)
 //        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
         if phoneNumberKit.isValidPhoneNumber(patientNumber) {
-            let newPatient = Patient(fullname: patientName, phone: patientNumber.replacingOccurrences(of: " ", with: ""), owner: Amplify.Auth.getCurrentUser()!.userId)
+            let newPatient = Patient(fullname: patientName, phone: patientNumber.replacingOccurrences(of: " ", with: ""))
             Amplify.DataStore.save(newPatient) { result in
                 switch result{
                 case .success(_):

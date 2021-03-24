@@ -58,7 +58,7 @@ func checkEmail(_ email: String) -> (Bool, String?) {
 
 func generatePatientString(patient: Patient?) -> String {
     guard patient != nil else {return ""}
-    return "\(patient!.fullname) | \(patient!.phone)"
+    return "\(patient!.fullname) | \(patient!.phone ?? "")"
 }
 
 func parsePatientString(patient: String) -> Patient? {
