@@ -473,6 +473,7 @@ struct CalendarKitView: View {
     @State var isSettingsPresented = false
     
     @StateObject var modalManager = ModalManager()
+    @EnvironmentObject var internetManager: InternetConnectionManager
     var body: some View {
             NavigationView {
                 ZStack {
@@ -555,6 +556,7 @@ struct CalendarKitView: View {
             if data.fullScreenIsCalendar {
                 AppointmentCalendarView(appointment: data.selectedAppointment, fullScreenIsCalendar: $data.fullScreenIsCalendar, intestital: intestial)
                     .allowAutoDismiss(true)
+                    .environmentObject(internetManager)
             } else {
                 AppointmentCreateView(isAppointmentPresented: $data.isFullScreenPresented, viewType: .createWithPatient, dateStart: data.dateStart, dateEnd: data.dateEnd, group: group)
                     .allowAutoDismiss(false)

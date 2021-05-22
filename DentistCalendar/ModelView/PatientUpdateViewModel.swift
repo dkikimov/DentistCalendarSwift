@@ -41,7 +41,7 @@ class PatientUpdateViewModel : ObservableObject {
             isLoading = false
             return
         }
-        guard !finalFullname.isEmpty && !finalPhone.isEmpty else {
+        guard !finalFullname.isEmpty else {
             error = "Заполните форму".localized
             isAlertPresented = true
             isLoading = false
@@ -54,8 +54,8 @@ class PatientUpdateViewModel : ObservableObject {
             switch res {
             case .success(let patient):
                 print("INDEX", self.index)
-                listData.patientsList[self.index].fullname = patient.fullname
-                listData.patientsList[self.index].phone = patient.phone
+//                listData.patientsList[self.index].fullname = patient.fullname
+//                listData.patientsList[self.index].phone = patient.phone
                 presentSuccessAlert(message: "Данные успешно изменены!")
                 DispatchQueue.main.async {
                     compelition(true)

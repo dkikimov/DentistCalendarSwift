@@ -6,12 +6,14 @@
 //
 
 import Amplify
+import SwiftUI
 enum AuthState {
     case login
-    case confirmCode(username: String)
+    case confirmCode(username: String, password: String)
     case session(user: AuthUser)
     case forgotCode(username: String, newPassword: String)
     case confirmSignUp(username: String, password: String)
+//    case unauthenticated
 }
 
 
@@ -36,20 +38,39 @@ final class SessionManager: ObservableObject {
     //            }
     //        }
     //    }
-    
+    private var window: UIWindow {
+        guard
+            let scene = UIApplication.shared.connectedScenes.first,
+            let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+            let window = windowSceneDelegate.window as? UIWindow
+        
+        else {
+            return UIWindow()
+        }
+        return window
+    }
     func getCurrentAuthUser() {
         if let user = Amplify.Auth.getCurrentUser() {
-            authState = .session(user: user)
+            withAnimation {
+                authState = .session(user: user)
+            }
             print("ID ", user.userId)
             print("set session")
         } else {
-            authState = .login
+            withAnimation {
+                authState = .login
+            }
             _ = Amplify.Auth.signOut()
             print("redirect to login view")
+//            withAnimation {
+//                authState = .unauthenticated
+//            }
         }
     }
     func showLogin() {
-        authState = .login
+        withAnimation {
+            authState = .login
+        }
     }
     
     func signUp(email: String, password: String, firstName: String, secondName: String, compelition: @escaping( String?) -> ()) {
@@ -63,14 +84,19 @@ final class SessionManager: ObservableObject {
                 switch signUpResult.nextStep {
                 case .done:
                     print("finished sign up")
-                    DispatchQueue.main.async {
-                        compelition(nil)
-                    }
+                    self?.login(email: email, password: password, compelition: { (err) in
+                        DispatchQueue.main.async {
+                            compelition(err)
+                        }
+                    })
+                    
                 case .confirmUser(let details, _):
                     print(details ?? "no details")
                     
                     DispatchQueue.main.async {
-                        self?.authState = .confirmCode(username: email)
+                        withAnimation {
+                            self?.authState = .confirmCode(username: email, password: password)
+                        }
                         compelition(nil)
                     }
                 }
@@ -93,23 +119,26 @@ final class SessionManager: ObservableObject {
                 case .confirmResetPasswordWithCode(let details, _):
                     print("DETAILS", details)
                     DispatchQueue.main.async {
-                        self?.authState = .forgotCode(username: email, newPassword: newPassword)
+                        withAnimation {
+                            self?.authState = .forgotCode(username: email, newPassword: newPassword)
+                        }
                         compelition(nil)
                     }
                 case .done:
                     DispatchQueue.main.async {
-                        self?.authState = .login
+                        self?.showLogin()
                         compelition(nil)
                     }
                 }
             case .failure(let error):
                 print("ERROR")
                 DispatchQueue.main.async {
-                    compelition(error.errorDescription)
+                    compelition(error.localizedDescription)
                 }
             }
         }
     }
+    
     func updatePassword(oldPassword: String, newPassword: String,compelition: @escaping( String?) -> ()) {
         _ = Amplify.Auth.update(oldPassword: oldPassword, to: newPassword) { result in
             switch result {
@@ -118,7 +147,6 @@ final class SessionManager: ObservableObject {
                 DispatchQueue.main.async {
                     compelition(nil)
                 }
-                
             case .failure(let error):
                 print("ERROR UPDATE PASSWORD", error)
                 DispatchQueue.main.async {
@@ -128,7 +156,7 @@ final class SessionManager: ObservableObject {
         }
         
     }
-    func confirm(username: String, code: String,compelition: @escaping( String?) -> ()) {
+    func confirm(username: String, password: String, code: String,compelition: @escaping( String?) -> ()) {
         _ = Amplify.Auth.confirmSignUp(for: username, confirmationCode: code, listener: { [weak self] (result) in
             switch result {
             case .success(let confirmResult):
@@ -136,9 +164,18 @@ final class SessionManager: ObservableObject {
                 
                 if confirmResult.isSignupComplete {
                     DispatchQueue.main.async {
-                        self?.showLogin()
-                        compelition(nil)
+//                        self?.showLogin()
+                        self?.login(email: username, password: password) { (err) in
+                            if let err = err {
+                                DispatchQueue.main.async {
+                                    self?.showLogin()
+                                    compelition(err)
+                                }
+                                
+                            }
+                        }
                     }
+                    
                 }
                 
             case .failure(let error):
@@ -156,7 +193,7 @@ final class SessionManager: ObservableObject {
                 self.login(email: username, password: password) { (err) in
                     if let err = err {
                         DispatchQueue.main.async {
-                            self.authState = .login
+                            self.showLogin()
                             completion(err)
                         }
                     }
@@ -175,7 +212,15 @@ final class SessionManager: ObservableObject {
             case .success(let confirmResult):
                 print(confirmResult)
                 DispatchQueue.main.async {
-                    self?.showLogin()
+//                    self?.showLogin()
+                    self?.login(email: username, password: newPassword) { err in
+                        if let err = err {
+                            DispatchQueue.main.async {
+                                compelition(err)
+                            }
+                            self?.showLogin()
+                        }
+                    }
                     compelition(nil)
                 }
             case .failure(let error):
@@ -195,29 +240,13 @@ final class SessionManager: ObservableObject {
             switch result {
             case .success(let signInResult):
                 if signInResult.isSignedIn {
-                    self?.fetchAttributes { (attributes, err) in
+                    self?.fetchAttributes(completion: { (err) in
                         if err != nil {
                             DispatchQueue.main.async {
                                 compelition(err)
                             }
-                            return
-                        } else {
-                            var familyName = ""
-                            var name = ""
-                            for item in attributes! {
-                                if item.key.rawValue == "family_name" {
-                                    familyName = item.value
-                                }
-                                else if item.key.rawValue == "name" {
-                                    name = item.value
-                                }
-                            }
-                            DispatchQueue.main.async {
-                                UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
-                            }
                         }
-                    }
-                    
+                    })
                     DispatchQueue.main.async {
                         self?.getCurrentAuthUser()
                         compelition(nil)
@@ -226,7 +255,9 @@ final class SessionManager: ObservableObject {
                     switch signInResult.nextStep {
                     case .confirmSignUp:
                         DispatchQueue.main.async {
-                            self?.authState = .confirmSignUp(username: email, password: password)
+                            withAnimation {
+                                self?.authState = .confirmSignUp(username: email, password: password)
+                            }
                             compelition(nil)
                         }
                     default:
@@ -241,6 +272,44 @@ final class SessionManager: ObservableObject {
                 
             }
         }
+    }
+    
+    func resendSignUpCode(email: String,compelition: @escaping( String?) -> ()) {
+        Amplify.Auth.resendSignUpCode(for: email) { result in
+            switch result {
+            case .failure(let err):
+                DispatchQueue.main.async {
+                    compelition(err.localizedDescription)
+                }
+            default:
+                break
+            }
+        }
+    }
+    func loginWithGoogle(compelition: @escaping( String?) -> ()) {
+//        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window)
+        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window) { result in
+                switch result {
+                case .success:
+                    print("Sign in succeeded")
+                    self.fetchAttributes { err in
+                        if err != nil {
+                            DispatchQueue.main.async {
+                                compelition(err)
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.getCurrentAuthUser()
+                        compelition(nil)
+                    }
+                case .failure(let error):
+                    print("Sign in failed \(error)")
+                    DispatchQueue.main.async {
+                        compelition(error.localizedDescription)
+                    }
+                }
+            }
     }
     func signOut(compelition: @escaping( String?) -> ()) {
         Amplify.Auth.signOut { [weak self] result in
@@ -262,18 +331,32 @@ final class SessionManager: ObservableObject {
         }
         
     }
-    func fetchAttributes(completion: @escaping([AuthUserAttribute]?, String?) -> ()) {
+    func fetchAttributes(completion: @escaping(String?) -> ()) {
         Amplify.Auth.fetchUserAttributes() { result in
             switch result {
             case .success(let attributes):
                 print("User attributes - \(attributes)")
+                var familyName = ""
+                var name = ""
+                for item in attributes {
+                    if item.key.rawValue == "family_name" {
+                        familyName = item.value
+                    }
+                    else if item.key.rawValue == "name" {
+                        name = item.value
+                    }
+                }
                 DispatchQueue.main.async {
-                    completion(attributes, nil)
+                    UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
+                }
+                
+                DispatchQueue.main.async {
+                    completion(nil)
                 }
             case .failure(let error):
                 print("Fetching user attributes failed with error \(error)")
                 DispatchQueue.main.async {
-                    completion(nil, error.errorDescription)
+                    completion(error.localizedDescription)
                 }
             }
         }

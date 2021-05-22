@@ -99,10 +99,12 @@ struct ProfileSettingsView: View {
             }
             Section {
                 Button(action: {
-                    sessionManager.signOut { (err) in
-                        if err != nil {
-                            self.profileData.error = err!
-                            self.profileData.isAlertPresented = true
+                    withAnimation {
+                        sessionManager.signOut { (err) in
+                            if err != nil {
+                                self.profileData.error = err!
+                                self.profileData.isAlertPresented = true
+                            }
                         }
                     }
                 }, label: {
@@ -128,6 +130,7 @@ struct ProfileSettingsView: View {
         .sheet(isPresented: $profileData.isSheetPresented, content: {
             BuySubscriptionView()
         })
+        .transition(.opacity)
         //        .alert(isPresented: $profileData.isAlertPresented, content: {
         //            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
         //        })

@@ -87,3 +87,25 @@ func findPatientByID(id: String) -> Patient?{
     }
     return result
 }
+
+func countBilling(appointment: Appointment) -> (Decimal, Decimal, [[Substring]]) {
+    var diagnosisList = [[Substring]]()
+    var sumPayments: Decimal = 0
+    var sumPaid: Decimal = 0
+    if appointment.diagnosis != nil {
+        let a = appointment.diagnosis!.split(separator: ";")
+        a.forEach({
+            let b = $0.split(separator: ":")
+            //                print("FOREACH B", b )
+            if b.count == 2 {
+                sumPayments += Decimal(string: String(b[1])) ?? 0
+                diagnosisList.append(b)
+            }
+        })
+    }
+    for payment in appointment.payments! {
+        sumPaid += Decimal(string: payment.cost) ?? 0
+    }
+    
+    return (sumPayments, sumPaid, diagnosisList)
+}

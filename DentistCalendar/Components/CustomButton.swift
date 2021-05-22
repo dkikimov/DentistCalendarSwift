@@ -15,13 +15,19 @@ struct CustomButton: View{
     var textColor : Color = .white
     var disabled: Bool = false
     @Binding var isLoading: Bool
+    var isImageSystem: Bool = true
     var body: some View {
         Button(action: action) {
             HStack {
                 if !isLoading {
                     if imageName != nil {
-                        Image(systemName: imageName!)
-                            .font(.title3)
+                        if isImageSystem {
+                            Image(systemName: imageName!)
+                                .font(.title3)
+                        } else {
+                            Image(imageName!)
+                                .font(.title3)
+                        }
                     }
                     
                     Text(label.localized)

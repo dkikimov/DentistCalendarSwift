@@ -8,6 +8,7 @@
 import SwiftUI
 import CalendarKit
 import Amplify
+import MultiModal
 private func dateFormatter(date: String, _ time: Bool = false) -> String{
     let formatter = DateFormatter()
     formatter.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
@@ -90,6 +91,7 @@ struct AppointmentCalendarView: View {
                     .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
     )
                 }
+               
                 .actionSheet(isPresented: $data.isActionSheetPresented, content: {
                     ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
                         .destructive(Text("Удалить")){
@@ -98,6 +100,10 @@ struct AppointmentCalendarView: View {
                         .cancel()
                     ])
                 })
+                .sheet(isPresented: $data.isSheetPresented, content: {
+                    AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
+                })
+                
                 .navigationBarItems(leading: Button(action: {
                     DispatchQueue.main.async {
                         presentationMode.wrappedValue.dismiss()
@@ -114,9 +120,9 @@ struct AppointmentCalendarView: View {
     //                            UITabBarController.tabBar.isHidden = true
     //                }
             }
-            .sheet(isPresented: $data.isSheetPresented, content: {
-                AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
-            })
+             
+            
+            
             .onDisappear(perform: {
                 if data.fullScreenIsCalendar != nil {
                     data.fullScreenIsCalendar!.wrappedValue = false
@@ -124,13 +130,23 @@ struct AppointmentCalendarView: View {
             })
              .onChange(of: data.isSheetPresented, perform: { value in
                 if value == false {
-                    self.countBilling(appointment: data.appointment)
+                    let res = countBilling(appointment: data.appointment)
+                    self.serviceSum = res.0
+                    self.servicePaid = res.1
+                    self.diagnosisList = res.2
+
                 }
              })
              .onAppear(perform: {
-                self.countBilling(appointment: data.appointment)
+                let res = countBilling(appointment: data.appointment)
+                self.serviceSum = res.0
+                self.servicePaid = res.1
+                self.diagnosisList = res.2
+
+                
              })
                 .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
+             
         }
 //        .onDisappear(perform: {
 //            if intestital != nil {
@@ -141,27 +157,7 @@ struct AppointmentCalendarView: View {
 //        })
         
     }
-     func countBilling(appointment: Appointment) {
-        self.diagnosisList = [[Substring]]()
-        var sumPayments: Decimal = 0
-        var sumPaid: Decimal = 0
-        if appointment.diagnosis != nil {
-            let a = appointment.diagnosis!.split(separator: ";")
-            a.forEach({
-                let b = $0.split(separator: ":")
-//                print("FOREACH B", b )
-                if b.count == 2 {
-                    sumPayments += Decimal(string: String(b[1])) ?? 0
-                    self.diagnosisList.append(b)
-                }
-            })
-            self.serviceSum = sumPayments
-        }
-        for payment in appointment.payments! {
-            sumPaid += Decimal(string: payment.cost) ?? 0
-        }
-        self.servicePaid = sumPaid
-    }
+     
     
 }
 

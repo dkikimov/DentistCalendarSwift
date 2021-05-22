@@ -31,7 +31,7 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-    var selectedDiagnosisList = [String: String]()
+    @Published var selectedDiagnosisList = [String: String]()
     @Published var isDiagnosisCreatePresented = false
     @Published var isAlertPresented: Bool = false
     @Published var error = ""

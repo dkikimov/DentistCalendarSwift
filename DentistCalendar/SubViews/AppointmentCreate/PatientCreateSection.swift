@@ -38,7 +38,7 @@ struct PatientCreateSection: View {
                             self.titleBinding().wrappedValue = patient.fullname
                             print("PATIENT", patient)
                         }, label :{
-                            PatientsListRow(patient: data.foundedPatientsList[index])
+                            PatientsListRow(patient: $data.foundedPatientsList[index])
                         })
                     }
                 }

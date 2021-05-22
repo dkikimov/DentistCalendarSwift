@@ -147,5 +147,14 @@
             </dict>
         </dict>
     </array>
+    <key>CFBundleURLTypes</key>
+         <array>
+             <dict>
+                 <key>CFBundleURLSchemes</key>
+                 <array>
+                     <string>dentistcalendar</string>
+                 </array>
+             </dict>
+         </array>
 </dict>
 </plist>

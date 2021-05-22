@@ -19,7 +19,6 @@ struct CalendarDayView: View {
                         ToolbarItem(placement: .status, content: {})
                     })
                 
-                
                     PatientsListView()
                 .tag(Tabs.tab2)
                 .tabItem({
@@ -27,6 +26,8 @@ struct CalendarDayView: View {
                     Text("Пациенты")
                 })
             }
+            .transition(.opacity)
+
     
 //        BannerVC()
 //            .frame(width: 320, height: 50, alignment: .center)

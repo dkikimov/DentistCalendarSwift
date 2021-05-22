@@ -16,6 +16,8 @@ enum ConfirmationType {
 struct ConfirmationView: View {
     @EnvironmentObject var sessionManager: SessionManager
     
+    @State var timeRemaining = 45
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State var isLoading = false
     @State var error: String = ""
@@ -25,7 +27,7 @@ struct ConfirmationView: View {
     @ObservedObject var model = PassCodeInputModel(passCodeLength: 6)
     
     var viewType: ConfirmationType
-    var newPassword: String?
+    var password: String?
     let username: String
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
@@ -37,37 +39,67 @@ struct ConfirmationView: View {
             
 //            PassCodeInputField(inputModel: model)
             CodeInputView(inputModel: model)
-            
-            CustomButton(action: {
+            Spacer()
+                .frame(height: 10)
+            if viewType == .confirmSignUp || viewType == .signUp {
+                Button(action: {
+                    timeRemaining = 45
+                        sessionManager.resendSignUpCode(email: username) { err in
+                            if let err = err {
+                                self.error = err
+                                self.isAlertPresented = true
+                                timeRemaining = 0
+
+                            }
+                        }
+                    
+                }, label: {
+                    if timeRemaining <= 0 {
+                        Text("Выслать код заново")
+                    } else {
+                        Text("Код можно будет выслать через \(timeRemaining) секунд")
+                    }
+                })
+                .font(.footnote, weight: .semibold)
+                .onReceive(timer) { _ in
+                                if timeRemaining > 0 {
+                                    timeRemaining -= 1
+                                }
+                            }
+                .disabled(timeRemaining > 0)
+                Spacer()
+                    .frame(height: 5)
+            }
+            ActionButton(buttonLabel: "Подтвердить", isLoading: $isLoading, isDisabled: $model.isNotValid, action: {
                 switch viewType {
                 case .signUp:
-                    sessionManager.confirm(username: username, code: model.code) { err in
+                    sessionManager.confirm(username: username, password: password!, code: model.code) { err in
                         if let err = err {
                             self.error = err
                             self.isAlertPresented = true
                         }
                     }
                 case .forgotPassword:
-                    guard newPassword != nil else {
+                    guard password != nil else {
                         self.error = "Пустой пароль"
                         self.isAlertPresented = true
                         return
                     }
-                    sessionManager.confirmResetPassword(username: username, newPassword: newPassword!, code: model.code, compelition: { err in
+                    sessionManager.confirmResetPassword(username: username, newPassword: password!, code: model.code, compelition: { err in
                         if let err = err {
                             self.error = err
                             self.isAlertPresented = true
                         }
                     })
                 case .confirmSignUp:
-                    sessionManager.confirmSignUp(for: username, with: model.code, password: newPassword!) { (err) in
+                    sessionManager.confirmSignUp(for: username, with: model.code, password: password!) { (err) in
                         if let err = err{
                             self.error = err
                             self.isAlertPresented = true
                         }
                     }
                 }
-            }, imageName: "checkmark.square", label: "Подтвердить", color: "Blue", textColor: Color.white, disabled: !model.isValid, isLoading: $isLoading)
+            })
             Spacer()
         }.padding().multilineTextAlignment(.leading)
         .alert(isPresented: $isAlertPresented, content: {
@@ -76,8 +108,8 @@ struct ConfirmationView: View {
     }
 }
 //
-//struct ConfirmationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConfirmationView()
-//    }
-//}
+struct ConfirmationView_Previews: PreviewProvider {
+    static var previews: some View {
+        ConfirmationView(viewType: .confirmSignUp, username: "as")
+    }
+}

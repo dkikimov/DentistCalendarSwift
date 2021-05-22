@@ -14,11 +14,11 @@ struct CodeView: View {
     var body: some View{
         
         VStack(spacing: 10){
-            
             Text(code)
-                .foregroundColor(.black)
+//                .foregroundColor(.black)
                 .fontWeight(.bold)
                 .font(.title2)
+//                .foregroundColor(Color("Black1"))
             // default frame...
                 .frame(height: 45)
             

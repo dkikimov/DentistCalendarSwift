@@ -23,8 +23,9 @@ struct ForgotPasswordView: View {
             CustomTextField(label: "Email", title: "example@gmail.com", text: $email, isSecure: false, keyboardType: .default).autocapitalization(.none).padding(.horizontal, 20).padding(.top, 20)
             CustomTextField(label: "Новый пароль", title: "example123", text: $firstPassword, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
             CustomTextField(label: "Повторите пароль", title: "example123", text: $secondPassword, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
-            
-            CustomButton(action: {
+            Spacer()
+                .frame(height: 15)
+            ActionButton(buttonLabel: "Восстановить", isLoading: $isLoading) {
                 guard !email.isEmpty && !firstPassword.isEmpty && !secondPassword.isEmpty else {
                     self.error = "Заполните форму".localized
                     self.isAlertPresented = true
@@ -49,8 +50,7 @@ struct ForgotPasswordView: View {
                     self.error = error!
                     self.isAlertPresented = true
                 }
-                
-            }, imageName: nil, label: "Восстановить", isLoading: $isLoading)
+            }
             
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Восстановление"))

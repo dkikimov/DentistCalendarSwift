@@ -8,6 +8,7 @@
 import SwiftUI
 import Amplify
 import SPAlert
+import Combine
 class PatientDetailViewModel : ObservableObject {
     
     @Published  var appointments = [Appointment]()
@@ -21,12 +22,15 @@ class PatientDetailViewModel : ObservableObject {
     @Published var isLoading = false
     @Published var error = ""
     @State var patient: Patient
+    var observationToken: AnyCancellable?
     //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     init(patient: Patient) {
         self.patient = patient
         fetchAppointments()
     }
-    
+    deinit {
+        observationToken?.cancel()
+    }
     @AppStorage("isLogged") var status = false
     func fetchAppointments() {
         self.isLoading = true
@@ -58,5 +62,63 @@ class PatientDetailViewModel : ObservableObject {
             print("Error")
         }
     }
-    
+//    func observeAppointments() {
+//        observationToken = Amplify.DataStore.publisher(for: Patient.self)
+//            .sink { (completion) in
+//                if case .failure(let error) = completion {
+//                    print("ERROR IN OBSERVE PATIENTS", error.errorDescription)
+//                }
+//            } receiveValue: { (changes) in
+//                print("CHANGES ", changes)
+//                guard let pat = try? changes.decodeModel(as: Appointment.self) else {return}
+//                
+//                switch changes.mutationType {
+//                case "create":
+//                    print("NEW PATIENT", pat)
+//                    if !self.appointments.contains(where: { (patient) -> Bool in
+//                        patient.id == pat.id
+//                    }) {
+//                        DispatchQueue.main.async {
+//                            self.patientsList.append(pat)
+//                            if !self.isSearching {
+//                                self.filteredItems.append(pat)
+//                            }
+//                        }
+//                    }
+//                    break
+//                case "delete":
+//                    DispatchQueue.main.async {
+//                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
+//                            self.patientsList.remove(at: index)
+//                            if !self.isSearching {
+//                                self.filteredItems.remove(at: index)
+//                            }
+//                        }
+//                        if self.isSearching {
+//                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
+//                                self.filteredItems.remove(at: index)
+//                            }
+//                        }
+//                    }
+//                case "update":
+//                    DispatchQueue.main.async {
+//                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
+//                            self.patientsList[index] = pat
+//                            if !self.isSearching {
+//                                self.filteredItems[index] = pat
+//                            }
+//                            print("UPDATED PATIENT")
+//                        }
+//                        if self.isSearching {
+//                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
+//                                self.filteredItems[index] = pat
+//                            }
+//                        }
+//                    }
+//                    break
+//                default:
+//                    break
+//                }
+//            }
+//    }
 }

@@ -29,7 +29,8 @@ struct PatientCreateView: View {
             //                    }
             //                }
             //            }, imageName: "pencil", label: "Изменить", disabled: (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == data.listData.patientsList[data.index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == data.listData.patientsList[data.index].phone) ), isLoading: $data.isLoading).padding(.top, 10)
-            CustomButton(action: {
+            Spacer().frame(height: 10)
+            ActionButton(buttonLabel: "Создать", isLoading: $data.isLoading, action: {
                 data.createPatient(patientData: patientsListData) { success in
                     if success {
                         DispatchQueue.main.async {
@@ -37,8 +38,7 @@ struct PatientCreateView: View {
                         }
                     }
                 }
-            }, imageName: "plus", label: "Создать", color: "Green", disabled: false, isLoading: $data.isLoading)
-            
+            })
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Создать пациента"))
             

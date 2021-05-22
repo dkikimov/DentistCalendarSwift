@@ -119,3 +119,14 @@ extension Decimal {
         
     }
 }
+
+extension Double {
+    var formattedAmount: String? {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: self as NSNumber)
+    }
+}
+

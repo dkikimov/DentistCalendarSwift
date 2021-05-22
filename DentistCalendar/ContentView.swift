@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import UIKit
 
 //struct BasicView: View {
 //    let item: BottomBarItem
@@ -55,7 +55,11 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("firstStart") var isWalktroughShowing = true
+//    @State var isWalktroughShowing: Bool = true
+
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
+    @State var alertController = UIAlertController(title: "Ошибка", message: "Для продолжения включите доступ к интернету", preferredStyle: .alert)
     var calendar = Calendar(identifier: .gregorian)
     init() {
         calendar.locale = Locale(identifier: Locale.preferredLanguages.first!)
@@ -63,33 +67,40 @@ struct ContentView: View {
     @ViewBuilder var body: some View {
         ZStack {
             if isWalktroughShowing {
-                WalktroughView(isWalkthroughViewShowing: $isWalktroughShowing)
-                    .transition(.move(edge: .bottom))
+                OnBoardingView(isWalkthroughViewShowing: $isWalktroughShowing)
+//                    .transition(.move(edge: .bottom))
             } else {
                 switch sessionManager.authState {
                 case .login:
                     LoginView()
                         .environmentObject(sessionManager)
+//                        .transition(.move(edge: .bottom))
                 case .session:
                     CalendarDayView()
                         .environmentObject(sessionManager)
                         .environment(\.locale, Locale.init(identifier: Locale.preferredLanguages[0]))
                         .environment(\.calendar, calendar)
+//                        .transition(.move(edge: .bottom))
                     Print("Current Locale", Locale.preferredLanguages[0])
-                case .confirmCode(username: let username):
-                    ConfirmationView(viewType: .signUp, username: username)
+                case .confirmCode(username: let username, password: let password):
+                    ConfirmationView(viewType: .signUp, password: password, username: username)
                         .environmentObject(sessionManager)
+//                        .transition(.move(edge: .bottom))
                 case .forgotCode(username: let username, newPassword: let newPassword):
-                    ConfirmationView(viewType: .forgotPassword, newPassword: newPassword, username: username)
+                    ConfirmationView(viewType: .forgotPassword, password: newPassword, username: username)
                         .environmentObject(sessionManager)
+//                        .transition(.move(edge: .bottom))
                 case AuthState.confirmSignUp(username: let username, password: let password):
-                    ConfirmationView(viewType: .confirmSignUp, newPassword: password, username: username)
+                    ConfirmationView(viewType: .confirmSignUp, password: password, username: username)
+//                        .transition(.move(edge: .bottom))
                 }
             }
         }
+//
     }
-    
 }
+
+
 //
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

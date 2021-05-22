@@ -22,3 +22,8 @@ public enum AppointmentType {
 public enum Tabs{
         case tab1, tab2
     }
+
+public enum InternetConnectionType {
+    case enabled
+    case disabled
+}

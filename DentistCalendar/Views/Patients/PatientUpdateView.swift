@@ -27,37 +27,37 @@ struct PatientUpdateView: View {
                 PhoneNumberTextFieldView(phoneNumber: $data.phone)
                 Divider()
             }.padding(.horizontal, 20).frame(height: 45)
-            
-            CustomButton(action: {
-                data.updatePatient(listData: self.listData) { (res) in
-                    if res {
-                        DispatchQueue.main.async {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-                }
-            }, imageName: "pencil", label: "Изменить", disabled: false
-//                (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == listData.patientsList[index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == listData.patientsList[index].phone) || !phoneNumberKit.isValidPhoneNumber(data.phone) )
-            , isLoading: $data.isLoading
-            ).padding(.top, 10)
-//            CustomButton(action: {
-//                data.isAlertPresented = true
-//            },
-//            imageName: "trash", label: "Удалить", color: "Red1", isLoading: $data.isLoading)
+            Spacer()
+                .frame(height: 10)
+            ActionButton(buttonLabel: "Изменить", isLoading: $data.isLoading,
+                         action: {
+                            data.updatePatient(listData: self.listData) { (res) in
+                                if res {
+                                    DispatchQueue.main.async {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            }
+                         })
+            //                (data.fullname.isEmpty || data.phone.isEmpty || (data.fullname == listData.patientsList[index].fullname && data.phone.replacingOccurrences(of: " ", with: "") == listData.patientsList[index].phone) || !phoneNumberKit.isValidPhoneNumber(data.phone) )
+            //            CustomButton(action: {
+            //                data.isAlertPresented = true
+            //            },
+            //            imageName: "trash", label: "Удалить", color: "Red1", isLoading: $data.isLoading)
             
             Spacer(minLength: 0)
                 .navigationBarTitle(Text("Изменить данные"))
             
         }.alert(isPresented: $data.isAlertPresented, content: {
-//            var alert: Alert =
-//                Alert(title: Text("Подтверждение"), message: Text("Вы точно хотите удалить пациента?"), primaryButton: .default(Text("Да"), action: {
-//                data.deletePatient(listData: listData)
-//            }), secondaryButton: .cancel())
-//            if data.error != "" {
-//                alert = Alert(title: Text("Ошибка"), message: Text(data.error) , dismissButton: .cancel())
-//                data.error = ""
-//            }
-             Alert(title: Text("Ошибка"), message: Text(data.error) , dismissButton: .cancel())
+            //            var alert: Alert =
+            //                Alert(title: Text("Подтверждение"), message: Text("Вы точно хотите удалить пациента?"), primaryButton: .default(Text("Да"), action: {
+            //                data.deletePatient(listData: listData)
+            //            }), secondaryButton: .cancel())
+            //            if data.error != "" {
+            //                alert = Alert(title: Text("Ошибка"), message: Text(data.error) , dismissButton: .cancel())
+            //                data.error = ""
+            //            }
+            Alert(title: Text("Ошибка"), message: Text(data.error) , dismissButton: .cancel())
         })
         
         //            .navigationBarColor( backgroundColor: UIColor(named: "Blue")!, tintColor: .white)

@@ -70,6 +70,6 @@ internal class Parser {
             }
         }
 
-        return completeCal.flatMap{ $0 }
+        return completeCal.compactMap{ $0 }
     }
 }

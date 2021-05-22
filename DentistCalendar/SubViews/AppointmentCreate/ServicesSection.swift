@@ -62,10 +62,14 @@ struct ServicesSection: View {
                 //                }
             }
             .onDelete(perform: { indexSet in
-                if let first = indexSet.first {
-                    print("INDEX SET IS ", first)
-                    let key = data.selectedDiagnosisList.keys.sorted()[first]
-                    data.selectedDiagnosisList.removeValue(forKey: key)
+                DispatchQueue.main.async {
+                    if let first = indexSet.first {
+                        print("INDEX SET IS ", first)
+                        let key = data.selectedDiagnosisList.keys.sorted()[first]
+                        data.sumPrices -= Decimal(string: data.selectedDiagnosisList[key]!) ?? 0
+                        data.selectedDiagnosisList.removeValue(forKey: key)
+                    }
+                    
                 }
             })
             Button(action: {
@@ -80,16 +84,16 @@ struct ServicesSection: View {
     }
     
     private func bindingPrice(for key: String) -> Binding<String> {
-        
-        
-        
         return .init(
             get: {
                 self.data.selectedDiagnosisList[key]!
             },
             set: {
+                data.sumPrices -= Decimal(string: self.data.selectedDiagnosisList[key]!) ?? 0
+                data.sumPrices += Decimal(string: $0) ?? 0
                 self.data.selectedDiagnosisList[key]! = $0
-                data.generateMoneyData.call()
+                
+                                data.generateMoneyData.call()
             })
     }
 }

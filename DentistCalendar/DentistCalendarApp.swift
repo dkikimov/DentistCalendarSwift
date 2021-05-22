@@ -11,6 +11,7 @@ import AmplifyPlugins
 import PhoneNumberKit
 import GoogleMobileAds
 import Firebase
+import Network
 public var phoneNumberKit = PhoneNumberKit()
 
 class ModalManager: ObservableObject {
@@ -24,23 +25,46 @@ class ModalManager: ObservableObject {
 struct DentistCalendarApp: App {
     
     @ObservedObject var sessionManager = SessionManager()
+    @StateObject var internetConnectionManager = InternetConnectionManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State var alertController = UIAlertController(title: "Ошибка", message: "Для продолжения включите доступ к интернету", preferredStyle: .alert)
     //    @StateObject private var store = Store()
     init() {
         configureAmplify()
         sessionManager.getCurrentAuthUser()
         ProductsStore.shared.initializeProducts()
     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(sessionManager)
+                .environmentObject(internetConnectionManager)
                 .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+//                .onChange(of: internetConnectionManager.isNotInternetConnected, perform: { (newValue) in
+//                    if newValue == true {
+//                        presentAlert()
+//                    } else {
+//                        alertController.dismiss(animated: true)
+//                    }
+//                })
+            //                .environment(\.internetAvailability, $isInternetConnected)
         }
         
     }
-    
+    func presentAlert() {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        
+        if var topController = keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            topController.present(alertController, animated: true, completion: nil)
+        }
+    }
 }
+
 
 
 private func configureAmplify() {
@@ -60,4 +84,5 @@ private func configureAmplify() {
 private func configureGoogleAds() {
     GADMobileAds.sharedInstance().start(completionHandler: nil)
 }
+
 
