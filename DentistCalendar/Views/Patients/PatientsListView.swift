@@ -140,26 +140,26 @@ struct PatientsListView: View {
                     self.listData.filteredItems = listData.patientsList
                 }
             }
-
+            
         }, onCancel: {
             listData.isSearching = false
             withAnimation {
                 self.listData.filteredItems = listData.patientsList
             }
         })
-//        NavigationView {
-//            PatientsListSearch(listData: listData)
-//                .navigationSearchBar {
-//                    SwiftUIX.SearchBar("Поиск".localized, text: $searchText)
-//                }
-//        }
+        //        NavigationView {
+        //            PatientsListSearch(listData: listData)
+        //                .navigationSearchBar {
+        //                    SwiftUIX.SearchBar("Поиск".localized, text: $searchText)
+        //                }
+        //        }
         .ignoresSafeArea()
         .onAppear(perform: {
             listData.fetchPatients()
             listData.observePatients()
         })
     }
-
+    
 }
 
 struct PatientsListSearch: View {
@@ -168,13 +168,22 @@ struct PatientsListSearch: View {
         ZStack {
             if listData.patientsList.count > 0 {
                 List {
-                    ForEach(Array(zip(listData.filteredItems.indices, listData.filteredItems)), id: \.0) { (index, item) in
-                        NavigationLink(destination: PatientsDetailView(index: index, listData: listData, item: item),
+                    ForEach(listData.filteredItems, id: \.id) { item in
+                        NavigationLink(destination: PatientsDetailView(listData: listData, item: item),
                                        label: {
-                                        PatientsListRow(patient: $listData.filteredItems[index])
+                                        //                                        PatientsListRow(patient: item)
+                                        HStack (spacing: 10){
+                                            AvatarBlock(fullname: item.fullname)
+                                            
+                                            VStack(alignment: .leading) {
+                                                Text(item.fullname).fontWeight(.bold)
+                                                Text(partialFormatter.formatPartial(item.phone ?? "")).foregroundColor(.gray)
+                                            }
+                                            
+                                        }.frame(height: 55)
                                        })
                     }.onDelete(perform: { indexSet in
-                                deleteItem(at: indexSet)
+                        deleteItem(at: indexSet)
                     })
                 }
                 .listStyle(PlainListStyle())
@@ -202,16 +211,16 @@ struct PatientsListSearch: View {
                     FloatingButton(moreButtonAction: {}, isNavigationLink: true, patientsListData: listData)
                 }.padding([.bottom, .trailing], 15)
             }
-
+            
         }    }
     func deleteItem(at offsets: IndexSet) {
         if let first = offsets.first {
             if listData.patientsList.count >= first {
                 let id: String
                 if listData.isSearching {
-                     id = listData.filteredItems[first].id
+                    id = listData.filteredItems[first].id
                 } else {
-                     id = listData.patientsList[first].id
+                    id = listData.patientsList[first].id
                 }
                 //            self.listData.patientsList.remove(at: first)
                 print("LISTDATA", listData.patientsList)

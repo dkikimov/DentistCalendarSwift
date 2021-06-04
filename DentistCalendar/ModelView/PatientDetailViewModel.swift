@@ -9,10 +9,13 @@ import SwiftUI
 import Amplify
 import SPAlert
 import Combine
+
+
+
 class PatientDetailViewModel : ObservableObject {
     
     @Published  var appointments = [Appointment]()
-    
+    @Published var sumServices = [Int: (String, String)]()
     @Published var viewType: AppointmentType = .create
     @Published var selectedAppointment: Appointment?
     @Published var isAlertPresented: Bool = false
@@ -27,11 +30,11 @@ class PatientDetailViewModel : ObservableObject {
     init(patient: Patient) {
         self.patient = patient
         fetchAppointments()
+        observeAppointments()
     }
     deinit {
         observationToken?.cancel()
     }
-    @AppStorage("isLogged") var status = false
     func fetchAppointments() {
         self.isLoading = true
         Amplify.DataStore.query(Appointment.self, where: Appointment.keys.patientID == patient.id, sort: .descending(Appointment.keys.dateStart)) { res in
@@ -51,10 +54,12 @@ class PatientDetailViewModel : ObservableObject {
             Amplify.DataStore.delete(Appointment.self, withId: appoint.id) { res in
                 switch res {
                 case .success:
-//                    presentSuccessAlert(message: "Запись успешно удалена!")
-                    self.appointments = self.appointments.filter({ (app) -> Bool in
-                        app.id != appoint.id
-                    })
+                    //                    presentSuccessAlert(message: "Запись успешно удалена!")
+                    DispatchQueue.main.async {
+                        self.appointments = self.appointments.filter({ (app) -> Bool in
+                            app.id != appoint.id
+                        })
+                    }
                 case .failure(let error):
                     presentErrorAlert(message: error.errorDescription)
                 }}
@@ -62,63 +67,49 @@ class PatientDetailViewModel : ObservableObject {
             print("Error")
         }
     }
-//    func observeAppointments() {
-//        observationToken = Amplify.DataStore.publisher(for: Patient.self)
-//            .sink { (completion) in
-//                if case .failure(let error) = completion {
-//                    print("ERROR IN OBSERVE PATIENTS", error.errorDescription)
-//                }
-//            } receiveValue: { (changes) in
-//                print("CHANGES ", changes)
-//                guard let pat = try? changes.decodeModel(as: Appointment.self) else {return}
-//                
-//                switch changes.mutationType {
-//                case "create":
-//                    print("NEW PATIENT", pat)
-//                    if !self.appointments.contains(where: { (patient) -> Bool in
-//                        patient.id == pat.id
-//                    }) {
-//                        DispatchQueue.main.async {
-//                            self.patientsList.append(pat)
-//                            if !self.isSearching {
-//                                self.filteredItems.append(pat)
-//                            }
-//                        }
-//                    }
-//                    break
-//                case "delete":
-//                    DispatchQueue.main.async {
-//                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
-//                            self.patientsList.remove(at: index)
-//                            if !self.isSearching {
-//                                self.filteredItems.remove(at: index)
-//                            }
-//                        }
-//                        if self.isSearching {
-//                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
-//                                self.filteredItems.remove(at: index)
-//                            }
-//                        }
-//                    }
-//                case "update":
-//                    DispatchQueue.main.async {
-//                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
-//                            self.patientsList[index] = pat
-//                            if !self.isSearching {
-//                                self.filteredItems[index] = pat
-//                            }
-//                            print("UPDATED PATIENT")
-//                        }
-//                        if self.isSearching {
-//                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
-//                                self.filteredItems[index] = pat
-//                            }
-//                        }
-//                    }
-//                    break
-//                default:
-//                    break
-//                }
-//            }
-//    }
+    func observeAppointments() {
+        observationToken = Amplify.DataStore.publisher(for: Appointment.self)
+            .sink { (completion) in
+                if case .failure(let error) = completion {
+                    print("ERROR IN OBSERVE PATIENTS", error.errorDescription)
+                }
+            } receiveValue: { (changes) in
+                print("CHANGES ", changes)
+                guard let app = try? changes.decodeModel(as: Appointment.self) else {return}
+                var resultAppointment = app
+                if app.patientID == self.patient.id {
+                    switch changes.mutationType {
+                    case "update":
+                        DispatchQueue.main.async {
+                            if let index = self.appointments.firstIndex(where: {$0.id == app.id}) {
+                                Amplify.DataStore.query(Payment.self, where: Payment.keys.appointmentID == app.id) { result in
+                                    switch result {
+                                    case .success(let payments):
+                                        resultAppointment.payments = List(payments)
+                                    case .failure(let error):
+                                        self.error = error.localizedDescription
+                                        self.isAlertPresented = true
+                                        return
+                                    }
+                                }
+//                                self.appointments[index] = Appointment(id: "123", title: "ЛОЛ КЕК", patientID: "", owner: "", toothNumber: "13", diagnosis: "13", price: 13, dateStart: "123", dateEnd: "123", payments: nil)
+                                let sumData = countBilling(appointment: resultAppointment)
+                                self.sumServices[index] = (Double(truncating: sumData.0 as NSNumber).formattedAmount ?? "", Double(truncating: sumData.1 as NSNumber).formattedAmount ?? "")
+                                self.appointments[index] = resultAppointment
+                                
+                            }
+                        }
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
+    }
+    func binded(app: Appointment) -> Binding<Appointment> {
+            Binding(
+                get: { self.appointments[self.appointments.firstIndex(of: app)!] },
+                set: { self.appointments[self.appointments.firstIndex(of: app)!] = $0 }
+            )
+        }
 }

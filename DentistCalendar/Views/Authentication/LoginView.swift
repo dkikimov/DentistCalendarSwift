@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-
+import AuthenticationServices
 struct LoginView: View {
     @EnvironmentObject var sessionManager: SessionManager
 
     @ObservedObject var loginData = LoginViewModel()
+    @State var navigationController: UINavigationController?
     var body: some View {
         NavigationView {
             ScrollView {
@@ -50,6 +51,14 @@ struct LoginView: View {
                     
                     GoogleSignInButton()
                     
+//                    SignInWithAppleButton { req in
+//                        if let navigationController = navigationController {
+//                            sessionManager.loginWithAppleNative(navController: navigationController)
+//                        }
+//                    } onCompletion: { res in
+//                        print(res)
+//                    }
+
                     Spacer(minLength: 0)
                         
                         .alert(isPresented: $loginData.isAlertPresented, content: {
@@ -66,8 +75,13 @@ struct LoginView: View {
                 
                 
             }
+            .navigationViewStyle(StackNavigationViewStyle())
+
             
+        }                    .introspectNavigationController { navigationController in
+            self.navigationController = navigationController
         }
+
 //        .transition(.move(edge: .bottom))
     }
 }

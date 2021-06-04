@@ -32,7 +32,7 @@ struct AppointmentCreateView: View {
     @StateObject var data: AppointmentCreateViewModel
     //    @ObservedObject var data: AppointmentCreateViewModel
     
-    //edit and create in PatientDetailView
+    /// edit and create in PatientDetailView
     init(patient: Patient?, isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, appointment: Appointment?, appointmentCalendar: Binding<Appointment>? = nil) {
         isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
@@ -43,7 +43,7 @@ struct AppointmentCreateView: View {
         
     }
     
-    //createWithPatient
+    /// createWithPatient
     init(isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, dateStart: Date?, dateEnd: Date?, group: DispatchGroup) {
         isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
@@ -65,96 +65,41 @@ struct AppointmentCreateView: View {
                         }
                     }, title: "Платеж", message: "Введите данные платежа")
                 }
-                List {
-                    if data.viewType == .createWithPatient  {
-                        //                    PickerCalendarSection(data: $data)
-                        PickerCalendarSection()
-                        //                    PickerCalendarSec
-                        
-                    }
-                    if data.viewType == .createWithPatient && data.segmentedMode == .withPatient {
-                        PatientCreateSection(phoneNumber: $phoneNumber)
-                        
-                    } else if data.segmentedMode == .nonPatient{
-                        TextField("Название", text: $data.title)
-                    }
-                    DatePickersSection()
-                    
+                VStack {
                     if data.segmentedMode == .withPatient {
-                        ServicesSection()
-                        BillingSection(isAlertPresented: $isBillingAlertPresented)
+                        ListContent()
+                    } else if data.segmentedMode == .nonPatient {
+                        ListContent()
                     }
-                    Section {
-                        Button(action: {
-                            
-                            if data.segmentedMode == .withPatient {
-                                if data.viewType == .createWithPatient {
-                                    guard !data.title.isEmpty else {
-                                        data.error = "Укажите пациента"
-                                        data.isAlertPresented = true
-                                        return
-                                    }
-                                    guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
-                                        print("NUMBER", phoneNumber)
-                                        data.error = "Введите корректный номер".localized
-                                        data.isAlertPresented = true
-                                        return
-                                    }
-                                }
-                                //                            guard !data.toothNumber.isEmpty else {
-                                //                                data.error = "Введите номер зуба".localized
-                                //                                data.isAlertPresented = true
-                                //                                return
-                                //                            }
-                                if data.viewType == .create {
-                                    data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                                }
-                                else if data.viewType == .createWithPatient {
-                                    data.createAppointmentAndPatient(phoneNumber: phoneNumber)
-                                }
-                            } else if data.segmentedMode == .nonPatient {
-                                if data.viewType == .create || data.viewType == .createWithPatient{
-                                    data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
-                                }
-                            }
-                            if data.viewType == .editCalendar {
-                                data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
-                            }
-                            else if data.viewType == .edit{
-                                data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                            }
-                        }, label: {
-                            Text("Сохранить")
-                        })
-                        .disabled(data.dateEnd < data.dateStart)
-                    }
-                }
-            }
-            .environmentObject(data)
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
-            
-            .navigationBarItems(leading: Button(action: {
-                if data.viewType == .createWithPatient {
-                    DispatchQueue.main.async {
-                        group!.leave()
-                        data.cancellable?.cancel()
-                    }
-                    
-                }
-                DispatchQueue.main.async {
-                    isModalPresented.wrappedValue = false
                 }
                 
-            }, label: {
-                Text("Отменить")
-            }))
+                //            }
+                .environmentObject(data)
+                .listStyle(GroupedListStyle())
+                .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
+                
+                .navigationBarItems(leading: Button(action: {
+                    if data.viewType == .createWithPatient {
+                        DispatchQueue.main.async {
+                            group!.leave()
+                            data.cancellable?.cancel()
+                        }
+                        
+                    }
+                    DispatchQueue.main.async {
+                        isModalPresented.wrappedValue = false
+                    }
+                    
+                }, label: {
+                    Text("Отменить")
+                }))
+            }
+            //        .onDisappear(perform: {
+            //            if data.didSave {
+            //                rewardedAd.showAd {}
+            //            }
+            //        })
         }
-        //        .onDisappear(perform: {
-        //            if data.didSave {
-        //                rewardedAd.showAd {}
-        //            }
-        //        })
         .alert(isPresented: $data.isAlertPresented, content: {
             Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
         })
@@ -173,7 +118,81 @@ struct AppointmentCreateView: View {
         }
         self.text = ""
     }
+    
+    func ListContent() -> some View {
+        List {
+            if data.viewType == .createWithPatient  {
+                //                    PickerCalendarSection(data: $data)
+                PickerCalendarSection()
+                //                    PickerCalendarSec
+                
+            }
+            if data.viewType == .createWithPatient && data.segmentedMode == .withPatient {
+                PatientCreateSection(phoneNumber: $phoneNumber)
+                
+            } else if data.segmentedMode == .nonPatient{
+                TextField("Название", text: $data.title)
+            }
+            
+            DatePickersSection()
+            
+            if data.segmentedMode == .withPatient {
+                ServicesSection()
+                BillingSection(isAlertPresented: $isBillingAlertPresented)
+            }
+            Section {
+                Button(action: {
+                    
+                    if data.segmentedMode == .withPatient {
+                        if data.viewType == .createWithPatient {
+                            guard !data.title.isEmpty else {
+                                data.error = "Укажите пациента"
+                                data.isAlertPresented = true
+                                return
+                            }
+                            guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
+                                print("NUMBER", phoneNumber)
+                                data.error = "Введите корректный номер".localized
+                                data.isAlertPresented = true
+                                return
+                            }
+                        }
+                        //                            guard !data.toothNumber.isEmpty else {
+                        //                                data.error = "Введите номер зуба".localized
+                        //                                data.isAlertPresented = true
+                        //                                return
+                        //                            }
+                        if data.viewType == .create {
+                            data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
+                        }
+                        else if data.viewType == .createWithPatient {
+                            data.createAppointmentAndPatient(phoneNumber: phoneNumber)
+                        }
+                    } else if data.segmentedMode == .nonPatient {
+                        if data.viewType == .create || data.viewType == .createWithPatient{
+                            guard !data.title.isEmpty else {
+                                data.error = "Укажите название"
+                                data.isAlertPresented = true
+                                return
+                            }
+                            data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
+                        }
+                    }
+                    if data.viewType == .editCalendar {
+                        data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
+                    }
+                    else if data.viewType == .edit{
+                        data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
+                    }
+                }, label: {
+                    Text("Сохранить")
+                })
+                .disabled(data.dateEnd < data.dateStart)
+            }
+        }
+    }
 }
+
 
 //struct AppointmentCreateView_Previews: PreviewProvider {
 //    static var previews: some View {

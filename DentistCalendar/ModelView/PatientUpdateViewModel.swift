@@ -18,18 +18,16 @@ class PatientUpdateViewModel : ObservableObject {
     var error = ""
     
     var patient: Patient
-    var index: Int
     var fullname: String = ""
     var phone: String = ""
     
 //    init (patient: PatientData) {
 //        self.patient = patient
 //    }
-    init(patient: Patient, index: Int) {
+    init(patient: Patient) {
         self.patient = patient
         self.fullname = patient.fullname
         self.phone = patient.phone ?? ""
-        self.index = index
     }
     func updatePatient(listData: PatientsListViewModel, compelition: @escaping(Bool) -> () ){
         self.isLoading = true
@@ -53,7 +51,6 @@ class PatientUpdateViewModel : ObservableObject {
         Amplify.DataStore.save(newPatient) { res in
             switch res {
             case .success(let patient):
-                print("INDEX", self.index)
 //                listData.patientsList[self.index].fullname = patient.fullname
 //                listData.patientsList[self.index].phone = patient.phone
                 presentSuccessAlert(message: "Данные успешно изменены!")
@@ -75,8 +72,9 @@ class PatientUpdateViewModel : ObservableObject {
         Amplify.DataStore.delete(Patient.self, withId: patient.id) { res in
             switch res {
             case .success:
-                presentSuccessAlert(message: "Пациент успешно удален!")
-                listData.patientsList.remove(at: self.index)
+                break
+//                presentSuccessAlert(message: "Пациент успешно удален!")
+//                listData.patientsList.remove(at: self.index)
             case .failure(let error):
                 presentSuccessAlert(message: error.errorDescription)
             }

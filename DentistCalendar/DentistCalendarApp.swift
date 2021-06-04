@@ -13,7 +13,7 @@ import GoogleMobileAds
 import Firebase
 import Network
 public var phoneNumberKit = PhoneNumberKit()
-
+public var partialFormatter = PartialFormatter()
 class ModalManager: ObservableObject {
     @Published var isDatePickerPresented = false
     @Published var selectedDate = Date()

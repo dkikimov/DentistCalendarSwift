@@ -27,3 +27,28 @@ public enum InternetConnectionType {
     case enabled
     case disabled
 }
+
+public enum DestinationTypes: CaseIterable, Identifiable {
+    case calendar
+    case patients
+    case settings
+    
+    public var id: String {return title}
+    
+    var title: String {
+        switch self {
+        case .calendar: return "Календарь".localized
+        case .patients: return "Пациенты".localized
+        case .settings: return "Настройки".localized
+        }
+    }
+    
+    var systemImageName: String {
+        switch self {
+        case .calendar: return "calendar"
+        case .patients: return "person.3.fill"
+        case .settings: return "gearshape.fill"
+        
+        }
+    }
+}

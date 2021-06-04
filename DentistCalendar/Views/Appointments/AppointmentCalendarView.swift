@@ -8,7 +8,6 @@
 import SwiftUI
 import CalendarKit
 import Amplify
-import MultiModal
 private func dateFormatter(date: String, _ time: Bool = false) -> String{
     let formatter = DateFormatter()
     formatter.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
@@ -32,7 +31,7 @@ struct AppointmentCalendarView: View {
     }
     var body: some View {
         NavigationView {
-             ZStack {
+            ZStack {
                 Print("UPDATING CALENDAR VIEW")
                 ScrollView{
                     VStack(alignment: .leading) {
@@ -40,25 +39,25 @@ struct AppointmentCalendarView: View {
                         Text(dateFormatter(date: data.appointment.dateStart))
                             .font(.subheadline)
                             .foregroundColor(Color(hex: "#8a8888"))
-                        Text("с " + dateFormatter(date: data.appointment.dateStart, true) + " до " + dateFormatter(date: data.appointment.dateEnd, true))
+                        Text("с ".localized + dateFormatter(date: data.appointment.dateStart, true) + " до ".localized + dateFormatter(date: data.appointment.dateEnd, true))
                             .font(.subheadline)
                             .foregroundColor(Color(hex: "#8a8888"))
                         Divider()
                         if diagnosisList.count > 0 {
                             Spacer(minLength: 10)
-                                VStack(alignment: .leading) {
-                                    Text("Услуги: ").font(.title2).bold()
-                                    ServiceList(diagnosisList: diagnosisList)
-    //                                Print(Decimal(0).formatted)
-    //                                Print(Decimal(49.12).formatted)
-
-                                }
-                                Spacer(minLength: 25)
-                                VStack(alignment: .leading) {
-                                    Text("Общая стоимость: ").bold() + Text(serviceSum.formatted)
-                                    Text("Оплачено: ").bold() + Text(servicePaid.formatted)
-                                    Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).formatted)
-                                }
+                            VStack(alignment: .leading) {
+                                Text("Услуги: ").font(.title2).bold()
+                                ServiceList(diagnosisList: diagnosisList)
+                                //                                Print(Decimal(0).formatted)
+                                //                                Print(Decimal(49.12).formatted)
+                                
+                            }
+                            Spacer(minLength: 25)
+                            VStack(alignment: .leading) {
+                                Text("Общая стоимость: ").bold() + Text(serviceSum.formatted + String(describing: Locale.current.currencySymbol ?? ""))
+                                Text("Оплачено: ").bold() + Text(servicePaid.formatted + String(describing: Locale.current.currencySymbol ?? ""))
+                                Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).formatted + String(describing: Locale.current.currencySymbol ?? ""))
+                            }
                             
                         } else {
                             if data.appointment.patientID != nil {
@@ -68,7 +67,6 @@ struct AppointmentCalendarView: View {
                         Spacer()
                     }
                     .padding()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     
                     
                 }
@@ -89,9 +87,9 @@ struct AppointmentCalendarView: View {
                     }
                     .overlay(Divider(), alignment: .top)
                     .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-    )
+                    )
                 }
-               
+                
                 .actionSheet(isPresented: $data.isActionSheetPresented, content: {
                     ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
                         .destructive(Text("Удалить")){
@@ -114,13 +112,13 @@ struct AppointmentCalendarView: View {
                     data.isSheetPresented = true
                 }, label: {
                     Text("Изменить").foregroundColor(.white)
-                    }) : nil)
+                }) : nil)
                 
-    //                .introspectTabBarController { (UITabBarController: UITabBarController) in
-    //                            UITabBarController.tabBar.isHidden = true
-    //                }
+                //                .introspectTabBarController { (UITabBarController: UITabBarController) in
+                //                            UITabBarController.tabBar.isHidden = true
+                //                }
             }
-             
+            
             
             
             .onDisappear(perform: {
@@ -128,36 +126,36 @@ struct AppointmentCalendarView: View {
                     data.fullScreenIsCalendar!.wrappedValue = false
                 }
             })
-             .onChange(of: data.isSheetPresented, perform: { value in
+            .onChange(of: data.isSheetPresented, perform: { value in
                 if value == false {
                     let res = countBilling(appointment: data.appointment)
-                    self.serviceSum = res.0
-                    self.servicePaid = res.1
+                    self.serviceSum = res.1
+                    self.servicePaid = res.0
                     self.diagnosisList = res.2
-
+                    
                 }
-             })
-             .onAppear(perform: {
+            })
+            .onAppear(perform: {
                 let res = countBilling(appointment: data.appointment)
-                self.serviceSum = res.0
-                self.servicePaid = res.1
+                self.serviceSum = res.1
+                self.servicePaid = res.0
                 self.diagnosisList = res.2
-
                 
-             })
-                .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
-             
+                
+            })
+            .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
+            
         }
-//        .onDisappear(perform: {
-//            if intestital != nil {
-//                print("INTESTITAL", intestital!)
-//
-//                intestital!.showAd()
-//            }
-//        })
+        //        .onDisappear(perform: {
+        //            if intestital != nil {
+        //                print("INTESTITAL", intestital!)
+        //
+        //                intestital!.showAd()
+        //            }
+        //        })
         
     }
-     
+    
     
 }
 

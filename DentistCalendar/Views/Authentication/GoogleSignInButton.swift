@@ -11,21 +11,25 @@ struct GoogleSignInButton: View {
     @EnvironmentObject var sessionManager: SessionManager
     @State var isAlertPresented = false
     @State var error = ""
+    @State var navController: UINavigationController?
     var body: some View {
         Button(action: {
-            sessionManager.loginWithGoogle { err in
-                if err != nil {
-                    self.error = err!
-                    self.isAlertPresented = true
-                }
+            if let navController = navController {
+                sessionManager.loginWithGoogleNative(navController: navController)
             }
+//            sessionManager.loginWithGoogle { err in
+//                if err != nil {
+//                    self.error = err!
+//                    self.isAlertPresented = true
+//                }
+//            }
         }) {
             HStack {
                 Image("google")
                     .resizable()
                             .aspectRatio(contentMode: .fit)
                     Spacer()
-                    Text("Continue with Google")
+                    Text("Продолжить с Google")
                         .fontWeight(.semibold)
                         .font(.title3)
                     Spacer()
@@ -41,6 +45,9 @@ struct GoogleSignInButton: View {
         .alert(isPresented: $isAlertPresented, content: {
             Alert(title: Text("Ошибка"), message: Text(self.error), dismissButton: .cancel())
         })
+        .introspectNavigationController { navController in
+            self.navController = navController
+        }
     }
 }
 struct GoogleSignInButton_Previews: PreviewProvider {

@@ -6,16 +6,23 @@
 //
 
 import SwiftUI
-
+func getAverageCharacterNumber(name: String) -> Int {
+    var sum = 0
+    for char in name {
+        sum += Int(char.unicodeScalarCodePoint())
+    }
+    return sum / name.length
+}
 struct AvatarBlock: View {
     var backgroundColor: UIColor
     var foregroundColor: UIColor
     var finalName: String
-    init(fullname: Array<Substring>) {
-        let a = getAvatarColor(name: Character(String(fullname[0])[0])).color
-        let b = getAvatarColor(name: Character(String(fullname[0])[0])).background
-        backgroundColor = UIColor.hexStringToColor(hex: b )
-        foregroundColor = UIColor.hexStringToColor(hex: a)
+    init(fullname: String) {
+        let color = getAvatarColor(name: getAverageCharacterNumber(name: fullname) % 5)
+        
+//        let b = getAvatarColor(name: Character(String(fullname[0])[0])).
+        backgroundColor = UIColor.hexStringToColor(hex: color.background )
+        foregroundColor = UIColor.hexStringToColor(hex: color.color)
         if fullname.count == 2 {
             finalName = String(fullname[0])[0] + String(fullname[1])[0]
         }

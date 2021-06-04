@@ -29,7 +29,7 @@ struct BuySubscriptionView: View {
                         .foregroundColor(Color("StaticBlue"))
 
                 }).padding(.bottom, 5)
-                Text("DentistApp Premium")
+                Text("Dentor Premium")
                     .font(.largeTitle)
                     .bold()
                 Text("Разблокируйте:")

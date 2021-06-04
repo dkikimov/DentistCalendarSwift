@@ -7,7 +7,8 @@
 
 import Foundation
 import EventKit
-extension Patient: Identifiable {}
+extension Patient: Identifiable {
+}
 extension Patient: Equatable {
     public static func ==(lhs: Patient, rhs: Patient) -> Bool {
         lhs.id == rhs.id

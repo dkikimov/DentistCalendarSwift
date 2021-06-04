@@ -7,6 +7,8 @@
 
 import Amplify
 import SwiftUI
+import AmplifyPlugins
+import AWSMobileClient
 enum AuthState {
     case login
     case confirmCode(username: String, password: String)
@@ -72,7 +74,69 @@ final class SessionManager: ObservableObject {
             authState = .login
         }
     }
-    
+    func loginWithAppleNative(navController: UINavigationController) {
+        do {
+            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
+            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
+                print("Failed to fetch escape hatch")
+                return
+            }
+            print("Fetched escape hatch - \(awsmobileclient)")
+            awsmobileclient.federatedSignIn(providerName: "SignInWithApple", token: "asd") { state, err in
+                print("state")
+            }
+        } catch {
+            print("Error occurred while fetching the escape hatch \(error)")
+        }
+    }
+    func loginWithGoogleNative(navController: UINavigationController) {
+        do {
+            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
+            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
+                print("Failed to fetch escape hatch")
+                return
+            }
+            print("Fetched escape hatch - \(awsmobileclient)")
+            let hostedUIOptions = HostedUIOptions(scopes: ["openid", "email", "profile"], identityProvider: "Google")
+            
+            awsmobileclient.showSignIn(navigationController: navController, hostedUIOptions: hostedUIOptions) { (userState, error) in
+                if let error = error as? AWSMobileClientError {
+                    print(error)
+                    print(error.localizedDescription)
+                }
+                if let userState = userState {
+                    print("Status: \(userState.rawValue)")
+
+                    AWSMobileClient.default().getTokens { (tokens, error) in
+                        if let error = error {
+                            print("error \(error)")
+                        } else if let tokens = tokens {
+                            let claims = tokens.idToken?.claims
+                            print("username? \(claims?["username"] as? String ?? "No username")")
+                            print("cognito:username? \(claims?["cognito:username"] as? String ?? "No cognito:username")")
+                            print("email? \(claims?["email"] as? String ?? "No email")")
+                            print("name? \(claims?["name"] as? String ?? "No name")")
+                            print("picture? \(claims?["picture"] as? String ?? "No picture")")
+//
+//                            if let username = claims?["email"] as? String {
+//                                DispatchQueue.main.async {
+//                                    self.settings.username = username
+//                                }
+//                            }
+//
+//                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
+//                                print("Do something with fbPictureURL: ", fbPictureURL)
+//                            } else if provider == "SignInWithApple" {
+//                                print("Ignore Apple's Picture")
+//                            }
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("Error occurred while fetching the escape hatch \(error)")
+        }
+    }
     func signUp(email: String, password: String, firstName: String, secondName: String, compelition: @escaping( String?) -> ()) {
         let attributes = [AuthUserAttribute(.email, value: email), AuthUserAttribute(.familyName, value: secondName),AuthUserAttribute(.name, value: firstName)]
         let options = AuthSignUpRequest.Options(userAttributes: attributes)
@@ -311,6 +375,16 @@ final class SessionManager: ObservableObject {
                 }
             }
     }
+    func loginWithApple() {
+        Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: window) { result in
+            switch result {
+            case .success(let res):
+                print(res)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
     func signOut(compelition: @escaping( String?) -> ()) {
         Amplify.Auth.signOut { [weak self] result in
             switch result {
@@ -360,6 +434,8 @@ final class SessionManager: ObservableObject {
                 }
             }
         }
+        
     }
+    
 }
 

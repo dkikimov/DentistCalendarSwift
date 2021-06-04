@@ -127,7 +127,7 @@ class AppointmentCreateViewModel : ObservableObject {
         let newAppointment = Appointment(
             id: id, title: patient!.fullname, patientID: patient!.id, toothNumber: toothNumber.trimmingCharacters(in: .whitespaces),
             diagnosis: generateDiagnosisString(),
-             price: Int(price)!, dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
+            price: Int(price)!, dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
         Amplify.DataStore.save(newAppointment){ res in
             switch res{
             case .success(let appointment):
@@ -157,6 +157,10 @@ class AppointmentCreateViewModel : ObservableObject {
             case .success(let app):
                 self.savePayments(appointment: app)
                 if patientDetailData != nil {
+                    print("-------- DEBUG -------------")
+                    print("PATIENT DETAIL DATA ", patientDetailData!)
+                    print("APPOINTMENTS ", patientDetailData!.appointments)
+                    print("APP ", app)
                     patientDetailData!.appointments[patientDetailData!.appointments.firstIndex(of: self.appointment!)!] = self.getAppointmentWithPayments(id: app.id) ?? app
                 }
                 presentSuccessAlert(message: "Запись успешно добавлена!")
@@ -187,9 +191,9 @@ class AppointmentCreateViewModel : ObservableObject {
                 self.savePayments(appointment: app)
                 DispatchQueue.main.async {
                     appointment.wrappedValue = self.getAppointmentWithPayments(id: self.id) ?? app
+                    self.didSave = true
+                    isModalPresented.wrappedValue = false
                 }
-                self.didSave = true
-                isModalPresented.wrappedValue = false
             case .failure(let error):
                 self.error = error.errorDescription
                 self.isAlertPresented = true
@@ -267,19 +271,19 @@ class AppointmentCreateViewModel : ObservableObject {
             
         }
     }
-//    func getPayments(appointmentID: String) -> [Payment] {
-//        var res = [Payment]()
-//        Amplify.DataStore.query(Payment.self, where: Payment.keys.appointmentID == appointmentID){ result in
-//            switch result {
-//            case .success(let payments):
-//                res = payments
-//            case .failure(let error):
-//                self.error = error.errorDescription
-//                self.isAlertPresented = true
-//            }
-//        }
-//        return res
-//    }
+    //    func getPayments(appointmentID: String) -> [Payment] {
+    //        var res = [Payment]()
+    //        Amplify.DataStore.query(Payment.self, where: Payment.keys.appointmentID == appointmentID){ result in
+    //            switch result {
+    //            case .success(let payments):
+    //                res = payments
+    //            case .failure(let error):
+    //                self.error = error.errorDescription
+    //                self.isAlertPresented = true
+    //            }
+    //        }
+    //        return res
+    //    }
     func savePayments(appointment: Appointment) {
         let difference = paymentsArray.difference(from: startPaymentsArray)
         print("PAYMENTS ARRAY", paymentsArray)
@@ -287,14 +291,14 @@ class AppointmentCreateViewModel : ObservableObject {
             switch change {
             case let .insert(_, payment, _):
                 let newPayment = Payment(appointmentID: id, cost: payment.cost, date: payment.date)
-                    Amplify.DataStore.save(newPayment) { res in
-                        switch res {
-                        case .failure(let err):
-                            self.error = err.errorDescription
-                            self.isAlertPresented = true
-                        default: break
-                        }
+                Amplify.DataStore.save(newPayment) { res in
+                    switch res {
+                    case .failure(let err):
+                        self.error = err.errorDescription
+                        self.isAlertPresented = true
+                    default: break
                     }
+                }
             case let .remove(_, payment, _):
                 Amplify.DataStore.delete(Payment.self, withId: payment.id) { (res) in
                     print("RES ", res)

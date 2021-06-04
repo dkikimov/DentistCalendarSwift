@@ -39,12 +39,12 @@ struct AlertControlView: UIViewControllerRepresentable {
         if self.showAlert {
 
             // Create UIAlertController instance that is gonna present on UIViewController
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: title.localized, message: message.localized, preferredStyle: .alert)
             context.coordinator.alert = alert
             for alertModel in alerts {
                 alert.addTextField { textField in
-                    textField.placeholder = alertModel.placeholder
-                    textField.text = alertModel.text            // setting initial value
+                    textField.placeholder = alertModel.placeholder.localized
+                    textField.text = alertModel.text.localized            // setting initial value
                     textField.delegate = context.coordinator // using coordinator as delegate
                     textField.autocapitalizationType = alertModel.autoCapitalizationType
                     textField.keyboardType = alertModel.keyboardType

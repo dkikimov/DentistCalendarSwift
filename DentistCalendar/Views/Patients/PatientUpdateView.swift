@@ -11,10 +11,8 @@ struct PatientUpdateView: View {
     var listData: PatientsListViewModel
     @StateObject var data: PatientUpdateViewModel
     @Environment(\.presentationMode) var presentationMode
-    var index: Int
-    init(patient: Patient, index: Int, listData: PatientsListViewModel){
-        _data = StateObject(wrappedValue: PatientUpdateViewModel(patient: patient, index: index))
-        self.index = index
+    init(patient: Patient, listData: PatientsListViewModel){
+        _data = StateObject(wrappedValue: PatientUpdateViewModel(patient: patient))
         self.listData = listData
     }
     var body: some View {

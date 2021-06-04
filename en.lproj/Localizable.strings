@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   DentistCalendar
 
@@ -30,7 +30,14 @@
 "AppointmentConfirmation" = "Are you sure you want to delete the entry?";
 "Номер зуба" = "Tooth number";
 "Введите корректный номер" = "Enter the correct phone number";
-
+"Дата" = "Date";
+"Дата: " = "Date: ";
+"Empty" = "Empty";
+"Добавить платеж" = "Add payment";
+"Продолжить с Google" = "Continue with Google";
+"Далее" = "Next";
+"Цена: " = "Price: ";
+"Платеж на сумму" = "Payment in the amount of";
 "Тип календаря" = "Type of calendar";
 "Выберите календарь" = "Select a calendar";
 "Рабочий" = "Work";
@@ -56,7 +63,7 @@
 "Больше никакой рекламы" =  "No ads ever";
 "Синхронизируйте ваши данные" = "Sync your data";
 "Используйте на нескольких устройствах" = "Use on multiple devices";
-"Импортируйте даггые из календаря" = "Import data from your Calendar app";
+"Импортируйте данные из календаря" = "Import data from your Calendar app";
 "Импортировать записи из календаря" = "Import appointments from Calendar app";
 "Импортировать записи из файла" = "Import appointments from the file";
 "Импорт" = "Import";
@@ -68,7 +75,8 @@
 "Политика конфиденциальности" = "Privacy policy";
 "Подписаться" = "Subscribe";
 "Восстановить" = "Recover";
-
+"с " = "from ";
+" до " = " to ";
 // Diagnosis Create View;
 
 "Поиск" = "Search";
@@ -78,6 +86,7 @@
 "Добавить" = "Add";
 "Поиск" = "Search";
 "Название услуги слишком длинное" = "The service name is too long";
+"Название услуги" = "Service name";
 // Profile Settings;
 
 "Личные данные" = "Personal data";
@@ -151,3 +160,18 @@
 "Запись успешно добавлена!" = "Entry added successfully!";
 "Имя успешно изменено!" = "Name changed successfully!";
 "Запись успешно удалена!" = "Appointment deleted successfully!";
+"Платеж" = "Payment";
+"Введите данные платежа" = "Enter the payment details";
+
+
+/* OnBoarding */
+
+"Контролируйте свой график" = "Control your schedule";
+"Создавайте и редактируйте свои записи и записи своих пациентов" = "Create and edit your records and patients' appointments";
+"Управляйте пациентами" = "Manage patients";
+"Смотрите историю всех записей пациента с помощью персональной карточки" = "View the history of all patient records with a personal card";
+"Синхронизируйте данные" = "Synchronize data";
+"Используйте приложение на нескольких устройствах и отслеживайте изменения в реальном времени" = "Use the app on multiple devices and track changes in real time";
+"Используйте без интернета" = "Use without internet";
+"Работает даже без доступа к интернету без ограничений в функционале" = "Works even without access to the Internet without restrictions in functionality";
+"Возможности" = "Features";

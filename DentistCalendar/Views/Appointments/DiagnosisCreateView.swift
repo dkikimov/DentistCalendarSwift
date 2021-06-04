@@ -42,8 +42,8 @@ struct DiagnosisCreateView: View {
                 }
                 if isAlertPresented {
                     AlertControlView(alerts: [
-                        .init(text: $diagnosisText, placeholder: "Диагноз"),
-                        .init(text: $diagnosisPrice, placeholder: "Стоимость")
+                        .init(text: $diagnosisText, placeholder: "Название услуги"),
+                        .init(text: $diagnosisPrice, placeholder: "Стоимость", keyboardType: .decimalPad)
                     ], showAlert: $isAlertPresented, action: {
                         addDiagnosis()
                     }, title: "Услуга", message: "Введите данные услуги")

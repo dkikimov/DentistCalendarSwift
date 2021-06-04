@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 extension UTType {
     static var ics: UTType {
-        UTType(exportedAs: "com.katsushooter.DentistCalendar.ics")
+        UTType(exportedAs: "com.katsushooter.dentor.ics")
 //        UTType(
 
 //        UTType(importedAs: "com.katsushooter.DentistCalendar.ics")
@@ -17,7 +17,7 @@ extension UTType {
 }
 extension UTType {
     static var icsImport: UTType {
-        UTType(importedAs: "com.katsushooter.DentistCalendar.ics")
+        UTType(importedAs: "com.katsushooter.dentor.ics")
     }
 }
 struct ExportDocument: FileDocument {

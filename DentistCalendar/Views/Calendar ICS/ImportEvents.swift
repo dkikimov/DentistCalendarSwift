@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Amplify
-
+import SwiftUIX
 struct ImportEvents: View {
     @State var data: String?
     @State var isImportPresented = false
@@ -16,11 +16,14 @@ struct ImportEvents: View {
     //    @State var patientsList = [Patient]()
     var body: some View {
         Form {
-            Button(action: {
-                isImportPresented.toggle()
-            }, label: {
-                Text("Импортировать")
-            })
+            Section {
+                Button(action: {
+                    isImportPresented.toggle()
+                }, label: {
+                    Text("Импортировать")
+                })
+            }
+            
         }
         .navigationTitle("Импорт")
         .fileImporter(
@@ -35,8 +38,7 @@ struct ImportEvents: View {
                                 if selectedFile.startAccessingSecurityScopedResource() {
                                     guard let input = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     self.data = input
-                                    print(data)
-                                    defer { selectedFile.stopAccessingSecurityScopedResource() }
+                                    do { selectedFile.stopAccessingSecurityScopedResource() }
                                 } else {
                                     // Handle denied access
                                 }

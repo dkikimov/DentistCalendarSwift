@@ -7,15 +7,13 @@
 
 import SwiftUI
 import GoogleMobileAds
-
+import PhoneNumberKit
 struct PatientsDetailView: View {
-    @ObservedObject var detailData: PatientDetailViewModel
-    @ObservedObject var listData: PatientsListViewModel
-    var index: Int
-    init(index: Int, listData: PatientsListViewModel, item: Patient) {
-        self.detailData = PatientDetailViewModel(patient: item)
-        self.index = index
-        self.listData = listData
+    @StateObject var detailData: PatientDetailViewModel
+    @StateObject var listData: PatientsListViewModel
+    init(listData: PatientsListViewModel, item: Patient) {
+        _detailData = StateObject(wrappedValue: PatientDetailViewModel(patient: item))
+        _listData = StateObject(wrappedValue: listData)
     }
     var body: some View {
         ZStack {
@@ -23,11 +21,11 @@ struct PatientsDetailView: View {
                 VStack(alignment: .leading) {
                     Group {
                         Text(detailData.patient.fullname).fontWeight(.bold).font(.title2)
-                        Text(detailData.patient.phone!).foregroundColor(.gray).font(.body)
+                        Text(partialFormatter.formatPartial(detailData.patient.phone!)).foregroundColor(.gray).font(.body)
                     }
                     HStack(spacing: 10) {
                         NavigationLink(
-                            destination: PatientUpdateView(patient: detailData.patient, index: index, listData: listData),
+                            destination: PatientUpdateView(patient: detailData.patient, listData: listData),
                             label: {
                                 Spacer()
                                 Text("Изменить").frame(height: 25).foregroundColor(.white).padding([.vertical, .horizontal], 10)
@@ -48,7 +46,7 @@ struct PatientsDetailView: View {
                         }
                         .background(
                             detailData.patient.phone!.isEmpty ? Color.gray : Color("Green")).frame(width: 50, height: 45).clipShape(Circle()
-                        )
+                            )
                         .disabled(detailData.patient.phone?.isEmpty ?? true)
                     }
                 }
@@ -56,13 +54,28 @@ struct PatientsDetailView: View {
                 .background(Color("White1"))
                 VStack(spacing: 10) {
                     if detailData.appointments.count > 0 {
-                        ForEach(detailData.appointments) { app in
-                            PatientDetailCard(appointment: app, detailButtonAction: {
-                                detailData.selectedAppointment = app
+                        Print(detailData.appointments)
+                        ForEach(Array(zip(detailData.appointments.indices, detailData.appointments)), id: \.0) { index, item in
+                            PatientDetailCard(appointment: item,
+//                                                Binding(
+//                                get: {
+//                                    if detailData.appointments[index] != nil {
+//                                        detailData.appointments[index]
+//                                    } else {
+//                                        Appointment(id: "1", title: "", patientID: "", owner: "", toothNumber: "", diagnosis: "", price: 0, dateStart: "0", dateEnd: "0", payments: nil)
+//                                    }
+//
+//
+//                                },
+//                                set: {
+//                                    detailData.appointments[index] = $0
+//                                }),
+                                              detailViewModel: detailData, index: index, detailButtonAction: {
+                                detailData.selectedAppointment = detailData.appointments[index]
                                 detailData.viewType = .detailView
                                 detailData.isModalPresented.toggle()
                             }, moreButtonAction: {
-                                detailData.selectedAppointment = app
+                                detailData.selectedAppointment = detailData.appointments[index]
                                 detailData.isSheetPresented.toggle()
                             })
                             .padding(.horizontal, 12)

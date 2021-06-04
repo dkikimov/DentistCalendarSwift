@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Amplify
+import SwiftUIX
 struct ExportEvents: View {
     @State var startDate = Date().addingTimeInterval(-2628000)
     @State var endDate = Date().addingTimeInterval(2628000)
@@ -14,14 +15,16 @@ struct ExportEvents: View {
     @State private var document: ExportDocument?
     var body: some View {
         Form {
-            DatePicker("Выберите начальную дату", selection: $startDate )
-            DatePicker("Выберите конечную дату", selection: $endDate)
-            
-            Button(action: {
-                generateICS()
-            }, label: {
-                Text("Экспортировать")
-            })
+            Section {
+                DatePicker("Выберите начальную дату", selection: $startDate )
+                DatePicker("Выберите конечную дату", selection: $endDate)
+                
+                Button(action: {
+                    generateICS()
+                }, label: {
+                    Text("Экспортировать")
+                })
+            }
         }
         
         .navigationBarTitle("Экспорт записей", displayMode: .large)
@@ -47,6 +50,8 @@ struct ExportEvents: View {
 
             }
         })
+        .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
+
     }
     
     

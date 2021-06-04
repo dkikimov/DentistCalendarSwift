@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
-
+import PhoneNumberKit
 struct PatientsListRow: View {
 //    @State var fullname: String
 //    @State var id: String
 //    @State var phoneNumber: String
-    @Binding var patient: Patient
+    @State var patient: Patient
     var body: some View {
         HStack (spacing: 10){
-            AvatarBlock(fullname: patient.fullname.split(separator: " "))
+            AvatarBlock(fullname: patient.fullname)
             
             VStack(alignment: .leading) {
                 Text(patient.fullname).fontWeight(.bold)
-                Text(patient.phone ?? "").foregroundColor(.gray)
+                Text(partialFormatter.formatPartial(patient.phone ?? "")).foregroundColor(.gray)
             }
             
         }.frame(height: 55)
