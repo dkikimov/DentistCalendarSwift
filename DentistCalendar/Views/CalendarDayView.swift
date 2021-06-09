@@ -9,7 +9,7 @@ struct CalendarDayView: View {
     @State var activeView: DestinationTypes = .calendar
     var body: some View {
         //        VStack {
-        if UIDevice.current.userInterfaceIdiom == .phone {
+//        if UIDevice.current.userInterfaceIdiom == .phone {
             
             
             TabView(selection: $tabSelection) {
@@ -30,21 +30,21 @@ struct CalendarDayView: View {
                     })
             }
             .transition(.opacity)
-        } else {
-            NavigationView {
-                List(DestinationTypes.allCases) { item in
-//                    NavigationLink(destination: view(for: item)) {
-                        Label(item.title, systemImage: item.systemImageName)
-                            .onTapGesture {
-                                self.activeView = item
-                            }
-//                    }
-                }.listStyle(SidebarListStyle())
-                view(for: activeView)
-            }
-            
-        }
-        
+//        } else {
+//            NavigationView {
+//                List(DestinationTypes.allCases) { item in
+////                    NavigationLink(destination: view(for: item)) {
+//                        Label(item.title, systemImage: item.systemImageName)
+//                            .onTapGesture {
+//                                self.activeView = item
+//                            }
+////                    }
+//                }.listStyle(SidebarListStyle())
+//                view(for: activeView)
+//            }
+//
+//        }
+//
         
         //        BannerVC()
         //            .frame(width: 320, height: 50, alignment: .center)

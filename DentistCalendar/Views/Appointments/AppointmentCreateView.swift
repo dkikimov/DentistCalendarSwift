@@ -166,7 +166,7 @@ struct AppointmentCreateView: View {
                             data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
                         }
                         else if data.viewType == .createWithPatient {
-                            data.createAppointmentAndPatient(phoneNumber: phoneNumber)
+                            data.createAppointmentAndPatient(isModalPresented: self.isModalPresented, phoneNumber: phoneNumber)
                         }
                     } else if data.segmentedMode == .nonPatient {
                         if data.viewType == .create || data.viewType == .createWithPatient{

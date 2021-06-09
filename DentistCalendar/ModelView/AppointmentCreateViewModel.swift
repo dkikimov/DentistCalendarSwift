@@ -201,7 +201,7 @@ class AppointmentCreateViewModel : ObservableObject {
             
         }
     }
-    func createAppointmentAndPatient(phoneNumber: String) {
+    func createAppointmentAndPatient(isModalPresented: Binding<Bool>,phoneNumber: String) {
         print(group!)
         print("HEY I CRAETEded IT")
         //        print("PHONE", patientPhone)
@@ -220,6 +220,7 @@ class AppointmentCreateViewModel : ObservableObject {
                             self.savePayments(appointment: newAppointment)
                             self.didSave = true
                             print("SUCCESSFUL CREATION OF PATIENT AND APPOINTMENT!!!!!")
+                            isModalPresented.wrappedValue = false
                             self.group!.leave()
                         case .failure(let error):
                             self.error = error.errorDescription

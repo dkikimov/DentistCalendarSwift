@@ -13,14 +13,12 @@ class AppointmentCalendarViewModel: ObservableObject {
     @Published var error = ""
     @Published var isAlertPresented = false
     @Published var isActionSheetPresented = false
-    var fullScreenIsCalendar: Binding<Bool>?
     var isEditAllowed: Bool
     @Published var appointment: Appointment
     
-    init(appointment: Appointment, isEditAllowed: Bool, fullScreenIsCalendar: Binding<Bool>?) {
+    init(appointment: Appointment, isEditAllowed: Bool) {
         self.appointment = appointment
         self.isEditAllowed = isEditAllowed
-        self.fullScreenIsCalendar = fullScreenIsCalendar
     }
     
     func deleteAppointment(presentationMode: Binding<PresentationMode>) {

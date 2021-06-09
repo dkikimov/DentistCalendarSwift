@@ -8,14 +8,18 @@
 import SwiftUI
 
 public extension View {
-    func halfModalSheet<Content: View>(
+    @ViewBuilder func halfModalSheet<Content: View>(
         isPresented: Binding<Bool>,
         height: CGFloat,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
-        ZStack {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ZStack {
+                self
+                HalfModalView(isShown: isPresented, modalHeight: height, content: content)
+            }
+        } else {
             self
-            HalfModalView(isShown: isPresented, modalHeight: height, content: content)
         }
     }
 }

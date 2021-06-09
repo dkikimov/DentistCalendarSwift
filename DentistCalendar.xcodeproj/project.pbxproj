@@ -33,7 +33,7 @@
 		6F1D734125E6AE1F0008DCBF /* Data + Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1D734025E6AE1F0008DCBF /* Data + Page.swift */; };
 		6F1D734425E6AF770008DCBF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1D734325E6AF770008DCBF /* ButtonsView.swift */; };
 		6F1E95202664C5CB00B4D1FB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1E951F2664C5CA00B4D1FB /* StringExtension.swift */; };
-		6F2149EF25B9FA12006B57F3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2149EE25B9FA12006B57F3 /* Introspect */; };
+		6F2149EF25B9FA12006B57F3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */; };
 		6F26F9852619D63D0039A2C8 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26F9842619D63D0039A2C8 /* GoogleSignInButton.swift */; };
 		6F2B89AC257CCA5900D717EC /* AppointmentCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2B89AB257CCA5900D717EC /* AppointmentCalendarView.swift */; };
 		6F2BA5622633212800F5FB22 /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BA5612633212800F5FB22 /* EnvironmentKeys.swift */; };
@@ -129,7 +129,7 @@
 		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
 		6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F05025D04B7000FF24B8 /* Alert.swift */; };
 		6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */; };
-		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
+		6FB8DC5125D19A1E00A04107 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */; };
 		6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FC534EB26086D8D00610AE3 /* schema.graphql */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
@@ -141,7 +141,7 @@
 		6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FD82A6E25B45C06004D22C3 /* WebKit.framework */; };
 		6FD91C28252F600E00231625 /* getTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD91C27252F600E00231625 /* getTokens.swift */; };
 		6FDAD3782631DEBA00CA5AA5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */; };
-		6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftUIX */; };
+		6FDAD37C2631E80300CA5AA5 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */; };
 		6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE422582589250200E62B55 /* DatePickerModalView.swift */; };
 		6FE4226E2589355000E62B55 /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE4226D2589355000E62B55 /* HalfModalView.swift */; };
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
@@ -325,10 +325,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */,
+				6FB8DC5125D19A1E00A04107 /* BuildFile in Frameworks */,
 				6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */,
 				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
-				6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */,
+				6FDAD37C2631E80300CA5AA5 /* BuildFile in Frameworks */,
 				6F81976A25B2CFAF00022321 /* MessageUI.framework in Frameworks */,
 				6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */,
 				6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */,
@@ -337,7 +337,7 @@
 				6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */,
 				6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */,
 				6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */,
-				6F2149EF25B9FA12006B57F3 /* Introspect in Frameworks */,
+				6F2149EF25B9FA12006B57F3 /* BuildFile in Frameworks */,
 				B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -750,7 +750,6 @@
 			buildPhases = (
 				6FFCED53DA11331FEDE35FBB /* [CP] Check Pods Manifest.lock */,
 				6F29AC232551BCC50059F6F1 /* Run Script */,
-				FBC734DB382E93DE2D4EB207 /* [CP] Prepare Artifacts */,
 				6F3A1A7D2519118F0042E7C4 /* Sources */,
 				6F3A1A7E2519118F0042E7C4 /* Frameworks */,
 				6F3A1A7F2519118F0042E7C4 /* Resources */,
@@ -763,9 +762,9 @@
 			);
 			name = DentistCalendar;
 			packageProductDependencies = (
-				6F2149EE25B9FA12006B57F3 /* Introspect */,
-				6FB8DC5025D19A1E00A04107 /* SPAlert */,
-				6FDAD37B2631E80300CA5AA5 /* SwiftUIX */,
+				6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */,
+				6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */,
+				6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */,
 			);
 			productName = DentistCalendar;
 			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
@@ -796,9 +795,9 @@
 			);
 			mainGroup = 6F3A1A782519118F0042E7C4;
 			packageReferences = (
-				6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */,
-				6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */,
+				6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */,
+				6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
@@ -904,23 +903,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FBC734DB382E93DE2D4EB207 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1269,7 +1251,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
 			requirement = {
@@ -1277,7 +1259,7 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
+		6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/varabeis/SPAlert";
 			requirement = {
@@ -1285,7 +1267,7 @@
 				minimumVersion = 3.0.3;
 			};
 		};
-		6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+		6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
 			requirement = {
@@ -1296,19 +1278,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6F2149EE25B9FA12006B57F3 /* Introspect */ = {
+		6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = 6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */;
 			productName = Introspect;
 		};
-		6FB8DC5025D19A1E00A04107 /* SPAlert */ = {
+		6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */;
+			package = 6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */;
 			productName = SPAlert;
 		};
-		6FDAD37B2631E80300CA5AA5 /* SwiftUIX */ = {
+		6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			package = 6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */;
 			productName = SwiftUIX;
 		};
 /* End XCSwiftPackageProductDependency section */

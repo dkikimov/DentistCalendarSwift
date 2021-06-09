@@ -25,8 +25,8 @@ struct AppointmentCalendarView: View {
     @State var diagnosisList = [[Substring]]()
     @State var serviceSum: Decimal = 0
     @State var servicePaid: Decimal = 0
-    init(appointment: Appointment, _ isEditAllowed: Bool = true, fullScreenIsCalendar: Binding<Bool>? = nil, intestital: Interstitial? = nil) {
-        data = AppointmentCalendarViewModel(appointment: appointment, isEditAllowed: isEditAllowed, fullScreenIsCalendar: fullScreenIsCalendar)
+    init(appointment: Appointment, _ isEditAllowed: Bool = true, intestital: Interstitial? = nil) {
+        data = AppointmentCalendarViewModel(appointment: appointment, isEditAllowed: isEditAllowed)
         self.intestital = intestital
     }
     var body: some View {
@@ -79,7 +79,14 @@ struct AppointmentCalendarView: View {
                         }, label: {
                             Text("Удалить")
                                 .foregroundColor(.red)
-                                .frame(width: UIScreen.main.bounds.width, height: 49)
+                                .frame(height: 49)
+                        }).actionSheet(isPresented: $data.isActionSheetPresented, content: {
+                            ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
+                                .destructive(Text("Удалить")){
+                                    data.deleteAppointment(presentationMode: presentationMode)
+                                },
+                                .cancel()
+                            ])
                         })
                         
                         
@@ -90,14 +97,7 @@ struct AppointmentCalendarView: View {
                     )
                 }
                 
-                .actionSheet(isPresented: $data.isActionSheetPresented, content: {
-                    ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
-                        .destructive(Text("Удалить")){
-                            data.deleteAppointment(presentationMode: presentationMode)
-                        },
-                        .cancel()
-                    ])
-                })
+                
                 .sheet(isPresented: $data.isSheetPresented, content: {
                     AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
                 })
@@ -121,11 +121,6 @@ struct AppointmentCalendarView: View {
             
             
             
-            .onDisappear(perform: {
-                if data.fullScreenIsCalendar != nil {
-                    data.fullScreenIsCalendar!.wrappedValue = false
-                }
-            })
             .onChange(of: data.isSheetPresented, perform: { value in
                 if value == false {
                     let res = countBilling(appointment: data.appointment)
