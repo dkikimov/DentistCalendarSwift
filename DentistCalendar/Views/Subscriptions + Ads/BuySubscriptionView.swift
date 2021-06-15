@@ -75,24 +75,37 @@ struct BuySubscriptionView: View {
                 }
                 HStack(spacing: 5) {
                     Spacer()
-                    Button(action: {
-
-                    }, label: {
+                    Link(destination: URL(string: "https://dentor-website.vercel.app/terms_of_use.html")!) {
                         Text("Условия использования")
                             .font(.caption2)
                             .bold()
                             .foregroundColor(Color("Black1"))
-
-                    })
-                    Button(action: {
-
-                    }, label: {
+                    }
+//                    Button(action: {
+//
+//                    }, label: {
+//                        Text("Условия использования")
+//                            .font(.caption2)
+//                            .bold()
+//                            .foregroundColor(Color("Black1"))
+//
+//                    })
+                    Link(destination: URL(string: "https://dentor-website.vercel.app/privacy_policy.html")!) {
                         Text("Политика конфиденциальности")
                             .font(.caption2)
                             .bold()
                             .foregroundColor(Color("Black1"))
                             .lineLimit(1)
-                    })
+                    }
+//                    Button(action: {
+//
+//                    }, label: {
+//                        Text("Политика конфиденциальности")
+//                            .font(.caption2)
+//                            .bold()
+//                            .foregroundColor(Color("Black1"))
+//                            .lineLimit(1)
+//                    })
                     Spacer()
                 }
             }
@@ -120,6 +133,7 @@ struct BuySubscriptionView: View {
                 .cornerRadius(8)
                 Spacer()
             }
+            Spacer()
         }
         .padding()
 

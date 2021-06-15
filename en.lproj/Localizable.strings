@@ -123,9 +123,9 @@
 "Карта пациента" = "Patient card";
 "Выберите опции" = "Select options";
 
-"Вася Пупкин" = "John Doe";
-"Вася" = "John";
-"Пупкин" = "Doe";
+"Василий Петров" = "John Doe";
+"Василий" = "John";
+"Петров" = "Doe";
 "Номер телефона" = "Phone number";
 "Изменить данные" = "Change data";
 "Подтверждение" = "Confirmation";
@@ -145,6 +145,7 @@
 "Регистрация" = "Registration";
 "Забыли пароль?" = "Forgot password?";
 "Восстановление" = "Password Recovery";
+"ИЛИ" = "OR";
 // One time code;
 "Минимальная длина пароля 8 символов" = "The minimum password length is 8 characters";
 "Подтверждение " = "Confirmation";

@@ -124,6 +124,7 @@ struct ProfileSettingsView: View {
             })
             
         }
+        
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         //        .keyboardAdaptive()
         .navigationBarTitle("Настройки", displayMode: .large)

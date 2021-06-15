@@ -9,7 +9,7 @@ import SwiftUI
 import GoogleMobileAds
 import UIKit
     
-final class Rewarded: NSObject, GADRewardedAdDelegate{
+final class Rewarded: NSObject, GADFullScreenContentDelegate{
     func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
         
     }

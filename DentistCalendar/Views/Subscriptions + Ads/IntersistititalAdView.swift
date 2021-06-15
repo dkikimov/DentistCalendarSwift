@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMobileAds
 
-final class Interstitial:NSObject, GADInterstitialDelegate{
+final class Interstitial:NSObject, GADFullScreenContentDelegate{
 //    var interstitial:GADInterstitial = GADInterstitial(adUnitID: pageAd)
 //    
 //    override init() {

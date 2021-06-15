@@ -33,7 +33,7 @@
 		6F1D734125E6AE1F0008DCBF /* Data + Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1D734025E6AE1F0008DCBF /* Data + Page.swift */; };
 		6F1D734425E6AF770008DCBF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1D734325E6AF770008DCBF /* ButtonsView.swift */; };
 		6F1E95202664C5CB00B4D1FB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1E951F2664C5CA00B4D1FB /* StringExtension.swift */; };
-		6F2149EF25B9FA12006B57F3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */; };
+		6F2149EF25B9FA12006B57F3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2149EE25B9FA12006B57F3 /* Introspect */; };
 		6F26F9852619D63D0039A2C8 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26F9842619D63D0039A2C8 /* GoogleSignInButton.swift */; };
 		6F2B89AC257CCA5900D717EC /* AppointmentCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2B89AB257CCA5900D717EC /* AppointmentCalendarView.swift */; };
 		6F2BA5622633212800F5FB22 /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BA5612633212800F5FB22 /* EnvironmentKeys.swift */; };
@@ -129,7 +129,7 @@
 		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
 		6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F05025D04B7000FF24B8 /* Alert.swift */; };
 		6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */; };
-		6FB8DC5125D19A1E00A04107 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */; };
+		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
 		6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FC534EB26086D8D00610AE3 /* schema.graphql */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
@@ -141,12 +141,12 @@
 		6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FD82A6E25B45C06004D22C3 /* WebKit.framework */; };
 		6FD91C28252F600E00231625 /* getTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD91C27252F600E00231625 /* getTokens.swift */; };
 		6FDAD3782631DEBA00CA5AA5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */; };
-		6FDAD37C2631E80300CA5AA5 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */; };
+		6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftUIX */; };
 		6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE422582589250200E62B55 /* DatePickerModalView.swift */; };
-		6FE4226E2589355000E62B55 /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE4226D2589355000E62B55 /* HalfModalView.swift */; };
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
 		6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2E72541E20400F1C74A /* FloatingButton.swift */; };
 		6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */; };
+		6FEF93482670C3E100693408 /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF93472670C3E100693408 /* HalfModalView.swift */; };
 		6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */; };
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
@@ -302,10 +302,10 @@
 		6FD91C27252F600E00231625 /* getTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTokens.swift; sourceTree = "<group>"; };
 		6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		6FE422582589250200E62B55 /* DatePickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModalView.swift; sourceTree = "<group>"; };
-		6FE4226D2589355000E62B55 /* HalfModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalView.swift; path = "../../../../../../../../Downloads/HalfModal_Tutorial-2/Drag and Drop File/HalfModalView.swift"; sourceTree = "<group>"; };
 		6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailCard.swift; sourceTree = "<group>"; };
 		6FE9D2E72541E20400F1C74A /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshScrollView.swift; sourceTree = "<group>"; };
+		6FEF93472670C3E100693408 /* HalfModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalView.swift; path = "../../../../../Downloads/HalfModal_Tutorial-2/Drag and Drop File/HalfModalView.swift"; sourceTree = "<group>"; };
 		6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		6FF64F01251E3CBE0094C0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -325,10 +325,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FB8DC5125D19A1E00A04107 /* BuildFile in Frameworks */,
+				6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */,
 				6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */,
 				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
-				6FDAD37C2631E80300CA5AA5 /* BuildFile in Frameworks */,
+				6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */,
 				6F81976A25B2CFAF00022321 /* MessageUI.framework in Frameworks */,
 				6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */,
 				6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */,
@@ -337,7 +337,7 @@
 				6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */,
 				6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */,
 				6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */,
-				6F2149EF25B9FA12006B57F3 /* BuildFile in Frameworks */,
+				6F2149EF25B9FA12006B57F3 /* Introspect in Frameworks */,
 				B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,7 +663,7 @@
 				6FD57D5D253C3F8100C64847 /* DateControllerDelegaet.swift */,
 				6FD57D60253C413500C64847 /* TimeChunk.swift */,
 				6FE422582589250200E62B55 /* DatePickerModalView.swift */,
-				6FE4226D2589355000E62B55 /* HalfModalView.swift */,
+				6FEF93472670C3E100693408 /* HalfModalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -762,9 +762,9 @@
 			);
 			name = DentistCalendar;
 			packageProductDependencies = (
-				6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */,
-				6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */,
-				6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */,
+				6F2149EE25B9FA12006B57F3 /* Introspect */,
+				6FB8DC5025D19A1E00A04107 /* SPAlert */,
+				6FDAD37B2631E80300CA5AA5 /* SwiftUIX */,
 			);
 			productName = DentistCalendar;
 			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
@@ -777,7 +777,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					6F3A1A802519118F0042E7C4 = {
 						CreatedOnToolsVersion = 12.0;
@@ -795,9 +795,9 @@
 			);
 			mainGroup = 6F3A1A782519118F0042E7C4;
 			packageReferences = (
-				6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */,
-				6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */,
-				6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */,
+				6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */,
+				6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
@@ -972,6 +972,7 @@
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
 				6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */,
 				6F1D734125E6AE1F0008DCBF /* Data + Page.swift in Sources */,
+				6FEF93482670C3E100693408 /* HalfModalView.swift in Sources */,
 				6F4BFB312621C98E00F68689 /* ActionButton.swift in Sources */,
 				6F3A2AED25C83ACC001E91A0 /* ViewExtension.swift in Sources */,
 				6F78213F2667FE2C00480151 /* ForeachExtension.swift in Sources */,
@@ -991,7 +992,6 @@
 				6F81977525B2EC8700022321 /* PickerCalendarSection.swift in Sources */,
 				6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */,
 				6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */,
-				6FE4226E2589355000E62B55 /* HalfModalView.swift in Sources */,
 				6F1047E725A371E500A8341F /* PriceExtension.swift in Sources */,
 				6F43790125D9764700DE722C /* iCal.swift in Sources */,
 				6F8581BC25D43E2800E7BF1F /* KeyboardAdaptive.swift in Sources */,
@@ -1060,6 +1060,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1122,6 +1123,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1251,7 +1253,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */ = {
+		6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
 			requirement = {
@@ -1259,7 +1261,7 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */ = {
+		6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/varabeis/SPAlert";
 			requirement = {
@@ -1267,7 +1269,7 @@
 				minimumVersion = 3.0.3;
 			};
 		};
-		6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */ = {
+		6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
 			requirement = {
@@ -1278,19 +1280,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6F2149EE25B9FA12006B57F3 /* SwiftPackageProductDependency */ = {
+		6F2149EE25B9FA12006B57F3 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6F2149ED25B9FA12006B57F3 /* RemoteSwiftPackageReference */;
+			package = 6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
-		6FB8DC5025D19A1E00A04107 /* SwiftPackageProductDependency */ = {
+		6FB8DC5025D19A1E00A04107 /* SPAlert */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6FB8DC4F25D19A1E00A04107 /* RemoteSwiftPackageReference */;
+			package = 6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
 		};
-		6FDAD37B2631E80300CA5AA5 /* SwiftPackageProductDependency */ = {
+		6FDAD37B2631E80300CA5AA5 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6FDAD37A2631E80300CA5AA5 /* RemoteSwiftPackageReference */;
+			package = 6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -85,7 +85,7 @@ class PatientDetailViewModel : ObservableObject {
                                 Amplify.DataStore.query(Payment.self, where: Payment.keys.appointmentID == app.id) { result in
                                     switch result {
                                     case .success(let payments):
-                                        resultAppointment.payments = List(payments)
+                                        resultAppointment.payments = List(elements: payments)
                                     case .failure(let error):
                                         self.error = error.localizedDescription
                                         self.isAlertPresented = true

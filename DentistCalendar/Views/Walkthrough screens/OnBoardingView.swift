@@ -36,6 +36,7 @@ struct OnBoardingView: View {
                         
                         NewDetailText(title: "Используйте без интернета", description: "Работает даже без доступа к интернету без ограничений в функционале")
                     }
+                    Spacer()
                 }
 
             }
@@ -69,7 +70,9 @@ struct NewDetailText: View {
             //                    .alignmentGuide(.leading)
 
             VStack(alignment: .leading) {
-                Text(title.localized).bold()
+                Text(title.localized)
+                    .font(.title3)
+                    .bold()
 
                 Text(description.localized)
                     .fixedSize(horizontal: false, vertical: true)
@@ -97,7 +100,7 @@ struct NewDetailImage: View {
 struct OnBoardingView_Previews1: PreviewProvider {
     static var previews: some View {
         OnBoardingView(isWalkthroughViewShowing: .constant(true))
-            .previewDevice("iPhone 12 Pro Max")
+            .previewDevice("iPad Pro (12.9-inch) (5th generation)")
     }
 }
 

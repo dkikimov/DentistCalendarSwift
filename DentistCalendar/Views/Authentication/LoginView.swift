@@ -75,12 +75,14 @@ struct LoginView: View {
                 
                 
             }
-            .navigationViewStyle(StackNavigationViewStyle())
 
             
-        }                    .introspectNavigationController { navigationController in
+        }
+        .introspectNavigationController { navigationController in
             self.navigationController = navigationController
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+
 
 //        .transition(.move(edge: .bottom))
     }

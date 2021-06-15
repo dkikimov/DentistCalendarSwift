@@ -17,7 +17,7 @@ struct PatientUpdateView: View {
     }
     var body: some View {
         VStack(spacing: 15) {
-            CustomTextField(label: "Имя", title: "Вася Пупкин", text: $data.fullname, isSecure: false, keyboardType: .default).autocapitalization(.words).padding(.horizontal, 20).padding(.top, 20)
+            CustomTextField(label: "Имя", title: "Василий Петров", text: $data.fullname, isSecure: false, keyboardType: .default).autocapitalization(.words).padding(.horizontal, 20).padding(.top, 20)
             VStack(alignment: .leading) {
                 Text("Номер телефона")
                     .font(.callout)

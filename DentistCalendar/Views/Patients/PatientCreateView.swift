@@ -13,7 +13,7 @@ struct PatientCreateView: View {
     var patientsListData: PatientsListViewModel
     var body: some View {
         VStack(spacing: 15) {
-            CustomTextField(label: "Имя и фамилия", title: "Вася Пупкин".localized, text: $data.patientName, isSecure: false, keyboardType: .default).autocapitalization(.words).padding(.horizontal, 20).padding(.top, 20)
+            CustomTextField(label: "Имя и фамилия", title: "Василий Петров".localized, text: $data.patientName, isSecure: false, keyboardType: .default).autocapitalization(.words).padding(.horizontal, 20).padding(.top, 20)
             VStack(alignment: .leading) {
                 Text("Номер телефона")
                     .font(.callout)

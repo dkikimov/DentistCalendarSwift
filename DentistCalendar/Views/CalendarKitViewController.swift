@@ -35,7 +35,6 @@ enum SheetType: String, Identifiable {
     }
     case calendarView
     case createView
-    case datePickerView
 }
 class CustomDayViewController: ObservableObject {
     let id = UUID()
@@ -508,7 +507,7 @@ struct CalendarKitView: View {
                     })
                     .onChange(of: modalManager.selectedDate, perform: { (newDate) in
                         data.isSheetPresented = false
-                        modalManager.isDatePickerPresented = false
+//                        modalManager.isDatePickerPresented = false
                         isDatePickerPresented = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
                             if newDate != data.selectedDate {
@@ -546,16 +545,6 @@ struct CalendarKitView: View {
                 case .createView:
                     AppointmentCreateView(isAppointmentPresented: $data.isSheetPresented, viewType: .createWithPatient, dateStart: data.dateStart, dateEnd: data.dateEnd, group: group)
                                         .allowAutoDismiss(false)
-                case .datePickerView:
-                    NavigationView {
-                        DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
-                            .datePickerStyle(GraphicalDatePickerStyle())
-                            .navigationBarItems(leading: Button(action: {
-                                data.isSheetPresented = false
-                            }, label: {
-                                Text("Отменить")
-                            }))
-                    }
                 }
 //            if data.fullScreenIsCalendar {
 //                AppointmentCalendarView(appointment: data.selectedAppointment, fullScreenIsCalendar: $data.fullScreenIsCalendar, intestital: intestial)

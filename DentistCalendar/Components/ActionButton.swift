@@ -32,10 +32,12 @@ struct ActionButton: View {
         Button(action: action, label: {
             ZStack {
                 if !isLoading  {
-                    Text(buttonLabel.localized)
-                        .fontWeight(fontWeight)
-                        .font(font)
-                        .foregroundColor(fontColor)
+                    HStack {
+                        Text(buttonLabel.localized)
+                            .fontWeight(fontWeight)
+                            .font(font)
+                            .foregroundColor(fontColor)
+                    }
 
                         
                 } else {
