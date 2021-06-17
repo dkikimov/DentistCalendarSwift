@@ -50,7 +50,8 @@ class PatientsListViewModel: ObservableObject {
         Amplify.DataStore.delete(Patient.self, withId: id) { res in
             switch res {
             case .success:
-                presentSuccessAlert(message: "Пациент успешно удален!")
+                break
+//                presentSuccessAlert(message: "Пациент успешно удален!")
             case .failure(let error):
                 presentErrorAlert(message: error.errorDescription)
             }

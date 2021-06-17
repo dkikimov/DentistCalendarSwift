@@ -130,7 +130,6 @@
 		6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F05025D04B7000FF24B8 /* Alert.swift */; };
 		6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */; };
 		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
-		6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FC534EB26086D8D00610AE3 /* schema.graphql */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
 		6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024C25A23EEE0043A70F /* NativeAdView.swift */; };
@@ -146,6 +145,7 @@
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
 		6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2E72541E20400F1C74A /* FloatingButton.swift */; };
 		6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */; };
+		6FEB49EC267B38D800923E37 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB49EB267B38D800923E37 /* schema.graphql */; };
 		6FEF93482670C3E100693408 /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF93472670C3E100693408 /* HalfModalView.swift */; };
 		6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */; };
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
@@ -290,7 +290,6 @@
 		6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patient+Extensions.swift"; sourceTree = "<group>"; };
 		6FB5F05025D04B7000FF24B8 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6FC534EB26086D8D00610AE3 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/dentistcalendar/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySubscriptionView.swift; sourceTree = "<group>"; };
 		6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleAdsVariables + Constants.swift"; sourceTree = "<group>"; };
 		6FC9024C25A23EEE0043A70F /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
@@ -305,6 +304,7 @@
 		6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailCard.swift; sourceTree = "<group>"; };
 		6FE9D2E72541E20400F1C74A /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshScrollView.swift; sourceTree = "<group>"; };
+		6FEB49EB267B38D800923E37 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = file; name = schema.graphql; path = amplify/backend/api/dentor/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6FEF93472670C3E100693408 /* HalfModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalView.swift; path = "../../../../../Downloads/HalfModal_Tutorial-2/Drag and Drop File/HalfModalView.swift"; sourceTree = "<group>"; };
 		6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 		6F05F3B7257946E40099BB94 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				6FC534EB26086D8D00610AE3 /* schema.graphql */,
+				6FEB49EB267B38D800923E37 /* schema.graphql */,
 				6F05F3CA257947410099BB94 /* amplifyconfiguration.json */,
 				6F05F3CB257947410099BB94 /* awsconfiguration.json */,
 				8B07802996364501A49A55CA /* amplifytools.xcconfig */,
@@ -749,7 +749,6 @@
 			buildConfigurationList = 6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "DentistCalendar" */;
 			buildPhases = (
 				6FFCED53DA11331FEDE35FBB /* [CP] Check Pods Manifest.lock */,
-				6F29AC232551BCC50059F6F1 /* Run Script */,
 				6F3A1A7D2519118F0042E7C4 /* Sources */,
 				6F3A1A7E2519118F0042E7C4 /* Frameworks */,
 				6F3A1A7F2519118F0042E7C4 /* Resources */,
@@ -822,31 +821,13 @@
 				6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
 				6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */,
-				6FC534EC26086D8D00610AE3 /* schema.graphql in Resources */,
+				6FEB49EC267B38D800923E37 /* schema.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F29AC232551BCC50059F6F1 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#\"${PODS_ROOT}/AmplifyTools/amplify-tools.sh\"\n";
-		};
 		6FB5F09325D058BB00FF24B8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

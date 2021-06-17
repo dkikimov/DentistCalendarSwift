@@ -74,7 +74,7 @@ class PatientDetailViewModel : ObservableObject {
                     print("ERROR IN OBSERVE PATIENTS", error.errorDescription)
                 }
             } receiveValue: { (changes) in
-                print("CHANGES ", changes)
+//                print("CHANGES ", changes)
                 guard let app = try? changes.decodeModel(as: Appointment.self) else {return}
                 var resultAppointment = app
                 if app.patientID == self.patient.id {
@@ -94,7 +94,7 @@ class PatientDetailViewModel : ObservableObject {
                                 }
 //                                self.appointments[index] = Appointment(id: "123", title: "ЛОЛ КЕК", patientID: "", owner: "", toothNumber: "13", diagnosis: "13", price: 13, dateStart: "123", dateEnd: "123", payments: nil)
                                 let sumData = countBilling(appointment: resultAppointment)
-                                self.sumServices[index] = (Double(truncating: sumData.0 as NSNumber).formattedAmount ?? "", Double(truncating: sumData.1 as NSNumber).formattedAmount ?? "")
+                                self.sumServices[index] = (sumData.0.currencyFormatted , sumData.1.currencyFormatted)
                                 self.appointments[index] = resultAppointment
                                 
                             }

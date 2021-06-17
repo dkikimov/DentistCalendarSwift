@@ -36,6 +36,7 @@ class RegisterViewModel : ObservableObject {
         guard isValid else {
             self.error = err!
             self.isAlertPresented = true
+            self.isLoading = false
             return
         }
         let (status, error) = checkPassword(a: password, b: repeatPassword)
@@ -43,6 +44,7 @@ class RegisterViewModel : ObservableObject {
         guard status else {
             self.error = error!
             self.isAlertPresented = true
+            self.isLoading = false
             return
         }
         

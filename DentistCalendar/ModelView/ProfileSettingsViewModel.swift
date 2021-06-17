@@ -45,7 +45,7 @@ class ProfileSettingsViewModel: ObservableObject {
             if let error = error {
                 presentErrorAlert(message: error)
             } else if success {
-                presentSuccessAlert(message: "Имя успешно изменено!")
+//                presentSuccessAlert(message: "Имя успешно изменено!")
                 DispatchQueue.main.async {
                     UserDefaults.standard.setValue(s + " " + f , forKey: "fullname")
                 }
@@ -70,7 +70,7 @@ class ProfileSettingsViewModel: ObservableObject {
                 }
             } else {
                 DispatchQueue.main.async {
-                    presentSuccessAlert(message: "Пароль успешно изменен!")
+//                    presentSuccessAlert(message: "Пароль успешно изменен!")
                     mode.wrappedValue.dismiss()
                 }
             }

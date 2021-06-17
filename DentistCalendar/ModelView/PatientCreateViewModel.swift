@@ -36,7 +36,7 @@ class PatientCreateViewModel : ObservableObject {
                 switch result{
                 case .success(_):
 //                    patientData.patientsList.append(patient)
-                    presentSuccessAlert(message: "Пациент успешно добавлен!")
+//                    presentSuccessAlert(message: "Пациент успешно добавлен!")
                     DispatchQueue.main.async {
                         completion(true)
                     }

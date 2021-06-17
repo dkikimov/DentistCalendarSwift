@@ -50,14 +50,14 @@ class PatientUpdateViewModel : ObservableObject {
         newPatient.phone = finalPhone
         Amplify.DataStore.save(newPatient) { res in
             switch res {
-            case .success(let patient):
+            case .success:
 //                listData.patientsList[self.index].fullname = patient.fullname
 //                listData.patientsList[self.index].phone = patient.phone
-                presentSuccessAlert(message: "Данные успешно изменены!")
+//                presentSuccessAlert(message: "Данные успешно изменены!")
                 DispatchQueue.main.async {
                     compelition(true)
                 }
-                print("UPDATED PATIENT", patient)
+//                print("UPDATED PATIENT", patient)
             case .failure(let error):
                 presentErrorAlert(message: error.errorDescription)
                 DispatchQueue.main.async {
@@ -76,7 +76,7 @@ class PatientUpdateViewModel : ObservableObject {
 //                presentSuccessAlert(message: "Пациент успешно удален!")
 //                listData.patientsList.remove(at: self.index)
             case .failure(let error):
-                presentSuccessAlert(message: error.errorDescription)
+                presentErrorAlert(message: error.errorDescription)
             }
         }
     }

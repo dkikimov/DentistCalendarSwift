@@ -26,7 +26,7 @@ class AppointmentCalendarViewModel: ObservableObject {
             switch res {
             case .success:
                 DispatchQueue.main.async {
-                    presentSuccessAlert(message: "Запись успешно удалена!")
+//                    presentSuccessAlert(message: "Запись успешно удалена!")
                     print("DELETED")
                     presentationMode.wrappedValue.dismiss()
                 }

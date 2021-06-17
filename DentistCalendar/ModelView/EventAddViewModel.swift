@@ -113,7 +113,7 @@ class EventAddViewModel: ObservableObject {
                     switch res {
                     case .success(let patients):
                         if patients.count > 0 {
-                            let newAppointment = Appointment(title: patients[0].fullname, patientID: patients[0].id, toothNumber: "", diagnosis: "", price: 0, dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
+                            let newAppointment = Appointment(title: patients[0].fullname, patientID: patients[0].id, toothNumber: "", diagnosis: "", dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
                            _ = Amplify.DataStore.save(newAppointment)
                             //                            Amplify.API.mutate(request: .create(newAppointment))
                         } else if patients.count == 0{
@@ -122,7 +122,7 @@ class EventAddViewModel: ObservableObject {
                             Amplify.DataStore.save(newPatient) { result in
                                 switch result {
                                 case .success(let pat):
-                                    let newAppointment = Appointment(title: patientName, patientID: pat.id, toothNumber: "", diagnosis: "", price: 0, dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
+                                    let newAppointment = Appointment(title: patientName, patientID: pat.id, toothNumber: "", diagnosis: "", dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
                                    _ = Amplify.DataStore.save(newAppointment)
                                 //                                    Amplify.API.mutate(request: .create(newAppointment))
                                 

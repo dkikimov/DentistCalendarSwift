@@ -41,7 +41,12 @@ class InternetConnectionManager: ObservableObject {
         }
     }
     
-    func isInternetEnabled() -> InternetConnectionType {
-        return internetConnection
+    func isInternetEnabled() -> Bool {
+        switch internetConnection {
+        case .enabled:
+            return true
+        case .disabled:
+            return false
+        }
     }
 }

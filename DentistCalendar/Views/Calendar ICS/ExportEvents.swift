@@ -71,11 +71,10 @@ struct ExportEvents: View {
         for app in fetchedAppointments {
             var event = ICSEvent()
             event.summary = app.title
-            event.dtstart = Date(timeIntervalSince1970: Double(app.dateStart)!)
-            event.dtend = Date(timeIntervalSince1970: Double(app.dateEnd)!)
+            event.dtstart = Date(timeIntervalSince1970: TimeInterval(app.dateStart)!)
+            event.dtend = Date(timeIntervalSince1970: TimeInterval(app.dateEnd)!)
             
             if app.patientID != nil {
-                event.addAttribute(attr: "price", String(app.price ?? 0))
                 event.addAttribute(attr: "patientID", String(app.patientID ?? "-1"))
                 event.addAttribute(attr: "toothNumber", app.toothNumber ?? "0")
                 event.addAttribute(attr: "diagnosis", app.diagnosis ?? "")

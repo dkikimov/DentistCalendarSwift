@@ -34,7 +34,7 @@ extension SearchBar: UISearchResultsUpdating {
         // Publish search bar text changes.
         if let searchBarText = searchController.searchBar.text {
             self.text = searchBarText
-            print("SET TEXT ", searchBarText)
+//            print("SET TEXT ", searchBarText)
         }
     }
 }

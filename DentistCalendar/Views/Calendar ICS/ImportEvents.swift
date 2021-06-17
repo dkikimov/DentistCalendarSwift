@@ -107,7 +107,6 @@ struct ImportEvents: View {
                 }
                 
             }
-            newApp.price = Int(event.otherAttrs["price"]!)
             newApp.diagnosis = event.otherAttrs["diagnosis"]
             newApp.toothNumber = event.otherAttrs["toothNumber"]
         }

@@ -61,7 +61,7 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
         textField.withExamplePlaceholder = true
         textField.maxDigits = 15
         textField.text = phoneNumber
-        print("YEP YEP MADE VIEw")
+//        print("YEP YEP MADE VIEw")
         return textField
     }
     
@@ -87,7 +87,7 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
             
             self.parent.phoneNumber = textField.text ?? ""
             
-            print("SET TEXT", self.parent.$phoneNumber.wrappedValue)
+//            print("SET TEXT", self.parent.$phoneNumber.wrappedValue)
         }
         
         

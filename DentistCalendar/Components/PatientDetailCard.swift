@@ -22,8 +22,8 @@ struct PatientDetailCard: View {
     var index: Int
     var detailButtonAction: () -> Void
     var moreButtonAction: () -> Void
-    @State var serviceSum = 0.0
-    @State var servicePaid = 0.0
+    @State var serviceSum: Decimal = 0.0
+    @State var servicePaid: Decimal = 0.0
     var body: some View {
         Button(action: {
             detailButtonAction()
@@ -70,8 +70,8 @@ struct PatientDetailCard: View {
                                     .lineLimit(1)
                             }
                             ProgressView(
-                                value: Double(detailViewModel.sumServices[index, default: ("0", "0")].0) ?? 0,
-                                total: Double(detailViewModel.sumServices[index, default: ("0", "0")].1) ?? 0)
+                                value: detailViewModel.sumServices[index, default: ("0", "0")].0.getNumber,
+                                total: detailViewModel.sumServices[index, default: ("0", "0")].1.getNumber)
                                 .scaleEffect(x: 1, y: 1.5, anchor: .center)
                                 .progressViewStyle(LinearProgressViewStyle())
                         }
@@ -105,14 +105,16 @@ struct PatientDetailCard: View {
         )
         .onAppear(perform: {
             let res = countBilling(appointment: appointment)
-            self.servicePaid = Double(truncating: res.0 as NSNumber)
-            self.serviceSum = Double(truncating: res.1 as NSNumber)
-            print("SERVICE SUM", serviceSum)
-            print("SERVICE PAID", servicePaid)
+//            self.servicePaid = Double(truncating: res.0 as NSNumber)
+//            self.serviceSum = Double(truncating: res.1 as NSNumber)
+            self.servicePaid = res.0
+            self.serviceSum = res.1
+//            print("SERVICE SUM", serviceSum)
+//            print("SERVICE PAID", servicePaid)
             if serviceSum < servicePaid {
                 self.serviceSum = servicePaid
             }
-            self.detailViewModel.sumServices[index] = (self.servicePaid.formattedAmount ?? "", self.serviceSum.formattedAmount ?? "")
+            self.detailViewModel.sumServices[index] = (self.servicePaid.currencyFormatted, self.serviceSum.currencyFormatted)
         })
 //        .onChange(of: appointment, perform: { newApp in
 //            let res = countBilling(appointment: appointment)

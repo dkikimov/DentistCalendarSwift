@@ -23,11 +23,11 @@ private func trimDate(_ date: Date) -> (String, String) {
     )
 }
 private func getAppStartDate(_ date: String) -> Date {
-    let date = Date(timeIntervalSince1970: Double(date)!)
+    let date = Date(timeIntervalSince1970: TimeInterval(date)!)
     return Date(year: date.year, month: date.month, day: date.day, hour: 0, minute: 0, second: 0)
 }
 private func fromTimestampToDate(date: String) -> Date{
-    return Date(timeIntervalSince1970: Double(date)!)
+    return Date(timeIntervalSince1970: TimeInterval(date)!)
 }
 enum SheetType: String, Identifiable {
     var id: String {
@@ -78,9 +78,9 @@ class CustomCalendarExampleController: DayViewController {
                     if !self.generatedEvents.contains(where: { (event) -> Bool in
                         event.id == app.id
                     }) && self.alreadyGeneratedSet.contains(getAppStartDate(app.dateStart)) {
-                        print("NEW APPOINTMENT", app)
+//                        print("NEW APPOINTMENT", app)
                         let event = self.generateEvent(appointment: app)
-                        print("ADDING EVENT", event.text)
+//                        print("ADDING EVENT", event.text)
                         self.endEventEditing()
                         self.generatedEvents.append(event)
                         self.endEventEditing()
@@ -95,10 +95,10 @@ class CustomCalendarExampleController: DayViewController {
                     break
                 case "update":
                     if let index = self.generatedEvents.firstIndex(where: {$0.id == app.id}) {
-                        print("UPDATE APPOINTMENT", app)
+//                        print("UPDATE APPOINTMENT", app)
                         let event = self.generateEvent(appointment: app)
                         DispatchQueue.main.async {
-                            print("ADDING EVENT", event.text)
+//                            print("ADDING EVENT", event.text)
                             self.generatedEvents[index] = event
                             self.reloadData()
                             if app.id == self.selectedAppointment.wrappedValue.id {
@@ -116,7 +116,6 @@ class CustomCalendarExampleController: DayViewController {
                     }
                     break
                 default:
-                    print("DEFAULT")
                     //                DispatchQueue.main.async {
                     ////                    self.endEventEditing()
                     //                    self.reloadData()
@@ -136,11 +135,12 @@ class CustomCalendarExampleController: DayViewController {
                 }
             } receiveValue: { (changes) in
                 //                print("CHANGES ", changes)
-                guard let payment = try? changes.decodeModel(as: Payment.self) else {return}
-                print("UPDATE PAYMENT", payment)
+                guard (try? changes.decodeModel(as: Payment.self)) != nil else {return}
+//                print("UPDATE PAYMENT", payment)
                 switch changes.mutationType {
                 case "delete":
-                    print("DELETE PAYMENT OBSERVE ", payment)
+                    break
+//                    print("DELETE PAYMENT OBSERVE ", payment)
                 default: break
                 }
                 }
@@ -184,9 +184,9 @@ class CustomCalendarExampleController: DayViewController {
         dayView.updateStyle(style)
         view = dayView
             viewData.customDayView = dayView
-        print("DAYVIEW", dayView)
+//        print("DAYVIEW", dayView)
         //        customDayViewControlle
-        print("LOADVIEW")
+//        print("LOADVIEW")
     }
     override func viewDidAppear(_ animated: Bool) {
         observeAppointments()
@@ -199,7 +199,7 @@ class CustomCalendarExampleController: DayViewController {
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
         reloadData()
-        print("VIEWDIDLOAD")
+//        print("VIEWDIDLOAD")
         
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -226,7 +226,7 @@ class CustomCalendarExampleController: DayViewController {
         let formattedDate = Date(year: date.year, month: date.month, day: date.day, hour: 0, minute: 0, second: 0)
 //        viewData.selectedDate = dayView.state!.selectedDate
         if !alreadyGeneratedSet.contains(formattedDate) {
-            print("generate events", date)
+//            print("generate events", date)
             alreadyGeneratedSet.insert(formattedDate)
             generatedEvents.append(contentsOf: generateEventsForDate(date))
         }
@@ -253,7 +253,7 @@ class CustomCalendarExampleController: DayViewController {
             events.append(generateEvent(appointment: appointment))
         }
         
-        print("Events for \(date)")
+//        print("Events for \(date)")
         return events
     }
     
@@ -271,7 +271,7 @@ class CustomCalendarExampleController: DayViewController {
         guard let descriptor = eventView.descriptor as? Event else {
             return
         }
-        print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
+//        print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
         Amplify.DataStore.query(Appointment.self, byId: descriptor.id) { res in
             switch res {
             case .success(let appointment):
@@ -325,7 +325,7 @@ class CustomCalendarExampleController: DayViewController {
         
         endEventEditing()
         let event = generateEventNearDate(date)
-        print("Creating new event")
+//        print("Creating new event")
         create(event: event, animated: true)
         createdEvent = event
     }
@@ -359,7 +359,7 @@ class CustomCalendarExampleController: DayViewController {
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         viewData.dateStart = event.startDate
         viewData.dateEnd = event.endDate
-        print("new startDate: \(event.startDate) new endDate: \(event.endDate)")
+//        print("new startDate: \(event.startDate) new endDate: \(event.endDate)")
         self.viewData.selectedSheetType = .createView
         
         
@@ -368,12 +368,12 @@ class CustomCalendarExampleController: DayViewController {
             guard self.viewData.isSheetPresented == false && event.startDate != event.endDate else {return}
             self.viewData.isSheetPresented = true
             group.enter()
-            print("GROUP ENTER")
+//            print("GROUP ENTER")
             group.notify(queue: .main) {
                 
                 print(newModel.appointment ?? "nothing")
                 
-                print("I WAS NOTIFIED")
+//                print("I WAS NOTIFIED")
                 if newModel.appointment == nil{
                     self.endEventEditing()
                     self.viewData.isSheetPresented = false
@@ -383,7 +383,7 @@ class CustomCalendarExampleController: DayViewController {
                 self.viewData.isSheetPresented = false
                 
                 
-                print("CREATED EVENT")
+//                print("CREATED EVENT")
                 //                self.generatedEvents.append(newEvent)
                 self.createdEvent = nil
                 newModel.appointment = nil
@@ -402,8 +402,8 @@ class CustomCalendarExampleController: DayViewController {
                         app!.dateEnd = endDate
                         Amplify.DataStore.save(app!) { result in
                             switch result {
-                            case .success(_):
-                                print("success")
+                            case .success:
+                                break
                             case .failure(let error):
                                 print("error", error.errorDescription)
                                 return

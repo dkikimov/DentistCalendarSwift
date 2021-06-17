@@ -17,7 +17,7 @@ func presentSuccessAlert(message: String) {
 func presentErrorAlert(message: String) {
     let alertView = SPAlertView(title: "Ошибка!".localized, message: message.localized, preset: .error)
     DispatchQueue.main.async {
-        alertView.present(duration: 3, haptic: .error)
+        alertView.present(duration: 4, haptic: .error)
     }
 }
 

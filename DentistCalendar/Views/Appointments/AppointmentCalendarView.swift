@@ -54,9 +54,9 @@ struct AppointmentCalendarView: View {
                             }
                             Spacer(minLength: 25)
                             VStack(alignment: .leading) {
-                                Text("Общая стоимость: ").bold() + Text(serviceSum.formatted + String(describing: Locale.current.currencySymbol ?? ""))
-                                Text("Оплачено: ").bold() + Text(servicePaid.formatted + String(describing: Locale.current.currencySymbol ?? ""))
-                                Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).formatted + String(describing: Locale.current.currencySymbol ?? ""))
+                                Text("Общая стоимость: ").bold() + Text(serviceSum.currencyFormatted)
+                                Text("Оплачено: ").bold() + Text(servicePaid.currencyFormatted)
+                                Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).currencyFormatted)
                             }
                             
                         } else {

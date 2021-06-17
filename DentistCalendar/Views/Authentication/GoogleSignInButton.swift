@@ -36,10 +36,10 @@ struct GoogleSignInButton: View {
             }
             .frame(minWidth: 0, maxWidth: 420, maxHeight: 25)
             .padding()
-
             .foregroundColor(Color("Black1"))
             .background(Color("White1"))
             .cornerRadius(15)
+            .padding(.horizontal, 20)
             .shadow(color: Color.black.opacity(0.13), radius: 8, x: 5, y: 5)
         }
         .alert(isPresented: $isAlertPresented, content: {

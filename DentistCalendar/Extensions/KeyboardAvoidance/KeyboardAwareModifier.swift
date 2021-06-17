@@ -41,7 +41,7 @@ import Combine
 extension String {
     func isValidPhoneNumber() -> Bool {
         let regEx = "^\\+(?:[0-9]?){6,14}[0-9]$"
-
+        
         let phoneCheck = NSPredicate(format: "SELF MATCHES[c] %@", regEx)
         return phoneCheck.evaluate(with: self)
     }
@@ -49,23 +49,23 @@ extension String {
 
 extension Binding where Value: MutableCollection
 {
-  subscript(safe index: Value.Index) -> Binding<Value.Element>
-  {
-    // Get the value of the element when we first create the binding
-    // Thus we have a 'placeholder-value' if `get` is called when the index no longer exists
-    let safety = wrappedValue[index]
-    return Binding<Value.Element>(
-      get: {
-        guard self.wrappedValue.indices.contains(index)
-          else { return safety } //If this index no longer exists, return a dummy value
-        return self.wrappedValue[index]
-    },
-      set: { newValue in
-        guard self.wrappedValue.indices.contains(index)
-          else { return } //If this index no longer exists, do nothing
-        self.wrappedValue[index] = newValue
-    })
-  }
+    subscript(safe index: Value.Index) -> Binding<Value.Element>
+    {
+        // Get the value of the element when we first create the binding
+        // Thus we have a 'placeholder-value' if `get` is called when the index no longer exists
+        let safety = wrappedValue[index]
+        return Binding<Value.Element>(
+            get: {
+                guard self.wrappedValue.indices.contains(index)
+                else { return safety } //If this index no longer exists, return a dummy value
+                return self.wrappedValue[index]
+            },
+            set: { newValue in
+                guard self.wrappedValue.indices.contains(index)
+                else { return } //If this index no longer exists, do nothing
+                self.wrappedValue[index] = newValue
+            })
+    }
 }
 
 
@@ -86,7 +86,7 @@ extension String {
             String.numberFormatter.decimalSeparator = ","
             if let result = String.numberFormatter.number(from: self) {
                 print("COMMA", result)
-
+                
                 return result.doubleValue
             }
         }
@@ -95,38 +95,41 @@ extension String {
 }
 
 extension Decimal {
-    var formattedAmount: String? {
+    /// Must be used only for displaying value
+    var currencyFormatted: String {
         let formatter = NumberFormatter()
         formatter.generatesDecimalNumbers = true
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: self as NSDecimalNumber)
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 3
+        return formatter.string(from: self as NSDecimalNumber) ?? formatter.string(from: 0)!
     }
+    /// Get number from string such as currency string
+    
 }
 
-extension Decimal {
-    var formatted: String {
+extension String {
+    var getNumber: Double {
         let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-        formatter.usesGroupingSeparator = false
-        // Avoid not getting a zero on numbers lower than 1
-        // Eg: .5, .67, etc...
-        formatter.numberStyle = .decimal
-
-
-         return formatter.string(from: self as NSNumber) ?? "0"
+        formatter.generatesDecimalNumbers = true
+        formatter.numberStyle = .currency
+        return formatter.number(from: self)?.doubleValue ?? 0
         
     }
 }
-
-extension Double {
-    var formattedAmount: String? {
-        let formatter = NumberFormatter()
-        formatter.generatesDecimalNumbers = true
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: self as NSNumber)
-    }
-}
-
+//extension Decimal {
+//    var currencyFormatted: String {
+//        let formatter = NumberFormatter()
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 2
+//        formatter.usesGroupingSeparator = false
+//        // Avoid not getting a zero on numbers lower than 1
+//        // Eg: .5, .67, etc...
+//        formatter.numberStyle = .decimal
+//
+//
+//         return formatter.string(from: self as NSNumber) ?? "0"
+//
+//    }
+//}

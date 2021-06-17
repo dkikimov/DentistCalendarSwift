@@ -17,6 +17,7 @@ struct PatientsDetailView: View {
     }
     var body: some View {
         ZStack {
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     Group {
@@ -94,8 +95,7 @@ struct PatientsDetailView: View {
                 }
                 .padding(.top, 5)
                 .padding(.bottom, 20)
-                .navigationTitle("Карта пациента")
-                .navigationBarTitleDisplayMode(.inline)
+                
                 //                .onAppear(perform: detailData.fetchAppointments)
                 .alert(isPresented: $detailData.isAlertPresented, content: {
                     Alert(title: Text("Ошибка"), message: Text(detailData.error), dismissButton: .cancel())
@@ -129,6 +129,9 @@ struct PatientsDetailView: View {
             }
             
             
+            
+            
+            
             VStack {
                 Spacer()
                 HStack{
@@ -140,6 +143,10 @@ struct PatientsDetailView: View {
                     }
                 }.padding([.bottom, .trailing], 15)
             }
+        }
+    
+        .navigationTitle("Карта пациента")
+        .navigationBarTitleDisplayMode(.inline)
             //        .onAppear(perform: {
             //            print("PATIENT", patient.appointments!)
             //            if patient.appointments != nil {
@@ -148,7 +155,7 @@ struct PatientsDetailView: View {
             //
             //        })
             
-        }
+        
         .background(Color("Gray2"))
     }
     //        .onAppear(perform: self.listData.interstital.showAd)
