@@ -12,7 +12,7 @@ struct DatePickersSection: View {
     var body: some View {
         Section {
             Button(action: {
-                withAnimation {
+//                withAnimation {
                     data.isSecondDatePresented = false
                     data.isFirstDatePresented.toggle()
 //                    if data.isSecondDatePresented {
@@ -21,7 +21,7 @@ struct DatePickersSection: View {
 //                    } else {
 //                        data.isFirstDatePresented.toggle()
 //                    }
-                }
+//                }
             }, label: {
                 HStack {
                     Text("Начало приема").foregroundColor(Color("Black1"))
@@ -39,14 +39,14 @@ struct DatePickersSection: View {
                         .id(1)
                 }
                 .animation(.linear)
-                .transition(.move(edge: .bottom))
+                .transition(.opacity)
             }
             
             Button(action: {
-                withAnimation {
+//                withAnimation {
                 data.isFirstDatePresented = false
                 data.isSecondDatePresented.toggle()
-                }
+//                }
             }, label: {
                 HStack {
                     Text("Конец приема").foregroundColor(Color("Black1"))
@@ -62,6 +62,8 @@ struct DatePickersSection: View {
                         .labelsHidden()
                         .id(2)
                 }
+                .animation(.linear)
+                .transition(.opacity)
             }
         }
     }

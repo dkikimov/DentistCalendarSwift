@@ -118,7 +118,6 @@ struct PatientsDetailView: View {
                         AppointmentCalendarView(appointment: detailData.selectedAppointment!, false)
                     } else {
                         AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
-                            .presentation(isModal: true)
                             .environmentObject(detailData)
                             .allowAutoDismiss(false)
                     }
@@ -144,6 +143,9 @@ struct PatientsDetailView: View {
                 }.padding([.bottom, .trailing], 15)
             }
         }
+        .onAppear(perform: {
+            showInterstitial(placement: "")
+        })
     
         .navigationTitle("Карта пациента")
         .navigationBarTitleDisplayMode(.inline)

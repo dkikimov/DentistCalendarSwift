@@ -20,14 +20,13 @@ private func dateFormatter(date: String, _ time: Bool = false) -> String{
 
 struct AppointmentCalendarView: View {
     @Environment(\.presentationMode) var presentationMode
+//    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
     @ObservedObject var data: AppointmentCalendarViewModel
-    var intestital: Interstitial?
     @State var diagnosisList = [[Substring]]()
     @State var serviceSum: Decimal = 0
     @State var servicePaid: Decimal = 0
-    init(appointment: Appointment, _ isEditAllowed: Bool = true, intestital: Interstitial? = nil) {
+    init(appointment: Appointment, _ isEditAllowed: Bool = true) {
         data = AppointmentCalendarViewModel(appointment: appointment, isEditAllowed: isEditAllowed)
-        self.intestital = intestital
     }
     var body: some View {
         NavigationView {
@@ -96,12 +95,6 @@ struct AppointmentCalendarView: View {
                     .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                     )
                 }
-                
-                
-                .sheet(isPresented: $data.isSheetPresented, content: {
-                    AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
-                })
-                
                 .navigationBarItems(leading: Button(action: {
                     DispatchQueue.main.async {
                         presentationMode.wrappedValue.dismiss()
@@ -135,19 +128,16 @@ struct AppointmentCalendarView: View {
                 self.serviceSum = res.1
                 self.servicePaid = res.0
                 self.diagnosisList = res.2
-                
+                    showInterstitial(placement: "AppointmentCalendarView")
+                    print("SHOWING INTERSTITIAL")
                 
             })
             .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
-            
+            .sheet(isPresented: $data.isSheetPresented, content: {
+                AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
+
+            })
         }
-        //        .onDisappear(perform: {
-        //            if intestital != nil {
-        //                print("INTESTITAL", intestital!)
-        //
-        //                intestital!.showAd()
-        //            }
-        //        })
         
     }
     

@@ -18,27 +18,13 @@ struct ProfileSettingsView: View {
                 HStack {
                     Text("Имя").foregroundColor(.gray)
                     Spacer()
-                    TextField("Имя", text: $profileData.firstName).multilineTextAlignment(.trailing).onChange(of: profileData.firstName) { newFirstName in
-                        print(newFirstName != profileData.realFirstName)
-                        print( profileData.secondName != profileData.realSecondName)
-                        if newFirstName == profileData.realFirstName && profileData.secondName == profileData.realSecondName || newFirstName.isEmpty || profileData.secondName.isEmpty {
-                            profileData.isDisabled = true
-                        } else {
-                            profileData.isDisabled = false
-                        }
-                    }
+                    TextField("Имя", text: $profileData.firstName).multilineTextAlignment(.trailing)
                     
                 }
                 HStack {
                     Text("Фамилия").foregroundColor(.gray)
                     Spacer()
-                    TextField("Фамилия", text: $profileData.secondName).multilineTextAlignment(.trailing).onChange(of: profileData.secondName)  { newSecondName in
-                        if profileData.firstName == profileData.realFirstName && newSecondName == profileData.realSecondName  || newSecondName.isEmpty || profileData.secondName.isEmpty {
-                            profileData.isDisabled = true
-                        }  else {
-                            profileData.isDisabled = false
-                        }
-                    }
+                    TextField("Фамилия", text: $profileData.secondName).multilineTextAlignment(.trailing)
                 }
                 Button(action: {
                     profileData.updateFullname()
@@ -50,7 +36,9 @@ struct ProfileSettingsView: View {
                     else {
                         Text("Изменить")
                     }
-                }).disabled(profileData.isDisabled).animation(.easeInOut)
+                })
+                .disabled((profileData.firstName == profileData.realFirstName && profileData.secondName == profileData.realSecondName) || profileData.firstName.isEmpty || profileData.secondName.isEmpty)
+                .animation(.easeInOut)
             }
             Section {
                 Button(action: {

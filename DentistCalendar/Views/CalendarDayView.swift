@@ -29,6 +29,7 @@ struct CalendarDayView: View {
                         Text("Пациенты")
                     })
             }
+            
             .transition(.opacity)
 //        } else {
 //            NavigationView {

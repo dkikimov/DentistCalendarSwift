@@ -98,6 +98,11 @@ struct DiagnosisCreateView: View {
             isErrorAlertPresented = true
             return
         }
+        guard diagnosisPrice.count < 15 else {
+            self.error = "Цена слишком большая"
+            isErrorAlertPresented = true
+            return
+        }
         withAnimation{
             let newDiagnosis = Diagnosis(context: viewContext)
             

@@ -108,7 +108,7 @@
 		6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81973D25B2CE8A00022321 /* EventKit.framework */; };
 		6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81973E25B2CE8A00022321 /* EventKitUI.framework */; };
 		6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974125B2CEA200022321 /* CoreTelephony.framework */; };
-		6F81974425B2CEF700022321 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974325B2CEF700022321 /* AdSupport.framework */; };
+		6F81974425B2CEF700022321 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974325B2CEF700022321 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6F81974825B2CF0600022321 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974725B2CF0600022321 /* AVFoundation.framework */; };
 		6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974925B2CF1000022321 /* CoreGraphics.framework */; };
 		6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81974B25B2CF1E00022321 /* SystemConfiguration.framework */; };
@@ -125,10 +125,10 @@
 		6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F87E88B25A2F521000B4834 /* UnifiedNativeAdView.xib */; };
 		6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F97FA302542A738004750BF /* PatientUpdateView.swift */; };
 		6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA69269252B60F500711A88 /* ProfileSettingsView.swift */; };
+		6FA77845267F53B2000B0255 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA77844267F53B2000B0255 /* AppDelegate.swift */; };
 		6FA795DA2592658100992EAE /* ServiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA795D92592658100992EAE /* ServiceList.swift */; };
 		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
 		6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F05025D04B7000FF24B8 /* Alert.swift */; };
-		6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */; };
 		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
@@ -142,6 +142,7 @@
 		6FDAD3782631DEBA00CA5AA5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */; };
 		6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftUIX */; };
 		6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE422582589250200E62B55 /* DatePickerModalView.swift */; };
+		6FE75DC5267BA6E80083270F /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE75DC4267BA6E80083270F /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
 		6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2E72541E20400F1C74A /* FloatingButton.swift */; };
 		6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */; };
@@ -286,10 +287,10 @@
 		6F87E88B25A2F521000B4834 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		6F97FA302542A738004750BF /* PatientUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUpdateView.swift; sourceTree = "<group>"; };
 		6FA69269252B60F500711A88 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		6FA77844267F53B2000B0255 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FA795D92592658100992EAE /* ServiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceList.swift; sourceTree = "<group>"; };
 		6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patient+Extensions.swift"; sourceTree = "<group>"; };
 		6FB5F05025D04B7000FF24B8 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySubscriptionView.swift; sourceTree = "<group>"; };
 		6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleAdsVariables + Constants.swift"; sourceTree = "<group>"; };
 		6FC9024C25A23EEE0043A70F /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
@@ -301,10 +302,11 @@
 		6FD91C27252F600E00231625 /* getTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTokens.swift; sourceTree = "<group>"; };
 		6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		6FE422582589250200E62B55 /* DatePickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModalView.swift; sourceTree = "<group>"; };
+		6FE75DC4267BA6E80083270F /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailCard.swift; sourceTree = "<group>"; };
 		6FE9D2E72541E20400F1C74A /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshScrollView.swift; sourceTree = "<group>"; };
-		6FEB49EB267B38D800923E37 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = file; name = schema.graphql; path = amplify/backend/api/dentor/schema.graphql; sourceTree = SOURCE_ROOT; };
+		6FEB49EB267B38D800923E37 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/dentor/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6FEF93472670C3E100693408 /* HalfModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalView.swift; path = "../../../../../Downloads/HalfModal_Tutorial-2/Drag and Drop File/HalfModalView.swift"; sourceTree = "<group>"; };
 		6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE75DC5267BA6E80083270F /* AppTrackingTransparency.framework in Frameworks */,
 				6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */,
 				6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */,
 				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
@@ -476,6 +479,7 @@
 				6F3A1A86251911900042E7C4 /* ContentView.swift */,
 				6F3A1A84251911900042E7C4 /* DentistCalendarApp.swift */,
 				6F6E04FC26654F9A0062ACE3 /* LaunchScreen.storyboard */,
+				6FA77844267F53B2000B0255 /* AppDelegate.swift */,
 				6F3A1A88251911900042E7C4 /* Assets.xcassets */,
 				6F3A1A8D251911900042E7C4 /* Info.plist */,
 				6F3A1A8A251911900042E7C4 /* Preview Content */,
@@ -686,7 +690,6 @@
 				6F3F8F0225B9E38800C42CEE /* HeplfulFunctions.swift */,
 				6F3A2AEC25C83ACC001E91A0 /* ViewExtension.swift */,
 				6FB5F05025D04B7000FF24B8 /* Alert.swift */,
-				6FB5F0D425D05B6500FF24B8 /* AppDelegate.swift */,
 				6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */,
 				6F69035F260BAC360019630C /* NavigationSearchBar.swift */,
 				6F2BA5612633212800F5FB22 /* EnvironmentKeys.swift */,
@@ -699,6 +702,7 @@
 		76A24443FC2B74DB6A077BE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6FE75DC4267BA6E80083270F /* AppTrackingTransparency.framework */,
 				6FD82A6E25B45C06004D22C3 /* WebKit.framework */,
 				6F81976F25B2CFDD00022321 /* GLKit.framework */,
 				6F81976D25B2CFCA00022321 /* CFNetwork.framework */,
@@ -754,6 +758,7 @@
 				6F3A1A7F2519118F0042E7C4 /* Resources */,
 				7230FE1EAF39EFF235F02B1C /* [CP] Embed Pods Frameworks */,
 				6FB5F09325D058BB00FF24B8 /* ShellScript */,
+				16F7E9C2A550405F4333F783 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -828,6 +833,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		16F7E9C2A550405F4333F783 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6FB5F09325D058BB00FF24B8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -971,12 +993,12 @@
 				6FD57D61253C413500C64847 /* TimeChunk.swift in Sources */,
 				6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */,
 				6F81977525B2EC8700022321 /* PickerCalendarSection.swift in Sources */,
-				6FB5F0D525D05B6500FF24B8 /* AppDelegate.swift in Sources */,
 				6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */,
 				6F1047E725A371E500A8341F /* PriceExtension.swift in Sources */,
 				6F43790125D9764700DE722C /* iCal.swift in Sources */,
 				6F8581BC25D43E2800E7BF1F /* KeyboardAdaptive.swift in Sources */,
 				6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */,
+				6FA77845267F53B2000B0255 /* AppDelegate.swift in Sources */,
 				6F2BA5872633280800F5FB22 /* InternetConnectionManager.swift in Sources */,
 				6F690360260BAC360019630C /* NavigationSearchBar.swift in Sources */,
 				6F7ECB5D25EB89FF0002B91A /* CodeInputView.swift in Sources */,

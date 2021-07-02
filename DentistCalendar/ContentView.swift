@@ -58,7 +58,6 @@ struct ContentView: View {
 //    @State var isWalktroughShowing: Bool = true
 
     @EnvironmentObject var sessionManager: SessionManager
-    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
     @State var alertController = UIAlertController(title: "Ошибка", message: "Для продолжения включите доступ к интернету", preferredStyle: .alert)
     var calendar = Calendar(identifier: .gregorian)
     init() {

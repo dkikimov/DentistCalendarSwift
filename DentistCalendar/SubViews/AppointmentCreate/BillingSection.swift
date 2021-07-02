@@ -23,7 +23,7 @@ struct BillingSection: View {
             ForEach(data.paymentsArray, id: \.self) { payment in
                 VStack(alignment: .leading) {
                     Text("Платеж на сумму ") + Text(payment.cost).bold()
-                    Text("Дата: \(stringToDate(date: payment.date))").font(.caption)
+                    Text("Дата: ").font(.caption) + Text(stringToDate(date: payment.date)).font(.caption)
                 }
             }.onDelete(perform: { indexSet in
                 DispatchQueue.main.async {

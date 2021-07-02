@@ -18,23 +18,32 @@ func stringFromDate(date: Date) -> String {
     return strDate  
     
 }
-
+enum ActiveAlert {
+    case error
+    case internet
+}
 struct AppointmentCreateView: View {
     @EnvironmentObject var patientDetailData: PatientDetailViewModel
-    var isModalPresented: Binding<Bool>
+    @Binding var isModalPresented: Bool
     var appointmentCalendar: Binding<Appointment>?
     var persistenceContainer: PersistenceController
     var group: DispatchGroup?
     @State var isBillingAlertPresented = false
     @State var text = ""
     @State var phoneNumber = ""
-    var rewardedAd = Rewarded()
+    @State var isRewardedPresented = false
+    @State var wasRewardedVideoChecked = false
+    @State var alertType: ActiveAlert = .error
+    @State var isFullScreenPresented = false
     @StateObject var data: AppointmentCreateViewModel
+    @StateObject var internetConnectionManager =  InternetConnectionManager()
+    
+    @Environment(\.presentationMode) var presentationMode
     //    @ObservedObject var data: AppointmentCreateViewModel
     
-    /// edit and create in PatientDetailView
+    /// editCalendar, edit and create in PatientDetailView
     init(patient: Patient?, isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, appointment: Appointment?, appointmentCalendar: Binding<Appointment>? = nil) {
-        isModalPresented = isAppointmentPresented
+        _isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil))
         //        data = AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil)
@@ -45,7 +54,7 @@ struct AppointmentCreateView: View {
     
     /// createWithPatient
     init(isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, dateStart: Date?, dateEnd: Date?, group: DispatchGroup) {
-        isModalPresented = isAppointmentPresented
+        _isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group))
         //       data = AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group)
@@ -55,6 +64,7 @@ struct AppointmentCreateView: View {
     }
     var body: some View {
         NavigationView {
+
             ZStack {
                 if isBillingAlertPresented {
                     AlertControlView(alerts: [
@@ -72,42 +82,33 @@ struct AppointmentCreateView: View {
                         ListContent()
                     }
                 }
-                
+
                 //            }
                 .environmentObject(data)
                 .listStyle(GroupedListStyle())
                 .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
-                
+
                 .navigationBarItems(leading: Button(action: {
+                    DispatchQueue.main.async {
                     if data.viewType == .createWithPatient {
-                        DispatchQueue.main.async {
                             group!.leave()
                             data.cancellable?.cancel()
                         }
-                        
+                        presentationMode.wrappedValue.dismiss()
                     }
-                    DispatchQueue.main.async {
-                        isModalPresented.wrappedValue = false
-                    }
-                    
+
                 }, label: {
                     Text("Отменить")
                 }))
             }
-            //        .onDisappear(perform: {
-            //            if data.didSave {
-            //                rewardedAd.showAd {}
-            //            }
-            //        })
         }
-        .alert(isPresented: $data.isAlertPresented, content: {
-            Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
+        .onDisappear(perform: {
+            if data.didSave {
+//                showInterstitial(placement: "AppointmentCreateView")
+                showRewardedVideo(placement: "AppointmentCreateView")
+            }
         })
-        .sheet(isPresented: $data.isDiagnosisCreatePresented, content: {
-            DiagnosisCreateView(data: data)
-                .environment(\.managedObjectContext, persistenceContainer.container.viewContext)
-            
-        })
+        
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
     }
     func addPayment() {
@@ -142,54 +143,117 @@ struct AppointmentCreateView: View {
             }
             Section {
                 Button(action: {
+                    if internetConnectionManager.isInternetEnabled() {
+                        saveAppointment()
+                    } else {
+                        alertType = .internet
+                        data.isAlertPresented = true
+                    }
                     
-                    if data.segmentedMode == .withPatient {
-                        if data.viewType == .createWithPatient {
-                            guard !data.title.isEmpty else {
-                                data.error = "Укажите пациента"
-                                data.isAlertPresented = true
-                                return
-                            }
-                            guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
-                                print("NUMBER", phoneNumber)
-                                data.error = "Введите корректный номер".localized
-                                data.isAlertPresented = true
-                                return
-                            }
-                        }
-                        //                            guard !data.toothNumber.isEmpty else {
-                        //                                data.error = "Введите номер зуба".localized
-                        //                                data.isAlertPresented = true
-                        //                                return
-                        //                            }
-                        if data.viewType == .create {
-                            data.createAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                        }
-                        else if data.viewType == .createWithPatient {
-                            data.createAppointmentAndPatient(isModalPresented: self.isModalPresented, phoneNumber: phoneNumber)
-                        }
-                    } else if data.segmentedMode == .nonPatient {
-                        if data.viewType == .create || data.viewType == .createWithPatient{
-                            guard !data.title.isEmpty else {
-                                data.error = "Укажите название"
-                                data.isAlertPresented = true
-                                return
-                            }
-                            data.createNonPatientAppointment(isModalPresented: self.isModalPresented)
-                        }
-                    }
-                    if data.viewType == .editCalendar {
-                        data.updateAppointmentCalendar(isModalPresented: self.isModalPresented, appointment: self.appointmentCalendar!)
-                    }
-                    else if data.viewType == .edit{
-                        data.updateAppointment(isModalPresented: self.isModalPresented, patientDetailData: patientDetailData)
-                    }
                 }, label: {
                     Text("Сохранить")
                 })
                 .disabled(data.dateEnd < data.dateStart)
             }
         }
+        
+        .onAppear(perform: {
+            checkInternetConnection()
+        })
+        .onChange(of: internetConnectionManager.isNotInternetConnected) { newValue in
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+                if newValue == true {
+                    alertType = .internet
+                    data.isAlertPresented = true
+                } else {
+                    alertType = .error
+                    data.isAlertPresented = false
+                }
+            }
+        }
+//        .onChange(of: isFullScreenPresented) { newValue in
+//            if newValue == false {
+//                checkInternetConnection()
+//            }
+//        }
+        .alert(isPresented: $data.isAlertPresented, content: {
+            switch alertType {
+            case .error:
+                return Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
+            case .internet:
+                return Alert(title: Text("Подключите устройство к интернету"), message: Text("Добавление и изменение записей без доступа к интернету доступно только для пользователей Dentor Premium"), dismissButton: .default(Text("Перейти к покупке"), action: {
+                    isFullScreenPresented = true
+                }))
+            }
+        })
+        .sheet(isPresented: $isFullScreenPresented, onDismiss: {
+            checkInternetConnection()
+        }, content: {
+            BuySubscriptionView()
+        })
+        .sheet(isPresented: $data.isDiagnosisCreatePresented, content: {
+            DiagnosisCreateView(data: data)
+                .environment(\.managedObjectContext, persistenceContainer.container.viewContext)
+            
+        })
+    }
+    
+    func saveAppointment() {
+        guard data.selectedDiagnosisList.count < 20 else {
+            self.data.error = "Можно создавать до 20 услуг"
+            self.data.isAlertPresented = true
+            return
+        }
+        
+        if data.segmentedMode == .withPatient {
+            if data.viewType == .createWithPatient {
+                guard !data.title.isEmpty else {
+                    data.error = "Укажите пациента"
+                    data.isAlertPresented = true
+                    return
+                }
+                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
+                    print("NUMBER", phoneNumber)
+                    data.error = "Введите корректный номер".localized
+                    data.isAlertPresented = true
+                    return
+                }
+            }
+            //                            guard !data.toothNumber.isEmpty else {
+            //                                data.error = "Введите номер зуба".localized
+            //                                data.isAlertPresented = true
+            //                                return
+            //                            }
+            if data.viewType == .create {
+                data.createAppointment(isModalPresented: self.$isModalPresented, patientDetailData: patientDetailData)
+            }
+            else if data.viewType == .createWithPatient {
+                data.createAppointmentAndPatient(isModalPresented: self.$isModalPresented, phoneNumber: phoneNumber)
+            }
+        } else if data.segmentedMode == .nonPatient {
+            if data.viewType == .create || data.viewType == .createWithPatient{
+                guard !data.title.isEmpty else {
+                    data.error = "Укажите название"
+                    data.isAlertPresented = true
+                    return
+                }
+                data.createNonPatientAppointment(isModalPresented: self.$isModalPresented)
+            }
+        }
+        if data.viewType == .editCalendar {
+            data.updateAppointmentCalendar(isModalPresented: self.$isModalPresented, appointment: self.appointmentCalendar!)
+        }
+        else if data.viewType == .edit{
+            data.updateAppointment(isModalPresented: self.$isModalPresented, patientDetailData: patientDetailData)
+        }
+    }
+    
+    private func checkInternetConnection() {
+            if internetConnectionManager.isNotInternetConnected {
+                alertType = .internet
+                data.isAlertPresented = true
+            }
+        
     }
 }
 

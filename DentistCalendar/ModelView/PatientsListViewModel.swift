@@ -18,13 +18,11 @@ class PatientsListViewModel: ObservableObject {
     var isSearching = false
     var refreshControl = UIRefreshControl()
     var observationToken: AnyCancellable?
-    var interstital: Interstitial!
     deinit {
         observationToken?.cancel()
     }
     init() {
         refreshControl.addTarget(self, action: #selector(fetchPatients), for: .valueChanged)
-        self.interstital = Interstitial()
     }
     @objc func fetchPatients(){
         Amplify.DataStore.query(Patient.self, sort: .ascending(Patient.keys.fullname)) { result in

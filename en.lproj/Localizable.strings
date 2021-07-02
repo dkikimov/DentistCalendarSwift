@@ -37,7 +37,7 @@
 "Продолжить с Google" = "Continue with Google";
 "Далее" = "Next";
 "Цена: " = "Price: ";
-"Платеж на сумму" = "Payment in the amount of";
+"Платеж на сумму " = "Payment in the amount of ";
 "Тип календаря" = "Type of calendar";
 "Выберите календарь" = "Select a calendar";
 "Рабочий" = "Work";
@@ -47,7 +47,6 @@
 "Начало приема" = "Starts";
 "Конец приема" = "Ends";
 "Оплачено: 0" = "Paid: 0";
-"Цена: " = "Price";
 "Добавить услугу" = "Add service";
 "Сохранить" = "Save";
 "Создание записи" = "New Appointment";
@@ -87,6 +86,8 @@
 "Поиск" = "Search";
 "Название услуги слишком длинное" = "The service name is too long";
 "Название услуги" = "Service name";
+"Стоимость" = "Cost";
+
 // Profile Settings;
 
 "Личные данные" = "Personal data";
@@ -116,6 +117,8 @@
 //Appointment
 "Введите номер зуба" = "Enter the tooth number";
 "Введите название" = "Enter the title";
+
+
 // Patients view
 
 "Записей нет" = "No appointments";
@@ -153,6 +156,7 @@
 "Подтвердить" = "Confirm";
 "Пусто" = "Empty";
 //ALERT
+
 "Пациент успешно удален!" = "The patient was successfully deleted!";
 "Успех!" = "Success!";
 "Ошибка!" = "Error!";
@@ -164,7 +168,13 @@
 "Платеж" = "Payment";
 "Введите данные платежа" = "Enter the payment details";
 
-
+"Подключите устройство к интернету" = "Connect your device to the Internet";
+"Добавление и изменение записей без доступа к интернету доступно только для пользователей Dentor Premium" = "Adding and changing appointments without Internet access is available only for Dentor Premium users";
+"Перейти к покупке" = "Go to purchase";
+"Сумма" = "Payment amount";
+"Цена слишком большая" = "The price is too big";
+"Можно создавать до 20 услуг" = "You can create up to 20 services";
+"Больше не показывать" = "Never show again";
 /* OnBoarding */
 
 "Контролируйте свой график" = "Control your schedule";

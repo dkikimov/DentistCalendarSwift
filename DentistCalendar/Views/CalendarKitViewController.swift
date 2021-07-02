@@ -457,11 +457,10 @@ struct CalendarKitView: View {
     @State var isShown = false
     @State var isTodayShown = false
 //    @State var isDataPickerPresented = false
-    @State var intestial = Interstitial()
     @State var isSettingsPresented = false
     
     @StateObject var modalManager = ModalManager()
-    @EnvironmentObject var internetManager: InternetConnectionManager
+//    @EnvironmentObject var internetManager: InternetConnectionManager
     var body: some View {
             NavigationView {
                     ZStack {
@@ -539,12 +538,13 @@ struct CalendarKitView: View {
 //            Print("FULL ScREEN", data.fullScreenIsCalendar)
                 switch data.selectedSheetType {
                 case .calendarView:
-                    AppointmentCalendarView(appointment: data.selectedAppointment, intestital: intestial)
-                                        .allowAutoDismiss(true)
-                                        .environmentObject(internetManager)
+                    AppointmentCalendarView(appointment: data.selectedAppointment)
+//                        .environmentObject(internetManager)
+
                 case .createView:
                     AppointmentCreateView(isAppointmentPresented: $data.isSheetPresented, viewType: .createWithPatient, dateStart: data.dateStart, dateEnd: data.dateEnd, group: group)
-                                        .allowAutoDismiss(false)
+                        .allowAutoDismiss(false)
+//                        .environmentObject(internetManager)
                 }
 //            if data.fullScreenIsCalendar {
 //                AppointmentCalendarView(appointment: data.selectedAppointment, fullScreenIsCalendar: $data.fullScreenIsCalendar, intestital: intestial)

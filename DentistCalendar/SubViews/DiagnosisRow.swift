@@ -20,7 +20,7 @@ struct DiagnosisRow: View {
                 }
             } else {
                 DispatchQueue.main.async {
-                    data.selectedDiagnosisList[diag.text!] = diag.price!.stringValue
+                    data.selectedDiagnosisList[diag.text!] = DiagnosisItem(amount: 1, price: diag.price!.stringValue)
                 }
                 print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
             }
@@ -28,9 +28,8 @@ struct DiagnosisRow: View {
             HStack {
                 Text(diag.text ?? "Error").foregroundColor(isSelected ? .blue : Color("Black1"))
                 Spacer()
-//                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
-                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
-
+                //                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
+                (Text("Цена: ") + Text(diag.price != nil ? diag.price!.stringValue : "0"))
                     .foregroundColor(isSelected ? .blue : Color("Black1")).multilineTextAlignment(.trailing)
             }
         })

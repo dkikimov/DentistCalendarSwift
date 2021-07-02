@@ -18,6 +18,18 @@ public func strFromDate(date: Date) -> String{
 private func dateFromStr(date: String) -> Date {
     return Date(timeIntervalSince1970: Double(date)!)
 }
+
+struct DiagnosisItem {
+    var amount: Int
+    var price: String {
+        didSet {
+            if price.count >= 15 {
+                price = oldValue
+            }
+        }
+    }
+}
+
 class AppointmentCreateViewModel : ObservableObject {
     var cancellable: AnyCancellable? = nil
     
@@ -31,11 +43,10 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-    @Published var selectedDiagnosisList = [String: String]()
+    @Published var selectedDiagnosisList = [String: DiagnosisItem]() // first - amount, second - price
     @Published var isDiagnosisCreatePresented = false
-    @Published var isAlertPresented: Bool = false
     @Published var error = ""
-    
+    @Published var isAlertPresented = false
     var id = UUID().uuidString
     var startPaymentsArray = [PaymentModel]()
     //    @Published var isPaidFully: Bool = false
@@ -86,13 +97,23 @@ class AppointmentCreateViewModel : ObservableObject {
                     self.startPaymentsArray = self.paymentsArray
                 }
                 //                self.selectedDiagnosisList = appointment!.diagnosis!.components(separatedBy: ", ")
+                //Пульпит:10000*2;
                 for diagnosis in appointment!.diagnosis!.components(separatedBy: ";") {
-                    let diagData = diagnosis.split(separator: ":")
+                    var amount = "1"
+                    var dataString = diagnosis
+                    if let index = diagnosis.firstIndex(of: "*") {
+                        let leftIndex = diagnosis.index(after: index)
+                        amount = String(diagnosis[leftIndex...])
+                        dataString = String(diagnosis[..<index])
+                    }
+                    
+                    let diagData = dataString.split(separator: ":")
+                    
                     if diagData.count >= 2 {
-                        selectedDiagnosisList[String(diagData[0])] = String(diagData[1])
+                        selectedDiagnosisList[String(diagData[0])] = DiagnosisItem(amount: Int(amount) ?? 0, price: String(diagData[1]))
                     }
                     else if diagData.count == 1{
-                        selectedDiagnosisList[String(diagData[0])] = "0"
+                        selectedDiagnosisList[String(diagData[0])] = DiagnosisItem(amount: Int(amount) ?? 0, price: "0")
                     }
                 }
                 generateMoneyData.call()
@@ -182,13 +203,13 @@ class AppointmentCreateViewModel : ObservableObject {
         newAppointment.dateStart = strFromDate(date: dateStart)
         newAppointment.dateEnd = strFromDate(date: dateEnd)
         Amplify.DataStore.save(newAppointment){ res in
-            switch res{
+            switch res {
             case .success(let app):
-                self.savePayments(appointment: app)
                 DispatchQueue.main.async {
-                    appointment.wrappedValue = self.getAppointmentWithPayments(id: self.id) ?? app
                     self.didSave = true
                     isModalPresented.wrappedValue = false
+                    self.savePayments(appointment: app)
+                    appointment.wrappedValue = self.getAppointmentWithPayments(id: self.id) ?? app
                 }
             case .failure(let error):
                 self.error = error.errorDescription
@@ -261,6 +282,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 self.didSave = true
                 
                 isModalPresented.wrappedValue = false
+
             case .failure(let error):
                 self.error = error.errorDescription
                 self.isAlertPresented = true
@@ -343,7 +365,7 @@ class AppointmentCreateViewModel : ObservableObject {
         //            NSDecimalNumber(string: $0.value.price.isEmpty ? "0" : String($0.value.price.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue}
         //            .joined(separator: ";")
         
-        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value == "0" || $0.value.isEmpty ? "" : ":" + $0.value)}
+        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value.price == "0" || $0.value.price.isEmpty ? "" : ":" + $0.value.price) + ($0.value.amount == 1 ? "" : "*" + String($0.value.amount))}
             .joined(separator: ";")
     }
     
@@ -351,7 +373,7 @@ class AppointmentCreateViewModel : ObservableObject {
         var sumPrices: Decimal = 0
         var sumPayment: Decimal = 0
         _ = selectedDiagnosisList.map {
-            sumPrices += Decimal(string: $1) ?? 0
+            sumPrices += ((Decimal(string: $1.price) ?? 0) * Decimal($1.amount))
         }
         for payment in paymentsArray {
             sumPayment += Decimal(string: payment.cost) ?? 0
@@ -371,4 +393,5 @@ class AppointmentCreateViewModel : ObservableObject {
         }
         return res
     }
+    
 }

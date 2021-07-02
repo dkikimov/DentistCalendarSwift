@@ -95,12 +95,20 @@ func countBilling(appointment: Appointment) -> (Decimal, Decimal, [[Substring]])
         var sumPaid: Decimal = 0
         if appointment.diagnosis != nil {
             let a = appointment.diagnosis!.split(separator: ";")
-            a.forEach({
-                let b = $0.split(separator: ":")
+            a.forEach({ diagnosis in
+                var amount = "1"
+                var dataString = String(diagnosis)
+                let diagData = dataString.split(separator: ":")
+
+                if let index = dataString.firstIndex(of: "*") {
+                    let leftIndex = dataString.index(after: index)
+                    amount = String(dataString[leftIndex...])
+                    dataString = String(dataString[..<index])
+                }
                 //                print("FOREACH B", b )
-                if b.count == 2 {
-                    sumPayments += Decimal(string: String(b[1])) ?? 0
-                    diagnosisList.append(b)
+                if diagData.count == 2 {
+                    sumPayments += ((Decimal(string: String(diagData[1])) ?? 0) * (Decimal(string: amount) ?? 0))
+                    diagnosisList.append(diagData)
                 }
             })
         }
@@ -112,5 +120,4 @@ func countBilling(appointment: Appointment) -> (Decimal, Decimal, [[Substring]])
     } else {
         return (0,0, [[]])
     }
-    
 }

@@ -19,7 +19,7 @@ struct AlertControlView: UIViewControllerRepresentable {
 
 //    @Binding var textString: String
 //    @Binding var priceString: String
-    var alerts: [AlertTextFieldModel]
+    var alerts: [AlertTextFieldModel]?
     @Binding var showAlert: Bool
     var action:  () -> Void
     var title: String
@@ -41,7 +41,10 @@ struct AlertControlView: UIViewControllerRepresentable {
             // Create UIAlertController instance that is gonna present on UIViewController
             let alert = UIAlertController(title: title.localized, message: message.localized, preferredStyle: .alert)
             context.coordinator.alert = alert
-            for alertModel in alerts {
+            if alerts != nil {
+                
+            
+            for alertModel in alerts! {
                 alert.addTextField { textField in
                     textField.placeholder = alertModel.placeholder.localized
                     textField.text = alertModel.text.localized            // setting initial value
@@ -63,10 +66,10 @@ struct AlertControlView: UIViewControllerRepresentable {
     //                }
 
                 }
-            }
+            }}
 
             // As usual adding actions
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Отменить", comment: "") , style: .cancel) { _ in
+            alert.addAction(UIAlertAction(title: "Отменить".localized , style: .cancel) { _ in
 
                 // On dismiss, SiwftUI view's two-way binding variable must be update (setting false) means, remove Alert's View from UI
                 alert.dismiss(animated: true) {
@@ -74,10 +77,12 @@ struct AlertControlView: UIViewControllerRepresentable {
                 }
             })
 
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Добавить", comment: ""), style: .default) { _ in
+            alert.addAction(UIAlertAction(title: "Добавить".localized, style: .default) { _ in
                 // On submit action, get texts from TextField & set it on SwiftUI View's two-way binding varaible `textString` so that View receives enter response.
-                for i in 0...alerts.count-1 {
-                    self.alerts[i].text = alert.textFields![i].text ?? ""
+                if alerts != nil {
+                    for i in 0...alerts!.count-1 {
+                        self.alerts![i].text = alert.textFields![i].text ?? ""
+                    }
                 }
 //                for textField in alert.textFields! {
 //

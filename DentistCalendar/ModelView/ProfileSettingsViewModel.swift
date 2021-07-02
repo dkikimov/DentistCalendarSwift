@@ -12,8 +12,8 @@ import Amplify
 class ProfileSettingsViewModel: ObservableObject {
     let fullname = UserDefaults.standard.string(forKey: "fullname")?.split(separator: " ") ?? ["",""]
 //    let fullname = "123 asdas".split(separator: " ")
-    let realFirstName: String
-    let realSecondName: String
+    var realFirstName: String
+    var realSecondName: String
     
     @Published var error: String = ""
     @Published var isAlertPresented: Bool = false
@@ -51,6 +51,8 @@ class ProfileSettingsViewModel: ObservableObject {
                 }
             }
         }
+        self.realFirstName = f
+        self.realSecondName = s
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }

@@ -1,14 +1,15 @@
-////
-////  NativeAdView.swift
-////  DentistCalendar
-////
-////  Created by Даник 💪 on 04.01.2021.
-////
 //
-//import SwiftUI
-//import GoogleMobileAds
-//import UIKit
+//  NativeAdView.swift
+//  DentistCalendar
 //
+//  Created by Даник 💪 on 04.01.2021.
+//
+
+import SwiftUI
+import UIKit
+import Appodeal
+
+
 //class ViewController: UIViewController {
 //    
 //    /// The view that holds the native ad.
@@ -215,3 +216,5 @@
 ////        adView.id
 ////    }
 ////}
+
+

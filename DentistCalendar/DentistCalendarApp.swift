@@ -9,9 +9,10 @@ import SwiftUI
 import Amplify
 import AmplifyPlugins
 import PhoneNumberKit
-import GoogleMobileAds
+import Appodeal
 import Firebase
 import Network
+import AppTrackingTransparency
 public var phoneNumberKit = PhoneNumberKit()
 public var partialFormatter = PartialFormatter()
 class ModalManager: ObservableObject {
@@ -22,9 +23,10 @@ class ModalManager: ObservableObject {
 
 @main
 struct DentistCalendarApp: App {
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     @ObservedObject var sessionManager = SessionManager()
-    @StateObject var internetConnectionManager = InternetConnectionManager()
+//    @StateObject var internetConnectionManager = InternetConnectionManager()
     //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var alertController = UIAlertController(title: "Нет доступа к интернету", message: "Оффлайн работа приложения доступна только для пользователей Dentor Premium", preferredStyle: .alert)
     @State var isSubscriptionViewPresented = false
@@ -33,68 +35,86 @@ struct DentistCalendarApp: App {
     init() {
         configureAmplify()
         sessionManager.getCurrentAuthUser()
-        
-        //        ProductsStore.shared.initializeProducts()
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(sessionManager)
-                .environmentObject(internetConnectionManager)
+//                .environmentObject(internetConnectionManager)
                 .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-                .onChange(of: internetConnectionManager.isNotInternetConnected, perform: { (newValue) in
-                    handleInternetConnection(newValue)
-                })
-                .fullScreenCover(isPresented: $isSubscriptionViewPresented) {
-                    BuySubscriptionView()
-                }
-                .onChange(of: isSubscriptionViewPresented, perform: { newValue in
-                    if isSubscriptionViewPresented == false {
-                        handleInternetConnection(internetConnectionManager.isNotInternetConnected)
-                    }
-                         
-                })
-                .onAppear {
-                    alertController.addAction(UIAlertAction(title: "Перейти к покупке", style: .default, handler: { action in
-                        isSubscriptionViewPresented = true
-                    }))
-                    
-                }
+//                .onChange(of: internetConnectionManager.isNotInternetConnected, perform: { (newValue) in
+//                    handleInternetConnection(newValue)
+//                })
+//                .fullScreenCover(isPresented: $isSubscriptionViewPresented) {
+//                    BuySubscriptionView()
+//                }
+//                .onChange(of: isSubscriptionViewPresented, perform: { newValue in
+//                    print("SUBSCRIPTION VIEW PRESENTED", newValue)
+//                    if isSubscriptionViewPresented == false {
+//                        handleInternetConnection(internetConnectionManager.isNotInternetConnected)
+//                    }
+//
+//                })
+//                .onAppear {
+//                    if alertController.actions.count == 0 {
+//                        alertController.addAction(UIAlertAction(title: "Перейти к покупке", style: .default, handler: { action in
+//
+//                            var window: UIWindow? {
+//                                guard let scene = UIApplication.shared.connectedScenes.first,
+//                                      let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+//                                      let window = windowSceneDelegate.window else {
+//                                    return nil
+//                                }
+//                                return window
+//                            }
+//                            window?.rootViewController?.dismiss(animated: true, completion: {
+//
+//                            isSubscriptionViewPresented.toggle()
+//                            }
+//                            )}))
+//                    }
+//                }
             //                            .environment(\.internetAvailability, $isInternetConnected)
         }
         
     }
     func presentAlert() {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController  {
-                   while let presentedViewController = topController.presentedViewController {
-                         topController = presentedViewController
-                        }
-//        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        //: Working method
+//        window?.rootViewController?.dismiss(animated: true, completion: {
+//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+////            print("WINDOWS COUNT", UIApplication.shared.windows.filter {$0.isKeyWindow}.count)
+//            if var topController = keyWindow?.rootViewController {
+//                while let presentedViewController = topController.presentedViewController {
+//                    topController = presentedViewController
+//                }
+//                topController.present(alertController, animated: true, completion: nil)
 //
-//        if var topController = keyWindow?.rootViewController {
-//            while let presentedViewController = topController.presentedViewController {
-//                topController = presentedViewController
 //            }
-            topController.present(topController, animated: true, completion: nil)
-        }
+//
+//
+//        })
         
+        
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+
+        if var topController = keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.present(alertController, animated: true)
+        // topController should now be your topmost view controller
+        }
     }
     
     func handleInternetConnection(_ isNotInternetConnected: Bool) {
-        if isNotInternetConnected == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+            if isNotInternetConnected == true {
                 presentAlert()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    if !alertController.isPresenting {
-                        alertController.dismiss()
-                        presentAlert()
-                    }
-                }
                 print("PRESENT ALERT")
+            } else {
+                alertController.dismiss(animated: true)
             }
-        } else {
-            alertController.dismiss(animated: true)
         }
     }
 }
@@ -112,9 +132,4 @@ private func configureAmplify() {
         print("Could not initialize Amplify: \(error)")
     }
 }
-
-private func configureGoogleAds() {
-    GADMobileAds.sharedInstance().start(completionHandler: nil)
-}
-
 
