@@ -18,11 +18,12 @@ private func dateFormatter(date: String, _ time: Bool = false) -> String{
     return formatter.string(from: Date(timeIntervalSince1970: Double(date)!))
 }
 
+
 struct AppointmentCalendarView: View {
     @Environment(\.presentationMode) var presentationMode
 //    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
     @ObservedObject var data: AppointmentCalendarViewModel
-    @State var diagnosisList = [[Substring]]()
+    @State var diagnosisList = [Service]()
     @State var serviceSum: Decimal = 0
     @State var servicePaid: Decimal = 0
     init(appointment: Appointment, _ isEditAllowed: Bool = true) {

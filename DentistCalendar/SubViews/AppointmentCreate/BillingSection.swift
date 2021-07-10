@@ -57,7 +57,7 @@ struct BillingSection: View {
 func deletePayment(at offsets: IndexSet) {
     if let first = offsets.first {
         if data.paymentsArray.count >= first {
-        data.sumPayment -= Decimal(string: data.paymentsArray[first].cost) ?? 0
+            data.sumPayment -= data.paymentsArray[first].cost.decimalValue
         data.paymentsArray.remove(at: first)
         }
     }

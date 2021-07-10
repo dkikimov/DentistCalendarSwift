@@ -106,6 +106,7 @@
 "Выберите начальную дату" = "Choose start date";
 "Выберите конечную дату" = "Choose end date";
 "Экспортировать" = "Export";
+"Экспорт" = "Export";
 // Event add view
 "Нет данных" = "No data";
 "Загрузка..." = "Loading...";
@@ -118,7 +119,7 @@
 "Введите номер зуба" = "Enter the tooth number";
 "Введите название" = "Enter the title";
 
-
+"Количество" = "Quantity";
 // Patients view
 
 "Записей нет" = "No appointments";
@@ -186,3 +187,22 @@
 "Используйте без интернета" = "Use without internet";
 "Работает даже без доступа к интернету без ограничений в функционале" = "Works even without access to the Internet without restrictions in functionality";
 "Возможности" = "Features";
+
+
+/* Walkthrough View */
+"Далее" = "Next";
+"Приветствуем!" =  "Welcome!";
+"Если Вы впервые пользуетесь Dentor, Вы можете ознакомиться с некоторыми полезными функциями, которые ускорят вашу работу" = "If you are using Dentor for the first time, you can check out some of the helpful features to speed up your work";
+
+"Создание записей" = "Creating appointments";
+"Для создания новой записи необходимо задержать палец на желаемом времени в разделе 'Календарь', по необходимости переместить запись на другое время, а затем отпустить палец. Заполните необходимую информацию в появившемся окне и запись создана!" = "To create a new appointment, you need to hold your finger at the desired time in the 'Calendar' section, move the record to a different time if necessary, and then release your finger. Fill in the required information in the window that appears and the appointment is created!";
+
+"Изменение цены услуги" = "Service price changing";
+"Вы можете изменять стоимость услуг для разных записей путем нажатия на поле ввода около надписи 'Цена'. Таким образом, цена в общем списке всех услуг затронута не будет" = "You can change the cost of services for different appointments by tapping on the input field next to the 'Price' label. Thus, the price in the general list of all services will not be affected";
+
+"Удаление элементов" = "Deleting elements";
+"Чтобы удалить элемент из списка (например, списка услуг или пациентов), проведите пальцем влево по строке и нажмите удалить" = "To remove an item from the list (for example, list of services or patients), swipe left on the row and tap delete";
+
+"Просмотр деталей записи" = "View appointment details";
+"Нажмите на запись в разделе 'Календарь' или в карточке пациента, чтобы посмотреть дополнительную информацию о записи" = "Click on the appointment in the 'Calendar' section or in the patient's card to view additional information about the appointment";
+"Приступить к работе" = "Get started";

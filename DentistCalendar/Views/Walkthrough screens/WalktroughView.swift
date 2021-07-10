@@ -52,28 +52,57 @@ import SwiftUI
 //                    })
 //                }
 //            }
-
 //            .foregroundColor(.white)
 struct WalktroughView: View {
     @State private var selection = -1
     @Binding var isWalkthroughViewShowing: Bool
     var body: some View {
         ZStack {
-            Color(hex: "#3D5A80").ignoresSafeArea()
+            Color(hex: "#2474E2").ignoresSafeArea()
+            
             VStack {
-                if selection == -1 {
-                    TabDetailsView(imageUrl: "", title: "Приветствуем!", content: "Спасибо что пользуетесь нашим приложением! Если вы новенький, то можете пройти краткую экскурсию по всем основным функциям нашего приложения!")
-                    ButtonsView(selection: $selection, isShown: $isWalkthroughViewShowing, buttons: [
-                                    "Пропустить".localized, "Начать".localized])
-                } else {
-                    PageTabView(selection: $selection, isShown: $isWalkthroughViewShowing)
-                    ButtonsView(selection: $selection, isShown: $isWalkthroughViewShowing, buttons: [
-                        "Предыдущий".localized,
-                        "Следующий".localized
-                    ])
+                HStack(alignment: .bottom) {
+                    Spacer()
+
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            isWalkthroughViewShowing = false
+                        }
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2, weight: .bold)
+                            .foregroundColor(.white)
+    //                        .backgroundFill(Color(hex: "#2474E2"))
+                        })
+                    .opacity(0.7)
+                    .padding()
+                    
                 }
+                .padding(.bottom, 5)
+                .padding(.top, 12)
+                .frame(height: 30)
+                
+                Spacer()
+//                HStack {
+//                    Spacer()
+//
+//                }
+//                .padding(.bottom, 5)
+                
+                //                if selection == -1 {
+                //                    TabDetailsView(imageUrl: "", title: "Приветствуем!", content: "Спасибо что пользуетесь нашим приложением! Если вы новенький, то можете пройти краткую экскурсию по всем основным функциям нашего приложения!")
+                ////                        .padding()
+                //                    ButtonsView(selection: $selection, isShown: $isWalkthroughViewShowing, buttons: [
+                //                                    "Пропустить".localized, "Начать".localized], backgroundColor: Color(hex: "#E7EFFF"), foregroundColor: Color(#colorLiteral(red: 0.1647058824, green: 0.5254901961, blue: 1, alpha: 1)))
+                //                } else {
+                PageTabView(selection: $selection, isShown: $isWalkthroughViewShowing)
+                ButtonsView(selection: $selection, isShown: $isWalkthroughViewShowing, backgroundColor: Color(hex: "#E7EFFF"), foregroundColor: Color(#colorLiteral(red: 0.1647058824, green: 0.5254901961, blue: 1, alpha: 1)))
+                    .frame(maxHeight: 50)
+                    .padding(.bottom, 8)
+                //                }
                 
             }
+            
         }
         .transition(AnyTransition.move(edge: .bottom))
     }

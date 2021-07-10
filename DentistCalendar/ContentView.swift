@@ -54,7 +54,7 @@ import UIKit
 
 
 struct ContentView: View {
-    @AppStorage("firstStart")  var isWalktroughShowing = true
+    @AppStorage("firstStart")  var isOnboardingPresented = true
 //    @State var isWalktroughShowing: Bool = true
 
     @EnvironmentObject var sessionManager: SessionManager
@@ -65,8 +65,8 @@ struct ContentView: View {
     }
     @ViewBuilder var body: some View {
         ZStack {
-            if isWalktroughShowing {
-                OnBoardingView(isWalkthroughViewShowing: $isWalktroughShowing)
+            if isOnboardingPresented {
+                OnBoardingView(isWalkthroughViewShowing: $isOnboardingPresented)
                     .transition(.move(edge: .bottom))
             } else {
                 switch sessionManager.authState {

@@ -28,31 +28,37 @@ class PatientCreateViewModel : ObservableObject {
             isLoading = false
             return
         }
-//        print("CURRENT NUMBER", patientNumber)
-//        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
-        if phoneNumberKit.isValidPhoneNumber(patientNumber) {
-            let newPatient = Patient(fullname: patientName, phone: patientNumber.replacingOccurrences(of: " ", with: ""))
-            Amplify.DataStore.save(newPatient) { result in
-                switch result{
-                case .success(_):
-//                    patientData.patientsList.append(patient)
-//                    presentSuccessAlert(message: "Пациент успешно добавлен!")
-                    DispatchQueue.main.async {
-                        completion(true)
-                    }
-                case .failure(let error):
-                    self.error = error.errorDescription
-                    self.isAlertPresented = true
-                    DispatchQueue.main.async {
-                        completion(false)
-                    }
+        //        print("CURRENT NUMBER", patientNumber)
+        //        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
+        var finalPhone: String = ""
+        if !patientNumber.isEmpty {
+            do {
+                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(patientNumber), toType: .e164)
+            } catch {
+                self.error = "Введите корректный номер".localized
+                self.isAlertPresented = true
+                DispatchQueue.main.async {
+                    completion(false)
                 }
+                self.isLoading = false
+                return
             }
-        } else {
-            self.error = "Введите корректный номер".localized
-            self.isAlertPresented = true
-            DispatchQueue.main.async {
-                completion(false)
+        }
+        let newPatient = Patient(fullname: patientName, phone: finalPhone.isEmpty ? nil : finalPhone)
+        Amplify.DataStore.save(newPatient) { result in
+            switch result{
+            case .success(_):
+                //                    patientData.patientsList.append(patient)
+                //                    presentSuccessAlert(message: "Пациент успешно добавлен!")
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(let error):
+                self.error = error.errorDescription
+                self.isAlertPresented = true
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             }
         }
         

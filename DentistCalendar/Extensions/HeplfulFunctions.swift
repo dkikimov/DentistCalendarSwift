@@ -88,9 +88,9 @@ func findPatientByID(id: String) -> Patient?{
     return result
 }
 
-func countBilling(appointment: Appointment) -> (Decimal, Decimal, [[Substring]]) {
+func countBilling(appointment: Appointment) -> (Decimal, Decimal, [Service]) {
     if appointment.payments != nil {
-        var diagnosisList = [[Substring]]()
+        var diagnosisList = [Service]()
         var sumPayments: Decimal = 0
         var sumPaid: Decimal = 0
         if appointment.diagnosis != nil {
@@ -98,26 +98,29 @@ func countBilling(appointment: Appointment) -> (Decimal, Decimal, [[Substring]])
             a.forEach({ diagnosis in
                 var amount = "1"
                 var dataString = String(diagnosis)
-                let diagData = dataString.split(separator: ":")
 
                 if let index = dataString.firstIndex(of: "*") {
                     let leftIndex = dataString.index(after: index)
                     amount = String(dataString[leftIndex...])
                     dataString = String(dataString[..<index])
                 }
+                let diagData = dataString.split(separator: ":")
+
                 //                print("FOREACH B", b )
                 if diagData.count == 2 {
-                    sumPayments += ((Decimal(string: String(diagData[1])) ?? 0) * (Decimal(string: amount) ?? 0))
-                    diagnosisList.append(diagData)
+                    sumPayments += (String(diagData[1]).decimalValue * amount.decimalValue)
+                    diagnosisList.append(Service(title: String(diagData[0]), price: String(diagData[1]).decimalValue, amount: amount))
+                } else if diagData.count == 1 {
+                    diagnosisList.append(Service(title: String(diagData[0]), price: Decimal(0), amount: amount))
                 }
             })
         }
         for payment in appointment.payments! {
-            sumPaid += Decimal(string: payment.cost) ?? 0
+            sumPaid += payment.cost.decimalValue
         }
         return (sumPaid, sumPayments, diagnosisList)
 
     } else {
-        return (0,0, [[]])
+        return (0,0, [])
     }
 }

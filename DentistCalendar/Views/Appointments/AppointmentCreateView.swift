@@ -36,7 +36,7 @@ struct AppointmentCreateView: View {
     @State var alertType: ActiveAlert = .error
     @State var isFullScreenPresented = false
     @StateObject var data: AppointmentCreateViewModel
-    @StateObject var internetConnectionManager =  InternetConnectionManager()
+    @StateObject var internetConnectionManager = InternetConnectionManager()
     
     @Environment(\.presentationMode) var presentationMode
     //    @ObservedObject var data: AppointmentCreateViewModel
@@ -67,7 +67,7 @@ struct AppointmentCreateView: View {
 
             ZStack {
                 if isBillingAlertPresented {
-                    AlertControlView(alerts: [
+                    AlertControlView(fields: [
                         .init(text: $text, placeholder: "Сумма", keyboardType: .decimalPad, autoCapitalizationType: .none)
                     ], showAlert: $isBillingAlertPresented, action: {
                         DispatchQueue.main.async {
@@ -113,7 +113,7 @@ struct AppointmentCreateView: View {
     }
     func addPayment() {
         let newPayment = PaymentModel(cost: text, date: String(Date().timeIntervalSince1970))
-        data.sumPayment += Decimal(string: text) ?? 0
+        data.sumPayment += text.decimalValue
         withAnimation {
             data.paymentsArray.insert(newPayment, at: 0)
         }
@@ -206,29 +206,41 @@ struct AppointmentCreateView: View {
         }
         
         if data.segmentedMode == .withPatient {
+
             if data.viewType == .createWithPatient {
                 guard !data.title.isEmpty else {
                     data.error = "Укажите пациента"
                     data.isAlertPresented = true
                     return
                 }
-                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneNumber) else {
-                    print("NUMBER", phoneNumber)
-                    data.error = "Введите корректный номер".localized
-                    data.isAlertPresented = true
-                    return
+                var phoneFormattedNumber: String = ""
+                if !phoneNumber.isEmpty {
+                    do {
+                        phoneFormattedNumber = phoneNumberKit.format(try phoneNumberKit.parse(phoneNumber), toType: .e164)
+                    } catch {
+    //                    print("NUMBER", phoneNumber, phoneFormattedNumber)
+
+                        data.error = "Введите корректный номер".localized
+                        data.isAlertPresented = true
+                        return
+                    }
                 }
+//                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneFormattedNumber) else {
+//                    print("NUMBER", phoneNumber, phoneFormattedNumber)
+//                    data.error = "Введите корректный номер".localized
+//                    data.isAlertPresented = true
+//                    return
+//                }
+                
+                data.createAppointmentAndPatient(isModalPresented: self.$isModalPresented, phoneNumber: phoneFormattedNumber)
             }
             //                            guard !data.toothNumber.isEmpty else {
             //                                data.error = "Введите номер зуба".localized
             //                                data.isAlertPresented = true
             //                                return
             //                            }
-            if data.viewType == .create {
+            else if data.viewType == .create {
                 data.createAppointment(isModalPresented: self.$isModalPresented, patientDetailData: patientDetailData)
-            }
-            else if data.viewType == .createWithPatient {
-                data.createAppointmentAndPatient(isModalPresented: self.$isModalPresented, phoneNumber: phoneNumber)
             }
         } else if data.segmentedMode == .nonPatient {
             if data.viewType == .create || data.viewType == .createWithPatient{

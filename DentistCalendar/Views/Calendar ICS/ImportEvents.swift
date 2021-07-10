@@ -20,9 +20,15 @@ struct ImportEvents: View {
                 Button(action: {
                     isImportPresented.toggle()
                 }, label: {
-                    Text("Импортировать")
+                    Text("Импортировать записи из файла")
                 })
+                
+                NavigationLink(destination: EventAddView()) {
+                    Text("Импортировать записи из календаря")
+                        .foregroundColor(.systemBlue)
+                }
             }
+            
             
         }
         .navigationTitle("Импорт")
@@ -34,19 +40,19 @@ struct ImportEvents: View {
             case .success(let url):
                 print("SUCCESS")
                 do {
-                                let selectedFile: URL = url
-                                if selectedFile.startAccessingSecurityScopedResource() {
-                                    guard let input = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                                    self.data = input
-                                    do { selectedFile.stopAccessingSecurityScopedResource() }
-                                } else {
-                                    // Handle denied access
-                                }
-                            } catch {
-                                // Handle failure.
-                                print("Unable to read file contents")
-                                print(error.localizedDescription)
-                            }
+                    let selectedFile: URL = url
+                    if selectedFile.startAccessingSecurityScopedResource() {
+                        guard let input = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                        self.data = input
+                        do { selectedFile.stopAccessingSecurityScopedResource() }
+                    } else {
+                        // Handle denied access
+                    }
+                } catch {
+                    // Handle failure.
+                    print("Unable to read file contents")
+                    print(error.localizedDescription)
+                }
                 importEventsFromFile(file: url)
             case .failure(let error):
                 print("ERROR", error.localizedDescription)
@@ -57,7 +63,7 @@ struct ImportEvents: View {
                 setNavigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
             } else {
                 setNavigationBarColor(backgroundColor: .white, tintColor: .systemBlue)
-
+                
             }
         })
         

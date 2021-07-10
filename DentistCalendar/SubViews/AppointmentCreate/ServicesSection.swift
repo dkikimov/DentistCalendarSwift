@@ -7,6 +7,71 @@
 
 import SwiftUI
 import AudioToolbox
+import SwiftUIX
+
+
+struct BottomLinedTextField: UIViewRepresentable {
+    @Binding var text: String
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text)
+    }
+    
+    func makeUIView(context: Context) -> some UITextField {
+        let textField = UITextField(frame: .zero)
+        
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: textField.frame.height - 1, width: textField.frame.width, height: 1.0)
+        bottomLine.backgroundColor = UIColor.lightGray.cgColor
+        textField.borderStyle = UITextField.BorderStyle.none
+        textField.layer.addSublayer(bottomLine)
+        
+        textField.text = text
+        textField.placeholder = "0"
+        textField.keyboardType = .decimalPad
+        textField.delegate = context.coordinator
+//        _ = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: textField)
+//            .compactMap {
+//                guard let field = $0.object as? UITextField else {
+//                    return nil
+//                }
+//                return field.text
+//            }
+//            .sink {
+//                self.text = $0
+//            }
+        return textField
+    }
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        uiView.text = text
+//        uiView.frame.size.width = uiView.intrinsicContentSize.width
+
+    }
+    
+}
+
+extension BottomLinedTextField {
+    class Coordinator: NSObject, UITextFieldDelegate {
+        @Binding var text: String
+        
+        init(text: Binding<String>) {
+            _text = text
+        }
+        
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            self.text = textField.text ?? ""
+            
+        }
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                       replacementString string: String) -> Bool
+        {
+            let currentText = text
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+            return updatedText.count <= 15
+        }
+    }
+}
 
 struct ServicesSection: View {
     @AppStorage("dontShowAlert") var dontShownAlert = false
@@ -14,51 +79,57 @@ struct ServicesSection: View {
     @State var error = ""
     @State var isAlertPresented = false
     @State var wasAlertChecked = false
+    @State var isEditing = false
     var body: some View {
         Section(header: Text("Услуги")) {
             HStack {
-                Text("Номер зуба") + Text(": ")
+                Text("Номер зуба") + Text(":")
                 
                 TextField("15", text: $data.toothNumber)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
             }
             ForEach(data.selectedDiagnosisList.keys.sorted(), id: \.self) { key in
-                HStack {
-                    (Text(key) + Text(self.bindingAmount(for: key).wrappedValue == 1 ? "" : " x" + String( self.bindingAmount(for: key).wrappedValue))
-                        .foregroundColor(.gray))
-                        //                        .fixedSize()
-                        .padding(.trailing, 5)
-                    Stepper("", value: self.bindingAmount(for: key), in: 1...99, step: 1)
-                        .fixedSize()
-                    Spacer()
-                    HStack(spacing: 5) {
-                        Text("Цена: ")
-                            .fixedSize()
-                            .foregroundColor(.gray)
-                        TextField("", text: self.bindingPrice(for: key))
-                            .keyboardType(.decimalPad)
-                            //                            .frame(minWidth: 30, idealWidth: 40, maxWidth: 150, alignment: .trailing)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        //                        Text("\(self.bindingAmount(for: key).wrappedValue)")
-                        //                            .frame(width: 22)
-                        //                            .foregroundColor(.gray)
-                        //                            .fixedSize()
-                    }
-                    //                    .multilineTextAlignment(.trailing)
+                    VStack(spacing: 7) {
+                        HStack(spacing: 5) {
+                            
+                            (Text(key) + Text(" x" + String( self.bindingAmount(for: key).wrappedValue))
+                                .foregroundColor(.systemGray))
+                                //                        .fixedSize()
+                                .padding(.trailing, 5)
+                                .lineLimit(3)
+                            
+                            Spacer()
+                            
+                            Text("Количество")
+                            Stepper("", value: self.bindingAmount(for: key), in: 1...99, step: 1)
+                                .fixedSize()
+                        }
+                        HStack {
+                            Text("Цена: ")
+                                .fixedSize()
+                                .foregroundColor(.gray)
+                            BottomLinedTextField(text: self.bindingPrice(for: key))
+//                            Text(" " + (Locale.current.currencySymbol ?? ""))
+//                                .fixedSize()
+                        }
+                    }.id(key)
+                        
+                    
                 }
-            }
+            
             .onDelete(perform: { indexSet in
                 DispatchQueue.main.async {
                     if let first = indexSet.first {
                         print("INDEX SET IS ", first)
                         let key = data.selectedDiagnosisList.keys.sorted()[first]
-                        data.sumPrices -= ((Decimal(string: data.selectedDiagnosisList[key]!.price) ?? 0) * Decimal(data.selectedDiagnosisList[key]!.amount))
+                        data.sumPrices -= (data.selectedDiagnosisList[key]!.price.decimalValue * Decimal(data.selectedDiagnosisList[key]!.amount))
                         data.selectedDiagnosisList.removeValue(forKey: key)
                     }
                     
                 }
             })
+            
             Button(action: {
                 data.isDiagnosisCreatePresented.toggle()
             }, label: {
@@ -75,23 +146,23 @@ struct ServicesSection: View {
         }
     }
     
-     func bindingPrice(for key: String) -> Binding<String> {
+    func bindingPrice(for key: String) -> Binding<String> {
         return .init(
             get: {
-                return self.data.selectedDiagnosisList[key]!.price
+                return self.data.selectedDiagnosisList[key]?.price ?? ""
             },
             set: {
-                let decimalString = Decimal(string: $0) ?? 0
+                let decimalString = $0.decimalValue
                 let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
-                let price = Decimal(string: data.selectedDiagnosisList[key]!.price) ?? 0
-                guard $0.count < 15   else {
-                    AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { return }
-                    if !wasAlertChecked && !dontShownAlert {
-                        error = "Цена слишком большая"
-                        isAlertPresented = true
-                    }
-                    return
-                }
+                let price = data.selectedDiagnosisList[key]!.price.decimalValue
+                //                guard $0.count < 15   else {
+                //                    AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { return }
+                //                    if !wasAlertChecked && !dontShownAlert {
+                //                        error = "Цена слишком большая"
+                //                        isAlertPresented = true
+                //                    }
+                //                    return
+                //                }
                 data.sumPrices -= (price * amount)
                 data.sumPrices += (decimalString * amount)
                 self.data.selectedDiagnosisList[key]!.price = $0
@@ -100,7 +171,7 @@ struct ServicesSection: View {
             })
     }
     
-     func bindingAmount(for key: String) -> Binding<Int> {
+    func bindingAmount(for key: String) -> Binding<Int> {
         return .init(
             get: {
                 self.data.selectedDiagnosisList[key]!.amount
@@ -108,11 +179,13 @@ struct ServicesSection: View {
             }, set: {
                 //                data.sumPrices -= Decimal(string: self.data.selectedDiagnosisList[key]!.price) ?? 0
                 //                data.sumPrices += Decimal(string: $0) ?? 0
+                
                 let decimalNumber = Decimal($0)
                 let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
-                let price = Decimal(string: data.selectedDiagnosisList[key]!.price) ?? 0
+                let price = data.selectedDiagnosisList[key]!.price.decimalValue
                 data.sumPrices -= (price * amount)
                 data.sumPrices += (price * decimalNumber)
+                
                 self.data.selectedDiagnosisList[key]!.amount = $0
                 
                 //                data.generateMoneyData.call()

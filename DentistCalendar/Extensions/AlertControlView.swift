@@ -19,38 +19,46 @@ struct AlertControlView: UIViewControllerRepresentable {
 
 //    @Binding var textString: String
 //    @Binding var priceString: String
-    var alerts: [AlertTextFieldModel]?
+    var fields: [AlertTextFieldModel]?
     @Binding var showAlert: Bool
     var action:  () -> Void
     var title: String
     var message: String
-
+    var selectedDiagnosis: Binding<Diagnosis?>? = nil
     // Make sure that, this fuction returns UIViewController, instead of UIAlertController.
     // Because UIAlertController gets presented on UIViewController
     func makeUIViewController(context: UIViewControllerRepresentableContext<AlertControlView>) -> UIViewController {
         return UIViewController() // Container on which UIAlertContoller presents
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<AlertControlView>) {
+     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<AlertControlView>) {
 
         // Make sure that Alert instance exist after View's body get re-rendered
         guard context.coordinator.alert == nil else { return }
 
         if self.showAlert {
-
+            let isDiagnosisSelected: Bool = {
+                    if selectedDiagnosis?.wrappedValue != nil {
+                        return true
+                    } else {
+                        return false
+                    }
+                
+            }()
             // Create UIAlertController instance that is gonna present on UIViewController
             let alert = UIAlertController(title: title.localized, message: message.localized, preferredStyle: .alert)
             context.coordinator.alert = alert
-            if alerts != nil {
+            if fields != nil {
                 
             
-            for alertModel in alerts! {
+            for alertModel in fields! {
                 alert.addTextField { textField in
                     textField.placeholder = alertModel.placeholder.localized
                     textField.text = alertModel.text.localized            // setting initial value
                     textField.delegate = context.coordinator // using coordinator as delegate
                     textField.autocapitalizationType = alertModel.autoCapitalizationType
                     textField.keyboardType = alertModel.keyboardType
+                    
     //                func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //                    // get the current text, or use an empty string if that failed
     //                    let currentText = textField.text ?? ""
@@ -74,14 +82,15 @@ struct AlertControlView: UIViewControllerRepresentable {
                 // On dismiss, SiwftUI view's two-way binding variable must be update (setting false) means, remove Alert's View from UI
                 alert.dismiss(animated: true) {
                     self.showAlert = false
+                    self.selectedDiagnosis?.wrappedValue = nil
                 }
             })
 
-            alert.addAction(UIAlertAction(title: "Добавить".localized, style: .default) { _ in
+            alert.addAction(UIAlertAction(title: isDiagnosisSelected ? "Обновить".localized : "Добавить".localized , style: .default) { _ in
                 // On submit action, get texts from TextField & set it on SwiftUI View's two-way binding varaible `textString` so that View receives enter response.
-                if alerts != nil {
-                    for i in 0...alerts!.count-1 {
-                        self.alerts![i].text = alert.textFields![i].text ?? ""
+                if fields != nil {
+                    for i in 0...fields!.count-1 {
+                        self.fields![i].text = alert.textFields![i].text ?? ""
                     }
                 }
 //                for textField in alert.textFields! {
@@ -127,6 +136,14 @@ struct AlertControlView: UIViewControllerRepresentable {
         }
 
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+            if textField.placeholder == "Название услуги".localized {
+                return updatedText.count <= 99
+            } else if textField.placeholder == "Стоимость".localized {
+                return updatedText.count <= 15
+            }
 //            if let text = textField.text as NSString? {
 //                self.control.textString = text.replacingCharacters(in: range, with: string)
 //            } else {

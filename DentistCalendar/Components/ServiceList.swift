@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ServiceList: View {
-    var diagnosisList: [[Substring]]
+    var diagnosisList: [Service]
     var body: some View {
         ForEach(diagnosisList, id: \.self) { service in
             HStack {
-                Text(String(service[0]) + ": ").bold() +
-                Text(Decimal(string: String(service[1]))!.currencyFormatted)
+                Text(service.title).bold() + Text(" (x" + service.amount + ")").foregroundColor(.gray) + Text(":").bold()
+                Text(service.price.currencyFormatted)
             }
         }
     }

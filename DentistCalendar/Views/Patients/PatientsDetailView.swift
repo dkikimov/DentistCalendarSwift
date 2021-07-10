@@ -22,7 +22,11 @@ struct PatientsDetailView: View {
                 VStack(alignment: .leading) {
                     Group {
                         Text(detailData.patient.fullname).fontWeight(.bold).font(.title2)
-                        Text(partialFormatter.formatPartial(detailData.patient.phone!)).foregroundColor(.gray).font(.body)
+                        if detailData.patient.phone != nil {
+                            Text(formatPhone(detailData.patient.phone ?? "") ?? "")
+                                .foregroundColor(.gray)
+                                .font(.body)
+                        }
                     }
                     HStack(spacing: 10) {
                         NavigationLink(
@@ -39,14 +43,14 @@ struct PatientsDetailView: View {
                         //                        .disabled(detailData.patient.phone?.isEmpty ?? true)
                         Button(action: {
                             let phone = "tel://"
-                            let phoneNumberformatted = phone + detailData.patient.phone!
+                            let phoneNumberformatted = phone + (detailData.patient.phone ?? "")
                             guard let url = URL(string: phoneNumberformatted) else { return }
                             UIApplication.shared.open(url)
                         }) {
                             Image(systemName: "phone.fill").frame(width: 50, height: 45).padding([.vertical, .horizontal], 10).foregroundColor(.white)
                         }
                         .background(
-                            detailData.patient.phone!.isEmpty ? Color.gray : Color("Green")).frame(width: 50, height: 45).clipShape(Circle()
+                            detailData.patient.phone == nil ? Color.gray : Color("Green")).frame(width: 50, height: 45).clipShape(Circle()
                             )
                         .disabled(detailData.patient.phone?.isEmpty ?? true)
                     }

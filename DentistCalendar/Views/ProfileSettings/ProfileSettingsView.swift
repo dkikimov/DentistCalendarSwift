@@ -47,14 +47,17 @@ struct ProfileSettingsView: View {
                     Text("Изменить пароль")
                         .foregroundColor(Color("Black1"))
                 })
-                NavigationLink(destination: EventAddView()) {
-                    Text("Импортировать записи из календаря")
+//                NavigationLink(destination: EventAddView()) {
+//                    Text("Импортировать записи из календаря")
+//                }
+//                NavigationLink(
+//                    destination: ImportEvents(),
+//                    label: {
+//                        Text("Импортировать записи из файла")
+//                    })
+                NavigationLink(destination: ImportEvents()) {
+                    Text("Импортировать записи")
                 }
-                NavigationLink(
-                    destination: ImportEvents(),
-                    label: {
-                        Text("Импортировать записи из файла")
-                    })
                 NavigationLink(destination: ExportEvents(), label: {
                     Text("Экспортировать записи")
                 })

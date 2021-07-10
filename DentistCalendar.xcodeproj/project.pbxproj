@@ -18,6 +18,8 @@
 		6F0BF64E255DA191004ACD4F /* AppointmentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */; };
 		6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */; };
 		6F0BF656255DA48F004ACD4F /* DiagnosisCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */; };
+		6F0E0ADB26960D9D003515E4 /* LoopingVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0E0ADA26960D9D003515E4 /* LoopingVideo.swift */; };
+		6F0E0AE02696100C003515E4 /* shrek.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6F0E0ADF2696100C003515E4 /* shrek.gif */; };
 		6F1047DA25A33B5900A8341F /* IntersistititalAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047D925A33B5900A8341F /* IntersistititalAdView.swift */; };
 		6F1047DD25A33DE200A8341F /* BannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047DC25A33DE200A8341F /* BannerAdView.swift */; };
 		6F1047E025A34A4500A8341F /* RewardedVideoAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1047DF25A34A4500A8341F /* RewardedVideoAd.swift */; };
@@ -73,7 +75,6 @@
 		6F43790925D9764700DE722C /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4378FF25D9764700DE722C /* Parser.swift */; };
 		6F43790C25D97CDB00DE722C /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F43790B25D97CDB00DE722C /* ExportDocument.swift */; };
 		6F4403BB2530B6740025BB9A /* PatientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4403BA2530B6740025BB9A /* PatientsListView.swift */; };
-		6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4403BE2530BE460025BB9A /* PatientsListRow.swift */; };
 		6F457284252E1C94008B1857 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F457283252E1C94008B1857 /* ProfileSettingsViewModel.swift */; };
 		6F457288252E1D52008B1857 /* ProfileSettingsUserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */; };
 		6F4AFCEA2531B9C100F842BA /* getAvatarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */; };
@@ -83,6 +84,9 @@
 		6F50F3472603C7FB00E740F6 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */; };
 		6F51126F258A7210008D6799 /* MultipleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */; };
 		6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55F04B2526F0340095729D /* RegisterViewModel.swift */; };
+		6F6195F8269A0B6A00AFEBED /* appdetail.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F6195FA269A0B6A00AFEBED /* appdetail.mov */; };
+		6F619601269A0C5C00AFEBED /* calendarСreate.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F619603269A0C5C00AFEBED /* calendarСreate.mov */; };
+		6F619605269A0C9D00AFEBED /* serviceDelete.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F619607269A0C9D00AFEBED /* serviceDelete.mov */; };
 		6F639778264D8E2C007474ED /* ModalView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F639777264D8E2C007474ED /* ModalView2.swift */; };
 		6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65467E25527D22007F4C2D /* SessionManager.swift */; };
 		6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468125527EC7007F4C2D /* ConfirmationView.swift */; };
@@ -141,6 +145,8 @@
 		6FD91C28252F600E00231625 /* getTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD91C27252F600E00231625 /* getTokens.swift */; };
 		6FDAD3782631DEBA00CA5AA5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */; };
 		6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 6FDAD37B2631E80300CA5AA5 /* SwiftUIX */; };
+		6FE0864E2697120600208FB6 /* PatientsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0864D2697120600208FB6 /* PatientsListRow.swift */; };
+		6FE086532697195200208FB6 /* SwiftyGif in Frameworks */ = {isa = PBXBuildFile; productRef = 6FE086522697195200208FB6 /* SwiftyGif */; };
 		6FE422592589250200E62B55 /* DatePickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE422582589250200E62B55 /* DatePickerModalView.swift */; };
 		6FE75DC5267BA6E80083270F /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE75DC4267BA6E80083270F /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
@@ -152,6 +158,7 @@
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
 		6FF64F06251E44580094C0E0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F05251E44580094C0E0 /* Item.swift */; };
+		6FF767292699CA000086A0A8 /* service.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6FF7672B2699CA000086A0A8 /* service.mov */; };
 		9BDB79E3DDC64FF9866CF8CB /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15342B5A8A894B0292EAE456 /* Patient.swift */; };
 		B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */; };
 		D62FF8CA96BB4C7F96C41A23 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
@@ -175,6 +182,8 @@
 		6F0BF64D255DA191004ACD4F /* AppointmentCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateView.swift; sourceTree = "<group>"; };
 		6F0BF651255DA201004ACD4F /* AppointmentCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCreateViewModel.swift; sourceTree = "<group>"; };
 		6F0BF655255DA48F004ACD4F /* DiagnosisCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisCreateView.swift; sourceTree = "<group>"; };
+		6F0E0ADA26960D9D003515E4 /* LoopingVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingVideo.swift; sourceTree = "<group>"; };
+		6F0E0ADF2696100C003515E4 /* shrek.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shrek.gif; sourceTree = "<group>"; };
 		6F1047D925A33B5900A8341F /* IntersistititalAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntersistititalAdView.swift; sourceTree = "<group>"; };
 		6F1047DC25A33DE200A8341F /* BannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdView.swift; sourceTree = "<group>"; };
 		6F1047DF25A34A4500A8341F /* RewardedVideoAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAd.swift; sourceTree = "<group>"; };
@@ -232,7 +241,6 @@
 		6F4378FF25D9764700DE722C /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		6F43790B25D97CDB00DE722C /* ExportDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 		6F4403BA2530B6740025BB9A /* PatientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListView.swift; sourceTree = "<group>"; };
-		6F4403BE2530BE460025BB9A /* PatientsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsListRow.swift; sourceTree = "<group>"; };
 		6F457283252E1C94008B1857 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
 		6F457287252E1D52008B1857 /* ProfileSettingsUserDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsUserDataView.swift; sourceTree = "<group>"; };
 		6F4AFCE92531B9C100F842BA /* getAvatarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getAvatarColor.swift; sourceTree = "<group>"; };
@@ -242,6 +250,14 @@
 		6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionRow.swift; sourceTree = "<group>"; };
 		6F55F04B2526F0340095729D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		6F6195F9269A0B6A00AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = Base.lproj/appdetail.mov; sourceTree = "<group>"; };
+		6F6195FC269A0B8700AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = Base.lproj/service.mov; sourceTree = "<group>"; };
+		6F6195FF269A0BD800AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = ru.lproj/service.mov; sourceTree = "<group>"; };
+		6F619600269A0C5400AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = ru.lproj/appdetail.mov; sourceTree = "<group>"; };
+		6F619602269A0C5C00AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = "Base.lproj/calendarСreate.mov"; sourceTree = "<group>"; };
+		6F619606269A0C9D00AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = Base.lproj/serviceDelete.mov; sourceTree = "<group>"; };
+		6F619608269A0CA100AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = ru.lproj/serviceDelete.mov; sourceTree = "<group>"; };
+		6F61960B269A0D1F00AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = "ru.lproj/calendarСreate.mov"; sourceTree = "<group>"; };
 		6F639777264D8E2C007474ED /* ModalView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView2.swift; sourceTree = "<group>"; };
 		6F65467E25527D22007F4C2D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		6F65468125527EC7007F4C2D /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
@@ -301,6 +317,7 @@
 		6FD82A6E25B45C06004D22C3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6FD91C27252F600E00231625 /* getTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTokens.swift; sourceTree = "<group>"; };
 		6FDAD3772631DEBA00CA5AA5 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		6FE0864D2697120600208FB6 /* PatientsListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientsListRow.swift; sourceTree = "<group>"; };
 		6FE422582589250200E62B55 /* DatePickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModalView.swift; sourceTree = "<group>"; };
 		6FE75DC4267BA6E80083270F /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailCard.swift; sourceTree = "<group>"; };
@@ -332,6 +349,7 @@
 				6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */,
 				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
 				6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */,
+				6FE086532697195200208FB6 /* SwiftyGif in Frameworks */,
 				6F81976A25B2CFAF00022321 /* MessageUI.framework in Frameworks */,
 				6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */,
 				6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */,
@@ -368,6 +386,18 @@
 				6F2B89AB257CCA5900D717EC /* AppointmentCalendarView.swift */,
 			);
 			path = Appointments;
+			sourceTree = "<group>";
+		};
+		6F0E0ADE26960FFF003515E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6F6195FA269A0B6A00AFEBED /* appdetail.mov */,
+				6F619603269A0C5C00AFEBED /* calendarСreate.mov */,
+				6FF7672B2699CA000086A0A8 /* service.mov */,
+				6F619607269A0C9D00AFEBED /* serviceDelete.mov */,
+				6F0E0ADF2696100C003515E4 /* shrek.gif */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		6F1D733525E6AAF80008DCBF /* Walkthrough screens */ = {
@@ -425,6 +455,7 @@
 		6F328F3D253CB5B900F28F0F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6F0E0ADA26960D9D003515E4 /* LoopingVideo.swift */,
 				6F7CE31F255FE2C300D8D521 /* SearchBar */,
 				6F65468B2552C278007F4C2D /* PassCode */,
 				6F328F3E253CB5CC00F28F0F /* CustomTextField.swift */,
@@ -468,6 +499,7 @@
 		6F3A1A83251911900042E7C4 /* DentistCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				6F0E0ADE26960FFF003515E4 /* Resources */,
 				6F032150257FE36900E3F91D /* DentistCalendar.entitlements */,
 				6F328F3D253CB5B900F28F0F /* Components */,
 				6F328EB4253CADD900F28F0F /* ViewController */,
@@ -540,7 +572,7 @@
 			isa = PBXGroup;
 			children = (
 				6F4403BA2530B6740025BB9A /* PatientsListView.swift */,
-				6F4403BE2530BE460025BB9A /* PatientsListRow.swift */,
+				6FE0864D2697120600208FB6 /* PatientsListRow.swift */,
 				6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */,
 				6F97FA302542A738004750BF /* PatientUpdateView.swift */,
 				6F0BF646255D8D69004ACD4F /* PatientCreateView.swift */,
@@ -591,10 +623,10 @@
 		6F81977825B2ECB100022321 /* AppointmentCreate */ = {
 			isa = PBXGroup;
 			children = (
+				6F1A3FD725B3021E00EC448E /* ServicesSection.swift */,
 				6F81977425B2EC8700022321 /* PickerCalendarSection.swift */,
 				6F81977925B2ECEA00022321 /* PatientCreateSection.swift */,
 				6F1A3FD425B2EF5D00EC448E /* DatePickersSection.swift */,
-				6F1A3FD725B3021E00EC448E /* ServicesSection.swift */,
 				6F1A3FDA25B3028100EC448E /* SumSection.swift */,
 				6F70B7DE25E93DAC003A66D9 /* BillingSection.swift */,
 			);
@@ -769,6 +801,7 @@
 				6F2149EE25B9FA12006B57F3 /* Introspect */,
 				6FB8DC5025D19A1E00A04107 /* SPAlert */,
 				6FDAD37B2631E80300CA5AA5 /* SwiftUIX */,
+				6FE086522697195200208FB6 /* SwiftyGif */,
 			);
 			productName = DentistCalendar;
 			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
@@ -802,6 +835,7 @@
 				6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */,
 				6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				6FE086512697195200208FB6 /* XCRemoteSwiftPackageReference "SwiftyGif" */,
 			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
@@ -822,8 +856,13 @@
 				6F780F53266104460067F2CC /* GoogleService-Info.plist in Resources */,
 				6F6E04FD26654F9A0062ACE3 /* LaunchScreen.storyboard in Resources */,
 				6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */,
+				6F0E0AE02696100C003515E4 /* shrek.gif in Resources */,
 				6F0B35A825AF650600E7C722 /* Localizable.strings in Resources */,
+				6FF767292699CA000086A0A8 /* service.mov in Resources */,
+				6F6195F8269A0B6A00AFEBED /* appdetail.mov in Resources */,
 				6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */,
+				6F619601269A0C5C00AFEBED /* calendarСreate.mov in Resources */,
+				6F619605269A0C9D00AFEBED /* serviceDelete.mov in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
 				6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */,
 				6FEB49EC267B38D800923E37 /* schema.graphql in Resources */,
@@ -927,6 +966,7 @@
 				6F0BF652255DA201004ACD4F /* AppointmentCreateViewModel.swift in Sources */,
 				6F795F27257A53620013E2BB /* Enums.swift in Sources */,
 				6F3F8F0025B9DE0900C42CEE /* ForgotPasswordView.swift in Sources */,
+				6FE0864E2697120600208FB6 /* PatientsListRow.swift in Sources */,
 				6FA6926A252B60F500711A88 /* ProfileSettingsView.swift in Sources */,
 				6F43790C25D97CDB00DE722C /* ExportDocument.swift in Sources */,
 				6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */,
@@ -964,6 +1004,7 @@
 				6F43790025D9764700DE722C /* Event.swift in Sources */,
 				6F1047E425A3560300A8341F /* Store.swift in Sources */,
 				6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */,
+				6F0E0ADB26960D9D003515E4 /* LoopingVideo.swift in Sources */,
 				6F2BA5622633212800F5FB22 /* EnvironmentKeys.swift in Sources */,
 				6F43790225D9764700DE722C /* iCalError.swift in Sources */,
 				6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */,
@@ -991,7 +1032,6 @@
 				6F328F42253CB5DC00F28F0F /* AvatarBlock.swift in Sources */,
 				6F97FA312542A738004750BF /* PatientUpdateView.swift in Sources */,
 				6FD57D61253C413500C64847 /* TimeChunk.swift in Sources */,
-				6F4403BF2530BE460025BB9A /* PatientsListRow.swift in Sources */,
 				6F81977525B2EC8700022321 /* PickerCalendarSection.swift in Sources */,
 				6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */,
 				6F1047E725A371E500A8341F /* PriceExtension.swift in Sources */,
@@ -1054,6 +1094,42 @@
 				6F0B35AC25AF650A00E7C722 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6F6195FA269A0B6A00AFEBED /* appdetail.mov */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F6195F9269A0B6A00AFEBED /* Base */,
+				6F619600269A0C5400AFEBED /* ru */,
+			);
+			name = appdetail.mov;
+			sourceTree = "<group>";
+		};
+		6F619603269A0C5C00AFEBED /* calendarСreate.mov */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F619602269A0C5C00AFEBED /* Base */,
+				6F61960B269A0D1F00AFEBED /* ru */,
+			);
+			name = "calendarСreate.mov";
+			sourceTree = "<group>";
+		};
+		6F619607269A0C9D00AFEBED /* serviceDelete.mov */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F619606269A0C9D00AFEBED /* Base */,
+				6F619608269A0CA100AFEBED /* ru */,
+			);
+			name = serviceDelete.mov;
+			sourceTree = "<group>";
+		};
+		6FF7672B2699CA000086A0A8 /* service.mov */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F6195FC269A0B8700AFEBED /* Base */,
+				6F6195FF269A0BD800AFEBED /* ru */,
+			);
+			name = service.mov;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1280,6 +1356,14 @@
 				minimumVersion = 0.0.6;
 			};
 		};
+		6FE086512697195200208FB6 /* XCRemoteSwiftPackageReference "SwiftyGif" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kirualex/SwiftyGif";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1297,6 +1381,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		6FE086522697195200208FB6 /* SwiftyGif */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FE086512697195200208FB6 /* XCRemoteSwiftPackageReference "SwiftyGif" */;
+			productName = SwiftyGif;
 		};
 /* End XCSwiftPackageProductDependency section */
 

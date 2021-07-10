@@ -59,6 +59,8 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
         textField.delegate = context.coordinator
 //        textField.defaultRegion = Locale.current.regionCode ?? "KZ"
         textField.withExamplePlaceholder = true
+        textField.withPrefix = true
+
         textField.maxDigits = 15
         textField.text = phoneNumber
 //        print("YEP YEP MADE VIEw")
@@ -69,23 +71,26 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
         view.text = phoneNumber
     }
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(phoneNumber: $phoneNumber)
     }
     
     
     class Coordinator:  NSObject, UITextFieldDelegate {
-        var parent: PhoneNumberTextFieldView
+        @Binding var phoneNumber: String
+//        var parent: PhoneNumberTextFieldView
         
-        init(_ parent: PhoneNumberTextFieldView) {
-            self.parent = parent
+        init(phoneNumber: Binding<String>) {
+            _phoneNumber = phoneNumber
         }
-        
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            self.phoneNumber = textField.text ?? ""
+        }
         @objc func onTextChange(textField: UITextField) {
             
             guard let textField = textField as? PhoneNumberTextField else { return assertionFailure("Undefined state") }
 //            self.text.wrappedValue = textField.text ?? ""
             
-            self.parent.phoneNumber = textField.text ?? ""
+            self.phoneNumber = textField.text ?? ""
             
 //            print("SET TEXT", self.parent.$phoneNumber.wrappedValue)
         }

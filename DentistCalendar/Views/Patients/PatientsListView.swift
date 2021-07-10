@@ -174,10 +174,11 @@ struct PatientsListSearch: View {
                                         //                                        PatientsListRow(patient: item)
                                         HStack (spacing: 10){
                                             AvatarBlock(fullname: item.fullname)
-                                            
                                             VStack(alignment: .leading) {
                                                 Text(item.fullname).fontWeight(.bold)
-                                                Text(partialFormatter.formatPartial(item.phone ?? "")).foregroundColor(.gray)
+                                                if item.phone != nil {
+                                                    Text(formatPhone(item.phone ?? "") ?? "").foregroundColor(.gray)
+                                                }
                                             }
                                             
                                         }.frame(height: 55)
@@ -196,7 +197,8 @@ struct PatientsListSearch: View {
             }
             else if listData.patientsList.count == 0 {
                 VStack(spacing: 6) {
-                    Text("Самое время добавить пациентов!").foregroundColor(.gray)
+                    Text("Самое время добавить пациентов!")
+                        .foregroundColor(.gray)
                     Text("Если вы создавали данные ранее, то они находятся в загрузке")
                         .font(.caption)
                         .foregroundColor(.gray)

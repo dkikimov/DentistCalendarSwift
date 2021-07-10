@@ -12,14 +12,18 @@ struct PageTabView: View {
     @Binding var isShown: Bool
     var body: some View {
         TabView(selection: $selection) {
-           
             ForEach(tabs.indices, id: \.self) { index in
-                TabDetailsView(imageUrl:  tabs[index].image,
-                               title: tabs[index].title,
-                               content: tabs[index].content)
+                GeometryReader { geom in
+                    TabDetailsView(imageUrl:  tabs[index].image,
+                                   title: tabs[index].title,
+                                   content: tabs[index].content)
+                        .frame(width: geom.size.width)
+                }
             }
+            .padding()
         }
         .tabViewStyle(PageTabViewStyle())
+        
     }
     
 }

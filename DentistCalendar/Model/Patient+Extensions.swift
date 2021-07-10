@@ -69,3 +69,13 @@ extension PaymentModel: Hashable {
 }
 
 
+struct Service {
+    var title: String
+    var price: Decimal
+    var amount: String
+}
+extension Service: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+}

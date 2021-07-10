@@ -20,6 +20,16 @@ class ModalManager: ObservableObject {
     @Published var selectedDate = Date()
 }
 
+func formatPhone(_ phoneNumber: String) -> String? {
+    var phoneFormattedNumber: String
+    do {
+        phoneFormattedNumber = phoneNumberKit.format(try phoneNumberKit.parse(phoneNumber), toType: .international)
+    } catch {
+//                    print("NUMBER", phoneNumber, phoneFormattedNumber)
+        return nil
+    }
+    return phoneFormattedNumber
+}
 
 @main
 struct DentistCalendarApp: App {

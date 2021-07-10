@@ -21,13 +21,7 @@ private func dateFromStr(date: String) -> Date {
 
 struct DiagnosisItem {
     var amount: Int
-    var price: String {
-        didSet {
-            if price.count >= 15 {
-                price = oldValue
-            }
-        }
-    }
+    var price: String
 }
 
 class AppointmentCreateViewModel : ObservableObject {
@@ -43,7 +37,7 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-    @Published var selectedDiagnosisList = [String: DiagnosisItem]() // first - amount, second - price
+    @Published var selectedDiagnosisList = [String: DiagnosisItem]()
     @Published var isDiagnosisCreatePresented = false
     @Published var error = ""
     @Published var isAlertPresented = false
@@ -218,7 +212,7 @@ class AppointmentCreateViewModel : ObservableObject {
             
         }
     }
-    func createAppointmentAndPatient(isModalPresented: Binding<Bool>,phoneNumber: String) {
+    func createAppointmentAndPatient(isModalPresented: Binding<Bool>, phoneNumber: String) {
         print(group!)
         print("HEY I CRAETEded IT")
         //        print("PHONE", patientPhone)
@@ -226,7 +220,8 @@ class AppointmentCreateViewModel : ObservableObject {
         
         
         if self.selectedPatient == nil {
-            let newPatient = Patient(fullname: self.title, phone: phoneNumber.replacingOccurrences(of: " ", with: ""))
+            let newPatient: Patient
+            newPatient = Patient(fullname: self.title, phone: phoneNumber.isEmpty ? nil : phoneNumber)
             Amplify.DataStore.save(newPatient) { [self] res in
                 switch res {
                 case .success(let patient):
@@ -365,7 +360,8 @@ class AppointmentCreateViewModel : ObservableObject {
         //            NSDecimalNumber(string: $0.value.price.isEmpty ? "0" : String($0.value.price.trimmingCharacters(in: .whitespaces).doubleValue)).stringValue}
         //            .joined(separator: ";")
         
-        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value.price == "0" || $0.value.price.isEmpty ? "" : ":" + $0.value.price) + ($0.value.amount == 1 ? "" : "*" + String($0.value.amount))}
+        
+        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value.price.decimalValue.stringValue == "0" || ($0.value.price.decimalValue.stringValue.isEmpty) ? "" : ":" + $0.value.price.decimalValue.stringValue + ($0.value.amount == 1 ? "" : "*" + String($0.value.amount)))}
             .joined(separator: ";")
     }
     
@@ -373,10 +369,10 @@ class AppointmentCreateViewModel : ObservableObject {
         var sumPrices: Decimal = 0
         var sumPayment: Decimal = 0
         _ = selectedDiagnosisList.map {
-            sumPrices += ((Decimal(string: $1.price) ?? 0) * Decimal($1.amount))
+            sumPrices += ($1.price.decimalValue * Decimal($1.amount))
         }
         for payment in paymentsArray {
-            sumPayment += Decimal(string: payment.cost) ?? 0
+            sumPayment += payment.cost.decimalValue
         }
         self.sumPrices = sumPrices
         self.sumPayment = sumPayment

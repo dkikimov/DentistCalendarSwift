@@ -12,7 +12,7 @@ import SwiftUI
 import SPAlert
 import Amplify
 class PatientUpdateViewModel : ObservableObject {
-
+    
     @Published var isAlertPresented: Bool = false
     @Published var isLoading = false
     var error = ""
@@ -21,9 +21,9 @@ class PatientUpdateViewModel : ObservableObject {
     var fullname: String = ""
     var phone: String = ""
     
-//    init (patient: PatientData) {
-//        self.patient = patient
-//    }
+    //    init (patient: PatientData) {
+    //        self.patient = patient
+    //    }
     init(patient: Patient) {
         self.patient = patient
         self.fullname = patient.fullname
@@ -32,7 +32,16 @@ class PatientUpdateViewModel : ObservableObject {
     func updatePatient(listData: PatientsListViewModel, compelition: @escaping(Bool) -> () ){
         self.isLoading = true
         let finalFullname = fullname.trimmingCharacters(in: .whitespaces)
-        let finalPhone = phone.replacingOccurrences(of: " ", with: "")
+        var finalPhone: String = ""
+        if !phone.isEmpty {
+            do {
+                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(phone), toType: .e164)
+            } catch {
+                self.error = "Введите корректный номер".localized
+                self.isAlertPresented = true
+                return
+            }
+        }
         guard (finalFullname != patient.fullname || finalPhone != patient.phone)  else {
             error = "Имя и фамилия не были изменены".localized
             isAlertPresented = true
@@ -47,17 +56,17 @@ class PatientUpdateViewModel : ObservableObject {
         }
         var newPatient = patient
         newPatient.fullname = finalFullname
-        newPatient.phone = finalPhone
+        newPatient.phone = finalPhone.isEmpty ? nil : finalPhone
         Amplify.DataStore.save(newPatient) { res in
             switch res {
             case .success:
-//                listData.patientsList[self.index].fullname = patient.fullname
-//                listData.patientsList[self.index].phone = patient.phone
-//                presentSuccessAlert(message: "Данные успешно изменены!")
+                //                listData.patientsList[self.index].fullname = patient.fullname
+                //                listData.patientsList[self.index].phone = patient.phone
+                //                presentSuccessAlert(message: "Данные успешно изменены!")
                 DispatchQueue.main.async {
                     compelition(true)
                 }
-//                print("UPDATED PATIENT", patient)
+            //                print("UPDATED PATIENT", patient)
             case .failure(let error):
                 presentErrorAlert(message: error.errorDescription)
                 DispatchQueue.main.async {
@@ -65,7 +74,7 @@ class PatientUpdateViewModel : ObservableObject {
                 }
             }
         }
-//        Amplify.DataStore.save(<#T##model: Model##Model#>)
+        //        Amplify.DataStore.save(<#T##model: Model##Model#>)
         self.isLoading = false
     }
     func deletePatient(listData: PatientsListViewModel) {
@@ -73,25 +82,25 @@ class PatientUpdateViewModel : ObservableObject {
             switch res {
             case .success:
                 break
-//                presentSuccessAlert(message: "Пациент успешно удален!")
-//                listData.patientsList.remove(at: self.index)
+            //                presentSuccessAlert(message: "Пациент успешно удален!")
+            //                listData.patientsList.remove(at: self.index)
             case .failure(let error):
                 presentErrorAlert(message: error.errorDescription)
             }
         }
     }
-////        Api().deletePatient(id: self.listData.patientsList![self.index].id) { (success, err) in
-////            if err != nil {
-//                alertView = SPAlertView(title: "Ошибка", message: "При удалении произошла ошибка!", preset: .error)
-//                print(err!)
-//            } else {
-//                self.listData.patientsList!.remove(at: self.index)
-//            }
-//            alertView.duration = 1.5
-//            alertView.present()
-//        }
-
-        
-    }
+    ////        Api().deletePatient(id: self.listData.patientsList![self.index].id) { (success, err) in
+    ////            if err != nil {
+    //                alertView = SPAlertView(title: "Ошибка", message: "При удалении произошла ошибка!", preset: .error)
+    //                print(err!)
+    //            } else {
+    //                self.listData.patientsList!.remove(at: self.index)
+    //            }
+    //            alertView.duration = 1.5
+    //            alertView.present()
+    //        }
     
+    
+}
+
 

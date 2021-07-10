@@ -8,44 +8,47 @@
 import SwiftUI
 
 struct TabDetailsView: View {
-    let imageUrl: String
-    let title: String
-    let content: String
-
+    @State var imageUrl: String
+    @State var title: String
+    @State var content: String
+    
     var body: some View {
-        VStack(spacing: 10) {
-            Image(imageUrl)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            Text(title)
-                .font(.largeTitle)
-                
-                .fontWeight(.heavy)
-                .multilineTextAlignment(.leading)
-                .lineLimit(nil)
-                .frame(width: UIScreen.main.bounds.width - 10)
+        VStack {
             
+//            GIFPlayer(gifName: imageUrl)
+            LoopingPlayer(videoName: imageUrl)
+                .hidden(imageUrl.isEmpty)
+                .cornerRadius(15)
+                .shadow(color: Color.black.opacity(0.13), radius: 8, x: 5, y: 5)
 
-            Text(content)
-                .fontWeight(.semibold)
-                .frame(width: UIScreen.main.bounds.width - 10)
-                .multilineTextAlignment(.leading)
-                .lineLimit(nil)
-                
-                
-            Spacer(minLength: 0)
+//            Image(imageUrl)
+//                .renderingMode(.original)
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(maxWidth: .infinity, maxHeight: 500)
+//                .clipped()
+//
+            Text(title.localized)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .clipped()
+                .font(Font.system(.largeTitle, design: .default).weight(.bold))
+                .minimumScaleFactor(0.5)
+            
+            Text(content.localized)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .clipped()
+                .padding(.top, 5)
+            Spacer()
                 .frame(height: 50)
+                .clipped()
         }
-                
         .foregroundColor(.white)
+        
+        
     }
 }
-//struct PageTabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ZStack {
-//            Color.black.ignoresSafeArea()
-//            WalktroughView()
-//        }
-//        .previewDevice("iPhone 12")
-//    }
-//}
+struct PageTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        TabDetailsView(imageUrl: "", title: "Удаление записей", content: "Для удаления записей из списков просто проведите влево по строке!")
+    }
+}

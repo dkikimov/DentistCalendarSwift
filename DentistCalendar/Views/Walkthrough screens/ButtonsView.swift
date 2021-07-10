@@ -9,61 +9,106 @@ import SwiftUI
 struct BlueButton: View {
     var buttonLabel: String
     var action: () -> Void
+    var backgroundColor = Color.blue
+    var foregroundColor = Color.white
+    var width: CGFloat = 170
+    var height: CGFloat = 44
     var body: some View {
         Button(action: action, label: {
             Text(buttonLabel)
                 .fontWeight(.heavy)
                 .padding()
-                .frame(width: 170, height: 44)
-                .background(Color.blue)
+                .frame(width: width, height: height)
+                .background(backgroundColor)
                 .cornerRadius(12)
                 .padding(.horizontal, 5)
         })
-        .foregroundColor(.white)
-
+        .foregroundColor(foregroundColor)
+        
     }
 }
+// а расположение то что они рядом норм?
 struct ButtonsView: View {
     @Binding var selection: Int
     @Binding var isShown: Bool
-    @State var buttons: [String]
+    @State var buttonLabel: String = "Далее".localized
+    var backgroundColor = Color.blue
+    var foregroundColor = Color.white
     var body: some View {
-        HStack {
-            ForEach(buttons, id: \.self) { buttonLabel in
-                BlueButton(buttonLabel: buttonLabel) {
-                    buttonAction(buttonLabel)
+        //        VStack {
+        //            Spacer()
+        //            HStack {
+        //    //            Button {
+        //    //                buttonAction("Пропустить") // тут не надо, тут по дефу localized
+        //    //
+        //    //            } label: {
+        //    //                Text("Пропустить")
+        //    //                    .foregroundColor(.white)
+        //    //            }.padding()
+        //    //            Spacer()
+        //                Button {
+        //                    buttonAction()
+        //                } label: {
+        //                    Image(systemName: .arrowRightCircleFill)
+        //                        .font(.largeTitle)
+        //                        .foregroundColor(.white)
+        //                }
+        //                .padding()
+        //    //            .frame(width: 50, height: 50)
+        //    //            .cornerRadius(25)
+        //    //            BlueButton(buttonLabel: buttonLabel, action: {
+        //    //                buttonAction()
+        //    //            }, backgroundColor: backgroundColor, foregroundColor: foregroundColor)
+        //    //            ForEach(buttons, id: \.self) { buttonLabel in
+        //    //                BlueButton(buttonLabel: buttonLabel, action: {
+        //    //                    buttonAction(buttonLabel)
+        //    //                }, backgroundColor: backgroundColor, foregroundColor: foregroundColor)
+        //    //            }
+        //            }
+        //            Spacer()
+        //        }
+        GeometryReader { geom in
+            VStack(spacing: 12) {
+                HStack {
+                    Spacer()
+                    BlueButton(buttonLabel: buttonLabel, action: {
+                        buttonAction()
+                    }, backgroundColor: backgroundColor, foregroundColor: foregroundColor, width: geom.size.width - 40)
+                    
+                    Spacer()
                 }
+//                Button(action: {
+//                    DispatchQueue.main.async {
+//                        isShown = false
+//                    }
+//                }, label: {
+//                    Text("Пропустить")
+//                        .bold()
+//                        .foregroundColor(.systemGray6)
+//                })
+                Spacer()
             }
         }
         .onChange(of: selection, perform: { newValue in
-            if newValue == tabs.count - 1 {
-                self.buttons[1] = "Закончить".localized
-            } else {
-                self.buttons[1] = "Следующий".localized
+            withAnimation {
+                if newValue == tabs.count - 1 {
+                    self.buttonLabel = "Приступить к работе".localized
+                } else {
+                    self.buttonLabel = "Далее".localized
+                }
             }
         })
-        .padding()
     }
-    func buttonAction(_ buttonLabel: String) {
+    func buttonAction() {
         withAnimation {
-            if buttonLabel == "Пропустить".localized {
+            if selection < tabs.count - 1{
+                selection += 1
+            }
+            else if selection == tabs.count - 1 {
                 withAnimation {
                     isShown = false
                 }
             }
-            else if buttonLabel == buttons[0] && selection > 0{
-                selection -= 1
-            } else if buttonLabel == buttons[1] {
-                if  selection < tabs.count - 1{
-                    selection += 1
-                }
-                else if selection == tabs.count - 1 {
-                    withAnimation {
-                        isShown = false
-                    }
-                }
-            }
-            
         }
     }
 }

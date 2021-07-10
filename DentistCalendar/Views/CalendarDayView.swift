@@ -7,6 +7,9 @@ struct CalendarDayView: View {
     @EnvironmentObject var modalManager: ModalManager
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var activeView: DestinationTypes = .calendar
+//    @AppStorage("introductionInstruction") var isWalkthroughPresented = true
+    @State var isWalkthroughPresented = true
+
     var body: some View {
         //        VStack {
 //        if UIDevice.current.userInterfaceIdiom == .phone {
@@ -29,8 +32,10 @@ struct CalendarDayView: View {
                         Text("Пациенты")
                     })
             }
-            
             .transition(.opacity)
+            .fullScreenCover(isPresented: $isWalkthroughPresented, content: {
+                WalktroughView(isWalkthroughViewShowing: $isWalkthroughPresented)
+            })
 //        } else {
 //            NavigationView {
 //                List(DestinationTypes.allCases) { item in

@@ -177,8 +177,8 @@ class CustomCalendarExampleController: DayViewController {
     }()
     
     override func loadView() {
-        calendar.timeZone = TimeZone.current
-        calendar.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
+//        calendar.timeZone = TimeZone.current
+//        calendar.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
         dayView = DayView(calendar: calendar)
         style.header.daySelector.todayActiveBackgroundColor = UIColor(Color(hex: "#2A86FF"))
         dayView.updateStyle(style)

@@ -27,7 +27,7 @@ struct ExportEvents: View {
             }
         }
         
-        .navigationBarTitle("Экспорт записей", displayMode: .large)
+        .navigationBarTitle("Экспорт", displayMode: .large)
 //        .navigationBarColor(backgroundColor: .white, tintColor: .systemBlue)
         .fileExporter(
             isPresented: $isExporting,

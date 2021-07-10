@@ -75,24 +75,32 @@ extension String {
     }
 }
 
+//extension String {
+//    static let numberFormatter = NumberFormatter()
+//    var doubleValue: Double {
+//        String.numberFormatter.decimalSeparator = "."
+//        if let result =  String.numberFormatter.number(from: self) {
+//            print("DOT", result.stringValue)
+//            return result.doubleValue
+//        } else {
+//            String.numberFormatter.decimalSeparator = ","
+//            if let result = String.numberFormatter.number(from: self) {
+//                print("COMMA", result)
+//
+//                return result.doubleValue
+//            }
+//        }
+//        return 0
+//    }
+//}
+
 extension String {
     static let numberFormatter = NumberFormatter()
-    var doubleValue: Double {
-        String.numberFormatter.decimalSeparator = "."
-        if let result =  String.numberFormatter.number(from: self) {
-            print("DOT", result.stringValue)
-            return result.doubleValue
-        } else {
-            String.numberFormatter.decimalSeparator = ","
-            if let result = String.numberFormatter.number(from: self) {
-                print("COMMA", result)
-                
-                return result.doubleValue
-            }
-        }
-        return 0
+    var decimalValue: Decimal {
+        return Decimal(string: self, locale: Locale.current) ?? Decimal(0)
     }
 }
+
 
 extension Decimal {
     /// Must be used only for displaying value
@@ -102,12 +110,35 @@ extension Decimal {
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
         formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 3
-        return formatter.string(from: self as NSDecimalNumber) ?? formatter.string(from: 0)!
+        formatter.maximumFractionDigits = 2
+        formatter.locale = Locale.current
+//        formatter.decimalSeparator = "."
+        
+//        let decimal = Decimal(string: "\(self)".replacingOccurrences(of: ",", with: ".")) ?? Decimal(0)
+        return formatter.string(from: self as NSDecimalNumber) ?? formatter.string(from: 0 as NSDecimalNumber)!
+        
     }
     /// Get number from string such as currency string
     
 }
+extension Decimal {
+    /// Get string value
+    var stringValue: String {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.usesGroupingSeparator = true
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        formatter.locale = Locale.current
+//        formatter.decimalSeparator = "."
+//        let decimal = Decimal(string: "\(self)".replacingOccurrences(of: ",", with: ".")) ?? Decimal(0)
+        return formatter.string(from: self as NSDecimalNumber) ?? formatter.string(from: 0 as NSDecimalNumber)!
+        
+    }
+    /// Get number from string such as currency string
+    
+}
+
 
 extension String {
     var getNumber: Double {
