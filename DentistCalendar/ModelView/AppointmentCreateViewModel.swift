@@ -31,7 +31,6 @@ class AppointmentCreateViewModel : ObservableObject {
     
     @Published var foundedPatientsList = [Patient]()
     var title = ""
-    var price = "0"
     var toothNumber = ""
     @Published var dateStart = Date()
     @Published var dateEnd = Date().addingTimeInterval(3600)
@@ -221,7 +220,7 @@ class AppointmentCreateViewModel : ObservableObject {
         
         if self.selectedPatient == nil {
             let newPatient: Patient
-            newPatient = Patient(fullname: self.title, phone: phoneNumber.isEmpty ? nil : phoneNumber)
+            newPatient = Patient(fullname: self.title.capitalized, phone: phoneNumber.isEmpty ? nil : phoneNumber)
             Amplify.DataStore.save(newPatient) { [self] res in
                 switch res {
                 case .success(let patient):
@@ -343,7 +342,7 @@ class AppointmentCreateViewModel : ObservableObject {
     
     func findPatientsByName(name: String) {
         if !name.isEmpty {
-            Amplify.DataStore.query(Patient.self, where: Patient.keys.fullname.contains(name)) { res in
+            Amplify.DataStore.query(Patient.self, where: Patient.keys.fullname.contains(name.capitalized)) { res in
                 switch res {
                 case .success(let patientsList):
                     self.foundedPatientsList = patientsList

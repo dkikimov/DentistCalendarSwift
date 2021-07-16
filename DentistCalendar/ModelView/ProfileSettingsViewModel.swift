@@ -10,7 +10,9 @@ import SPAlert
 import Amplify
 
 class ProfileSettingsViewModel: ObservableObject {
-    let fullname = UserDefaults.standard.string(forKey: "fullname")?.split(separator: " ") ?? ["",""]
+    let firstNameData = UserDefaults.standard.string(forKey: "firstname") ?? ""
+    let surnameData = UserDefaults.standard.string(forKey: "surname") ?? ""
+//    let fullname = UserDefaults.standard.string(forKey: "fullname")?.split(separator: " ") ?? ["",""]
 //    let fullname = "123 asdas".split(separator: " ")
     var realFirstName: String
     var realSecondName: String
@@ -29,25 +31,36 @@ class ProfileSettingsViewModel: ObservableObject {
     
     @Published var isPasswordPresented = false
     init() {
-        print("FULLNAME", fullname)
-        firstName = String(fullname[1])
-        secondName = String(fullname[0])
-        realFirstName = String(fullname[1])
-        realSecondName = String(fullname[0])
+        firstName = firstNameData
+        secondName = surnameData
+        realFirstName = firstNameData
+        realSecondName = surnameData
         
     }
     func updateFullname() {
         self.isLoading = true
 //        let finalName = secondName.trimmingCharacters(in: .whitespaces) + " " + firstName.trimmingCharacters(in: .whitespaces)
-        let s = secondName.trimmingCharacters(in: .whitespaces)
         let f = firstName.trimmingCharacters(in: .whitespaces)
-        updateAttribute(secondName: s, firstName: f) { (success, error) in
+        let s = secondName.trimmingCharacters(in: .whitespaces)
+        guard f.count <= userNameMaxLength else {
+            presentErrorAlert(message: "Имя слишком длинное")
+            isLoading = false
+            return
+        }
+        guard s.count <= userNameMaxLength else {
+            presentErrorAlert(message: "Фамилия слишком длинная")
+            isLoading = false
+            return
+        }
+        updateAttribute(secondName: s.capitalized, firstName: f.capitalized) { (success, error) in
             if let error = error {
                 presentErrorAlert(message: error)
             } else if success {
 //                presentSuccessAlert(message: "Имя успешно изменено!")
                 DispatchQueue.main.async {
-                    UserDefaults.standard.setValue(s + " " + f , forKey: "fullname")
+                    UserDefaults.standard.setValue(s, forKey: "surname")
+                    UserDefaults.standard.setValue(f, forKey: "firstname")
+//                    UserDefaults.standard.setValue(s + " " + f , forKey: "fullname")
                 }
             }
         }
@@ -61,14 +74,15 @@ class ProfileSettingsViewModel: ObservableObject {
         self.isLoading = true
         let (status, e) = checkPassword(a: password, b: repeatPassword)
         guard status else {
-            let a = SPAlertView(title: "Ошибка", message: e, preset: .error)
-            a.present(duration: 2)
+            presentErrorAlert(message: e!)
+            self.isLoading = false
             return
         }
         sessionManager.updatePassword(oldPassword: currentPassword, newPassword: password) { (err) in
             if let error = err {
                 DispatchQueue.main.async {
                     presentErrorAlert(message: error)
+                    self.isLoading = false
                 }
             } else {
                 DispatchQueue.main.async {

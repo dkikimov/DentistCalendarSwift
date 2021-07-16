@@ -35,8 +35,6 @@ class QueuePlayerUIView: UIView {
             let player = AVQueuePlayer(playerItem: playerItem)
             playerLayer.player = player
             playerLayer.videoGravity = .resizeAspect
-            playerLayer.cornerRadius = 20
-            playerLayer.masksToBounds = true
             layer.addSublayer(playerLayer)
             // Loop
             playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)

@@ -57,7 +57,7 @@ struct ConfirmationView: View {
                     if timeRemaining <= 0 {
                         Text("Выслать код заново")
                     } else {
-                        Text("Код можно будет выслать через \(timeRemaining) секунд")
+                        Text("Код можно будет отправить повторно через") + Text(" \(timeRemaining) ") + Text("сек.")
                     }
                 })
                 .font(.footnote, weight: .semibold)

@@ -38,7 +38,6 @@ struct DentistCalendarApp: App {
     @ObservedObject var sessionManager = SessionManager()
 //    @StateObject var internetConnectionManager = InternetConnectionManager()
     //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State var alertController = UIAlertController(title: "Нет доступа к интернету", message: "Оффлайн работа приложения доступна только для пользователей Dentor Premium", preferredStyle: .alert)
     @State var isSubscriptionViewPresented = false
     @State var areViewsPresented = false
     //    @StateObject private var store = Store()
@@ -89,44 +88,7 @@ struct DentistCalendarApp: App {
         }
         
     }
-    func presentAlert() {
-        //: Working method
-//        window?.rootViewController?.dismiss(animated: true, completion: {
-//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-////            print("WINDOWS COUNT", UIApplication.shared.windows.filter {$0.isKeyWindow}.count)
-//            if var topController = keyWindow?.rootViewController {
-//                while let presentedViewController = topController.presentedViewController {
-//                    topController = presentedViewController
-//                }
-//                topController.present(alertController, animated: true, completion: nil)
-//
-//            }
-//
-//
-//        })
-        
-        
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-
-        if var topController = keyWindow?.rootViewController {
-            while let presentedViewController = topController.presentedViewController {
-                topController = presentedViewController
-            }
-            topController.present(alertController, animated: true)
-        // topController should now be your topmost view controller
-        }
-    }
     
-    func handleInternetConnection(_ isNotInternetConnected: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
-            if isNotInternetConnected == true {
-                presentAlert()
-                print("PRESENT ALERT")
-            } else {
-                alertController.dismiss(animated: true)
-            }
-        }
-    }
 }
 
 private func configureAmplify() {

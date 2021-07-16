@@ -199,8 +199,8 @@ struct AppointmentCreateView: View {
     }
     
     func saveAppointment() {
-        guard data.selectedDiagnosisList.count < 20 else {
-            self.data.error = "Можно создавать до 20 услуг"
+        guard data.selectedDiagnosisList.count < servicesMaxCount else {
+            self.data.error = "Можно создавать до \(servicesMaxCount) услуг"
             self.data.isAlertPresented = true
             return
         }
@@ -210,6 +210,11 @@ struct AppointmentCreateView: View {
             if data.viewType == .createWithPatient {
                 guard !data.title.isEmpty else {
                     data.error = "Укажите пациента"
+                    data.isAlertPresented = true
+                    return
+                }
+                guard data.toothNumber.count <= toothNumberFieldMaxLength else {
+                    data.error = "Значение поля 'Номер зуба' слишком длинное"
                     data.isAlertPresented = true
                     return
                 }

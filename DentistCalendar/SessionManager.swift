@@ -9,14 +9,38 @@ import Amplify
 import SwiftUI
 import AmplifyPlugins
 import AWSMobileClient
+enum AuthProvider: String {
+    case signInWithApple
+}
 enum AuthState {
     case login
     case confirmCode(username: String, password: String)
-    case session(user: AuthUser)
+    case session
     case forgotCode(username: String, newPassword: String)
     case confirmSignUp(username: String, password: String)
-//    case unauthenticated
+    //    case unauthenticated
 }
+
+struct AppleUser: Codable {
+    let userId: String
+    let firstName: String
+    let lastName: String
+    let email: String
+    
+    init?(credentials: ASAuthorizationAppleIDCredential) {
+        guard
+            let firstName = credentials.fullName?.givenName,
+            let lastName = credentials.fullName?.familyName,
+            let email = credentials.email
+        else { return nil }
+        
+        self.userId = credentials.user
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+    }
+}
+
 
 
 final class SessionManager: ObservableObject {
@@ -52,43 +76,175 @@ final class SessionManager: ObservableObject {
         return window
     }
     func getCurrentAuthUser() {
+        Amplify.Auth.fetchAuthSession { res in
+            switch res {
+            case .success(let session):
+                print("SESSION ", session)
+                break
+            case .failure(let err):
+                print("NO SESSION", err.localizedDescription)
+            }
+        }
         if let user = Amplify.Auth.getCurrentUser() {
             withAnimation {
-                authState = .session(user: user)
-            }
+                    self.authState = .session
+                }
             print("ID ", user.userId)
             print("set session")
         } else {
-            withAnimation {
-                authState = .login
-            }
-            _ = Amplify.Auth.signOut()
-            print("redirect to login view")
-//            withAnimation {
-//                authState = .unauthenticated
+//            attemptAutoSignIn { isSignedIn in
+//                if !isSignedIn {
+                        withAnimation {
+                            self.authState = .login
+                        }
+                    
+                    _ = Amplify.Auth.signOut()
+                    print("redirect to login view")
+//                }
 //            }
+            
+            //            withAnimation {
+            //                authState = .unauthenticated
+            //            }
         }
     }
+    func attemptAutoSignIn(completion: @escaping (Bool) -> ()) {
+        guard
+            let plugin = try? Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key),
+            let authPlugin = plugin as? AWSCognitoAuthPlugin,
+            case .awsMobileClient(let client) = authPlugin.getEscapeHatch(),
+            let loginResults = client.logins().result,
+            let userId = loginResults[AuthProvider.signInWithApple.rawValue] as? String
+        else {
+            DispatchQueue.main.async {
+                completion(false)
+            }
+            return
+            
+        }
+        
+        let provider = ASAuthorizationAppleIDProvider()
+        provider.getCredentialState(forUserID: userId) { (credentialsState, error) in
+            if let unwrappedError = error {
+                print(unwrappedError)
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+            switch credentialsState {
+            case .authorized:
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.authState = .session
+                    }
+                }
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .notFound, .revoked:
+                print("Unauthenticated")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            case .transferred:
+                print("needs transfer")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+                
+            @unknown default:
+                print("")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+        }
+    }
+    
     func showLogin() {
         withAnimation {
             authState = .login
         }
     }
-    func loginWithAppleNative(navController: UINavigationController) {
+    func loginWithAppleNative(token: String) {
         do {
-            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
-            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
+            let plugin = try Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key)
+            let authPlugin = plugin as! AWSCognitoAuthPlugin
+            guard case let .awsMobileClient(awsmobileclient) = authPlugin.getEscapeHatch() else {
                 print("Failed to fetch escape hatch")
                 return
             }
             print("Fetched escape hatch - \(awsmobileclient)")
-            awsmobileclient.federatedSignIn(providerName: "SignInWithApple", token: "asd") { state, err in
-                print("state")
+            awsmobileclient.federatedSignIn(providerName: IdentityProvider.apple.rawValue, token: token) { state, err in
+                if let err = err {
+                    print("ERROR ", err.localizedDescription)
+                } else if let state = state {
+                    print("STATE ", state)
+                }
+//                Amplify.Auth.fetchAuthSession {  a in
+//                    switch a {
+//                    case .success(let session)
+//                    }
+//                }
+
             }
+
+//            self.getCurrentAuthUser()
         } catch {
             print("Error occurred while fetching the escape hatch \(error)")
         }
     }
+    
+//    func loginWithAppleNative(navController: UINavigationController) {
+//        do {
+//            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
+//            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
+//                print("Failed to fetch escape hatch")
+//                return
+//            }
+//            print("Fetched escape hatch - \(awsmobileclient)")
+//            let hostedUIOptions = HostedUIOptions(scopes: ["openid", "email", "profile"], identityProvider: "SignInWithApple")
+//
+//            awsmobileclient.showSignIn(navigationController: navController, hostedUIOptions: hostedUIOptions) { (userState, error) in
+//                if let error = error as? AWSMobileClientError {
+//                    print(error)
+//                    print(error.localizedDescription)
+//                }
+//                if let userState = userState {
+//                    print("Status: \(userState.rawValue)")
+//
+//                    AWSMobileClient.default().getTokens { (tokens, error) in
+//                        if let error = error {
+//                            print("error \(error)")
+//                        } else if let tokens = tokens {
+//                            let claims = tokens.idToken?.claims
+//                            print("username? \(claims?["username"] as? String ?? "No username")")
+//                            print("cognito:username? \(claims?["cognito:username"] as? String ?? "No cognito:username")")
+//                            print("email? \(claims?["email"] as? String ?? "No email")")
+//                            print("name? \(claims?["name"] as? String ?? "No name")")
+//                            print("picture? \(claims?["picture"] as? String ?? "No picture")")
+//                            //
+//                            //                            if let username = claims?["email"] as? String {
+//                            //                                DispatchQueue.main.async {
+//                            //                                    self.settings.username = username
+//                            //                                }
+//                            //                            }
+//                            //
+//                            //                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
+//                            //                                print("Do something with fbPictureURL: ", fbPictureURL)
+//                            //                            } else if provider == "SignInWithApple" {
+//                            //                                print("Ignore Apple's Picture")
+//                            //                            }
+//                        }
+//                    }
+//                }
+//            }
+//                self.getCurrentAuthUser()
+//
+//        } catch {
+//            print("ERROR \(error)")
+//        }
+//    }
     func loginWithGoogleNative(navController: UINavigationController) {
         do {
             let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
@@ -106,7 +262,7 @@ final class SessionManager: ObservableObject {
                 }
                 if let userState = userState {
                     print("Status: \(userState.rawValue)")
-
+                    
                     AWSMobileClient.default().getTokens { (tokens, error) in
                         if let error = error {
                             print("error \(error)")
@@ -117,18 +273,18 @@ final class SessionManager: ObservableObject {
                             print("email? \(claims?["email"] as? String ?? "No email")")
                             print("name? \(claims?["name"] as? String ?? "No name")")
                             print("picture? \(claims?["picture"] as? String ?? "No picture")")
-//
-//                            if let username = claims?["email"] as? String {
-//                                DispatchQueue.main.async {
-//                                    self.settings.username = username
-//                                }
-//                            }
-//
-//                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
-//                                print("Do something with fbPictureURL: ", fbPictureURL)
-//                            } else if provider == "SignInWithApple" {
-//                                print("Ignore Apple's Picture")
-//                            }
+                            //
+                            //                            if let username = claims?["email"] as? String {
+                            //                                DispatchQueue.main.async {
+                            //                                    self.settings.username = username
+                            //                                }
+                            //                            }
+                            //
+                            //                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
+                            //                                print("Do something with fbPictureURL: ", fbPictureURL)
+                            //                            } else if provider == "SignInWithApple" {
+                            //                                print("Ignore Apple's Picture")
+                            //                            }
                         }
                     }
                 }
@@ -228,7 +384,7 @@ final class SessionManager: ObservableObject {
                 
                 if confirmResult.isSignupComplete {
                     DispatchQueue.main.async {
-//                        self?.showLogin()
+                        //                        self?.showLogin()
                         self?.login(email: username, password: password) { (err) in
                             if let err = err {
                                 DispatchQueue.main.async {
@@ -276,7 +432,7 @@ final class SessionManager: ObservableObject {
             case .success(let confirmResult):
                 print(confirmResult)
                 DispatchQueue.main.async {
-//                    self?.showLogin()
+                    //                    self?.showLogin()
                     self?.login(email: username, password: newPassword) { err in
                         if let err = err {
                             DispatchQueue.main.async {
@@ -351,37 +507,40 @@ final class SessionManager: ObservableObject {
         }
     }
     func loginWithGoogle(compelition: @escaping( String?) -> ()) {
-//        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window)
+        //        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window)
         Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window) { result in
-                switch result {
-                case .success:
-                    print("Sign in succeeded")
-                    self.fetchAttributes { err in
-                        if err != nil {
-                            DispatchQueue.main.async {
-                                compelition(err)
-                            }
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                self.fetchAttributes { err in
+                    if err != nil {
+                        DispatchQueue.main.async {
+                            compelition(err)
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.getCurrentAuthUser()
-                        compelition(nil)
-                    }
-                case .failure(let error):
-                    print("Sign in failed \(error)")
-                    DispatchQueue.main.async {
-                        compelition(error.localizedDescription)
-                    }
+                }
+                DispatchQueue.main.async {
+                    self.getCurrentAuthUser()
+                    compelition(nil)
+                }
+            case .failure(let error):
+                print("Sign in failed \(error)")
+                DispatchQueue.main.async {
+                    compelition(error.localizedDescription)
                 }
             }
+        }
     }
     func loginWithApple() {
         Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: window) { result in
             switch result {
             case .success(let res):
-                print(res)
+                print("Sign in succeeded")
+                self.getCurrentAuthUser()
+                
+                print("RES", res)
             case .failure(let err):
-                print(err.localizedDescription)
+                print(err)
             }
         }
     }
@@ -389,7 +548,8 @@ final class SessionManager: ObservableObject {
         Amplify.Auth.signOut { [weak self] result in
             switch result {
             case .success:
-                UserDefaults.standard.removeObject(forKey: "fullname")
+                UserDefaults.standard.removeObject(forKey: "firstname")
+                UserDefaults.standard.removeObject(forKey: "surname")
                 _ = Amplify.DataStore.clear()
                 print("signed out successfully")
                 DispatchQueue.main.async {
@@ -421,7 +581,8 @@ final class SessionManager: ObservableObject {
                     }
                 }
                 DispatchQueue.main.async {
-                    UserDefaults.standard.setValue(familyName + " " + name , forKey: "fullname")
+                    UserDefaults.standard.setValue(familyName, forKey: "surname")
+                    UserDefaults.standard.setValue(name, forKey: "firstname")
                 }
                 
                 DispatchQueue.main.async {

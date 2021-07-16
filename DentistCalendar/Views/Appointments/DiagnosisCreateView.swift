@@ -21,6 +21,7 @@ struct DiagnosisCreateView: View {
     
     @State var searchText = ""
     @State var selectedDiagnosis: Diagnosis?
+    @State var selectedDiagnosisItem: DiagnosisItem?
     var body: some View {
         NavigationView{
             ZStack {
@@ -31,7 +32,7 @@ struct DiagnosisCreateView: View {
                             searchText.isEmpty ||
                                 $0.text!.localizedStandardContains(searchText)
                         }, id: \.self) { (diag) in
-                            DiagnosisRow(selectedDiagnosis: $selectedDiagnosis, diag: diag)
+                            DiagnosisRow(selectedDiagnosis: $selectedDiagnosis, selectedDiagnosisItem: $selectedDiagnosisItem, diag: diag)
                                 .environmentObject(data)
                         }
                         .onDelete(perform: deleteDiagnosis)
@@ -46,10 +47,17 @@ struct DiagnosisCreateView: View {
                         .init(text: $diagnosisPrice, placeholder: "Стоимость", keyboardType: .decimalPad)
                     ], showAlert: $isAlertPresented, action: {
                         addDiagnosis()
-                    }, title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis)
-//                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
-//                        addDiagnosis()
-//                    }, title: "Услуга", message: "Введите данные услуги")
+                    }, cancelAction: {
+                        print("CANCEL")
+                        if selectedDiagnosisItem != nil {
+                            data.selectedDiagnosisList[selectedDiagnosis!.text!] = selectedDiagnosisItem
+                        }
+                        selectedDiagnosisItem = nil
+                        selectedDiagnosis = nil
+                    } ,title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis, data: ObservedObject.init(wrappedValue: data))
+                    //                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
+                    //                        addDiagnosis()
+                    //                    }, title: "Услуга", message: "Введите данные услуги")
                 }
             }
             .onDisappear(perform: {
@@ -66,9 +74,8 @@ struct DiagnosisCreateView: View {
             })
             .navigationBarTitle(Text("Диагноз"), displayMode: .inline)
             .navigationBarItems(leading: Button(action: {
-                DispatchQueue.main.async {
                     presentationMode.wrappedValue.dismiss()
-                }
+                
                 
             }, label: {
                 Text("Готово")
@@ -94,20 +101,20 @@ struct DiagnosisCreateView: View {
     }
     private func addDiagnosis() {
         let decimalString = diagnosisPrice.decimalValue.stringValue
-
+        
         diagnosisText = diagnosisText.trimmingCharacters(in: .whitespaces)
-        guard diagnosisText != "" else { return }
-        guard diagnosisText.count <= 99 else {
+        guard !diagnosisText.isEmpty else { return }
+        guard diagnosisText.count <= serviceNameMaxLength else {
             self.error = "Название услуги слишком длинное"
             isErrorAlertPresented = true
             diagnosisError()
             return
         }
-        guard decimalString.count <= 15 else {
+        guard decimalString.count <= priceMaxLength else {
             self.error = "Цена слишком большая"
             isErrorAlertPresented = true
             diagnosisError()
-
+            
             return
         }
         let diagnosis: Diagnosis
@@ -117,29 +124,38 @@ struct DiagnosisCreateView: View {
             isUpdating = true
         } else {
             guard !diagnosisList.contains(where: { (diag) -> Bool in
+                let res = (diag.text == diagnosisText)
+                return res
+            }) else {
                 self.error = "Такой диагноз уже существует"
                 diagnosisError()
-
-                return diag.text == diagnosisText
-            }) else {return}
+                return
+            }
             
             diagnosis = Diagnosis(context: viewContext)
         }
         withAnimation{
             if isUpdating {
-                data.selectedDiagnosisList[diagnosisText] = DiagnosisItem(amount: 1, price: decimalString)
+                if let item = data.selectedDiagnosisList.first(where: {
+                    $0.key == diagnosis.text
+                }) {
+                    data.selectedDiagnosisList.removeValue(forKey: item.key)
+                }
+                
+                data.selectedDiagnosisList[diagnosisText] = DiagnosisItem(amount: (selectedDiagnosisItem?.amount ?? 1), price: decimalString)
             }
             diagnosis.text = diagnosisText
             diagnosis.price = NSDecimalNumber(string: decimalString.isEmpty ? "0" : decimalString, locale: Locale.current)
             saveContext()
             diagnosisError()
-        
         }
+        
     }
     private func diagnosisError() {
         diagnosisText = ""
         diagnosisPrice = ""
         selectedDiagnosis = nil
+        selectedDiagnosisItem = nil
     }
     private func deleteDiagnosis(at offsets: IndexSet) {
         withAnimation{

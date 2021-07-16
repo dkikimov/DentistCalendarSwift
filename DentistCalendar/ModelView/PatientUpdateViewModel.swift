@@ -33,12 +33,18 @@ class PatientUpdateViewModel : ObservableObject {
         self.isLoading = true
         let finalFullname = fullname.trimmingCharacters(in: .whitespaces)
         var finalPhone: String = ""
+        guard finalFullname.count <= patientNameMaxLength else {
+            error = "Полное имя пациента слишком длинное";
+            isAlertPresented = true
+            return
+        }
         if !phone.isEmpty {
             do {
                 finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(phone), toType: .e164)
             } catch {
                 self.error = "Введите корректный номер".localized
                 self.isAlertPresented = true
+                self.isLoading = false
                 return
             }
         }

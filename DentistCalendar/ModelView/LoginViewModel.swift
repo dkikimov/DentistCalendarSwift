@@ -8,9 +8,6 @@
 import SwiftUI
 
 class LoginViewModel : ObservableObject {
-    
-
-    
     @Published var emailAddress:String = "katsushooter@gmail.com"
     @Published var password:String = "kiasoul551"
     @Published var isAlertPresented: Bool = false
@@ -51,10 +48,6 @@ class LoginViewModel : ObservableObject {
 //
 //
 //        }
-    }
-    
-    func resetPassword(sessionManager: SessionManager) {
-        
     }
     
 }

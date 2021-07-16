@@ -54,8 +54,9 @@ import SwiftUI
 //            }
 //            .foregroundColor(.white)
 struct WalktroughView: View {
-    @State private var selection = -1
+    @State private var selection = 0
     @Binding var isWalkthroughViewShowing: Bool
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack {
             Color(hex: "#2474E2").ignoresSafeArea()
@@ -63,19 +64,9 @@ struct WalktroughView: View {
             VStack {
                 HStack(alignment: .bottom) {
                     Spacer()
-
-                    Button(action: {
-                        DispatchQueue.main.async {
-                            isWalkthroughViewShowing = false
-                        }
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2, weight: .bold)
-                            .foregroundColor(.white)
-    //                        .backgroundFill(Color(hex: "#2474E2"))
-                        })
-                    .opacity(0.7)
-                    .padding()
+                    
+                    CloseButton(presentationMode: presentationMode, color: .white)
+                        .opacity(0.7)
                     
                 }
                 .padding(.bottom, 5)
@@ -83,11 +74,11 @@ struct WalktroughView: View {
                 .frame(height: 30)
                 
                 Spacer()
-//                HStack {
-//                    Spacer()
-//
-//                }
-//                .padding(.bottom, 5)
+                //                HStack {
+                //                    Spacer()
+                //
+                //                }
+                //                .padding(.bottom, 5)
                 
                 //                if selection == -1 {
                 //                    TabDetailsView(imageUrl: "", title: "Приветствуем!", content: "Спасибо что пользуетесь нашим приложением! Если вы новенький, то можете пройти краткую экскурсию по всем основным функциям нашего приложения!")

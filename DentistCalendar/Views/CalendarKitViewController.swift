@@ -202,9 +202,9 @@ class CustomCalendarExampleController: DayViewController {
 //        print("VIEWDIDLOAD")
         
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        observationToken?.cancel()
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        observationToken?.cancel()
+//    }
     init(dateStart: Binding<Date>, dateEnd: Binding<Date>, selectedAppointment: Binding<Appointment>, viewData: CustomDayViewController)
     {
         self.dateStart = dateStart
@@ -213,7 +213,7 @@ class CustomCalendarExampleController: DayViewController {
         self.viewData = viewData
         super.init(nibName: nil, bundle: nil)
 //        viewData.customDayView = self.dayView
-        print("VIEWDATA", viewData.id)
+//        print("VIEWDATA", viewData.id)
     }
     
     required init?(coder aDecoder: NSCoder) {

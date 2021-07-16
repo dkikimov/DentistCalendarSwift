@@ -14,15 +14,15 @@ struct GoogleSignInButton: View {
     @State var navController: UINavigationController?
     var body: some View {
         Button(action: {
-            if let navController = navController {
-                sessionManager.loginWithGoogleNative(navController: navController)
-            }
-//            sessionManager.loginWithGoogle { err in
-//                if err != nil {
-//                    self.error = err!
-//                    self.isAlertPresented = true
-//                }
+//            if let navController = navController {
+//                sessionManager.loginWithGoogleNative(navController: navController)
 //            }
+            sessionManager.loginWithGoogle { err in
+                if err != nil {
+                    self.error = err!
+                    self.isAlertPresented = true
+                }
+            }
         }) {
             HStack {
                 Image("google")

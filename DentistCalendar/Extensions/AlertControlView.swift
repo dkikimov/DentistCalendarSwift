@@ -22,9 +22,11 @@ struct AlertControlView: UIViewControllerRepresentable {
     var fields: [AlertTextFieldModel]?
     @Binding var showAlert: Bool
     var action:  () -> Void
+    var cancelAction: () -> Void = {}
     var title: String
     var message: String
     var selectedDiagnosis: Binding<Diagnosis?>? = nil
+    var data: ObservedObject<AppointmentCreateViewModel>?
     // Make sure that, this fuction returns UIViewController, instead of UIAlertController.
     // Because UIAlertController gets presented on UIViewController
     func makeUIViewController(context: UIViewControllerRepresentableContext<AlertControlView>) -> UIViewController {
@@ -47,31 +49,19 @@ struct AlertControlView: UIViewControllerRepresentable {
             }()
             // Create UIAlertController instance that is gonna present on UIViewController
             let alert = UIAlertController(title: title.localized, message: message.localized, preferredStyle: .alert)
+            
             context.coordinator.alert = alert
             if fields != nil {
                 
             
             for alertModel in fields! {
                 alert.addTextField { textField in
+
                     textField.placeholder = alertModel.placeholder.localized
                     textField.text = alertModel.text.localized            // setting initial value
                     textField.delegate = context.coordinator // using coordinator as delegate
                     textField.autocapitalizationType = alertModel.autoCapitalizationType
                     textField.keyboardType = alertModel.keyboardType
-                    
-    //                func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //                    // get the current text, or use an empty string if that failed
-    //                    let currentText = textField.text ?? ""
-    //
-    //                    // attempt to read the range they are trying to change, or exit if we can't
-    //                    guard let stringRange = Range(range, in: currentText) else { return false }
-    //
-    //                    // add their new text to the existing text
-    //                    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    //
-    //                    // make sure the result is under 16 characters
-    //                    return updatedText.count <= 100
-    //                }
 
                 }
             }}
@@ -82,7 +72,11 @@ struct AlertControlView: UIViewControllerRepresentable {
                 // On dismiss, SiwftUI view's two-way binding variable must be update (setting false) means, remove Alert's View from UI
                 alert.dismiss(animated: true) {
                     self.showAlert = false
-                    self.selectedDiagnosis?.wrappedValue = nil
+                    cancelAction()
+//                    self.selectedDiagnosis?.wrappedValue = nil
+                    for field in fields! {
+                        field.text = ""
+                    }
                 }
             })
 
@@ -94,12 +88,12 @@ struct AlertControlView: UIViewControllerRepresentable {
                     }
                 }
 //                for textField in alert.textFields! {
+//                    for field in fields! {
+//                        if textField.placeholder == field.placeholder {
+//                            field.text = textField.text ?? ""
+//                        }
+//                    }
 //
-////                    if textField.placeholder == "Диагноз" {
-////                        self.textString = textField.text ?? ""
-////                    } else {
-////                        self.priceString = textField.text ?? ""
-////                    }
 //                }
                 action()
                 alert.dismiss(animated: true) {
@@ -135,22 +129,6 @@ struct AlertControlView: UIViewControllerRepresentable {
             self.control = control
         }
 
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            let currentText = textField.text ?? ""
-            guard let stringRange = Range(range, in: currentText) else { return false }
-            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-            if textField.placeholder == "Название услуги".localized {
-                return updatedText.count <= 99
-            } else if textField.placeholder == "Стоимость".localized {
-                return updatedText.count <= 15
-            }
-//            if let text = textField.text as NSString? {
-//                self.control.textString = text.replacingCharacters(in: range, with: string)
-//            } else {
-//                self.control.al = ""
-//            }
-            return true
-        }
     }
 }
 

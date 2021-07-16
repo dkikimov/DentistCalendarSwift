@@ -1,14 +1,15 @@
 
 import SwiftUI
 import Amplify
-
+import ApphudSDK
+//import Adapty
 struct CalendarDayView: View {
     @State var tabSelection: Tabs = .tab1
     @EnvironmentObject var modalManager: ModalManager
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var activeView: DestinationTypes = .calendar
-//    @AppStorage("introductionInstruction") var isWalkthroughPresented = true
-    @State var isWalkthroughPresented = true
+    @AppStorage("introductionInstruction") var isWalkthroughPresented = true
+//    @State var isWalkthroughPresented = true
 
     var body: some View {
         //        VStack {
@@ -36,33 +37,16 @@ struct CalendarDayView: View {
             .fullScreenCover(isPresented: $isWalkthroughPresented, content: {
                 WalktroughView(isWalkthroughViewShowing: $isWalkthroughPresented)
             })
-//        } else {
-//            NavigationView {
-//                List(DestinationTypes.allCases) { item in
-////                    NavigationLink(destination: view(for: item)) {
-//                        Label(item.title, systemImage: item.systemImageName)
-//                            .onTapGesture {
-//                                self.activeView = item
-//                            }
-////                    }
-//                }.listStyle(SidebarListStyle())
-//                view(for: activeView)
-//            }
-//
-//        }
-//
-        
-        //        BannerVC()
-        //            .frame(width: 320, height: 50, alignment: .center)
-        //        }
-        //        }
-        
-        //            .navigationBarTitle(returnNaviBarTitle(tabSelection: self.tabSelection))//add the
-        //            .navigationBarTitleDisplayMode(returnDisplayMode(tabSelection: self.tabSelection))
-        //            .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-        //            .navigationBarItems(leading: tabSelection == .tab1 ? NavigationLink(destination: ProfileSettingsView(), label: {
-        //                Image(systemName: "gearshape.fill").font(.title3)
-        //            }) : nil)
+            .onAppear {
+                let userID = Amplify.Auth.getCurrentUser()!.userId
+//                Adapty.identify(userID) { (error) in
+//                    if error != nil {
+//                        print("ERROR when identifying user", error)
+//                    }
+//                }
+                Apphud.startManually(apiKey: "app_NLE7uVfdajb1hbJHYguEuoBf5zgy65", userID: userID, deviceID: userID)
+
+            }
     }
     @ViewBuilder
     func view(for destination: DestinationTypes) -> some View {

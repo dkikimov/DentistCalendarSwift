@@ -34,6 +34,7 @@ struct RegisterView: View {
                 Alert(title: Text("Ошибка"), message: Text(registerData.error), dismissButton: .cancel())
             })
         }
+        .padding(.top, 1)
             
                 
         

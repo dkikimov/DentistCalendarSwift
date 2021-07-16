@@ -73,7 +73,7 @@ class EventAddViewModel: ObservableObject {
             let tagger = NSLinguisticTagger(tagSchemes: [.nameType], options: 0)
             tagger.string = data
             let range = NSRange(location: 0, length: data!.utf16.count)
-            var phone = "+77000000000"
+            var phone = ""
             tagger.enumerateTags(in: range, unit: .word, scheme: .nameType, options: options) { tag, tokenRange, stop in
                 if let tag = tag, tags.contains(tag) {
                     if let range = Range(tokenRange, in: data!) {
@@ -102,6 +102,7 @@ class EventAddViewModel: ObservableObject {
                 
             } catch {
                 print("handle error")
+                isLoading = false
             }
             //                if data.count > 1 {
             //                    if phoneNumberKit.isValidPhoneNumber(String(data[1])) {
@@ -117,7 +118,7 @@ class EventAddViewModel: ObservableObject {
                            _ = Amplify.DataStore.save(newAppointment)
                             //                            Amplify.API.mutate(request: .create(newAppointment))
                         } else if patients.count == 0{
-                            let newPatient = Patient(fullname: patientName, phone: phone.replacingOccurrences(of: " ", with: ""))
+                            let newPatient = Patient(fullname: String(patientName.capitalized.prefix(patientNameMaxLength)), phone: phone.replacingOccurrences(of: " ", with: ""))
                             
                             Amplify.DataStore.save(newPatient) { result in
                                 switch result {

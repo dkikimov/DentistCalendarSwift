@@ -10,24 +10,34 @@ import SwiftUI
 struct ActionButton: View {
     var buttonLabel: String
     var action: () -> Void
-    var color: Color
-    var fontColor: Color
-    var fontWeight: Font.Weight
-    var font: Font
+    var maxWidth: CGFloat = 450
+    var color: Color = Color("PrimaryColor")
+    var fontColor: Color = .white
+    var fontWeight: Font.Weight = .semibold
+    var font: Font = .title3
+    
+    
     
     @Binding var isLoading: Bool
     @Binding var isDisabled: Bool
-    init(buttonLabel: String, color: Color = Color("PrimaryColor"), fontWeight: Font.Weight = .semibold, font: Font = .title3, fontColor: Color = .white, isLoading: Binding<Bool>? = nil, isDisabled: Binding<Bool>? = nil, action: @escaping () -> Void) {
+    init(buttonLabel: String, color: Color = Color("PrimaryColor"), fontWeight: Font.Weight = .semibold, font: Font = .title3, fontColor: Color = .white, isLoading: Binding<Bool>? = nil, isDisabled: Binding<Bool>? = nil, maxWidth: CGFloat = 450, action: @escaping () -> Void) {
         self.buttonLabel = buttonLabel
         self.action = action
         self.color = color
         self.fontWeight = fontWeight
+        self.maxWidth = maxWidth
         self.font = font
         self._isLoading = isLoading ?? Binding.constant(false)
         self.fontColor = fontColor
         self._isDisabled = isDisabled ?? Binding.constant(false)
     }
-    
+    init(buttonLabel: String, maxWidth: CGFloat, action: @escaping () -> Void) {
+        self.buttonLabel = buttonLabel
+        self.maxWidth = maxWidth
+        self.action = action
+        self._isLoading = .constant(false)
+        self._isDisabled = .constant(false)
+    }
     var body: some View {
         Button(action: action, label: {
             ZStack {
@@ -46,7 +56,7 @@ struct ActionButton: View {
                 }
             }
             .frame(height: 60)
-            .frame(maxWidth: 450)
+            .frame(maxWidth: maxWidth)
             .background(color)
             .foregroundColor(.white)
             .cornerRadius(15)

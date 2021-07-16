@@ -21,7 +21,7 @@ private func dateFormatter(date: String, _ time: Bool = false) -> String{
 
 struct AppointmentCalendarView: View {
     @Environment(\.presentationMode) var presentationMode
-//    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
+    //    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
     @ObservedObject var data: AppointmentCalendarViewModel
     @State var diagnosisList = [Service]()
     @State var serviceSum: Decimal = 0
@@ -56,8 +56,14 @@ struct AppointmentCalendarView: View {
                             VStack(alignment: .leading) {
                                 Text("Общая стоимость: ").bold() + Text(serviceSum.currencyFormatted)
                                 Text("Оплачено: ").bold() + Text(servicePaid.currencyFormatted)
-                                Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).currencyFormatted)
+                                ( Text("Осталось к оплате: ").bold() + Text((serviceSum - servicePaid).currencyFormatted))
+                                    .minimumScaleFactor(0.8)
+                                
+                                
                             }
+                            .lineLimit(10)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineBreakMode(.byCharWrapping)
                             
                         } else {
                             if data.appointment.patientID != nil {
@@ -129,14 +135,14 @@ struct AppointmentCalendarView: View {
                 self.serviceSum = res.1
                 self.servicePaid = res.0
                 self.diagnosisList = res.2
-                    showInterstitial(placement: "AppointmentCalendarView")
-                    print("SHOWING INTERSTITIAL")
+                showInterstitial(placement: "AppointmentCalendarView")
+                print("SHOWING INTERSTITIAL")
                 
             })
             .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
             .sheet(isPresented: $data.isSheetPresented, content: {
                 AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
-
+                
             })
         }
         

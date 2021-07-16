@@ -28,6 +28,12 @@ class PatientCreateViewModel : ObservableObject {
             isLoading = false
             return
         }
+        guard patientName.count <= patientNameMaxLength else {
+            error = "Имя пациента слишком длинное".localized
+            isAlertPresented = true
+            isLoading = false
+            return
+        }
         //        print("CURRENT NUMBER", patientNumber)
         //        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
         var finalPhone: String = ""
@@ -44,7 +50,7 @@ class PatientCreateViewModel : ObservableObject {
                 return
             }
         }
-        let newPatient = Patient(fullname: patientName, phone: finalPhone.isEmpty ? nil : finalPhone)
+        let newPatient = Patient(fullname: patientName.capitalized, phone: finalPhone.isEmpty ? nil : finalPhone)
         Amplify.DataStore.save(newPatient) { result in
             switch result{
             case .success(_):

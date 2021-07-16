@@ -18,7 +18,6 @@ struct TabDetailsView: View {
 //            GIFPlayer(gifName: imageUrl)
             LoopingPlayer(videoName: imageUrl)
                 .hidden(imageUrl.isEmpty)
-                .cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.13), radius: 8, x: 5, y: 5)
 
 //            Image(imageUrl)

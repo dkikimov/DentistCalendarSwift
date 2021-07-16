@@ -35,10 +35,14 @@ struct ProfileSettingsUserDataView: View {
                     
                 }
                 if profileData.password.count < 8 || profileData.repeatPassword.count < 8 {
-                    Text("Минимальное количество символов - 8").foregroundColor(.red).font(.callout)
+                    Text("Минимальное количество символов - 8")
+                        .foregroundColor(.red)
+                        .font(.callout)
                 }
                 else if profileData.password != profileData.repeatPassword {
-                    Text("Пароли не совпадают").foregroundColor(.red).font(.callout)
+                    Text("Пароли не совпадают")
+                        .foregroundColor(.red)
+                        .font(.callout)
                 }
                 
             }

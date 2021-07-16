@@ -41,16 +41,16 @@ struct PatientDetailCard: View {
                 HStack(alignment: VerticalAlignment.firstTextBaseline, spacing:3){
                     Image("id-card").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
                         .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
-                    Text("Услуги: ")
-                    Text(convertDiagnosisString(str: appointment.diagnosis!))
+                    
+                    Text("Услуги: ") +
+                        Text(convertDiagnosisString(str: appointment.diagnosis!))
                         .fontWeight(.bold)
-                        .lineLimit(3)
-                }
+//                        .lineLimit(3)
+                }.lineLimit(3)
                 HStack(alignment: VerticalAlignment.firstTextBaseline, spacing:3){
                     Image(systemName: "calendar").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
                         .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
-                    Text("Дата: ")
-                        + Text(stringToDate(date: appointment.dateStart))
+                    Text("Дата: ") + Text(stringToDate(date: appointment.dateStart))
                         .fontWeight(.bold)
                     
                 }

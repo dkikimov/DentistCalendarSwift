@@ -11,30 +11,39 @@ struct DiagnosisRow: View {
     @EnvironmentObject var data: AppointmentCreateViewModel
     @State var isSelected = false
     @Binding var selectedDiagnosis: Diagnosis?
+    @Binding var selectedDiagnosisItem: DiagnosisItem?
     var diag: Diagnosis
     var body: some View {
         Button (action:{
-            isSelected.toggle()
-            if data.selectedDiagnosisList[diag.text!] != nil {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                isSelected.toggle()
+                if data.selectedDiagnosisList[diag.text!] != nil {
+                    
                     data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        data.selectedDiagnosisList[diag.text!] = DiagnosisItem(amount: 1, price: diag.price!.description(withLocale: Locale.current))
+                    }
+                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                 }
-            } else {
-                DispatchQueue.main.async {
-                    data.selectedDiagnosisList[diag.text!] = DiagnosisItem(amount: 1, price: diag.price!.description(withLocale: Locale.current))
-                }
-                print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
             }
         },label: {
             HStack {
-                Text(diag.text ?? "Error").foregroundColor(isSelected ? .blue : Color("Black1"))
+                Text(diag.text ?? "Error")
+                    .foregroundColor(isSelected ? .blue : Color("Black1"))
+                    .lineLimit(3)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 //                Text("Цена: \(diag.price != nil ? diag.price!.stringValue : "0")")
                 (Text("Цена: ") + Text(diag.price != nil ? (diag.price! as Decimal).currencyFormatted : "0"))
-                    .foregroundColor(isSelected ? .blue : Color("Black1")).multilineTextAlignment(.trailing)
+                    .foregroundColor(isSelected ? .blue : Color("Black1"))
+                    .multilineTextAlignment(.trailing)
+                    .fixedSize(horizontal: false, vertical: true)
                 Button {
-//                        data.selectedDiagnosisList.removeValue(forKey: diag.text!)
-                        self.selectedDiagnosis = diag
+                    self.selectedDiagnosis = diag
+                    self.selectedDiagnosisItem = data.selectedDiagnosisList[diag.text!]
+                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
                     
                     //                    self.isAlertPresented = true
                 } label: {

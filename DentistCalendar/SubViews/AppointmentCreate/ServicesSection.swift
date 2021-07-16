@@ -24,7 +24,6 @@ struct BottomLinedTextField: UIViewRepresentable {
         bottomLine.backgroundColor = UIColor.lightGray.cgColor
         textField.borderStyle = UITextField.BorderStyle.none
         textField.layer.addSublayer(bottomLine)
-        
         textField.text = text
         textField.placeholder = "0"
         textField.keyboardType = .decimalPad
@@ -42,7 +41,9 @@ struct BottomLinedTextField: UIViewRepresentable {
         return textField
     }
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        uiView.text = text
+        DispatchQueue.main.async {
+            uiView.text = text
+        }
 //        uiView.frame.size.width = uiView.intrinsicContentSize.width
 
     }
@@ -58,17 +59,23 @@ extension BottomLinedTextField {
         }
         
         func textFieldDidChangeSelection(_ textField: UITextField) {
-            self.text = textField.text ?? ""
+            DispatchQueue.main.async {
+                self.text = textField.text ?? ""
+            }
             
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                        replacementString string: String) -> Bool
         {
-            let currentText = text
-            guard let stringRange = Range(range, in: currentText) else { return false }
-            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-            return updatedText.count <= 15
+            if text.count > priceMaxLength {
+                let currentText = text
+                guard let stringRange = Range(range, in: currentText) else { return false }
+                let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+                return updatedText.count <= priceMaxLength
+            } else {
+                return true
+            }
         }
     }
 }
@@ -90,30 +97,9 @@ struct ServicesSection: View {
                     .disableAutocorrection(true)
             }
             ForEach(data.selectedDiagnosisList.keys.sorted(), id: \.self) { key in
-                    VStack(spacing: 7) {
-                        HStack(spacing: 5) {
-                            
-                            (Text(key) + Text(" x" + String( self.bindingAmount(for: key).wrappedValue))
-                                .foregroundColor(.systemGray))
-                                //                        .fixedSize()
-                                .padding(.trailing, 5)
-                                .lineLimit(3)
-                            
-                            Spacer()
-                            
-                            Text("Количество")
-                            Stepper("", value: self.bindingAmount(for: key), in: 1...99, step: 1)
-                                .fixedSize()
-                        }
-                        HStack {
-                            Text("Цена: ")
-                                .fixedSize()
-                                .foregroundColor(.gray)
-                            BottomLinedTextField(text: self.bindingPrice(for: key))
-//                            Text(" " + (Locale.current.currencySymbol ?? ""))
-//                                .fixedSize()
-                        }
-                    }.id(key)
+                ServiceRow(key: key)
+                    .environmentObject(data)
+                    .id(key)
                         
                     
                 }
@@ -138,7 +124,7 @@ struct ServicesSection: View {
                     Text("Добавить услугу")
                 }
             })
-            .disabled(data.selectedDiagnosisList.count >= 20)
+            .disabled(data.selectedDiagnosisList.count >= servicesMaxCount)
         }.alert(isPresented: $isAlertPresented) {
             Alert(title: Text("Ошибка"), message: Text(error), primaryButton: .cancel(Text("OK")), secondaryButton: .default(Text("Больше не показывать")) {
                 dontShownAlert = true
@@ -152,22 +138,8 @@ struct ServicesSection: View {
                 return self.data.selectedDiagnosisList[key]?.price ?? ""
             },
             set: {
-                let decimalString = $0.decimalValue
-                let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
-                let price = data.selectedDiagnosisList[key]!.price.decimalValue
-                //                guard $0.count < 15   else {
-                //                    AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { return }
-                //                    if !wasAlertChecked && !dontShownAlert {
-                //                        error = "Цена слишком большая"
-                //                        isAlertPresented = true
-                //                    }
-                //                    return
-                //                }
-                data.sumPrices -= (price * amount)
-                data.sumPrices += (decimalString * amount)
                 self.data.selectedDiagnosisList[key]!.price = $0
-                
-                //                                data.generateMoneyData.call()
+                 data.generateMoneyData.call()
             })
     }
     
@@ -180,15 +152,16 @@ struct ServicesSection: View {
                 //                data.sumPrices -= Decimal(string: self.data.selectedDiagnosisList[key]!.price) ?? 0
                 //                data.sumPrices += Decimal(string: $0) ?? 0
                 
-                let decimalNumber = Decimal($0)
-                let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
-                let price = data.selectedDiagnosisList[key]!.price.decimalValue
-                data.sumPrices -= (price * amount)
-                data.sumPrices += (price * decimalNumber)
                 
                 self.data.selectedDiagnosisList[key]!.amount = $0
                 
-                //                data.generateMoneyData.call()
+//                    let decimalNumber = Decimal($0)
+//                    let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
+//                    let price = data.selectedDiagnosisList[key]!.price.decimalValue
+//                    data.sumPrices -= (price * amount)
+//                    data.sumPrices += (price * decimalNumber)
+                
+                                data.generateMoneyData.call()
             })
     }
 }
@@ -199,3 +172,16 @@ struct ServicesSection_Previews: PreviewProvider {
             .environmentObject(AppointmentCreateViewModel(patient: Patient(id: "", fullname: "", phone: "", owner: ""), viewType: .editCalendar, appointment: Appointment(id: "", title: "", patientID: "", owner: "", toothNumber: "", diagnosis: "Пульпит:2000*2;Игра:1000*3", dateStart: "100", dateEnd: "200", payments: nil), dateStart: Date(), dateEnd: Date(), group: nil))
     }
 }
+//let decimalString = $0.decimalValue
+//                let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
+//                let price = data.selectedDiagnosisList[key]!.price.decimalValue
+//                //                guard $0.count < 15   else {
+//                //                    AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { return }
+//                //                    if !wasAlertChecked && !dontShownAlert {
+//                //                        error = "Цена слишком большая"
+//                //                        isAlertPresented = true
+//                //                    }
+//                //                    return
+//                //                }
+//                data.sumPrices -= (price * amount)
+//                data.sumPrices += (decimalString * amount)
