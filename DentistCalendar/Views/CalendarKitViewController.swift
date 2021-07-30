@@ -198,6 +198,7 @@ class CustomCalendarExampleController: DayViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
+        print("TIMEZONE", dayView.calendar.timeZone)
         reloadData()
 //        print("VIEWDIDLOAD")
         

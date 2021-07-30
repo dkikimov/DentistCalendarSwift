@@ -35,9 +35,11 @@
 "Empty" = "Empty";
 "Добавить платеж" = "Add payment";
 "Продолжить с Google" = "Continue with Google";
+"Продолжить с Apple" = "Continue with Apple";
 "Далее" = "Next";
 "Цена: " = "Price: ";
 "Платеж на сумму " = "Payment in the amount of ";
+"Сумма платежа слишком большая" = "Payment amount is too large";
 "Тип календаря" = "Type of calendar";
 "Выберите календарь" = "Select a calendar";
 "Рабочий" = "Work";
@@ -62,9 +64,14 @@
 "Больше никакой рекламы" =  "No ads ever";
 "Синхронизируйте ваши данные" = "Sync your data";
 "Используйте на нескольких устройствах" = "Use on multiple devices";
-"Импортируйте данные из календаря" = "Import data from your Calendar app";
-"Импортировать записи из календаря" = "Import appointments from Calendar app";
-"Импортировать записи из файла" = "Import appointments from the file";
+"Для совершения покупки необходим доступ в Интернет" = "Internet access required to make a purchase";
+
+"Ваши первые %@ бесплатны. Оплата только по истечению пробного периода." = "Your first %@ are free. No charge until the end of the free trial period.";
+
+"Экспортируйте ваши данные" = "Export your data";
+"Создавайте и редактируйте записи без доступа в Интернет" = "Create and edit records without internet access";
+"Импортировать записи из календаря" = "Import records from Calendar app";
+"Импортировать записи из файла" = "Import records from the file";
 "Импорт" = "Import";
 "Импортировать" = "Import";
 "В будущем: генерируйте документы и выписки" = "In the future: generate documents and statements";
@@ -92,8 +99,8 @@
 
 "Личные данные" = "Personal data";
 "Изменить пароль" = "Change password";
-"Импортировать записи" = "Import appointments";
-"Выйти" = "Exit";
+"Импортировать записи" = "Import records";
+"Выйти" = "Log out";
 "Настройки" = "Settings";
 
 "Текущий пароль" = "Current password";
@@ -101,20 +108,24 @@
 "Повторите новый пароль" = "Repeat new password";
 "Минимальное количество символов - 8" = "Minimum length of password is 8";
 "Пароли не совпадают" = "Passwords do not match";
-"Экспортировать записи" = "Export appointments";
-"Экспорт записей" = "Export appointments";
+"Экспортировать записи" = "Export records";
+"Экспорт записей" = "Export records";
 "Выберите начальную дату" = "Choose start date";
 "Выберите конечную дату" = "Choose end date";
 "Экспортировать" = "Export";
 "Экспорт" = "Export";
+"Экспортирование записей доступно только для пользователей Dentor Premium." = "Exporting records is only available for Dentor Premium users.";
+"Экспорт данных позволит Вам просматривать ваши записи под другим аккаунтом в Dentor или в другом поддерживаемом приложении (ICS файл)." = "Exporting data will allow you to view your records under a different Dentor account or in another supported application (ICS file).";
+"Дата окончания подписки:" = "Subscription end date:";
 // Event add view
 "Нет данных" = "No data";
 "Загрузка..." = "Loading...";
-"Импорт записей" = "Importing appointments";
+"Импорт записей" = "Importing records";
 "Самое время добавить пациентов!" = "It's time to add patients!";
 "Если вы создавали данные ранее, то они находятся в загрузке" = "If you created the data before, then they are in the download";
-
-
+"При импорте из календаря используются данные, созданные до 1 месяца назад относительно сегодняшнего дня и до 3 месяцев после" = "When importing from the calendar, data created up to 1 months ago from today and up to 3 months after are used";
+"Записи были успешно экспортированы!" = "The records have been exported successfully!";
+"Доступ к файлу запрещен" = "File access denied";
 //Appointment
 "Введите номер зуба" = "Enter the tooth number";
 "Введите название" = "Enter the title";
@@ -124,6 +135,7 @@
 "Имя слишком длинное" = "Name is too long";
 "Фамилия слишком длинная" = "Surname is too long";
 "Полное имя пациента слишком длинное" = "Patient's full name is too long";
+"Дата окончания записи не может быть раньше даты начала." = "The end date of the recording cannot be earlier than the start date.";
 // Patients view
 
 "Записей нет" = "No appointments";
@@ -163,7 +175,10 @@
 "Подтвердить" = "Confirm";
 "Пусто" = "Empty";
 //ALERT
+"Выход из аккаунта" = "Log out of your account";
+"Если вы выйдете из своей учетной записи, все несинхронизированные данные будут удалены." = "If you log out of your account, all unsynchronized data will be deleted";
 
+"Обновить" = "Update";
 "Пациент успешно удален!" = "The patient was successfully deleted!";
 "Успех!" = "Success!";
 "Ошибка!" = "Error!";
@@ -174,7 +189,7 @@
 "Запись успешно удалена!" = "Appointment deleted successfully!";
 "Платеж" = "Payment";
 "Введите данные платежа" = "Enter the payment details";
-
+"Записи были успешно импортированы!" = "The records have been imported successfully!";
 "Подключите устройство к интернету" = "Connect your device to the Internet";
 "Добавление и изменение записей без доступа к интернету доступно только для пользователей Dentor Premium" = "Adding and changing appointments without Internet access is available only for Dentor Premium users";
 "Перейти к покупке" = "Go to purchase";
@@ -193,7 +208,6 @@
 "Используйте без интернета" = "Use without internet";
 "Работает даже без доступа к интернету без ограничений в функционале" = "Works even without access to the Internet without restrictions in functionality";
 "Возможности" = "Features";
-
 
 /* Walkthrough View */
 "Далее" = "Next";
@@ -214,3 +228,6 @@
 "Приступить к работе" = "Get started";
 
 "Премиум подписка необходима для доступа ко всем функциям. Независимо от того, есть ли у подписки бесплатный пробный период или нет, она автоматически продлевается с указанными выше ценой и продолжительностью, если только она не будет отменена по крайней мере за 24 часа до окончания текущего периода. Оплата будет снята с вашей учетной записи Apple ID при подтверждении покупки. Плата за продление будет взиматься с вашей учетной записи в течение 24 часов до окончания текущего периода. Вы можете управлять своими подписками и отменять их, перейдя в настройки своей учетной записи в App Store после покупки. Любая неиспользованная часть бесплатного пробного периода, если таковая предлагается, будет аннулирована, когда пользователь приобретает подписку на эту публикацию, где это применимо." = "Premium subscription is required to get access to all features. Regardless of whether the subscription has a free trial period or not it automatically renews with the price and duration given above unless it is canceled at least 24 hours before the end of the current period. Payment will be charged to your Apple ID account at the confirmation of purchase. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions by going to your account settings on the App Store after purchase. Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable.";
+
+"Покупки успешно восстановлены!" = "Purchases restored successfully!";
+"Покупки не были найдены" = "No purchases found";

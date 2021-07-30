@@ -39,7 +39,7 @@ class PatientCreateViewModel : ObservableObject {
         var finalPhone: String = ""
         if !patientNumber.isEmpty {
             do {
-                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(patientNumber), toType: .e164)
+                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(patientNumber, ignoreType: true), toType: .e164)
             } catch {
                 self.error = "Введите корректный номер".localized
                 self.isAlertPresented = true

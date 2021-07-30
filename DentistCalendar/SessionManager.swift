@@ -7,8 +7,8 @@
 
 import Amplify
 import SwiftUI
-import AmplifyPlugins
-import AWSMobileClient
+import AWSDataStorePlugin
+import ApphudSDK
 enum AuthProvider: String {
     case signInWithApple
 }
@@ -21,31 +21,32 @@ enum AuthState {
     //    case unauthenticated
 }
 
-struct AppleUser: Codable {
-    let userId: String
-    let firstName: String
-    let lastName: String
-    let email: String
-    
-    init?(credentials: ASAuthorizationAppleIDCredential) {
-        guard
-            let firstName = credentials.fullName?.givenName,
-            let lastName = credentials.fullName?.familyName,
-            let email = credentials.email
-        else { return nil }
-        
-        self.userId = credentials.user
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-    }
-}
+//struct AppleUser: Codable {
+//    let userId: String
+//    let firstName: String
+//    let lastName: String
+//    let email: String
+//
+//    init?(credentials: ASAuthorizationAppleIDCredential) {
+//        guard
+//            let firstName = credentials.fullName?.givenName,
+//            let lastName = credentials.fullName?.familyName,
+//            let email = credentials.email
+//        else { return nil }
+//
+//        self.userId = credentials.user
+//        self.firstName = firstName
+//        self.lastName = lastName
+//        self.email = email
+//    }
+//}
 
 
 
 final class SessionManager: ObservableObject {
     @Published var authState: AuthState = .login
-    
+    @AppStorage("loggedWithSocialProvider") var isProviderSocial = false
+
     //    func getCurrentAuthUser() {
     ////        Amplify.Auth.signOut()
     //        _ = Amplify.Auth.fetchAuthSession { result in
@@ -76,15 +77,6 @@ final class SessionManager: ObservableObject {
         return window
     }
     func getCurrentAuthUser() {
-        Amplify.Auth.fetchAuthSession { res in
-            switch res {
-            case .success(let session):
-                print("SESSION ", session)
-                break
-            case .failure(let err):
-                print("NO SESSION", err.localizedDescription)
-            }
-        }
         if let user = Amplify.Auth.getCurrentUser() {
             withAnimation {
                     self.authState = .session
@@ -108,92 +100,92 @@ final class SessionManager: ObservableObject {
             //            }
         }
     }
-    func attemptAutoSignIn(completion: @escaping (Bool) -> ()) {
-        guard
-            let plugin = try? Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key),
-            let authPlugin = plugin as? AWSCognitoAuthPlugin,
-            case .awsMobileClient(let client) = authPlugin.getEscapeHatch(),
-            let loginResults = client.logins().result,
-            let userId = loginResults[AuthProvider.signInWithApple.rawValue] as? String
-        else {
-            DispatchQueue.main.async {
-                completion(false)
-            }
-            return
-            
-        }
-        
-        let provider = ASAuthorizationAppleIDProvider()
-        provider.getCredentialState(forUserID: userId) { (credentialsState, error) in
-            if let unwrappedError = error {
-                print(unwrappedError)
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
-            switch credentialsState {
-            case .authorized:
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.authState = .session
-                    }
-                }
-                DispatchQueue.main.async {
-                    completion(true)
-                }
-            case .notFound, .revoked:
-                print("Unauthenticated")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            case .transferred:
-                print("needs transfer")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-                
-            @unknown default:
-                print("")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
-        }
-    }
+//    func attemptAutoSignIn(completion: @escaping (Bool) -> ()) {
+//        guard
+//            let plugin = try? Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key),
+//            let authPlugin = plugin as? AWSCognitoAuthPlugin,
+//            case .awsMobileClient(let client) = authPlugin.getEscapeHatch(),
+//            let loginResults = client.logins().result,
+//            let userId = loginResults[AuthProvider.signInWithApple.rawValue] as? String
+//        else {
+//            DispatchQueue.main.async {
+//                completion(false)
+//            }
+//            return
+//            
+//        }
+//        
+//        let provider = ASAuthorizationAppleIDProvider()
+//        provider.getCredentialState(forUserID: userId) { (credentialsState, error) in
+//            if let unwrappedError = error {
+//                print(unwrappedError)
+//                DispatchQueue.main.async {
+//                    completion(false)
+//                }
+//            }
+//            switch credentialsState {
+//            case .authorized:
+//                DispatchQueue.main.async {
+//                    withAnimation {
+//                        self.authState = .session
+//                    }
+//                }
+//                DispatchQueue.main.async {
+//                    completion(true)
+//                }
+//            case .notFound, .revoked:
+//                print("Unauthenticated")
+//                DispatchQueue.main.async {
+//                    completion(false)
+//                }
+//            case .transferred:
+//                print("needs transfer")
+//                DispatchQueue.main.async {
+//                    completion(false)
+//                }
+//                
+//            @unknown default:
+//                print("")
+//                DispatchQueue.main.async {
+//                    completion(false)
+//                }
+//            }
+//        }
+//    }
     
     func showLogin() {
         withAnimation {
             authState = .login
         }
     }
-    func loginWithAppleNative(token: String) {
-        do {
-            let plugin = try Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key)
-            let authPlugin = plugin as! AWSCognitoAuthPlugin
-            guard case let .awsMobileClient(awsmobileclient) = authPlugin.getEscapeHatch() else {
-                print("Failed to fetch escape hatch")
-                return
-            }
-            print("Fetched escape hatch - \(awsmobileclient)")
-            awsmobileclient.federatedSignIn(providerName: IdentityProvider.apple.rawValue, token: token) { state, err in
-                if let err = err {
-                    print("ERROR ", err.localizedDescription)
-                } else if let state = state {
-                    print("STATE ", state)
-                }
-//                Amplify.Auth.fetchAuthSession {  a in
-//                    switch a {
-//                    case .success(let session)
-//                    }
+//    func loginWithAppleNative(token: String) {
+//        do {
+//            let plugin = try Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key)
+//            let authPlugin = plugin as! AWSCognitoAuthPlugin
+//            guard case let .awsMobileClient(awsmobileclient) = authPlugin.getEscapeHatch() else {
+//                print("Failed to fetch escape hatch")
+//                return
+//            }
+//            print("Fetched escape hatch - \(awsmobileclient)")
+//            awsmobileclient.federatedSignIn(providerName: IdentityProvider.apple.rawValue, token: token) { state, err in
+//                if let err = err {
+//                    print("ERROR ", err.localizedDescription)
+//                } else if let state = state {
+//                    print("STATE ", state)
 //                }
-
-            }
-
-//            self.getCurrentAuthUser()
-        } catch {
-            print("Error occurred while fetching the escape hatch \(error)")
-        }
-    }
+////                Amplify.Auth.fetchAuthSession {  a in
+////                    switch a {
+////                    case .success(let session)
+////                    }
+////                }
+//
+//            }
+//
+////            self.getCurrentAuthUser()
+//        } catch {
+//            print("Error occurred while fetching the escape hatch \(error)")
+//        }
+//    }
     
 //    func loginWithAppleNative(navController: UINavigationController) {
 //        do {
@@ -245,54 +237,54 @@ final class SessionManager: ObservableObject {
 //            print("ERROR \(error)")
 //        }
 //    }
-    func loginWithGoogleNative(navController: UINavigationController) {
-        do {
-            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
-            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
-                print("Failed to fetch escape hatch")
-                return
-            }
-            print("Fetched escape hatch - \(awsmobileclient)")
-            let hostedUIOptions = HostedUIOptions(scopes: ["openid", "email", "profile"], identityProvider: "Google")
-            
-            awsmobileclient.showSignIn(navigationController: navController, hostedUIOptions: hostedUIOptions) { (userState, error) in
-                if let error = error as? AWSMobileClientError {
-                    print(error)
-                    print(error.localizedDescription)
-                }
-                if let userState = userState {
-                    print("Status: \(userState.rawValue)")
-                    
-                    AWSMobileClient.default().getTokens { (tokens, error) in
-                        if let error = error {
-                            print("error \(error)")
-                        } else if let tokens = tokens {
-                            let claims = tokens.idToken?.claims
-                            print("username? \(claims?["username"] as? String ?? "No username")")
-                            print("cognito:username? \(claims?["cognito:username"] as? String ?? "No cognito:username")")
-                            print("email? \(claims?["email"] as? String ?? "No email")")
-                            print("name? \(claims?["name"] as? String ?? "No name")")
-                            print("picture? \(claims?["picture"] as? String ?? "No picture")")
-                            //
-                            //                            if let username = claims?["email"] as? String {
-                            //                                DispatchQueue.main.async {
-                            //                                    self.settings.username = username
-                            //                                }
-                            //                            }
-                            //
-                            //                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
-                            //                                print("Do something with fbPictureURL: ", fbPictureURL)
-                            //                            } else if provider == "SignInWithApple" {
-                            //                                print("Ignore Apple's Picture")
-                            //                            }
-                        }
-                    }
-                }
-            }
-        } catch {
-            print("Error occurred while fetching the escape hatch \(error)")
-        }
-    }
+//    func loginWithGoogleNative(navController: UINavigationController) {
+//        do {
+//            let plugin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as! AWSCognitoAuthPlugin
+//            guard case let .awsMobileClient(awsmobileclient) = plugin.getEscapeHatch() else {
+//                print("Failed to fetch escape hatch")
+//                return
+//            }
+//            print("Fetched escape hatch - \(awsmobileclient)")
+//            let hostedUIOptions = HostedUIOptions(scopes: ["openid", "email", "profile"], identityProvider: "Google")
+//            
+//            awsmobileclient.showSignIn(navigationController: navController, hostedUIOptions: hostedUIOptions) { (userState, error) in
+//                if let error = error as? AWSMobileClientError {
+//                    print(error)
+//                    print(error.localizedDescription)
+//                }
+//                if let userState = userState {
+//                    print("Status: \(userState.rawValue)")
+//                    
+//                    AWSMobileClient.default().getTokens { (tokens, error) in
+//                        if let error = error {
+//                            print("error \(error)")
+//                        } else if let tokens = tokens {
+//                            let claims = tokens.idToken?.claims
+//                            print("username? \(claims?["username"] as? String ?? "No username")")
+//                            print("cognito:username? \(claims?["cognito:username"] as? String ?? "No cognito:username")")
+//                            print("email? \(claims?["email"] as? String ?? "No email")")
+//                            print("name? \(claims?["name"] as? String ?? "No name")")
+//                            print("picture? \(claims?["picture"] as? String ?? "No picture")")
+//                            //
+//                            //                            if let username = claims?["email"] as? String {
+//                            //                                DispatchQueue.main.async {
+//                            //                                    self.settings.username = username
+//                            //                                }
+//                            //                            }
+//                            //
+//                            //                            if provider == "Facebook", let picture = claims?["picture"], let pictureJsonStr = picture as? String, let fbPictureURL = self.parseFBImage(from: pictureJsonStr) {
+//                            //                                print("Do something with fbPictureURL: ", fbPictureURL)
+//                            //                            } else if provider == "SignInWithApple" {
+//                            //                                print("Ignore Apple's Picture")
+//                            //                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch {
+//            print("Error occurred while fetching the escape hatch \(error)")
+//        }
+//    }
     func signUp(email: String, password: String, firstName: String, secondName: String, compelition: @escaping( String?) -> ()) {
         let attributes = [AuthUserAttribute(.email, value: email), AuthUserAttribute(.familyName, value: secondName),AuthUserAttribute(.name, value: firstName)]
         let options = AuthSignUpRequest.Options(userAttributes: attributes)
@@ -305,6 +297,7 @@ final class SessionManager: ObservableObject {
                 case .done:
                     print("finished sign up")
                     self?.login(email: email, password: password, compelition: { (err) in
+                        configureApphud()
                         DispatchQueue.main.async {
                             compelition(err)
                         }
@@ -520,6 +513,7 @@ final class SessionManager: ObservableObject {
                     }
                 }
                 DispatchQueue.main.async {
+                    self.isProviderSocial = true
                     self.getCurrentAuthUser()
                     compelition(nil)
                 }
@@ -536,7 +530,11 @@ final class SessionManager: ObservableObject {
             switch result {
             case .success(let res):
                 print("Sign in succeeded")
-                self.getCurrentAuthUser()
+                self.fetchAttributes { err in }
+                DispatchQueue.main.async {
+                    self.isProviderSocial = true
+                    self.getCurrentAuthUser()
+                }
                 
                 print("RES", res)
             case .failure(let err):

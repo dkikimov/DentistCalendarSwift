@@ -34,23 +34,62 @@ extension SKProduct {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = priceLocale
-        let text = formatter.string(from: price)
-        let period = subscriptionPeriod!.unit
-        var periodString = ""
-        switch period {
+        let text = formatter.string(from: price) ?? "error"
+        return text
+    }
+    
+}
+
+class PeriodFormatter {
+    static var componentFormatter: DateComponentsFormatter {
+        let formatter = DateComponentsFormatter()
+        formatter.maximumUnitCount = 1
+        formatter.unitsStyle = .full
+        formatter.zeroFormattingBehavior = .dropAll
+        return formatter
+    }
+
+    static func format(unit: NSCalendar.Unit, numberOfUnits: Int) -> String? {
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        componentFormatter.allowedUnits = [unit]
+        switch unit {
         case .day:
-            periodString = "day"
+            dateComponents.setValue(numberOfUnits, for: .day)
+        case .weekOfMonth:
+            dateComponents.setValue(numberOfUnits, for: .weekOfMonth)
         case .month:
-            periodString = "month"
-        case .week:
-            periodString = "week"
+            dateComponents.setValue(numberOfUnits, for: .month)
         case .year:
-            periodString = "year"
+            dateComponents.setValue(numberOfUnits, for: .year)
         default:
-            break
+            return nil
         }
-        let unitCount = subscriptionPeriod!.numberOfUnits
-        let unitString = unitCount == 1 ? periodString : "\(unitCount) \(periodString)s"
-        return (text ?? "") + "\nper \(unitString)"
+
+        return componentFormatter.string(from: dateComponents)
+    }
+}
+
+extension SKProduct.PeriodUnit {
+    func toCalendarUnit() -> NSCalendar.Unit {
+        switch self {
+        case .day:
+            return .day
+        case .month:
+            return .month
+        case .week:
+            return .weekOfMonth
+        case .year:
+            return .year
+        @unknown default:
+            debugPrint("Unknown period unit")
+        }
+        return .day
+    }
+}
+
+extension SKProductSubscriptionPeriod {
+    func localizedPeriod() -> String {
+        return PeriodFormatter.format(unit: unit.toCalendarUnit(), numberOfUnits: numberOfUnits) ?? "error"
     }
 }

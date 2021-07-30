@@ -96,14 +96,13 @@ struct ServicesSection: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
             }
-            ForEach(data.selectedDiagnosisList.keys.sorted(), id: \.self) { key in
-                ServiceRow(key: key)
+            ForEach(Array(data.selectedDiagnosisList), id: \.key) { key, value in
+                ServiceRow(key: key, item: value)
                     .environmentObject(data)
                     .id(key)
                         
                     
                 }
-            
             .onDelete(perform: { indexSet in
                 DispatchQueue.main.async {
                     if let first = indexSet.first {
@@ -115,7 +114,6 @@ struct ServicesSection: View {
                     
                 }
             })
-            
             Button(action: {
                 data.isDiagnosisCreatePresented.toggle()
             }, label: {
@@ -125,7 +123,8 @@ struct ServicesSection: View {
                 }
             })
             .disabled(data.selectedDiagnosisList.count >= servicesMaxCount)
-        }.alert(isPresented: $isAlertPresented) {
+        }
+        .alert(isPresented: $isAlertPresented) {
             Alert(title: Text("Ошибка"), message: Text(error), primaryButton: .cancel(Text("OK")), secondaryButton: .default(Text("Больше не показывать")) {
                 dontShownAlert = true
             })
@@ -169,7 +168,7 @@ struct ServicesSection: View {
 struct ServicesSection_Previews: PreviewProvider {
     static var previews: some View {
         ServicesSection()
-            .environmentObject(AppointmentCreateViewModel(patient: Patient(id: "", fullname: "", phone: "", owner: ""), viewType: .editCalendar, appointment: Appointment(id: "", title: "", patientID: "", owner: "", toothNumber: "", diagnosis: "Пульпит:2000*2;Игра:1000*3", dateStart: "100", dateEnd: "200", payments: nil), dateStart: Date(), dateEnd: Date(), group: nil))
+            .environmentObject(AppointmentCreateViewModel(patient: Patient(id: "", fullname: "", phone: ""), viewType: .editCalendar, appointment: Appointment(id: "", title: "", patientID: "", toothNumber: "", diagnosis: "Пульпит:2000*2;Игра:1000*3", dateStart: "100", dateEnd: "200", payments: nil), dateStart: Date(), dateEnd: Date(), group: nil))
     }
 }
 //let decimalString = $0.decimalValue

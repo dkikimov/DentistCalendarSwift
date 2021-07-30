@@ -86,6 +86,8 @@ struct DiagnosisCreateView: View {
             }))
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+
         .alert(isPresented: $isErrorAlertPresented, content: {
             Alert(title: Text("Ошибка"), message: Text(error), dismissButton: .cancel())
         })

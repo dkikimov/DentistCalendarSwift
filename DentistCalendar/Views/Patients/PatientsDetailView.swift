@@ -148,7 +148,7 @@ struct PatientsDetailView: View {
             }
         }
         .onAppear(perform: {
-            showInterstitial(placement: "")
+            showInterstitial(placement: "PatientDetailView")
         })
     
         .navigationTitle("Карта пациента")

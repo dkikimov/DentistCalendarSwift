@@ -8,6 +8,7 @@
 import SwiftUI
 import Amplify
 import SwiftUIX
+import ApphudSDK
 struct ImportEvents: View {
     @State var data: String?
     @State var isImportPresented = false
@@ -16,7 +17,7 @@ struct ImportEvents: View {
     //    @State var patientsList = [Patient]()
     var body: some View {
         Form {
-            Section {
+            Section(footer: Text("При импорте из календаря используются данные, созданные до 1 месяца назад относительно сегодняшнего дня и до 3 месяцев после")) {
                 Button(action: {
                     isImportPresented.toggle()
                 }, label: {
@@ -45,12 +46,16 @@ struct ImportEvents: View {
                         guard let input = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                         self.data = input
                         do { selectedFile.stopAccessingSecurityScopedResource() }
+                        presentSuccessAlert(message: "Записи были успешно импортированы!")
                     } else {
                         // Handle denied access
+                        presentErrorAlert(message: "Доступ к файлу запрещен")
+
                     }
                 } catch {
                     // Handle failure.
                     print("Unable to read file contents")
+                    presentErrorAlert(message: error.localizedDescription)
                     print(error.localizedDescription)
                 }
                 importEventsFromFile(file: url)

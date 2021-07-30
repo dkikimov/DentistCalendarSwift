@@ -11,8 +11,12 @@ struct DatePickersSection: View {
     @EnvironmentObject var data: AppointmentCreateViewModel
     var body: some View {
         Section {
+//            DatePicker("Начало приема", selection: $data.dateStart, displayedComponents: [.date, .hourAndMinute])
+//                .datePickerStyle(DatePickerStyle)
+//            DatePicker("Конец приема", selection: $data.dateEnd, displayedComponents: [.date, .hourAndMinute])
+
             Button(action: {
-//                withAnimation {
+                withAnimation(.easeInOut) {
                     data.isSecondDatePresented = false
                     data.isFirstDatePresented.toggle()
 //                    if data.isSecondDatePresented {
@@ -21,7 +25,7 @@ struct DatePickersSection: View {
 //                    } else {
 //                        data.isFirstDatePresented.toggle()
 //                    }
-//                }
+                }
             }, label: {
                 HStack {
                     Text("Начало приема").foregroundColor(Color("Black1"))
@@ -32,21 +36,19 @@ struct DatePickersSection: View {
             //                        DatePicker("Выберите начало приема", selection: $data.dateStart)
             //                            .datePickerStyle(GraphicalDatePickerStyle())
             if data.isFirstDatePresented {
-                VStack {
                     DatePicker("Выберите начало приема", selection: $data.dateStart)
-                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .id(1)
-                }
-                .animation(.linear)
-                .transition(.opacity)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
             }
-            
+
             Button(action: {
-//                withAnimation {
+                withAnimation(.easeInOut) {
                 data.isFirstDatePresented = false
                 data.isSecondDatePresented.toggle()
-//                }
+                }
             }, label: {
                 HStack {
                     Text("Конец приема").foregroundColor(Color("Black1"))
@@ -56,14 +58,20 @@ struct DatePickersSection: View {
             }).lineLimit(1)
             if data.isSecondDatePresented {
                 //                        DatePicker("Выберите конец приема", selection: $data.dateEnd).datePickerStyle(GraphicalDatePickerStyle())
-                VStack {
+                
                     DatePicker("Выберите конец приема", selection: $data.dateEnd)
-                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .id(2)
+                
+                        .multilineTextAlignment(.center)
+            }
+        }
+        .onChange(of: data.dateStart) { newDateStart in
+            DispatchQueue.main.async {
+                if data.dateEnd < newDateStart {
+                    data.dateEnd = newDateStart.addingTimeInterval(3600)
                 }
-                .animation(.linear)
-                .transition(.opacity)
             }
         }
     }

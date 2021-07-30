@@ -55,7 +55,7 @@ import UIKit
 
 struct ContentView: View {
     @AppStorage("firstStart")  var isOnboardingPresented = true
-//    @State var isWalktroughShowing: Bool = true
+//    @State var isOnboardingPresented: Bool = true
 
     @EnvironmentObject var sessionManager: SessionManager
     @State var alertController = UIAlertController(title: "Ошибка", message: "Для продолжения включите доступ к интернету", preferredStyle: .alert)

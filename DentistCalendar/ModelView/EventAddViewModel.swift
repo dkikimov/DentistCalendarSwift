@@ -45,8 +45,8 @@ class EventAddViewModel: ObservableObject {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
                 // Create start and end date NSDate instances to build a predicate for which events to select
-                let startDate = Date().addingTimeInterval(-2628000)
-                let endDate = Date().addingTimeInterval(2628000)
+                let startDate = Date().addingTimeInterval(-2678400)
+                let endDate = Date().addingTimeInterval(7776000)
                 
                     
                     // Use an event store instance to create and properly configure an NSPredicate
@@ -62,7 +62,7 @@ class EventAddViewModel: ObservableObject {
         }
         
     }
-    func addEvents() {
+    func addEvents(_ presentationMode: Binding<PresentationMode>) {
         isLoading = true
 //        let perEvent = Float(100 / selectedEvents.count)
         
@@ -156,8 +156,13 @@ class EventAddViewModel: ObservableObject {
         //
         //            return hud
         //        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        DispatchQueue.main.async {
             self.isLoading = false
+            presentSuccessAlert(message: "Записи были успешно импортированы!")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            
+            presentationMode.wrappedValue.dismiss()
         })
     }
 }

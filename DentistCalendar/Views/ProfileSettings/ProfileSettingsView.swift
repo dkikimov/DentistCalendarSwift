@@ -7,10 +7,11 @@
 
 import SwiftUI
 import Amplify
-
+import ApphudSDK
 struct ProfileSettingsView: View {
     @EnvironmentObject var sessionManager: SessionManager
-    
+    @AppStorage("loggedWithSocialProvider") var isProviderSocial = false
+    @State var isAlertPresented = false
     @StateObject var profileData = ProfileSettingsViewModel()
     var body: some View {
         Form {
@@ -40,13 +41,19 @@ struct ProfileSettingsView: View {
                 .disabled((profileData.firstName == profileData.realFirstName && profileData.secondName == profileData.realSecondName) || profileData.firstName.isEmpty || profileData.secondName.isEmpty)
                 .animation(.easeInOut)
             }
-            Section {
-                Button(action: {
-                    profileData.isPasswordPresented = true
-                }, label: {
-                    Text("Изменить пароль")
-                        .foregroundColor(Color("Black1"))
-                })
+            Section(footer:
+                        
+                        Text(Apphud.hasActiveSubscription() ? "" : ("Экспортирование записей доступно только для пользователей Dentor Premium.")) + Text(" " + "Экспорт данных позволит Вам просматривать ваши записи под другим аккаунтом в Dentor или в другом поддерживаемом приложении (ICS файл).".localized)
+            ) {
+                if !isProviderSocial {
+                    Button(action: {
+                        profileData.isPasswordPresented = true
+                    }, label: {
+                        Text("Изменить пароль")
+                            .foregroundColor(Color("Black1"))
+                    })
+                }
+                
 //                NavigationLink(destination: EventAddView()) {
 //                    Text("Импортировать записи из календаря")
 //                }
@@ -61,13 +68,25 @@ struct ProfileSettingsView: View {
                 NavigationLink(destination: ExportEvents(), label: {
                     Text("Экспортировать записи")
                 })
+                .disabled(!Apphud.hasActiveSubscription())
             }
             Section {
-                Button(action: {
-                    profileData.isSheetPresented.toggle()
-                }, label: {
-                    Text("Подписка")
-                })
+                if Apphud.hasActiveSubscription() {
+                    if let subscription = Apphud.subscription() {
+                        HStack {
+                            Text("Дата окончания подписки:")
+                            Spacer()
+                            Text(stringFromDate(date: subscription.expiresDate, formatString: "d MMMM YYYY"))
+                                .foregroundColor(.systemGray)
+                        }
+                    }
+                } else {
+                    Button(action: {
+                        profileData.isSheetPresented.toggle()
+                    }, label: {
+                        Text("Подписка")
+                    })
+                }
                 #if DEBUG
                 Button(action: {
                     Amplify.DataStore.start { result in
@@ -86,18 +105,17 @@ struct ProfileSettingsView: View {
                 }, label: {
                     Text("Очистить локальные данные")
                 })
+                Button {
+                    fatalError("Testing")
+                } label: {
+                    Text("Crash")
+                }
+
                 #endif
             }
             Section {
                 Button(action: {
-                    withAnimation {
-                        sessionManager.signOut { (err) in
-                            if err != nil {
-                                self.profileData.error = err!
-                                self.profileData.isAlertPresented = true
-                            }
-                        }
-                    }
+                    isAlertPresented = true
                 }, label: {
                     Text("Выйти").foregroundColor(.red)
                 })
@@ -115,7 +133,25 @@ struct ProfileSettingsView: View {
             })
             
         }
-        
+        .alert(isPresented: $isAlertPresented, content: {
+            Alert(title: Text("Выход из аккаунта"), message: Text("Если вы выйдете из своей учетной записи, все несинхронизированные данные будут удалены."), primaryButton: .cancel(), secondaryButton: .destructive(Text("Выйти"), action: {
+                withAnimation {
+                    sessionManager.signOut { (err) in
+                        if err != nil {
+                            self.profileData.error = err!
+                            self.profileData.isAlertPresented = true
+                        } else {
+                            DispatchQueue.main.async {
+                                Apphud.logout()
+                                isProviderSocial = false
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }))
+        })
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         //        .keyboardAdaptive()
         .navigationBarTitle("Настройки", displayMode: .large)

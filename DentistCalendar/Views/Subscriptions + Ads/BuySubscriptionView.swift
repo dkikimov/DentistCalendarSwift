@@ -7,15 +7,24 @@
 
 import SwiftUI
 import ApphudSDK
+import Appodeal
+import StoreKit
 //import Adapty
+//"В будущем: генерируйте документы и выписки"
 struct BuySubscriptionView: View {
-    let benefitsList = ["Больше никакой рекламы", "Синхронизируйте ваши данные", "Используйте на нескольких устройствах", "Импортируйте данные из календаря", "В будущем: генерируйте документы и выписки"]
+    let benefitsList = ["Больше никакой рекламы", "Синхронизируйте ваши данные", "Используйте на нескольких устройствах", "Экспортируйте ваши данные", "Создавайте и редактируйте записи без доступа в Интернет"]
     @Environment(\.presentationMode) var presentationMode
-        @State var paywall: ApphudPaywall?
-        @State var products: [ApphudProduct]?
-//    @State var paywall: PaywallModel?
-//    @State var selectedProduct: ProductModel?
-        @State var selectedProduct: ApphudProduct?
+    @State var paywall: ApphudPaywall?
+    @State var products = [ApphudProduct]()
+    //    @State var paywall: PaywallModel?
+    //    @State var selectedProduct: ProductModel?
+    @State var selectedProduct: ApphudProduct?
+    @State var error = ""
+    @State var title = "Ошибка"
+    @State var isAlertPresented = false
+    @StateObject var networkManager = InternetConnectionManager()
+    @State var introductoryPrice: SKProductDiscount?
+    @State var isEligibleForOffer: Bool = false
     //    @EnvironmentObject private var store: Store
     //    @ObservedObject var productsStore : ProductsStore
     
@@ -34,28 +43,6 @@ struct BuySubscriptionView: View {
                 .padding(.leading, 2)
                 VStack(alignment: .leading, spacing: 20) {
                     
-                    //                        HStack {
-                    //                            Spacer()
-                    //                            Button(action: {
-                    //                                presentationMode.wrappedValue.dismiss()
-                    //
-                    //                            }, label: {
-                    //                                ZStack {
-                    //                                    //                            Color("Gray1")
-                    //                                    //                                .frame(width: 16, height: 16)
-                    //                                    Image(systemName: "xmark.circle.fill")
-                    //                                        .font(.title2, weight: .bold)
-                    //                                        .foregroundColor(Color("Gray1"))
-                    //                                }
-                    //                            })
-                    //                            .padding(.bottom, 5)
-                    //                        }
-                    //                        Text("Dentor Premium")
-                    //                            .font(.largeTitle)
-                    //                            .bold()
-                    
-                    
-                    
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(benefitsList, id: \.self) { item in
                             HStack(alignment: .top, spacing: 8) {
@@ -67,53 +54,86 @@ struct BuySubscriptionView: View {
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
-                    }
-                    VStack {
-                        if (paywall?.products != nil && (paywall?.products.count ?? 0) > 0) {
-                                                    ForEach(self.products!, id: \.self) { product in
-                                                        HStack {
-                                                            Text(product.skProduct?.localizedTitle ?? "").bold()
-                                                            Spacer()
-                                                            VStack {
-                        //                                        Text(String(product.suct?.subscriptionPeriod.numberOfUnits))
-                                                                Text(product.skProduct?.localizedPrice() ?? "").bold()
-                                                            }
-                                                        }
-                                                        .frame(maxWidth: 450)
-                                                        .padding()
-                                                        .background(Color("PrimaryColor"))
-                                                        .foregroundColor(.white)
-                                                        .clipShape(Rectangle())
-                                                        .cornerRadius(8)
                         
-                                                    }
+                        //                        if Apphud.checkEligibilityForIntroductoryOffer(product: selectedProduct!) {
+                        if isEligibleForOffer && introductoryPrice != nil {
+                            //                                Text("Ваши первые") + Text(" \(introductoryPrice!.price.intValue)") + Text(" \(introductoryPrice!.subscriptionPeriod.localizedPeriod()) ") + Text("бесплатны")
+                            Text("Ваши первые \(introductoryPrice!.subscriptionPeriod.localizedPeriod()) бесплатны. Оплата только по истечению пробного периода.")
+                                .bold()
+                                .foregroundColor(.gray)
+                                .font(.body)
+                                .padding(.top, 8)
+
                         }
-                                               
-//                        ForEach(paywall!.products, id: \.self) { product in
-//                            HStack {
-//                                Text(product.localizedTitle).bold()
-//                                Spacer()
-//                                VStack {
-//                                    Text(product.localizedSubscriptionPeriod ?? "")
-//                                    Text(product.localizedPrice ?? "").bold()
-//                                }
-//                            }
-//                            .onTapGesture(perform: {
-//                                self.selectedProduct = product
-//                            })
-//                            .frame(maxWidth: 450)
-//                            .padding()
-//                            .background(selectedProduct == product ? Color("PrimaryColor") : .white)
-//                            .foregroundColor(selectedProduct == product ? .white : .black)
-//                            .clipShape(Rectangle())
-//                            .cornerRadius(8)
-//                        }
-//                                                } else {
-//                                                    ProgressView()
-//                                                }
+                        
+                        
+                        //
+                        //                        }
+                    }
+                    
+                    VStack {
+                        if self.products.count > 0 {
+                            ForEach(self.products, id: \.self) { product in
+                                HStack {
+                                    if product.skProduct?.subscriptionPeriod != nil {
+                                        Text(product.skProduct!.subscriptionPeriod!.localizedPeriod())
+                                            .bold()
+                                    } else {
+                                        Text("Ошибка")
+                                    }
+                                    Spacer()
+                                    Text(product.skProduct?.localizedPrice() ?? "").bold()
+                                    
+                                }
+                                .frame(maxWidth: 450)
+                                .padding()
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    self.selectedProduct = product
+                                }
+                                .background(selectedProduct == product ? Color("PrimaryColor") : Color("PrimaryColor2"))
+                                .foregroundColor(selectedProduct == product ? .white : Color("Black1"))
+                                .cornerRadius(8)
+                                
+                            }
+                        }
+                        else {
+                            if !networkManager.isInternetConnected {
+                                Label("Для совершения покупки необходим доступ в Интернет", icon: {
+                                    Image(systemName: "info.circle")
+                                        .foregroundColor(.red)
+                                })
+                                .font(Font.body.bold())
+                                .frame(maxWidth: .infinity)
+                            }
+                            ProgressView()
+                                .padding()
+                        }
+                        
+                        
+                        
                         HStack {
                             Spacer()
                             Button(action: {
+                                Apphud.restorePurchases { subscriptions, nonRenewingPurch, err in
+                                    //                                    DispatchQueue.main.asyncAfter(deadline: .now + .seconds(1)) {
+                                    if Apphud.hasActiveSubscription() {
+                                        self.title = "Успех!"
+                                        self.error = "Покупки успешно восстановлены!"
+                                        self.isAlertPresented = true
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                    else if let err = err {
+                                        self.title = "Ошибка"
+                                        self.error = err.localizedDescription
+                                        self.isAlertPresented = true
+                                    } else {
+                                        self.title = "Ошибка"
+                                        self.error = "Покупки не были найдены"
+                                        self.isAlertPresented = true
+                                    }
+                                    //                                    }
+                                }
                             }, label: {
                                 Text("Восстановить покупки")
                                     .font(.caption)
@@ -129,15 +149,6 @@ struct BuySubscriptionView: View {
                                     .bold()
                                     .foregroundColor(Color("Black1"))
                             }
-                            //                    Button(action: {
-                            //
-                            //                    }, label: {
-                            //                        Text("Условия использования")
-                            //                            .font(.caption2)
-                            //                            .bold()
-                            //                            .foregroundColor(Color("Black1"))
-                            //
-                            //                    })
                             Link(destination: URL(string: "https://dentor-website.vercel.app/privacy_policy.html")!) {
                                 Text("Политика конфиденциальности")
                                     .font(.caption2)
@@ -147,20 +158,11 @@ struct BuySubscriptionView: View {
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
                             }
-                            //                    Button(action: {
-                            //
-                            //                    }, label: {
-                            //                        Text("Политика конфиденциальности")
-                            //                            .font(.caption2)
-                            //                            .bold()
-                            //                            .foregroundColor(Color("Black1"))
-                            //                            .lineLimit(1)
-                            //                    })
                             Spacer()
                         }
                     }
                     
-                    Text(terms_text)
+                    Text(terms_text.localized)
                         .font(.caption2)
                         .bold()
                         .foregroundColor(.gray)
@@ -172,15 +174,22 @@ struct BuySubscriptionView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-//                            Adapty.makePurchase(product: selectedProduct) { (purchaserInfo, receipt, appleValidationResult, product, error) in
-//                                if error == nil {
-//                                    print("SUCCESSFUL PURCHASE", product)
-//                                    print("Purchaser info ", purchaserInfo)
-//                                    print("validation result ", appleValidationResult)
-//                                } else {
-//                                    print("Error when buying subscription", error!.localizedDescription)
-//                                }
-//                            }
+                            guard networkManager.isInternetConnected else {
+                                self.title = "Ошибка".localized
+                                self.error = "Для совершения покупки необходим доступ в Интернет".localized
+                                self.isAlertPresented = true
+                                return
+                            }
+                            Apphud.purchase(selectedProduct!) { result in
+                                if let subscription = result.subscription, subscription.isActive(){
+                                    print("HAVE SUBSCRIPTION")
+                                    presentationMode.wrappedValue.dismiss()
+                                } else if let purchase = result.nonRenewingPurchase, purchase.isActive(){
+                                    // has active non-renewing purchase
+                                } else {
+                                    // handle error or check transaction status.
+                                }
+                            }
                         }, label: {
                             
                             Text("Подписаться")
@@ -188,11 +197,11 @@ struct BuySubscriptionView: View {
                                 .frame(maxWidth: 450)
                                 .padding()
                         })
-                        .background(Color("PrimaryColor"))
+                        .disabled(selectedProduct == nil)
+                        .background(selectedProduct != nil ? Color("PrimaryColor") : Color.gray)
                         .foregroundColor(.white)
                         .clipShape(Rectangle())
                         .cornerRadius(8)
-                        
                         //                        GeometryReader { geom in
                         //                            ActionButton(buttonLabel: "Подписаться", maxWidth: geom.size.width + 50) {
                         //
@@ -204,6 +213,13 @@ struct BuySubscriptionView: View {
                 }
                 .padding()
             }
+            //            .transition(.easeInOut)
+            .onChange(of: networkManager.isInternetConnected) { isInternetConnected in
+                checkInternetConnection(isInternetConnected)
+            }
+            .alert(isPresented: $isAlertPresented, content: {
+                Alert(title: Text(title), message: Text(error), dismissButton: .cancel())
+            })
             .padding(.top, 1)
             .navigationBarTitle(Text("Dentor Premium"), displayMode: .automatic)
             .navigationBarColor(backgroundColor: UIColor(named: "White1")!, tintColor: UIColor(named: "Black1")!, shadowColor: .clear, buttonsColor: UIColor(named: "Gray1"))
@@ -216,27 +232,50 @@ struct BuySubscriptionView: View {
                 
             }
             .onAppear {
-//                Adapty.getPaywalls { (paywalls, _, error) in
-//                    self.paywall = paywalls?.first(where: { $0.developerId == "default_paywall" })
-//                    if let paywall = paywall {
-//                        self.selectedProduct = paywall.products.first
-//                    }
-//                }
-                                Apphud.getPaywalls { (paywalls, error) in
-                                      if error == nil {
-                                        // retrieve current paywall with identifier
-                                        self.paywall = paywalls?.first(where: { $0.identifier == "default_paywall" })
-                
-                                        // retrieve the products [ApphudProduct] from current paywall
-                                        self.products = paywall?.products
-                
-                                      }
-                                    }
+                checkInternetConnection(networkManager.isInternetConnected)
             }
+            
         }
         //        }.frame(maxHeight: UIScreen.main.bounds.height)
     }
+    private func getProducts() {
+        Apphud.getPaywalls { (paywalls, error) in
+            if error == nil {
+                // retrieve current paywall with identifier
+                self.paywall = paywalls?.first(where: { $0.identifier == "default_paywall" })
+                if let paywallProducts = paywall?.products {
+                    self.products = paywallProducts
+                    withAnimation {
+                        self.selectedProduct = products.first
+                    }
+                    self.introductoryPrice = selectedProduct?.skProduct?.introductoryPrice
+                    print("STRING VALUE", introductoryPrice!.price.stringValue)
+                    checkIntroductoryOffer()
+                }
+                
+                //                                            }
+                
+            }
+            
+        }
+        
+        
+    }
     
+    private func checkIntroductoryOffer() {
+        if let skProduct = selectedProduct?.skProduct {
+            Apphud.checkEligibilityForIntroductoryOffer(product: skProduct) { res in
+                withAnimation {
+                    self.isEligibleForOffer = res
+                }
+            }
+        }
+    }
+    private func checkInternetConnection(_ isInternetConnected: Bool) {
+        if isInternetConnected {
+            getProducts()
+        }
+    }
 }
 //struct BuySubscriptionView: View {
 //    @State var selectedDate = Date()

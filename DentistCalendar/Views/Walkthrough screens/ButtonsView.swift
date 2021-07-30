@@ -17,12 +17,15 @@ struct BlueButton: View {
         Button(action: action, label: {
             Text(buttonLabel)
                 .fontWeight(.heavy)
-                .padding()
-                .frame(width: width, height: height)
-                .background(backgroundColor)
-                .cornerRadius(12)
-                .padding(.horizontal, 5)
+                .frame(maxWidth: .infinity)
+                
+                
         })
+        .padding()
+        .frame(width: width, height: height)
+        .background(backgroundColor)
+        .cornerRadius(12)
+        .padding(.horizontal, 5)
         .foregroundColor(foregroundColor)
         
     }

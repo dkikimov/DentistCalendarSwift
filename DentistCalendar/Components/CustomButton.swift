@@ -37,13 +37,14 @@ struct CustomButton: View{
                     ProgressView()
                 }
             }
-            .frame(minWidth: 0, maxWidth: 450)
-            .padding()
-            .foregroundColor(disabled ? textColor.opacity(0.6) : textColor)
-            .background(disabled ? Color.gray : Color(color))
-            .cornerRadius(40)
-            .padding(.horizontal, 20)
+            
         }
+        .frame(minWidth: 0, maxWidth: 450)
+        .padding()
+        .foregroundColor(disabled ? textColor.opacity(0.6) : textColor)
+        .background(disabled ? Color.gray : Color(color))
+        .cornerRadius(40)
+        .padding(.horizontal, 20)
         .disabled(disabled)
         
     }

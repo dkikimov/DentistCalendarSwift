@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C95168449F00FA263B4126 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
+		1E08213989DDF88AE9C73DA8 /* Todo+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EC1BB4565B9F69BB6989E2 /* Todo+Schema.swift */; };
+		27FFCDE96D163A88DACEE935 /* Pods_Dentor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5E34C2140FDDE88FA26F6E /* Pods_Dentor.framework */; };
+		3333CFAEA63ECEB1EF8B596C /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */; };
 		37D3F3C60A514BD289159207 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814CE8A877F4ED3836E7164 /* Appointment.swift */; };
+		52FE899CE6A5A3FE96492D3B /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8390FFFB4F87A079E7DD /* Payment.swift */; };
+		599A4E5FDE3B6C492D2527CA /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
+		5D2257108D9D1BDF2A78DE13 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
 		6D68240D61E8464682339A2B /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */; };
+		6E88E064E306A1DE771AC654 /* Payment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */; };
 		6F02155825409D6200F2DFBE /* PatientDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */; };
 		6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
 		6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
@@ -85,12 +93,14 @@
 		6F4D9E882534A80E000DAE1C /* PatientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */; };
 		6F50F3472603C7FB00E740F6 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */; };
 		6F51126F258A7210008D6799 /* MultipleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */; };
+		6F54E04126A4B2D900143BE9 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6F54E04026A4B2D800143BE9 /* schema.graphql */; };
 		6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F55F04B2526F0340095729D /* RegisterViewModel.swift */; };
 		6F57AC4D269B0B4C00291427 /* ServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57AC4C269B0B4C00291427 /* ServiceRow.swift */; };
-		6F60E3EE26A1F29D0064C10A /* Adapty in Frameworks */ = {isa = PBXBuildFile; productRef = 6F60E3ED26A1F29D0064C10A /* Adapty */; };
 		6F6195F8269A0B6A00AFEBED /* appdetail.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F6195FA269A0B6A00AFEBED /* appdetail.mov */; };
 		6F619601269A0C5C00AFEBED /* calendarСreate.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F619603269A0C5C00AFEBED /* calendarСreate.mov */; };
 		6F619605269A0C9D00AFEBED /* serviceDelete.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6F619607269A0C9D00AFEBED /* serviceDelete.mov */; };
+		6F6268FD26A345AB005F9A95 /* ContinueWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6268FC26A345AB005F9A95 /* ContinueWithAppleButton.swift */; };
+		6F6268FF26A35382005F9A95 /* CenteringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6268FE26A35382005F9A95 /* CenteringView.swift */; };
 		6F639778264D8E2C007474ED /* ModalView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F639777264D8E2C007474ED /* ModalView2.swift */; };
 		6F65467F25527D22007F4C2D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65467E25527D22007F4C2D /* SessionManager.swift */; };
 		6F65468225527EC7007F4C2D /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65468125527EC7007F4C2D /* ConfirmationView.swift */; };
@@ -101,9 +111,9 @@
 		6F67377B25727E830092B81B /* EventAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F67377A25727E830092B81B /* EventAddViewModel.swift */; };
 		6F67377E2572C1E70092B81B /* EventCalendarChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F67377D2572C1E70092B81B /* EventCalendarChooserView.swift */; };
 		6F690360260BAC360019630C /* NavigationSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F69035F260BAC360019630C /* NavigationSearchBar.swift */; };
+		6F6D324E26A81D9700CE2B54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F6D324D26A81D9700CE2B54 /* GoogleService-Info.plist */; };
 		6F6E04FD26654F9A0062ACE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E04FC26654F9A0062ACE3 /* LaunchScreen.storyboard */; };
 		6F70B7DF25E93DAC003A66D9 /* BillingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70B7DE25E93DAC003A66D9 /* BillingSection.swift */; };
-		6F780F53266104460067F2CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F780F52266104460067F2CC /* GoogleService-Info.plist */; };
 		6F78213F2667FE2C00480151 /* ForeachExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78213E2667FE2B00480151 /* ForeachExtension.swift */; };
 		6F795F27257A53620013E2BB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F795F26257A53620013E2BB /* Enums.swift */; };
 		6F7CE317255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6F7CE315255FC6A700D8D521 /* DiagnosisModel.xcdatamodeld */; };
@@ -138,6 +148,11 @@
 		6FAE12C325555DF4004B6EAB /* Patient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */; };
 		6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5F05025D04B7000FF24B8 /* Alert.swift */; };
 		6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB8DC5025D19A1E00A04107 /* SPAlert */; };
+		6FB9F41926A5503F0037EF18 /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB9F41826A5503F0037EF18 /* Amplify */; };
+		6FB9F41B26A5503F0037EF18 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB9F41A26A5503F0037EF18 /* AWSCognitoAuthPlugin */; };
+		6FB9F41D26A5503F0037EF18 /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB9F41C26A5503F0037EF18 /* AWSAPIPlugin */; };
+		6FB9F41F26A5503F0037EF18 /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB9F41E26A5503F0037EF18 /* AWSDataStorePlugin */; };
+		6FB9F42B26A562140037EF18 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9F42D26A562140037EF18 /* InfoPlist.strings */; };
 		6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */; };
 		6FC9024925A23BD70043A70F /* GoogleAdsVariables + Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */; };
 		6FC9024D25A23EEE0043A70F /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9024C25A23EEE0043A70F /* NativeAdView.swift */; };
@@ -155,25 +170,43 @@
 		6FE9253D253F54FC00E5BEB6 /* PatientDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */; };
 		6FE9D2E82541E20400F1C74A /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2E72541E20400F1C74A /* FloatingButton.swift */; };
 		6FE9D2EF2541EA2700F1C74A /* RefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */; };
-		6FEB49EC267B38D800923E37 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB49EB267B38D800923E37 /* schema.graphql */; };
 		6FEF93482670C3E100693408 /* HalfModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF93472670C3E100693408 /* HalfModalView.swift */; };
 		6FF64EF7251E34D70094C0E0 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */; };
 		6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF64EFD251E3A9E0094C0E0 /* events.json */; };
 		6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F01251E3CBE0094C0E0 /* Color.swift */; };
 		6FF64F06251E44580094C0E0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF64F05251E44580094C0E0 /* Item.swift */; };
 		6FF767292699CA000086A0A8 /* service.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6FF7672B2699CA000086A0A8 /* service.mov */; };
+		74B1504D1685FF3D28CFEC3A /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
+		7A042D14CBD174CF6F6BB060 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
+		83943BAA32A7219A921F423E /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814CE8A877F4ED3836E7164 /* Appointment.swift */; };
+		8B39B0C008A131F9F1EE5C7C /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
+		9016217691FAF6F8DB6D7CEB /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */; };
+		936534105B0F6AD39E3EDE0C /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2849A9BA9F020BC53818B9A7 /* Todo.swift */; };
+		94529AE6EEDABBA97960F6D9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
+		958F9CBCA0036456CEA71C76 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
+		9996644CEBC55703223C3DDE /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CA257947410099BB94 /* amplifyconfiguration.json */; };
 		9BDB79E3DDC64FF9866CF8CB /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15342B5A8A894B0292EAE456 /* Patient.swift */; };
-		B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */; };
+		9DE1B5B663E408D408DD4DFB /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F05F3CB257947410099BB94 /* awsconfiguration.json */; };
 		D62FF8CA96BB4C7F96C41A23 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
+		D6CCDCD0274D9714A8AE4528 /* Todo+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EC1BB4565B9F69BB6989E2 /* Todo+Schema.swift */; };
+		DB1CE214A720AB4BDC2CAF04 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15342B5A8A894B0292EAE456 /* Patient.swift */; };
 		E6D88C0A92394FC78904A6BA /* Appointment+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */; };
+		EED83E9C82F02C22A6F882BA /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2849A9BA9F020BC53818B9A7 /* Todo.swift */; };
 		F22EAA83B8FC494FB95BFDAB /* Patient+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */; };
+		F3369C313A1B03BFA3F5264A /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783B8691C6F843B193118D04 /* AmplifyModels.swift */; };
+		F6BAF63ED863DBB4296B9816 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2849A9BA9F020BC53818B9A7 /* Todo.swift */; };
+		FBB01FEC1951723A845CA691 /* Todo+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EC1BB4565B9F69BB6989E2 /* Todo+Schema.swift */; };
 		FEF955966CB945ADA3863878 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8390FFFB4F87A079E7DD /* Payment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		15342B5A8A894B0292EAE456 /* Patient.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Patient.swift; path = amplify/generated/models/Patient.swift; sourceTree = "<group>"; };
 		24BA8390FFFB4F87A079E7DD /* Payment.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = Payment.swift; path = amplify/generated/models/Payment.swift; sourceTree = "<group>"; };
+		2602835E28A5A3275B27EF86 /* Pods-Dentor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dentor.debug.xcconfig"; path = "Target Support Files/Pods-Dentor/Pods-Dentor.debug.xcconfig"; sourceTree = "<group>"; };
+		2849A9BA9F020BC53818B9A7 /* Todo.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Todo.swift; path = amplify/generated/models/Todo.swift; sourceTree = "<group>"; };
+		3D5E34C2140FDDE88FA26F6E /* Pods_Dentor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dentor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Payment+Schema.swift"; path = "amplify/generated/models/Payment+Schema.swift"; sourceTree = "<group>"; };
+		631234F86A35EC962A86164E /* Pods-Dentor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dentor.release.xcconfig"; path = "Target Support Files/Pods-Dentor/Pods-Dentor.release.xcconfig"; sourceTree = "<group>"; };
 		6F02155725409D6200F2DFBE /* PatientDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailViewModel.swift; sourceTree = "<group>"; };
 		6F032150257FE36900E3F91D /* DentistCalendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DentistCalendar.entitlements; sourceTree = "<group>"; };
 		6F05F3CA257947410099BB94 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -218,12 +251,11 @@
 		6F32DB10256417D5008EED03 /* AppointmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentEditView.swift; sourceTree = "<group>"; };
 		6F32DB13256417FD008EED03 /* AppointmentEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentEditViewModel.swift; sourceTree = "<group>"; };
 		6F38B6E225DA3EBE003CF70C /* ImportEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEvents.swift; sourceTree = "<group>"; };
-		6F3A1A81251911900042E7C4 /* DentistCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DentistCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F3A1A81251911900042E7C4 /* Dentor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dentor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3A1A84251911900042E7C4 /* DentistCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DentistCalendarApp.swift; sourceTree = "<group>"; };
 		6F3A1A86251911900042E7C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6F3A1A88251911900042E7C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F3A1A8B251911900042E7C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6F3A1A8D251911900042E7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F3A2AEC25C83ACC001E91A0 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6F3E742C2545E5FC00410A6F /* PatientUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUpdateViewModel.swift; sourceTree = "<group>"; };
 		6F3E74322545EB8700410A6F /* PhoneNumberTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTextFieldView.swift; sourceTree = "<group>"; };
@@ -252,6 +284,7 @@
 		6F4D9E872534A80E000DAE1C /* PatientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsDetailView.swift; sourceTree = "<group>"; };
 		6F50F3462603C7FB00E740F6 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		6F51126E258A7210008D6799 /* MultipleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionRow.swift; sourceTree = "<group>"; };
+		6F54E04026A4B2D800143BE9 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/Dentor/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6F55F04B2526F0340095729D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		6F57AC4C269B0B4C00291427 /* ServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRow.swift; sourceTree = "<group>"; };
 		6F6195F9269A0B6A00AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = Base.lproj/appdetail.mov; sourceTree = "<group>"; };
@@ -262,6 +295,8 @@
 		6F619606269A0C9D00AFEBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Base; path = Base.lproj/serviceDelete.mov; sourceTree = "<group>"; };
 		6F619608269A0CA100AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = ru.lproj/serviceDelete.mov; sourceTree = "<group>"; };
 		6F61960B269A0D1F00AFEBED /* ru */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = ru; path = "ru.lproj/calendarСreate.mov"; sourceTree = "<group>"; };
+		6F6268FC26A345AB005F9A95 /* ContinueWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueWithAppleButton.swift; sourceTree = "<group>"; };
+		6F6268FE26A35382005F9A95 /* CenteringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringView.swift; sourceTree = "<group>"; };
 		6F639777264D8E2C007474ED /* ModalView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView2.swift; sourceTree = "<group>"; };
 		6F65467E25527D22007F4C2D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		6F65468125527EC7007F4C2D /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
@@ -272,9 +307,9 @@
 		6F67377A25727E830092B81B /* EventAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAddViewModel.swift; sourceTree = "<group>"; };
 		6F67377D2572C1E70092B81B /* EventCalendarChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarChooserView.swift; sourceTree = "<group>"; };
 		6F69035F260BAC360019630C /* NavigationSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSearchBar.swift; sourceTree = "<group>"; };
+		6F6D324D26A81D9700CE2B54 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F6E04FC26654F9A0062ACE3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F70B7DE25E93DAC003A66D9 /* BillingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingSection.swift; sourceTree = "<group>"; };
-		6F780F52266104460067F2CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F78213E2667FE2B00480151 /* ForeachExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeachExtension.swift; sourceTree = "<group>"; };
 		6F795F26257A53620013E2BB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6F7CE316255FC6A700D8D521 /* DiagnosisModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiagnosisModel.xcdatamodel; sourceTree = "<group>"; };
@@ -311,6 +346,8 @@
 		6FA795D92592658100992EAE /* ServiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceList.swift; sourceTree = "<group>"; };
 		6FAE12C225555DF4004B6EAB /* Patient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patient+Extensions.swift"; sourceTree = "<group>"; };
 		6FB5F05025D04B7000FF24B8 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		6FB9F42926A561630037EF18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FB9F42E26A562180037EF18 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6FC9022A25A21EEC0043A70F /* BuySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySubscriptionView.swift; sourceTree = "<group>"; };
 		6FC9024825A23BD70043A70F /* GoogleAdsVariables + Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleAdsVariables + Constants.swift"; sourceTree = "<group>"; };
 		6FC9024C25A23EEE0043A70F /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
@@ -327,7 +364,6 @@
 		6FE9253C253F54FC00E5BEB6 /* PatientDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailCard.swift; sourceTree = "<group>"; };
 		6FE9D2E72541E20400F1C74A /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		6FE9D2EE2541EA2700F1C74A /* RefreshScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshScrollView.swift; sourceTree = "<group>"; };
-		6FEB49EB267B38D800923E37 /* schema.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/dentor/schema.graphql; sourceTree = SOURCE_ROOT; };
 		6FEF93472670C3E100693408 /* HalfModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalView.swift; path = "../../../../../Downloads/HalfModal_Tutorial-2/Drag and Drop File/HalfModalView.swift"; sourceTree = "<group>"; };
 		6FF64EF6251E34D70094C0E0 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		6FF64EFD251E3A9E0094C0E0 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
@@ -339,7 +375,7 @@
 		B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Patient+Schema.swift"; path = "amplify/generated/models/Patient+Schema.swift"; sourceTree = "<group>"; };
 		CE282996B18331B02EFFC969 /* Pods-DentistCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.release.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		D3A72237A0EF3FC9EE8AF5C7 /* Pods-DentistCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DentistCalendar.debug.xcconfig"; path = "Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar.debug.xcconfig"; sourceTree = "<group>"; };
-		F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DentistCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9EC1BB4565B9F69BB6989E2 /* Todo+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Todo+Schema.swift"; path = "amplify/generated/models/Todo+Schema.swift"; sourceTree = "<group>"; };
 		FB8469FF862A4498AD9DFA46 /* Appointment+Schema.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "Appointment+Schema.swift"; path = "amplify/generated/models/Appointment+Schema.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -350,21 +386,24 @@
 			files = (
 				6FE75DC5267BA6E80083270F /* AppTrackingTransparency.framework in Frameworks */,
 				6FB8DC5125D19A1E00A04107 /* SPAlert in Frameworks */,
+				6FB9F41D26A5503F0037EF18 /* AWSAPIPlugin in Frameworks */,
+				6FB9F41F26A5503F0037EF18 /* AWSDataStorePlugin in Frameworks */,
 				6FD82A6F25B45C06004D22C3 /* WebKit.framework in Frameworks */,
 				6F81976E25B2CFCA00022321 /* CFNetwork.framework in Frameworks */,
 				6FDAD37C2631E80300CA5AA5 /* SwiftUIX in Frameworks */,
+				6FB9F41B26A5503F0037EF18 /* AWSCognitoAuthPlugin in Frameworks */,
 				6F81974A25B2CF1000022321 /* CoreGraphics.framework in Frameworks */,
 				6F81974C25B2CF1E00022321 /* SystemConfiguration.framework in Frameworks */,
 				6F81974825B2CF0600022321 /* AVFoundation.framework in Frameworks */,
 				6F81974425B2CEF700022321 /* AdSupport.framework in Frameworks */,
+				6FB9F41926A5503F0037EF18 /* Amplify in Frameworks */,
 				6F81974225B2CEA200022321 /* CoreTelephony.framework in Frameworks */,
 				6F81973F25B2CE8A00022321 /* EventKit.framework in Frameworks */,
 				6F81974025B2CE8A00022321 /* EventKitUI.framework in Frameworks */,
-				6F60E3EE26A1F29D0064C10A /* Adapty in Frameworks */,
 				6F15CDD426A197A300A6C3A0 /* ApphudSDK in Frameworks */,
 				6FA1622126A208C8001FBDDB /* StoreKit.framework in Frameworks */,
 				6F2149EF25B9FA12006B57F3 /* Introspect in Frameworks */,
-				B92B00613123FD28FAED51F3 /* Pods_DentistCalendar.framework in Frameworks */,
+				27FFCDE96D163A88DACEE935 /* Pods_Dentor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,9 +413,7 @@
 		6F05F3B7257946E40099BB94 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				6FEB49EB267B38D800923E37 /* schema.graphql */,
-				6F05F3CA257947410099BB94 /* amplifyconfiguration.json */,
-				6F05F3CB257947410099BB94 /* awsconfiguration.json */,
+				6F54E04026A4B2D800143BE9 /* schema.graphql */,
 				8B07802996364501A49A55CA /* amplifytools.xcconfig */,
 			);
 			path = AmplifyConfig;
@@ -491,13 +528,14 @@
 				6F3A1A82251911900042E7C4 /* Products */,
 				BA77E1F1431B68D974FF156D /* Pods */,
 				76A24443FC2B74DB6A077BE5 /* Frameworks */,
+				F95B136DA402ADE54138EF08 /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
 		6F3A1A82251911900042E7C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6F3A1A81251911900042E7C4 /* DentistCalendar.app */,
+				6F3A1A81251911900042E7C4 /* Dentor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -516,14 +554,15 @@
 				6F81977325B2EC6E00022321 /* SubViews */,
 				6F3A1A86251911900042E7C4 /* ContentView.swift */,
 				6F3A1A84251911900042E7C4 /* DentistCalendarApp.swift */,
+				6FB9F42926A561630037EF18 /* Info.plist */,
 				6F6E04FC26654F9A0062ACE3 /* LaunchScreen.storyboard */,
 				6FA77844267F53B2000B0255 /* AppDelegate.swift */,
 				6F3A1A88251911900042E7C4 /* Assets.xcassets */,
-				6F3A1A8D251911900042E7C4 /* Info.plist */,
+				6FB9F42D26A562140037EF18 /* InfoPlist.strings */,
 				6F3A1A8A251911900042E7C4 /* Preview Content */,
 				6FF64EFD251E3A9E0094C0E0 /* events.json */,
 				6F65467E25527D22007F4C2D /* SessionManager.swift */,
-				6F780F52266104460067F2CC /* GoogleService-Info.plist */,
+				6F6D324D26A81D9700CE2B54 /* GoogleService-Info.plist */,
 			);
 			path = DentistCalendar;
 			sourceTree = "<group>";
@@ -544,6 +583,7 @@
 				6F65468125527EC7007F4C2D /* ConfirmationView.swift */,
 				6F3F8EFF25B9DE0900C42CEE /* ForgotPasswordView.swift */,
 				6F26F9842619D63D0039A2C8 /* GoogleSignInButton.swift */,
+				6F6268FC26A345AB005F9A95 /* ContinueWithAppleButton.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -733,6 +773,7 @@
 				6F2BA5612633212800F5FB22 /* EnvironmentKeys.swift */,
 				6F1E951F2664C5CA00B4D1FB /* StringExtension.swift */,
 				6F78213E2667FE2B00480151 /* ForeachExtension.swift */,
+				6F6268FE26A35382005F9A95 /* CenteringView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -754,7 +795,7 @@
 				6F81974125B2CEA200022321 /* CoreTelephony.framework */,
 				6F81973D25B2CE8A00022321 /* EventKit.framework */,
 				6F81973E25B2CE8A00022321 /* EventKitUI.framework */,
-				F10EAB35A8CF1DAEAC01182F /* Pods_DentistCalendar.framework */,
+				3D5E34C2140FDDE88FA26F6E /* Pods_Dentor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -764,6 +805,8 @@
 			children = (
 				D3A72237A0EF3FC9EE8AF5C7 /* Pods-DentistCalendar.debug.xcconfig */,
 				CE282996B18331B02EFFC969 /* Pods-DentistCalendar.release.xcconfig */,
+				2602835E28A5A3275B27EF86 /* Pods-Dentor.debug.xcconfig */,
+				631234F86A35EC962A86164E /* Pods-Dentor.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -778,17 +821,28 @@
 				B987DF415C0C490B9BCEE739 /* Patient+Schema.swift */,
 				24BA8390FFFB4F87A079E7DD /* Payment.swift */,
 				4C27F6BAA9004E0DA23B2142 /* Payment+Schema.swift */,
+				D9EC1BB4565B9F69BB6989E2 /* Todo+Schema.swift */,
+				2849A9BA9F020BC53818B9A7 /* Todo.swift */,
 			);
 			name = AmplifyModels;
 			path = .;
 			sourceTree = "<group>";
 		};
+		F95B136DA402ADE54138EF08 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				6F05F3CB257947410099BB94 /* awsconfiguration.json */,
+				6F05F3CA257947410099BB94 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6F3A1A802519118F0042E7C4 /* DentistCalendar */ = {
+		6F3A1A802519118F0042E7C4 /* Dentor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "DentistCalendar" */;
+			buildConfigurationList = 6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "Dentor" */;
 			buildPhases = (
 				6FFCED53DA11331FEDE35FBB /* [CP] Check Pods Manifest.lock */,
 				6F3A1A7D2519118F0042E7C4 /* Sources */,
@@ -802,16 +856,19 @@
 			);
 			dependencies = (
 			);
-			name = DentistCalendar;
+			name = Dentor;
 			packageProductDependencies = (
 				6F2149EE25B9FA12006B57F3 /* Introspect */,
 				6FB8DC5025D19A1E00A04107 /* SPAlert */,
 				6FDAD37B2631E80300CA5AA5 /* SwiftUIX */,
 				6F15CDD326A197A300A6C3A0 /* ApphudSDK */,
-				6F60E3ED26A1F29D0064C10A /* Adapty */,
+				6FB9F41826A5503F0037EF18 /* Amplify */,
+				6FB9F41A26A5503F0037EF18 /* AWSCognitoAuthPlugin */,
+				6FB9F41C26A5503F0037EF18 /* AWSAPIPlugin */,
+				6FB9F41E26A5503F0037EF18 /* AWSDataStorePlugin */,
 			);
 			productName = DentistCalendar;
-			productReference = 6F3A1A81251911900042E7C4 /* DentistCalendar.app */;
+			productReference = 6F3A1A81251911900042E7C4 /* Dentor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -843,13 +900,13 @@
 				6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */,
 				6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				6F15CDD226A197A300A6C3A0 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
-				6F60E3EC26A1F29D0064C10A /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */,
+				6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */,
 			);
 			productRefGroup = 6F3A1A82251911900042E7C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6F3A1A802519118F0042E7C4 /* DentistCalendar */,
+				6F3A1A802519118F0042E7C4 /* Dentor */,
 			);
 		};
 /* End PBXProject section */
@@ -860,9 +917,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F3A1A8C251911900042E7C4 /* Preview Assets.xcassets in Resources */,
+				6FB9F42B26A562140037EF18 /* InfoPlist.strings in Resources */,
 				6F3A1A89251911900042E7C4 /* Assets.xcassets in Resources */,
-				6F780F53266104460067F2CC /* GoogleService-Info.plist in Resources */,
 				6F6E04FD26654F9A0062ACE3 /* LaunchScreen.storyboard in Resources */,
+				6F54E04126A4B2D900143BE9 /* schema.graphql in Resources */,
 				6F05F3CE257947410099BB94 /* awsconfiguration.json in Resources */,
 				6F0E0AE02696100C003515E4 /* shrek.gif in Resources */,
 				6F0B35A825AF650600E7C722 /* Localizable.strings in Resources */,
@@ -871,9 +929,17 @@
 				6F05F3CD257947410099BB94 /* amplifyconfiguration.json in Resources */,
 				6F619601269A0C5C00AFEBED /* calendarСreate.mov in Resources */,
 				6F619605269A0C9D00AFEBED /* serviceDelete.mov in Resources */,
+				6F6D324E26A81D9700CE2B54 /* GoogleService-Info.plist in Resources */,
 				6FF64EFE251E3A9E0094C0E0 /* events.json in Resources */,
 				6F87E88C25A2F521000B4834 /* UnifiedNativeAdView.xib in Resources */,
-				6FEB49EC267B38D800923E37 /* schema.graphql in Resources */,
+				9DE1B5B663E408D408DD4DFB /* awsconfiguration.json in Resources */,
+				9996644CEBC55703223C3DDE /* amplifyconfiguration.json in Resources */,
+				958F9CBCA0036456CEA71C76 /* awsconfiguration.json in Resources */,
+				04C95168449F00FA263B4126 /* amplifyconfiguration.json in Resources */,
+				8B39B0C008A131F9F1EE5C7C /* awsconfiguration.json in Resources */,
+				5D2257108D9D1BDF2A78DE13 /* amplifyconfiguration.json in Resources */,
+				74B1504D1685FF3D28CFEC3A /* awsconfiguration.json in Resources */,
+				599A4E5FDE3B6C492D2527CA /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -886,15 +952,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6FB5F09325D058BB00FF24B8 /* ShellScript */ = {
@@ -931,7 +997,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DentistCalendar-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Dentor-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -944,15 +1010,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DentistCalendar/Pods-DentistCalendar-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dentor/Pods-Dentor-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -984,6 +1050,7 @@
 				6F55F04C2526F0340095729D /* RegisterViewModel.swift in Sources */,
 				6F57AC4D269B0B4C00291427 /* ServiceRow.swift in Sources */,
 				6FB5F05125D04B7000FF24B8 /* Alert.swift in Sources */,
+				6F6268FF26A35382005F9A95 /* CenteringView.swift in Sources */,
 				6FCC65CD257E7E9300505115 /* AppointmentCalendarViewModel.swift in Sources */,
 				6FD57D57253C3D5E00C64847 /* CalendarKitViewController.swift in Sources */,
 				6F81977A25B2ECEA00022321 /* PatientCreateSection.swift in Sources */,
@@ -1023,6 +1090,7 @@
 				6F2B89AC257CCA5900D717EC /* AppointmentCalendarView.swift in Sources */,
 				6F7CE31D255FCE5500D8D521 /* AlertControlView.swift in Sources */,
 				6FF64F02251E3CBE0094C0E0 /* Color.swift in Sources */,
+				6F6268FD26A345AB005F9A95 /* ContinueWithAppleButton.swift in Sources */,
 				6FC9022B25A21EEC0043A70F /* BuySubscriptionView.swift in Sources */,
 				6F1D734125E6AE1F0008DCBF /* Data + Page.swift in Sources */,
 				6FEF93482670C3E100693408 /* HalfModalView.swift in Sources */,
@@ -1091,6 +1159,21 @@
 				F22EAA83B8FC494FB95BFDAB /* Patient+Schema.swift in Sources */,
 				FEF955966CB945ADA3863878 /* Payment.swift in Sources */,
 				6D68240D61E8464682339A2B /* Payment+Schema.swift in Sources */,
+				94529AE6EEDABBA97960F6D9 /* AmplifyModels.swift in Sources */,
+				1E08213989DDF88AE9C73DA8 /* Todo+Schema.swift in Sources */,
+				F6BAF63ED863DBB4296B9816 /* Todo.swift in Sources */,
+				7A042D14CBD174CF6F6BB060 /* AmplifyModels.swift in Sources */,
+				FBB01FEC1951723A845CA691 /* Todo+Schema.swift in Sources */,
+				936534105B0F6AD39E3EDE0C /* Todo.swift in Sources */,
+				F3369C313A1B03BFA3F5264A /* AmplifyModels.swift in Sources */,
+				3333CFAEA63ECEB1EF8B596C /* Appointment+Schema.swift in Sources */,
+				83943BAA32A7219A921F423E /* Appointment.swift in Sources */,
+				9016217691FAF6F8DB6D7CEB /* Patient+Schema.swift in Sources */,
+				DB1CE214A720AB4BDC2CAF04 /* Patient.swift in Sources */,
+				6E88E064E306A1DE771AC654 /* Payment+Schema.swift in Sources */,
+				52FE899CE6A5A3FE96492D3B /* Payment.swift in Sources */,
+				D6CCDCD0274D9714A8AE4528 /* Todo+Schema.swift in Sources */,
+				EED83E9C82F02C22A6F882BA /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1131,6 +1214,14 @@
 				6F619608269A0CA100AFEBED /* ru */,
 			);
 			name = serviceDelete.mov;
+			sourceTree = "<group>";
+		};
+		6FB9F42D26A562140037EF18 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6FB9F42E26A562180037EF18 /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		6FF7672B2699CA000086A0A8 /* service.mov */ = {
@@ -1267,13 +1358,14 @@
 		};
 		6F3A1A91251911900042E7C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3A72237A0EF3FC9EE8AF5C7 /* Pods-DentistCalendar.debug.xcconfig */;
+			baseConfigurationReference = 2602835E28A5A3275B27EF86 /* Pods-Dentor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DentistCalendar/DentistCalendar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"DentistCalendar/Preview Content\"";
 				DEVELOPMENT_TEAM = SHWMWKL986;
@@ -1284,6 +1376,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daniilkikimov.dentor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1294,13 +1387,14 @@
 		};
 		6F3A1A92251911900042E7C4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE282996B18331B02EFFC969 /* Pods-DentistCalendar.release.xcconfig */;
+			baseConfigurationReference = 631234F86A35EC962A86164E /* Pods-Dentor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DentistCalendar/DentistCalendar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"DentistCalendar/Preview Content\"";
 				DEVELOPMENT_TEAM = SHWMWKL986;
 				ENABLE_PREVIEWS = YES;
@@ -1310,6 +1404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daniilkikimov.dentor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1330,7 +1425,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "DentistCalendar" */ = {
+		6F3A1A90251911900042E7C4 /* Build configuration list for PBXNativeTarget "Dentor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6F3A1A91251911900042E7C4 /* Debug */,
@@ -1358,20 +1453,20 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		6F60E3EC26A1F29D0064C10A /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/adaptyteam/AdaptySDK-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.13.2;
-			};
-		};
 		6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/varabeis/SPAlert";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.3;
+			};
+		};
+		6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.12.0;
 			};
 		};
 		6FDAD37A2631E80300CA5AA5 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
@@ -1395,15 +1490,30 @@
 			package = 6F2149ED25B9FA12006B57F3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
-		6F60E3ED26A1F29D0064C10A /* Adapty */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6F60E3EC26A1F29D0064C10A /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */;
-			productName = Adapty;
-		};
 		6FB8DC5025D19A1E00A04107 /* SPAlert */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6FB8DC4F25D19A1E00A04107 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		6FB9F41826A5503F0037EF18 /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */;
+			productName = Amplify;
+		};
+		6FB9F41A26A5503F0037EF18 /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+		6FB9F41C26A5503F0037EF18 /* AWSAPIPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */;
+			productName = AWSAPIPlugin;
+		};
+		6FB9F41E26A5503F0037EF18 /* AWSDataStorePlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FB9F41726A5503F0037EF18 /* XCRemoteSwiftPackageReference "amplify-ios" */;
+			productName = AWSDataStorePlugin;
 		};
 		6FDAD37B2631E80300CA5AA5 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;

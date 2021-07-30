@@ -8,8 +8,8 @@
 import SwiftUI
 
 class LoginViewModel : ObservableObject {
-    @Published var emailAddress:String = "katsushooter@gmail.com"
-    @Published var password:String = "kiasoul551"
+    @Published var emailAddress:String = ""
+    @Published var password:String = ""
     @Published var isAlertPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""

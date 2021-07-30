@@ -45,11 +45,20 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
+            BuildableName = "Dentor.app"
+            BlueprintName = "Dentor"
+            ReferencedContainer = "container:Dentor.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
             BuildableName = "DentistCalendar.app"
             BlueprintName = "DentistCalendar"
             ReferencedContainer = "container:DentistCalendar.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <StoreKitConfigurationFileReference
          identifier = "../DentistCalendar/Views/Subscriptions + Ads/StoreKitConfiguration.storekit">
       </StoreKitConfigurationFileReference>
@@ -65,9 +74,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
-            BuildableName = "DentistCalendar.app"
-            BlueprintName = "DentistCalendar"
-            ReferencedContainer = "container:DentistCalendar.xcodeproj">
+            BuildableName = "Dentor.app"
+            BlueprintName = "Dentor"
+            ReferencedContainer = "container:Dentor.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -76,6 +85,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "DentorRelease"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

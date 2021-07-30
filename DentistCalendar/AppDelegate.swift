@@ -10,12 +10,15 @@ import SwiftUI
 import UIKit
 import StackConsentManager
 import Appodeal
+import Firebase
+
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     private struct AppodealConstants {
-        static let key: String = "842515d12246dcac9355142f0807929ee11333e90b142f91"
+        static let key: String = "6db8bbd881f5ffbbece62b4917f03e83ed37dfd411cc0f1d"
         static let adTypes: AppodealAdType = [.interstitial, .rewardedVideo]
-        static let logLevel: APDLogLevel = .debug
+        static let logLevel: APDLogLevel = .off
         static let testMode: Bool = false
     }
     
@@ -23,27 +26,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     // MARK: Controller Life Cycle
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        synchroniseConsent()
+        synchroniseConsent()
+        FirebaseApp.configure()
         return true
     }
     
     
     // MARK: Appodeal Initialization
     private func initializeAppodealSDK() {
-        /// Custom settings
-        // Appodeal.setFramework(.native, version: "1.0.0")
-        // Appodeal.setTriggerPrecacheCallbacks(true)
-        // Appodeal.setLocationTracking(true)
-        
         /// Test Mode
         Appodeal.setTestingEnabled(AppodealConstants.testMode)
-        
-        /// User Data
-        // Appodeal.setUserId("userID")
-        // Appodeal.setUserAge(25)
-        // Appodeal.setUserGender(.male)
-        //            Appodeal.setLogLevel(AppodealConstants.logLevel)
-        Appodeal.setAutocache(true, types: AppodealConstants.adTypes)
+        Appodeal.setAutocache(true, types: .interstitial)
+        Appodeal.setAutocache(false, types: .rewardedVideo)
+
         // Initialise Appodeal SDK with consent report
         if STKConsentManager.shared().consent != nil {
             Appodeal.initialize(

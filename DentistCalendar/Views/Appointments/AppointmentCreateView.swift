@@ -8,12 +8,12 @@
 import SwiftUI
 import Combine
 import PhoneNumberKit
-
-
-func stringFromDate(date: Date) -> String {
+import ApphudSDK
+import Appodeal
+func stringFromDate(date: Date, formatString: String = "d MMMM YYYY HH:mm") -> String {
     let dateFormatter = DateFormatter() //Set timezone that you want
-    dateFormatter.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
-    dateFormatter.dateFormat = "d MMMM YYYY HH:mm" //Specify your format that you want
+    dateFormatter.locale = Locale.current
+    dateFormatter.dateFormat = formatString //Specify your format that you want
     let strDate = dateFormatter.string(from: date)
     return strDate  
     
@@ -64,7 +64,7 @@ struct AppointmentCreateView: View {
     }
     var body: some View {
         NavigationView {
-
+            
             ZStack {
                 if isBillingAlertPresented {
                     AlertControlView(fields: [
@@ -82,46 +82,72 @@ struct AppointmentCreateView: View {
                         ListContent()
                     }
                 }
-
+                
                 //            }
                 .environmentObject(data)
                 .listStyle(GroupedListStyle())
                 .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
-
+                
                 .navigationBarItems(leading: Button(action: {
+                    presentationMode.wrappedValue.dismiss()
                     DispatchQueue.main.async {
-                    if data.viewType == .createWithPatient {
+                        if data.viewType == .createWithPatient {
                             group!.leave()
                             data.cancellable?.cancel()
                         }
-                        presentationMode.wrappedValue.dismiss()
                     }
-
+                    
                 }, label: {
                     Text("Отменить")
                 }))
             }
         }
-        .onDisappear(perform: {
-            if data.didSave {
-//                showInterstitial(placement: "AppointmentCreateView")
-                showRewardedVideo(placement: "AppointmentCreateView")
-            }
-        })
+        .navigationViewStyle(StackNavigationViewStyle())
+        //        .onDisappear(perform: {
+        //            if data.didSave {
+        ////                showInterstitial(placement: "AppointmentCreateView")
+        //                showRewardedVideo()
+        //
+        //            }
+        //        })
         
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
     }
-    func addPayment() {
-        let newPayment = PaymentModel(cost: text, date: String(Date().timeIntervalSince1970))
-        data.sumPayment += text.decimalValue
-        withAnimation {
-            data.paymentsArray.insert(newPayment, at: 0)
+    private func showRewardedVideo(completion: @escaping () -> ()) {
+        Dentor.showRewardedVideo(placement: "AppointmentCreateView") { res in
+            DispatchQueue.main.async {
+                completion()
+            }
+            if !res {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(20)) {
+                    showRewardedVideo(completion: {})
+                }
+            }
         }
-        self.text = ""
+    }
+    func addPayment() {
+        let formattedText = Decimal(string: text)?.stringValue
+        if let formattedText = formattedText {
+            guard !formattedText.isEmpty else {
+                return
+            }
+            guard formattedText.count <= priceMaxLength else {
+                data.error = "Сумма платежа слишком большая"
+                alertType = .error
+                data.isAlertPresented = true
+                return
+            }
+            let newPayment = PaymentModel(cost: formattedText, date: String(Date().timeIntervalSince1970))
+            data.sumPayment += text.decimalValue
+            withAnimation {
+                data.paymentsArray.insert(newPayment, at: 0)
+            }
+            self.text = ""
+        }
     }
     
     func ListContent() -> some View {
-        List {
+        Form {
             if data.viewType == .createWithPatient  {
                 //                    PickerCalendarSection(data: $data)
                 PickerCalendarSection()
@@ -141,24 +167,37 @@ struct AppointmentCreateView: View {
                 ServicesSection()
                 BillingSection(isAlertPresented: $isBillingAlertPresented)
             }
-            Section {
+            Section(footer: Group {
+                    Label("Дата окончания записи не может быть раньше даты начала.".localized, icon: {
+                        Image(systemName: "info.circle")
+                    })
+                    .foregroundColor(.red)
+                    .hidden(data.dateEnd > data.dateStart)
+                    .animation(.easeInOut)
+                    .transition(.opacity)
+            }) {
                 Button(action: {
-                    if internetConnectionManager.isInternetEnabled() {
-                        saveAppointment()
-                    } else {
-                        alertType = .internet
-                        data.isAlertPresented = true
+                    showRewardedVideo {
+                        if internetConnectionManager.isInternetEnabled() {
+                            saveAppointment()
+                        } else {
+                            alertType = .internet
+                            data.isAlertPresented = true
+                        }
                     }
-                    
                 }, label: {
                     Text("Сохранить")
                 })
-                .disabled(data.dateEnd < data.dateStart)
+                .disabled(data.dateEnd <= data.dateStart)
             }
-        }
+            
+            }
         
         .onAppear(perform: {
-            checkInternetConnection()
+            if !Appodeal.isReadyForShow(with: .rewardedVideo) && !Apphud.hasActiveSubscription(){
+                Appodeal.cacheAd(.rewardedVideo)
+                checkInternetConnection()
+            }
         })
         .onChange(of: internetConnectionManager.isNotInternetConnected) { newValue in
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
@@ -171,11 +210,11 @@ struct AppointmentCreateView: View {
                 }
             }
         }
-//        .onChange(of: isFullScreenPresented) { newValue in
-//            if newValue == false {
-//                checkInternetConnection()
-//            }
-//        }
+        //        .onChange(of: isFullScreenPresented) { newValue in
+        //            if newValue == false {
+        //                checkInternetConnection()
+        //            }
+        //        }
         .alert(isPresented: $data.isAlertPresented, content: {
             switch alertType {
             case .error:
@@ -206,7 +245,7 @@ struct AppointmentCreateView: View {
         }
         
         if data.segmentedMode == .withPatient {
-
+            
             if data.viewType == .createWithPatient {
                 guard !data.title.isEmpty else {
                     data.error = "Укажите пациента"
@@ -221,21 +260,21 @@ struct AppointmentCreateView: View {
                 var phoneFormattedNumber: String = ""
                 if !phoneNumber.isEmpty {
                     do {
-                        phoneFormattedNumber = phoneNumberKit.format(try phoneNumberKit.parse(phoneNumber), toType: .e164)
+                        phoneFormattedNumber = phoneNumberKit.format(try phoneNumberKit.parse(phoneNumber, ignoreType: true), toType: .e164)
                     } catch {
-    //                    print("NUMBER", phoneNumber, phoneFormattedNumber)
-
+                        //                    print("NUMBER", phoneNumber, phoneFormattedNumber)
+                        
                         data.error = "Введите корректный номер".localized
                         data.isAlertPresented = true
                         return
                     }
                 }
-//                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneFormattedNumber) else {
-//                    print("NUMBER", phoneNumber, phoneFormattedNumber)
-//                    data.error = "Введите корректный номер".localized
-//                    data.isAlertPresented = true
-//                    return
-//                }
+                //                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneFormattedNumber) else {
+                //                    print("NUMBER", phoneNumber, phoneFormattedNumber)
+                //                    data.error = "Введите корректный номер".localized
+                //                    data.isAlertPresented = true
+                //                    return
+                //                }
                 
                 data.createAppointmentAndPatient(isModalPresented: self.$isModalPresented, phoneNumber: phoneFormattedNumber)
             }
@@ -266,10 +305,10 @@ struct AppointmentCreateView: View {
     }
     
     private func checkInternetConnection() {
-            if internetConnectionManager.isNotInternetConnected {
-                alertType = .internet
-                data.isAlertPresented = true
-            }
+        if internetConnectionManager.isNotInternetConnected {
+            alertType = .internet
+            data.isAlertPresented = true
+        }
         
     }
 }

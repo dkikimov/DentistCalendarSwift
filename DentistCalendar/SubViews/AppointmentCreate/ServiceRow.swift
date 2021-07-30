@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ServiceRow: View {
     var key: String
+    @State var item: DiagnosisItem
+    
     @EnvironmentObject var data: AppointmentCreateViewModel
     @State var amount: Int = 1
     @State var price: String = ""
@@ -37,7 +39,7 @@ struct ServiceRow: View {
                     .fixedSize()
                     .foregroundColor(.gray)
 //                            BottomLinedTextField(text: self.bindingPrice(for: key))
-                BottomLinedTextField(text: $price)
+                BottomLinedTextField(text: $item.price)
 //                TextField("", text: $price)
 //                    .keyboardType(.decimalPad)
 //                            Text(" " + (Locale.current.currencySymbol ?? ""))
@@ -48,11 +50,12 @@ struct ServiceRow: View {
             self.price = data.selectedDiagnosisList[key]?.price ?? ""
             self.amount = data.selectedDiagnosisList[key]?.amount ?? 1
         }
-        .onChange(of: price) { newPrice in
-            DispatchQueue.main.async {
-                data.selectedDiagnosisList[key]?.price = newPrice
+        .onChange(of: item.price) { newPrice in
+//            DispatchQueue.main.async {
+//                data.selectedDiagnosisList[key]?.price = newPrice
                 data.generateMoneyData.call()
-            }
+//            }
+            
         }
         .onChange(of: amount) { newAmount in
             DispatchQueue.main.async {

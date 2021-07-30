@@ -20,6 +20,20 @@
                ReferencedContainer = "container:DentistCalendar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
+               BuildableName = "Dentor.app"
+               BlueprintName = "Dentor"
+               ReferencedContainer = "container:Dentor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -35,6 +49,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "en"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -46,14 +61,20 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
+            BuildableName = "Dentor.app"
+            BlueprintName = "Dentor"
+            ReferencedContainer = "container:Dentor.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
             BuildableName = "DentistCalendar.app"
             BlueprintName = "DentistCalendar"
             ReferencedContainer = "container:DentistCalendar.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <StoreKitConfigurationFileReference
-         identifier = "../DentistCalendar/Views/Subscriptions + Ads/StoreKitConfiguration.storekit">
-      </StoreKitConfigurationFileReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -66,9 +87,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F3A1A802519118F0042E7C4"
-            BuildableName = "DentistCalendar.app"
-            BlueprintName = "DentistCalendar"
-            ReferencedContainer = "container:DentistCalendar.xcodeproj">
+            BuildableName = "Dentor.app"
+            BlueprintName = "Dentor"
+            ReferencedContainer = "container:Dentor.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -76,7 +97,8 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
+      customArchiveName = "Dentor"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -1,0 +1,4 @@
+
+"NSUserTrackingUsageDescription" = "This identifier will be used to deliver personalized ads to you.";
+"NSCalendarsUsageDescription" = "$(PRODUCT_NAME) requests access to the calendar to get events and records.";
+"NSContactsUsageDescription" = "Access to contacts is required for the correct import of events from the calendar.";

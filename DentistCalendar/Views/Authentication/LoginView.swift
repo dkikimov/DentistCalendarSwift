@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AuthenticationServices
 struct LoginView: View {
     @EnvironmentObject var sessionManager: SessionManager
     
@@ -54,25 +53,10 @@ struct LoginView: View {
                             self.navigationController = navigationController
                         }
                     
-                    Button("Sign in with apple") {
-                        if navigationController != nil {
-                            sessionManager.loginWithApple()
-                        }
-                    }
-
-//                    SignInWithAppleButton(.continue, onRequest: configureAppleButton, onCompletion: handleAppleButton)
-//                    .frame(minWidth: 0, maxWidth: 420, maxHeight: 25)
-//                    .padding()
-//                    .padding(.horizontal, 20)
+                    EmptyView()
                     
-//                                        SignInWithAppleButton(.continue) { req in
-//                                            if let navigationController = navigationController {
-//                                                sessionManager.loginWithAppleNative(navController: navigationController)
-//                                            }
-//                                        } onCompletion: { res in
-//                                            print(res)
-//                                        }
-                    
+                    ContinueWithAppleButton()
+                        .environmentObject(sessionManager)
                     Spacer(minLength: 0)
                         
                         .alert(isPresented: $loginData.isAlertPresented, content: {
@@ -99,50 +83,50 @@ struct LoginView: View {
         //        .transition(.move(edge: .bottom))
     }
     
-    private func configureAppleButton(_ request: ASAuthorizationAppleIDRequest) {
-        request.requestedScopes = [.email, .fullName]
-        
-    }
-    
-    private func handleAppleButton(_ authResult: Result<ASAuthorization, Error>) {
-        switch authResult {
-        case .success(let auth):
-            switch auth.credential {
-            case let appleIDCredentials as ASAuthorizationAppleIDCredential:
-                if let appleUser = AppleUser(credentials: appleIDCredentials),
-                   let appleUserData = try? JSONEncoder().encode(appleUser) {
-                    UserDefaults.standard.setValue(appleUserData, forKey: appleUser.userId)
-                    
-                    print("saved apple user", appleUser)
-                } else {
-                    print("missing some fields", appleIDCredentials.email ?? "missing", appleIDCredentials.fullName ?? "missing", appleIDCredentials.user )
-                    
-                    guard
-                        let appleUserData = UserDefaults.standard.data(forKey: appleIDCredentials.user),
-                        let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
-                    else { return }
-                    
-                    print(appleUser)
-                }
-                
-                if let identityTokenData = appleIDCredentials.identityToken {
-                    guard let identityToken = String(data: identityTokenData, encoding: .utf8) else {
-                        print("Can't convert identity token data to string")
-                        return
-                    }
-                    sessionManager.loginWithAppleNative(token: identityToken)
-                }
-//                sessionManager.loginWithAppleNative(token: appleIDCredentials.user)
-
-                
-            default:
-                print(auth.credential)
-            }
-            break
-        case .failure(let err):
-            print("ERROR", err.localizedDescription)
-        }
-    }
+//    private func configureAppleButton(_ request: ASAuthorizationAppleIDRequest) {
+//        request.requestedScopes = [.email, .fullName]
+//
+//    }
+//
+//    private func handleAppleButton(_ authResult: Result<ASAuthorization, Error>) {
+//        switch authResult {
+//        case .success(let auth):
+//            switch auth.credential {
+//            case let appleIDCredentials as ASAuthorizationAppleIDCredential:
+//                if let appleUser = AppleUser(credentials: appleIDCredentials),
+//                   let appleUserData = try? JSONEncoder().encode(appleUser) {
+//                    UserDefaults.standard.setValue(appleUserData, forKey: appleUser.userId)
+//
+//                    print("saved apple user", appleUser)
+//                } else {
+//                    print("missing some fields", appleIDCredentials.email ?? "missing", appleIDCredentials.fullName ?? "missing", appleIDCredentials.user )
+//
+//                    guard
+//                        let appleUserData = UserDefaults.standard.data(forKey: appleIDCredentials.user),
+//                        let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
+//                    else { return }
+//
+//                    print(appleUser)
+//                }
+//
+//                if let identityTokenData = appleIDCredentials.identityToken {
+//                    guard let identityToken = String(data: identityTokenData, encoding: .utf8) else {
+//                        print("Can't convert identity token data to string")
+//                        return
+//                    }
+//                    sessionManager.loginWithAppleNative(token: identityToken)
+//                }
+//            //                sessionManager.loginWithAppleNative(token: appleIDCredentials.user)
+//
+//
+//            default:
+//                print(auth.credential)
+//            }
+//            break
+//        case .failure(let err):
+//            print("ERROR", err.localizedDescription)
+//        }
+//    }
 }
 
 

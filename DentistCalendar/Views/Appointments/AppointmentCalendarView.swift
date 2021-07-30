@@ -79,13 +79,15 @@ struct AppointmentCalendarView: View {
                 VStack {
                     Spacer()
                     HStack{
-                        Spacer()
                         Button(action: {
                             data.isActionSheetPresented = true
                         }, label: {
+//                            Spacer()
                             Text("Удалить")
                                 .foregroundColor(.red)
                                 .frame(height: 49)
+                                .frame(maxWidth: .infinity)
+//                            Spacer()
                         }).actionSheet(isPresented: $data.isActionSheetPresented, content: {
                             ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
                                 .destructive(Text("Удалить")){
@@ -96,7 +98,6 @@ struct AppointmentCalendarView: View {
                         })
                         
                         
-                        Spacer()
                     }
                     .overlay(Divider(), alignment: .top)
                     .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
@@ -137,7 +138,7 @@ struct AppointmentCalendarView: View {
                 self.diagnosisList = res.2
                 showInterstitial(placement: "AppointmentCalendarView")
                 print("SHOWING INTERSTITIAL")
-                
+
             })
             .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
             .sheet(isPresented: $data.isSheetPresented, content: {

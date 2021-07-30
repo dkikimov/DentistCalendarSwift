@@ -40,7 +40,7 @@ class PatientUpdateViewModel : ObservableObject {
         }
         if !phone.isEmpty {
             do {
-                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(phone), toType: .e164)
+                finalPhone = phoneNumberKit.format(try phoneNumberKit.parse(phone, ignoreType: true), toType: .e164)
             } catch {
                 self.error = "Введите корректный номер".localized
                 self.isAlertPresented = true

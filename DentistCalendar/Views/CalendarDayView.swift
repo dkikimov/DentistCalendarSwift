@@ -2,6 +2,7 @@
 import SwiftUI
 import Amplify
 import ApphudSDK
+import Appodeal
 //import Adapty
 struct CalendarDayView: View {
     @State var tabSelection: Tabs = .tab1
@@ -39,13 +40,12 @@ struct CalendarDayView: View {
             })
             .onAppear {
                 let userID = Amplify.Auth.getCurrentUser()!.userId
-//                Adapty.identify(userID) { (error) in
-//                    if error != nil {
-//                        print("ERROR when identifying user", error)
-//                    }
-//                }
-                Apphud.startManually(apiKey: "app_NLE7uVfdajb1hbJHYguEuoBf5zgy65", userID: userID, deviceID: userID)
 
+                Apphud.updateUserID(userID)
+                print("SUBSCRIPTION", Apphud.hasActiveSubscription())
+                if Apphud.hasActiveSubscription() {
+                    Appodeal.setAutocache(false, types: .interstitial)
+                }
             }
     }
     @ViewBuilder

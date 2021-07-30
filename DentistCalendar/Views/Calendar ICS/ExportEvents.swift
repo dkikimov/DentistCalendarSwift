@@ -34,8 +34,13 @@ struct ExportEvents: View {
             document: document,
             contentType: .ics,
             defaultFilename: "exportedData"
-        ) { _ in
-
+        ) { res in
+            switch res {
+            case .success:
+                presentSuccessAlert(message: "Записи были успешно экспортированы!")
+            case .failure(let err):
+                presentErrorAlert(message: err.localizedDescription)
+            }
 //            if case .success = result {
 //                print("SUCCESS")
 //                setNavigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
@@ -71,8 +76,9 @@ struct ExportEvents: View {
         for app in fetchedAppointments {
             var event = ICSEvent()
             event.summary = app.title
-            event.dtstart = Date(timeIntervalSince1970: TimeInterval(app.dateStart)!)
-            event.dtend = Date(timeIntervalSince1970: TimeInterval(app.dateEnd)!)
+            
+            event.dtstart = Date(timeIntervalSince1970: Double(app.dateStart)!)
+            event.dtend = Date(timeIntervalSince1970: Double(app.dateEnd)!)
             
             if app.patientID != nil {
                 event.addAttribute(attr: "patientID", String(app.patientID ?? "-1"))

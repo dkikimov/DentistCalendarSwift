@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
-
+import StoreKit
 //struct KeyboardAwareModifier: ViewModifier {
 //    @State private var keyboardHeight: CGFloat = 0
 //
@@ -139,6 +139,14 @@ extension Decimal {
     
 }
 
+extension SKProduct {
+    var ownLocalizedPrice: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = priceLocale
+        return formatter.string(from: price)!
+    }
+}
 
 extension String {
     var getNumber: Double {
