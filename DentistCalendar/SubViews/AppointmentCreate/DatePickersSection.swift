@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-
 struct DatePickersSection: View {
+    @Binding var isDatePickerPresented: Bool
+    @Binding var datePickerDate: Date
+    
     @EnvironmentObject var data: AppointmentCreateViewModel
     var body: some View {
         Section {
@@ -16,57 +18,66 @@ struct DatePickersSection: View {
 //            DatePicker("Конец приема", selection: $data.dateEnd, displayedComponents: [.date, .hourAndMinute])
 
             Button(action: {
-                withAnimation(.easeInOut) {
-                    data.isSecondDatePresented = false
-                    data.isFirstDatePresented.toggle()
-//                    if data.isSecondDatePresented {
-//                        data.isFirstDatePresented.toggle()
-//                        data.isSecondDatePresented.toggle()
-//                    } else {
-//                        data.isFirstDatePresented.toggle()
-//                    }
-                }
+                datePickerDate = data.dateStart
+                data.isSecondDatePresented = false
+                data.isFirstDatePresented = true
+//                withAnimation(.easeInOut) {
+//                    data.isSecondDatePresented = false
+//                    data.isFirstDatePresented.toggle()
+////                    if data.isSecondDatePresented {
+////                        data.isFirstDatePresented.toggle()
+////                        data.isSecondDatePresented.toggle()
+////                    } else {
+////                        data.isFirstDatePresented.toggle()
+////                    }
+//                }
             }, label: {
                 HStack {
-                    Text("Начало приема").foregroundColor(Color("Black1"))
+                    Text(data.segmentedMode == .withPatient ? "Начало приема" : "Начало события").foregroundColor(Color("Black1"))
                     Spacer()
                     Text(stringFromDate(date: data.dateStart))
                 }
             }).lineLimit(1)
             //                        DatePicker("Выберите начало приема", selection: $data.dateStart)
             //                            .datePickerStyle(GraphicalDatePickerStyle())
-            if data.isFirstDatePresented {
-                    DatePicker("Выберите начало приема", selection: $data.dateStart)
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .labelsHidden()
-                        .id(1)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-            }
-
+//            Group {
+//                if data.isFirstDatePresented {
+//                        DatePicker("Выберите начало приема", selection: $data.dateStart)
+//                            .datePickerStyle(GraphicalDatePickerStyle())
+//                            .labelsHidden()
+//                            .id(1)
+//                            .multilineTextAlignment(.center)
+//                            .frame(maxWidth: .infinity)
+//                }
+//
+//            }
             Button(action: {
-                withAnimation(.easeInOut) {
+                data.isSecondDatePresented = true
                 data.isFirstDatePresented = false
-                data.isSecondDatePresented.toggle()
-                }
+//                withAnimation(.easeInOut) {
+//                data.isFirstDatePresented = false
+//                data.isSecondDatePresented.toggle()
+//                }
             }, label: {
                 HStack {
-                    Text("Конец приема").foregroundColor(Color("Black1"))
+                    Text(data.segmentedMode == .withPatient ? "Конец приема" : "Конец события").foregroundColor(Color("Black1"))
                     Spacer()
                     Text(stringFromDate(date: data.dateEnd))
                 }
             }).lineLimit(1)
-            if data.isSecondDatePresented {
-                //                        DatePicker("Выберите конец приема", selection: $data.dateEnd).datePickerStyle(GraphicalDatePickerStyle())
-                
-                    DatePicker("Выберите конец приема", selection: $data.dateEnd)
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .labelsHidden()
-                        .id(2)
-                
-                        .multilineTextAlignment(.center)
-            }
+//            if data.isSecondDatePresented {
+//                //                        DatePicker("Выберите конец приема", selection: $data.dateEnd).datePickerStyle(GraphicalDatePickerStyle())
+//
+//                    DatePicker("Выберите конец приема", selection: $data.dateEnd)
+//                        .datePickerStyle(WheelDatePickerStyle())
+//                        .labelsHidden()
+//                        .id(2)
+//                        .multilineTextAlignment(.center)
+//                        .frame(maxWidth: .infinity)
+//
+//            }
         }
+        
         .onChange(of: data.dateStart) { newDateStart in
             DispatchQueue.main.async {
                 if data.dateEnd < newDateStart {
@@ -77,8 +88,8 @@ struct DatePickersSection: View {
     }
 }
 
-struct DatePickersSection_Previews: PreviewProvider {
-    static var previews: some View {
-        DatePickersSection()
-    }
-}
+//struct DatePickersSection_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DatePickersSection()
+//    }
+//}

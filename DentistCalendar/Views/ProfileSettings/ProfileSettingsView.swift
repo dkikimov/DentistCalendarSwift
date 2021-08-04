@@ -43,7 +43,7 @@ struct ProfileSettingsView: View {
             }
             Section(footer:
                         
-                        Text(Apphud.hasActiveSubscription() ? "" : ("Экспортирование записей доступно только для пользователей Dentor Premium.")) + Text(" " + "Экспорт данных позволит Вам просматривать ваши записи под другим аккаунтом в Dentor или в другом поддерживаемом приложении (ICS файл).".localized)
+                        Text(Apphud.hasActiveSubscription() ? "" : ("Экспортирование записей доступно только для пользователей Dentor Premium.".localized + " ")) + Text("Экспорт данных позволит Вам просматривать ваши записи под другим аккаунтом в Dentor или в другом поддерживаемом приложении (ICS файл).")
             ) {
                 if !isProviderSocial {
                     Button(action: {
@@ -75,6 +75,8 @@ struct ProfileSettingsView: View {
                     if let subscription = Apphud.subscription() {
                         HStack {
                             Text("Дата окончания подписки:")
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
                             Spacer()
                             Text(stringFromDate(date: subscription.expiresDate, formatString: "d MMMM YYYY"))
                                 .foregroundColor(.systemGray)

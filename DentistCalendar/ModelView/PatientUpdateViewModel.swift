@@ -49,8 +49,9 @@ class PatientUpdateViewModel : ObservableObject {
             }
         }
         guard (finalFullname != patient.fullname || finalPhone != patient.phone)  else {
-            error = "Имя и фамилия не были изменены".localized
-            isAlertPresented = true
+            DispatchQueue.main.async {
+                compelition(true)
+            }
             isLoading = false
             return
         }

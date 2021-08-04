@@ -124,3 +124,17 @@ func countBilling(appointment: Appointment) -> (Decimal, Decimal, [Service]) {
         return (0,0, [])
     }
 }
+
+public func print(_ objects: Any...) {
+    #if DEBUG
+    for i in objects {
+        Swift.print(i)
+    }
+    #endif
+}
+
+public func print(_ object: Any) {
+    #if DEBUG
+    Swift.print(object)
+    #endif
+}

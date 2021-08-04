@@ -63,6 +63,8 @@ struct BuySubscriptionView: View {
                                 .foregroundColor(.gray)
                                 .font(.body)
                                 .padding(.top, 8)
+                                .animation(.easeInOut)
+                                .transition(.opacity)
 
                         }
                         
@@ -72,7 +74,17 @@ struct BuySubscriptionView: View {
                     }
                     
                     VStack {
-                        if self.products.count > 0 {
+                        if !networkManager.isInternetConnected {
+                            HStack {
+                                Image(systemName: "info.circle")
+                                    .foregroundColor(.red)
+                                Text("Для совершения покупки необходим доступ в Интернет")
+                            }
+                            .padding([.top, .bottom])
+                            .font(Font.body.bold())
+                            .frame(maxWidth: .infinity)
+                        }
+                        else if self.products.count > 0 {
                             ForEach(self.products, id: \.self) { product in
                                 HStack {
                                     if product.skProduct?.subscriptionPeriod != nil {
@@ -95,17 +107,10 @@ struct BuySubscriptionView: View {
                                 .foregroundColor(selectedProduct == product ? .white : Color("Black1"))
                                 .cornerRadius(8)
                                 
+                                
                             }
                         }
-                        else {
-                            if !networkManager.isInternetConnected {
-                                Label("Для совершения покупки необходим доступ в Интернет", icon: {
-                                    Image(systemName: "info.circle")
-                                        .foregroundColor(.red)
-                                })
-                                .font(Font.body.bold())
-                                .frame(maxWidth: .infinity)
-                            }
+                        if self.products.count == 0 {
                             ProgressView()
                                 .padding()
                         }
@@ -225,9 +230,10 @@ struct BuySubscriptionView: View {
             .navigationBarColor(backgroundColor: UIColor(named: "White1")!, tintColor: UIColor(named: "Black1")!, shadowColor: .clear, buttonsColor: UIColor(named: "Gray1"))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    HStack {
+                    
+//                    HStack {
                         CloseButton(presentationMode: presentationMode)
-                    }
+//                    }
                 }
                 
             }
@@ -243,14 +249,18 @@ struct BuySubscriptionView: View {
             if error == nil {
                 // retrieve current paywall with identifier
                 self.paywall = paywalls?.first(where: { $0.identifier == "default_paywall" })
-                if let paywallProducts = paywall?.products {
-                    self.products = paywallProducts
-                    withAnimation {
-                        self.selectedProduct = products.first
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0.35)) {
+                    if let paywallProducts = paywall?.products {
+                        self.products = paywallProducts
+    //                    withAnimation {
+                        withAnimation {
+                                self.selectedProduct = products.first
+                            }
+                        
+    //                    }
+                        self.introductoryPrice = selectedProduct?.skProduct?.introductoryPrice
+                        checkIntroductoryOffer()
                     }
-                    self.introductoryPrice = selectedProduct?.skProduct?.introductoryPrice
-                    print("STRING VALUE", introductoryPrice!.price.stringValue)
-                    checkIntroductoryOffer()
                 }
                 
                 //                                            }
@@ -266,6 +276,7 @@ struct BuySubscriptionView: View {
         if let skProduct = selectedProduct?.skProduct {
             Apphud.checkEligibilityForIntroductoryOffer(product: skProduct) { res in
                 withAnimation {
+                    print("isEligibleForOffer", res)
                     self.isEligibleForOffer = res
                 }
             }
@@ -284,5 +295,13 @@ struct BuySubscriptionView: View {
 //            DatePicker("When is your birthday?", selection: $selectedDate, displayedComponents: .date)
 //                .datePickerStyle(GraphicalDatePickerStyle())
 //        }
+//    }
+//}
+
+//struct BuySubscriptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BuySubscriptionView()
+//            .environmentObject(EnvironmentObject.pre)
+//
 //    }
 //}

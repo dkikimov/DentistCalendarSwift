@@ -59,11 +59,15 @@ struct EventAddView: View {
         }
         
         //        .environment(\.editMode, $data.isEditMode)
-        .navigationBarItems(trailing: Button(action: {
-            data.addEvents(presentationMode)
-        }, label: {
-            data.isLoading ?  Text("Загрузка...") : Text("Добавить")
-        }))
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    data.addEvents(presentationMode)
+                }, label: {
+                    data.isLoading ?  Text("Загрузка...") : Text("Добавить")
+                })
+            }
+        }
         .navigationBarTitle("Импорт записей", displayMode: .inline)
         //        .onAppear(perform: data.getEvents)
         

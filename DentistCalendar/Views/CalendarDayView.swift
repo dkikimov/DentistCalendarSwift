@@ -3,10 +3,11 @@ import SwiftUI
 import Amplify
 import ApphudSDK
 import Appodeal
+
 //import Adapty
 struct CalendarDayView: View {
     @State var tabSelection: Tabs = .tab1
-    @EnvironmentObject var modalManager: ModalManager
+    @StateObject var modalManager = ModalManager()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var activeView: DestinationTypes = .calendar
     @AppStorage("introductionInstruction") var isWalkthroughPresented = true
@@ -26,6 +27,7 @@ struct CalendarDayView: View {
                         Text("Календарь")
                         
                     })
+                    .environmentObject(modalManager)
                 
                 PatientsListView()
                     .tag(Tabs.tab2)
@@ -34,6 +36,16 @@ struct CalendarDayView: View {
                         Text("Пациенты")
                     })
             }
+//                        .halfModalSheet(isPresented: $modalManager.isDatePickerPresented, height: UIScreen.main.bounds.width + 50) {
+//                            DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
+//                                .datePickerStyle(GraphicalDatePickerStyle())
+//                                .labelsHidden()
+//                        }
+            .slideOverCard(isPresented: $modalManager.isDatePickerPresented, content: {
+                DatePicker("", selection: $modalManager.selectedDate, displayedComponents: .date)
+                    .datePickerStyle(GraphicalDatePickerStyle())
+                    .labelsHidden()
+            })
             .transition(.opacity)
             .fullScreenCover(isPresented: $isWalkthroughPresented, content: {
                 WalktroughView(isWalkthroughViewShowing: $isWalkthroughPresented)

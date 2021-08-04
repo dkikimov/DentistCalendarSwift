@@ -46,8 +46,12 @@
 "Домашний" = "Home";
 "Имя пациента" = "Patient's name";
 "Название" = "Title";
+
 "Начало приема" = "Starts";
 "Конец приема" = "Ends";
+"Начало события" = "Starts";
+"Конец события" = "Ends";
+
 "Оплачено: 0" = "Paid: 0";
 "Добавить услугу" = "Add service";
 "Сохранить" = "Save";
@@ -133,6 +137,7 @@
 "Количество" = "Quantity";
 "Имя пациента слишком длинное" = "Patient name is too long";
 "Имя слишком длинное" = "Name is too long";
+"Название слишком длинное" = "Title is too long";
 "Фамилия слишком длинная" = "Surname is too long";
 "Полное имя пациента слишком длинное" = "Patient's full name is too long";
 "Дата окончания записи не может быть раньше даты начала." = "The end date of the recording cannot be earlier than the start date.";
@@ -142,7 +147,7 @@
 "Произошла ошибка" = "An error occured";
 "Карта пациента" = "Patient card";
 "Выберите опции" = "Select options";
-
+"Вы уверены, что хотите удалить пациента?" = "Are you sure you want to delete the patient?";
 "Василий Петров" = "John Doe";
 "Василий" = "John";
 "Петров" = "Doe";

@@ -13,12 +13,16 @@ class AppointmentCalendarViewModel: ObservableObject {
     @Published var error = ""
     @Published var isAlertPresented = false
     @Published var isActionSheetPresented = false
+    
     var isEditAllowed: Bool
     @Published var appointment: Appointment
     
     init(appointment: Appointment, isEditAllowed: Bool) {
         self.appointment = appointment
         self.isEditAllowed = isEditAllowed
+        if appointment.patientID != nil {
+            self.appointment.title = getPatientName(patientID: appointment.patientID!)
+        }
     }
     
     func deleteAppointment(presentationMode: Binding<PresentationMode>) {

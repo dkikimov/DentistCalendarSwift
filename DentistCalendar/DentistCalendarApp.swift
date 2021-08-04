@@ -56,7 +56,6 @@ struct DentistCalendarApp: App {
         configureApphud()
         configureAmplify()
         sessionManager.getCurrentAuthUser()
-        
     }
     
     var body: some Scene {

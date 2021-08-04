@@ -47,21 +47,22 @@ import PhoneNumberKit
 //    }
 //
 //}
-
-
 struct PhoneNumberTextFieldView: UIViewRepresentable {
     @Binding var phoneNumber: String
     public let sharedInstance: PhoneNumberKit = PhoneNumberKit.init()
-    let textField = PhoneNumberTextField()
 
     func makeUIView(context: Context) -> PhoneNumberTextField {
+        let textField = PhoneNumberTextField()
+
+        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+
         textField.addTarget(context.coordinator, action: #selector(Coordinator.onTextChange), for: .editingChanged)
         textField.delegate = context.coordinator
 //        textField.defaultRegion = Locale.current.regionCode ?? "KZ"
         textField.withExamplePlaceholder = true
         textField.withPrefix = true
 
-        textField.maxDigits = 15
+        textField.maxDigits = phoneNumberMaxLength
         textField.text = phoneNumber
 //        print("YEP YEP MADE VIEw")
         return textField
@@ -100,6 +101,62 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
     
     }
 }
+
+//public struct PhoneNumberTextFieldView: UIViewRepresentable {
+//    @Binding public var phoneNumber: String
+//    public let sharedInstance: PhoneNumberKit = PhoneNumberKit.init()
+//    public func makeUIView(context: Context) -> PhoneNumberTextField {
+//        let textField = PhoneNumberTextField()
+//        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+//
+//        textField.delegate = context.coordinator
+////        textField.defaultRegion = Locale.current.regionCode ?? "KZ"
+//        textField.withExamplePlaceholder = true
+//        textField.withPrefix = true
+//
+//        textField.maxDigits = 15
+//        textField.text = phoneNumber
+////        print("YEP YEP MADE VIEw")
+//        return textField
+//    }
+//
+//    public func updateUIView(_ view: PhoneNumberTextField, context: Context) {
+////        DispatchQueue.main.async {
+////            view.text = phoneNumber
+////        }
+//    }
+//    public func makeCoordinator() -> Coordinator {
+//        Coordinator(phoneNumber: $phoneNumber)
+//    }
+//
+//
+//    public class Coordinator:  NSObject, UITextFieldDelegate {
+//        @Binding var phoneNumber: String
+////        var parent: PhoneNumberTextFieldView
+//
+//        init(phoneNumber: Binding<String>) {
+//            _phoneNumber = phoneNumber
+//        }
+//        public func textFieldDidChangeSelection(_ textField: UITextField) {
+//            DispatchQueue.main.async {
+//                self.phoneNumber = textField.text ?? ""
+//            }
+//        }
+//        @objc func onTextChange(textField: UITextField) {
+//
+//            guard let textField = textField as? PhoneNumberTextField else { return assertionFailure("Undefined state") }
+////            self.text.wrappedValue = textField.text ?? ""
+//
+//            self.phoneNumber = textField.text ?? ""
+//
+////            print("SET TEXT", self.parent.$phoneNumber.wrappedValue)
+//        }
+//
+//
+//
+//
+//    }
+//}
 
 
 

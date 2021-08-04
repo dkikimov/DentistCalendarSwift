@@ -19,10 +19,25 @@ private func dateFromStr(date: String) -> Date {
     return Date(timeIntervalSince1970: Double(date)!)
 }
 
-struct DiagnosisItem {
-    var amount: Int
-    var price: String
+class DiagnosisItem: ObservableObject, Identifiable {
+    var id = UUID()
+    var key: String
+    @Published var amount: Int
+    @Published var price: String
+    
+    init(key: String, amount: Int, price: String) {
+        self.key = key
+        self.amount = amount
+        self.price = price
+    }
 }
+
+//struct DiagnosisItem: Identifiable {
+//    var id = UUID()
+//    var key: String
+//    var amount: Int
+//    var price: String
+//}
 
 class AppointmentCreateViewModel : ObservableObject {
     var cancellable: AnyCancellable? = nil
@@ -36,10 +51,11 @@ class AppointmentCreateViewModel : ObservableObject {
     @Published var dateEnd = Date().addingTimeInterval(3600)
     @Published var isFirstDatePresented = false
     @Published var isSecondDatePresented = false
-    @Published var selectedDiagnosisList = [String: DiagnosisItem]()
+    @Published var selectedDiagnosisList = [DiagnosisItem]()
     @Published var isDiagnosisCreatePresented = false
     @Published var error = ""
     @Published var isAlertPresented = false
+    @Published var phoneNumber = ""
     var id = UUID().uuidString
     var startPaymentsArray = [PaymentModel]()
     //    @Published var isPaidFully: Bool = false
@@ -74,7 +90,7 @@ class AppointmentCreateViewModel : ObservableObject {
                 }
                 self.dateStart = dateFromStr(date: appointment!.dateStart)
                 self.dateEnd = dateFromStr(date: appointment!.dateEnd)
-                self.title = appointment!.title
+                self.title = appointment!.title ?? ""
             } else {
                 self.title = patient?.fullname ?? " "
                 self.toothNumber = String(appointment!.toothNumber!)
@@ -103,10 +119,11 @@ class AppointmentCreateViewModel : ObservableObject {
                     let diagData = dataString.split(separator: ":")
                     
                     if diagData.count >= 2 {
-                        selectedDiagnosisList[String(diagData[0])] = DiagnosisItem(amount: Int(amount) ?? 0, price: String(diagData[1]))
+                        selectedDiagnosisList.append(DiagnosisItem(key: String(diagData[0]), amount: Int(amount) ?? 0, price: String(diagData[1])))
+//                        selectedDiagnosisList[String(diagData[0])] = DiagnosisItem(amount: Int(amount) ?? 0, price: String(diagData[1]))
                     }
-                    else if diagData.count == 1{
-                        selectedDiagnosisList[String(diagData[0])] = DiagnosisItem(amount: Int(amount) ?? 0, price: "0")
+                    else if diagData.count == 1 {
+                        selectedDiagnosisList.append(DiagnosisItem(key: String(diagData[0]), amount: Int(amount) ?? 0, price: "0"))
                     }
                 }
                 generateMoneyData.call()
@@ -138,7 +155,7 @@ class AppointmentCreateViewModel : ObservableObject {
     
     func createAppointment(isModalPresented: Binding<Bool>, patientDetailData: PatientDetailViewModel) {
         let newAppointment = Appointment(
-            id: id, title: patient!.fullname, patientID: patient!.id, toothNumber: toothNumber.trimmingCharacters(in: .whitespaces),
+            id: id, patientID: patient!.id, toothNumber: toothNumber.trimmingCharacters(in: .whitespaces),
             diagnosis: generateDiagnosisString(), dateStart: strFromDate(date: dateStart), dateEnd: strFromDate(date: dateEnd))
         Amplify.DataStore.save(newAppointment){ res in
             switch res{
@@ -224,7 +241,7 @@ class AppointmentCreateViewModel : ObservableObject {
             Amplify.DataStore.save(newPatient) { [self] res in
                 switch res {
                 case .success(let patient):
-                    let newAppointment = Appointment(id: id, title: patient.fullname, patientID: patient.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
+                    let newAppointment = Appointment(id: id, patientID: patient.id, toothNumber: self.toothNumber.trimmingCharacters(in: .whitespaces), diagnosis: generateDiagnosisString(), dateStart: strFromDate(date: self.dateStart), dateEnd: strFromDate(date: self.dateEnd))
                     Amplify.DataStore.save(newAppointment) { result in
                         switch result {
                         case .success:
@@ -360,7 +377,7 @@ class AppointmentCreateViewModel : ObservableObject {
         //            .joined(separator: ";")
         
         
-        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.value.price.decimalValue.stringValue == "0" || ($0.value.price.decimalValue.stringValue.isEmpty) ? "" : ":" + $0.value.price.decimalValue.stringValue + ($0.value.amount == 1 ? "" : "*" + String($0.value.amount)))}
+        return selectedDiagnosisList.map{$0.key.trimmingCharacters(in: .whitespaces) + ($0.price.decimalValue.stringValue == "0" || ($0.price.decimalValue.stringValue.isEmpty) ? "" : ":" + $0.price.decimalValue.stringValue + ($0.amount == 1 ? "" : "*" + String($0.amount)))}
             .joined(separator: ";")
     }
     
@@ -368,7 +385,7 @@ class AppointmentCreateViewModel : ObservableObject {
         var sumPrices: Decimal = 0
         var sumPayment: Decimal = 0
         _ = selectedDiagnosisList.map {
-            sumPrices += ($1.price.decimalValue * Decimal($1.amount))
+            sumPrices += ($0.price.decimalValue * Decimal($0.amount))
         }
         for payment in paymentsArray {
             sumPayment += payment.cost.decimalValue

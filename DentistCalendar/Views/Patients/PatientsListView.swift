@@ -164,6 +164,9 @@ struct PatientsListView: View {
 
 struct PatientsListSearch: View {
     @ObservedObject var listData: PatientsListViewModel
+    @State var isAlertPresented = false
+    @State var selectedIndexSet: IndexSet.Element?
+    @State var selectedPatient: Patient?
     var body: some View {
         ZStack {
             if listData.patientsList.count > 0 {
@@ -184,7 +187,11 @@ struct PatientsListSearch: View {
                                         }.frame(height: 55)
                                        })
                     }.onDelete(perform: { indexSet in
-                        deleteItem(at: indexSet)
+                        if let first = indexSet.first {
+                            self.selectedIndexSet = first
+                            self.selectedPatient = listData.filteredItems[first]
+                        }
+                        isAlertPresented = true
                     })
                 }
                 .listStyle(PlainListStyle())
@@ -214,9 +221,25 @@ struct PatientsListSearch: View {
                 }.padding([.bottom, .trailing], 15)
             }
             
-        }    }
-    func deleteItem(at offsets: IndexSet) {
-        if let first = offsets.first {
+        }
+        .alert(isPresented: $isAlertPresented, content: {
+            Alert(title: Text("Подтверждение"), message: Text("Вы уверены, что хотите удалить пациента?") , primaryButton: .cancel(), secondaryButton: .destructive(Text("Удалить"), action: {
+                if let selectedIndexSet = selectedIndexSet {
+                    guard listData.filteredItems[selectedIndexSet] == selectedPatient else {
+                        presentErrorAlert(message: "Произошла ошибка")
+                        return
+                    }
+                    withAnimation {
+                        deleteItem(at: selectedIndexSet)
+                    }
+                }
+                
+            }))
+
+        })
+        
+    }
+    func deleteItem(at first: IndexSet.Element) {
             if listData.patientsList.count >= first {
                 let id: String
                 if listData.isSearching {
@@ -232,7 +255,7 @@ struct PatientsListSearch: View {
                 print("DELETED OK", listData.patientsList)
             }
             
-        }
+        
     }
 }
 

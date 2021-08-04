@@ -48,10 +48,29 @@ class PatientsListViewModel: ObservableObject {
         Amplify.DataStore.delete(Patient.self, withId: id) { res in
             switch res {
             case .success:
+                Amplify.DataStore.query(Appointment.self, where: Appointment.keys.patientID == id) { result in
+                    switch result {
+                    case .success(let appointments):
+                        for appoint in appointments {
+                            Amplify.DataStore.delete(appoint) {
+                                switch $0 {
+                                case .failure(let err):
+                                    presentErrorAlert(message: err.localizedDescription)
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                        break
+                    case .failure(let error):
+                        presentErrorAlert(message: error.localizedDescription)
+                        break
+                    }
+                }
                 break
 //                presentSuccessAlert(message: "Пациент успешно удален!")
             case .failure(let error):
-                presentErrorAlert(message: error.errorDescription)
+                presentErrorAlert(message: error.localizedDescription)
             }
         }
         //        Api().deletePatient(id: id) { (success, err) in

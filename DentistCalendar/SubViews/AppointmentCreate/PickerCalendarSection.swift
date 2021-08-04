@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct PickerCalendarSection: View {
-    @EnvironmentObject var data: AppointmentCreateViewModel
+    @Binding var segmentedMode: CurrentSegmentedState
     var body: some View {
         Section(header: Text("Тип календаря")) {
-            Picker(selection: $data.segmentedMode, label: Text("Выберите календарь")) {
+            Picker(selection: $segmentedMode, label: Text("Выберите календарь")) {
                 Text("Рабочий").tag(CurrentSegmentedState.withPatient)
                 Text("Домашний").tag(CurrentSegmentedState.nonPatient)
             }.pickerStyle(SegmentedPickerStyle())

@@ -58,7 +58,6 @@ struct ContentView: View {
 //    @State var isOnboardingPresented: Bool = true
 
     @EnvironmentObject var sessionManager: SessionManager
-    @State var alertController = UIAlertController(title: "Ошибка", message: "Для продолжения включите доступ к интернету", preferredStyle: .alert)
     var calendar = Calendar(identifier: .gregorian)
     init() {
         calendar.locale = Locale(identifier: Locale.preferredLanguages.first!)
@@ -68,6 +67,11 @@ struct ContentView: View {
             if isOnboardingPresented {
                 OnBoardingView(isWalkthroughViewShowing: $isOnboardingPresented)
                     .transition(.move(edge: .bottom))
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            sessionManager.signOut(compelition: {_ in})
+                        }
+                    }
             } else {
                 switch sessionManager.authState {
                 case .login:

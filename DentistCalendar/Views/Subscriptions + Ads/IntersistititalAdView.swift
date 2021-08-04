@@ -46,15 +46,23 @@ func showRewardedVideo(placement: String, completion: @escaping (Bool) -> ()) {
         }
         return
     }
+            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        //            print("WINDOWS COUNT", UIApplication.shared.windows.filter {$0.isKeyWindow}.count)
+            if var topController = keyWindow?.rootViewController {
+                while let presentedViewController = topController.presentedViewController {
+                    topController = presentedViewController
+                }
+                DispatchQueue.main.async {
+                    completion(true)
+                }
             Appodeal.showAd(.rewardedVideo,
                               forPlacement: placement,
-                              rootViewController: nil)
+                              rootViewController: topController)
             
-            DispatchQueue.main.async {
-                completion(true)
-            }
+            
             
     
+}
 }
 
 

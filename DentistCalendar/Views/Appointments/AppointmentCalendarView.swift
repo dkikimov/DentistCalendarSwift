@@ -31,11 +31,10 @@ struct AppointmentCalendarView: View {
     }
     var body: some View {
         NavigationView {
-            ZStack {
-                Print("UPDATING CALENDAR VIEW")
-                ScrollView{
+            VStack(spacing: 0) {
+                ScrollView {
                     VStack(alignment: .leading) {
-                        Text(data.appointment.title).font(.title).bold()
+                        Text(data.appointment.title ?? "").font(.title).bold()
                         Text(dateFormatter(date: data.appointment.dateStart))
                             .font(.subheadline)
                             .foregroundColor(Color(hex: "#8a8888"))
@@ -73,54 +72,47 @@ struct AppointmentCalendarView: View {
                         Spacer()
                     }
                     .padding()
-                    
-                    
                 }
-                VStack {
-                    Spacer()
-                    HStack{
                         Button(action: {
                             data.isActionSheetPresented = true
                         }, label: {
-//                            Spacer()
                             Text("Удалить")
                                 .foregroundColor(.red)
                                 .frame(height: 49)
                                 .frame(maxWidth: .infinity)
-//                            Spacer()
-                        }).actionSheet(isPresented: $data.isActionSheetPresented, content: {
-                            ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
-                                .destructive(Text("Удалить")){
-                                    data.deleteAppointment(presentationMode: presentationMode)
-                                },
-                                .cancel()
-                            ])
                         })
-                        
-                        
-                    }
                     .overlay(Divider(), alignment: .top)
-                    .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-                    )
-                }
-                .navigationBarItems(leading: Button(action: {
-                    DispatchQueue.main.async {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }, label: {
-                    Text("Отменить")
-                })  ,trailing:  data.isEditAllowed ? Button(action: {
-                    data.isSheetPresented = true
-                }, label: {
-                    Text("Изменить").foregroundColor(.white)
-                }) : nil)
-                
-                //                .introspectTabBarController { (UITabBarController: UITabBarController) in
-                //                            UITabBarController.tabBar.isHidden = true
-                //                }
+                    .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing]))
             }
             
-            
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }, label: {
+                        Text("Отменить")
+                    })
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    data.isEditAllowed ? Button(action: {
+                        data.isSheetPresented = true
+                    }, label: {
+                        Text("Изменить")
+                            .bold()
+                            .foregroundColor(.white)
+                        }) : nil
+                }
+            }
+            .actionSheet(isPresented: $data.isActionSheetPresented, content: {
+                ActionSheet(title: Text("AppointmentConfirmation"), message: nil, buttons: [
+                    .destructive(Text("Удалить")){
+                        data.deleteAppointment(presentationMode: presentationMode)
+                    },
+                    .cancel()
+                ])
+            })
             
             .onChange(of: data.isSheetPresented, perform: { value in
                 if value == false {

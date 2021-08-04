@@ -47,11 +47,15 @@ struct ProfileSettingsUserDataView: View {
                 
             }
             .navigationBarTitle("Изменить пароль", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: {
-                mode.wrappedValue.dismiss()
-            }, label: {
-                Text("Отменить")
-            }))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        mode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Отменить")
+                    })
+                }
+        }
         }
 
 //            .listStyle(GroupedListStyle())

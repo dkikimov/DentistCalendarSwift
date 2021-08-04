@@ -49,9 +49,9 @@ struct DiagnosisCreateView: View {
                         addDiagnosis()
                     }, cancelAction: {
                         print("CANCEL")
-                        if selectedDiagnosisItem != nil {
-                            data.selectedDiagnosisList[selectedDiagnosis!.text!] = selectedDiagnosisItem
-                        }
+//                        if selectedDiagnosisItem != nil {
+//                            data.selectedDiagnosisList.append(selectedDiagnosisItem
+//                        }
                         selectedDiagnosisItem = nil
                         selectedDiagnosis = nil
                     } ,title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis, data: ObservedObject.init(wrappedValue: data))
@@ -73,17 +73,23 @@ struct DiagnosisCreateView: View {
                 }
             })
             .navigationBarTitle(Text("Диагноз"), displayMode: .inline)
-            .navigationBarItems(leading: Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                
-                
-            }, label: {
-                Text("Готово")
-            }), trailing: Button(action: {
-                isAlertPresented = true
-            }, label: {
-                Image(systemName: "plus")
-            }))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                           presentationMode.wrappedValue.dismiss()
+                   }, label: {
+                       Text("Готово")
+                        .bold()
+                   })
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        isAlertPresented = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+            }
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -141,10 +147,13 @@ struct DiagnosisCreateView: View {
                 if let item = data.selectedDiagnosisList.first(where: {
                     $0.key == diagnosis.text
                 }) {
-                    data.selectedDiagnosisList.removeValue(forKey: item.key)
+                    let tempIndex = data.selectedDiagnosisList.firstIndex { $0.key == item.key}
+                    if tempIndex != nil {
+                        data.selectedDiagnosisList.remove(at: tempIndex!)
+                    }
                 }
                 
-                data.selectedDiagnosisList[diagnosisText] = DiagnosisItem(amount: (selectedDiagnosisItem?.amount ?? 1), price: decimalString)
+                data.selectedDiagnosisList.append(DiagnosisItem(key: diagnosisText, amount: (selectedDiagnosisItem?.amount ?? 1), price: decimalString))
             }
             diagnosis.text = diagnosisText
             diagnosis.price = NSDecimalNumber(string: decimalString.isEmpty ? "0" : decimalString, locale: Locale.current)

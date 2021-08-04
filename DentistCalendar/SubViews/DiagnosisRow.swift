@@ -17,13 +17,13 @@ struct DiagnosisRow: View {
         Button (action:{
             DispatchQueue.main.async {
                 isSelected.toggle()
-                if data.selectedDiagnosisList[diag.text!] != nil {
+                if let firstIndex = data.selectedDiagnosisList.firstIndex(where: {$0.key == diag.text!}) {
                     
-                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+                    data.selectedDiagnosisList.remove(at: firstIndex)
                     
                 } else {
                     DispatchQueue.main.async {
-                        data.selectedDiagnosisList[diag.text!] = DiagnosisItem(amount: 1, price: diag.price!.description(withLocale: Locale.current))
+                        data.selectedDiagnosisList.append(DiagnosisItem(key: diag.text!, amount: 1, price: diag.price!.description(withLocale: Locale.current)))
                     }
                     print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                 }
@@ -42,8 +42,8 @@ struct DiagnosisRow: View {
                     .fixedSize(horizontal: false, vertical: true)
                 Button {
                     self.selectedDiagnosis = diag
-                    self.selectedDiagnosisItem = data.selectedDiagnosisList[diag.text!]
-                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
+//                    self.selectedDiagnosisItem = data.selectedDiagnosisList[diag.text!]
+//                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
                     
                     //                    self.isAlertPresented = true
                 } label: {
@@ -54,7 +54,9 @@ struct DiagnosisRow: View {
             }
         })
         .onAppear(perform: {
-            isSelected = data.selectedDiagnosisList[diag.text ?? ""] != nil
+            isSelected = data.selectedDiagnosisList.contains(where: { diagnosis in
+                return diag.text == diagnosis.key
+            })
         })
     }
 }

@@ -6,31 +6,15 @@
 //
 
 import SwiftUI
-
 struct PatientCreateSection: View {
-    @Binding var phoneNumber: String
     @EnvironmentObject var data: AppointmentCreateViewModel
-    @State var timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
     @State var tableView: UITableView?
+    @State var phoneNumber: String = ""
     var body: some View {
         Section {
             TextField("Имя пациента", text: titleBinding())
                 .autocapitalization(.words)
                 .disableAutocorrection(true)
-            //                            .onChange(of: data.title) { newText in
-            //                                data.debouncedFunction?.call()
-            //                                if data.selectedPatient?.fullname != newText && data.viewType == .createWithPatient{
-            //                                    data.selectedPatient = nil
-            //                                    //                                    data.debouncedFunction.call()
-            //                                }
-            //
-            //                            }
-            //                            .onReceive(Just(data.title)) { newText in
-            //                                if data.selectedPatient?.fullname != newText && data.viewType == .createWithPatient {
-            //                                    data.selectedPatient = nil
-            //                                    data.findPatientsByName(name: newText)
-            //                                }
-            //                            }
             if data.foundedPatientsList.count > 0 && data.selectedPatient == nil {
                 List {
                     ForEach(data.foundedPatientsList, id: \.self) { patient in
@@ -41,6 +25,9 @@ struct PatientCreateSection: View {
                         }, label :{
                             PatientsListRow(patient: patient)
                         })
+                        .onAppear(perform: {
+                            showScrollIndicatorsInContacts()
+                        })
                     }
                     .introspectTableView(customize: { uitable in
                         self.tableView = uitable
@@ -50,7 +37,13 @@ struct PatientCreateSection: View {
                 .frame(height:  65)
             }
             if data.selectedPatient == nil {
-                PhoneNumberTextFieldView(phoneNumber: $phoneNumber)
+//                PhoneNumberTextFieldView(phoneNumber: $data.phoneNumber)
+                iPhoneNumberField(text: $data.phoneNumber)
+                    .maximumDigits(15)
+                    .autofillPrefix(true)
+//                TextField(phoneNumberKit.getExampleNumber(forCountry: Locale.current.regionCode!)!.numberString, text: $phoneNumber)
+//                    .keyboardType(.phonePad)
+//                    .textContentType(.telephoneNumber)
                 //                            iPhoneNumberField("Номер", text: data.patientPhone)
                 //                                .flagHidden(true)
                 //                                .flagSelectable(false)
@@ -58,9 +51,7 @@ struct PatientCreateSection: View {
             }
             
         }
-        .onReceive(timer, perform: { _ in
-            showScrollIndicatorsInContacts()
-        })
+    
     }
     
     private func showScrollIndicatorsInContacts() {
@@ -77,7 +68,9 @@ struct PatientCreateSection: View {
             get: {data.title},
             set: {
                 data.title = $0
-                data.debouncedFunction?.call()
+                DispatchQueue.main.async {
+                    data.debouncedFunction?.call()
+                }
             }
             
         )
