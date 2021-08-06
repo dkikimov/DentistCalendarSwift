@@ -100,39 +100,45 @@ class PatientsListViewModel: ObservableObject {
                         patient.id == pat.id
                     }) {
                         DispatchQueue.main.async {
-                            self.patientsList.append(pat)
-                            if !self.isSearching {
-                                self.filteredItems.append(pat)
+                            withAnimation {
+                                self.patientsList.append(pat)
+                                if !self.isSearching {
+                                    self.filteredItems.append(pat)
+                                }
                             }
                         }
                     }
                     break
                 case "delete":
                     DispatchQueue.main.async {
-                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
-                            self.patientsList.remove(at: index)
-                            if !self.isSearching {
-                                self.filteredItems.remove(at: index)
+                        withAnimation {
+                            if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
+                                self.patientsList.remove(at: index)
+                                if !self.isSearching {
+                                    self.filteredItems.remove(at: index)
+                                }
                             }
-                        }
-                        if self.isSearching {
-                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
-                                self.filteredItems.remove(at: index)
+                            if self.isSearching {
+                                if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
+                                    self.filteredItems.remove(at: index)
+                                }
                             }
                         }
                     }
                 case "update":
                     DispatchQueue.main.async {
-                        if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
-                            self.patientsList[index] = pat
-                            if !self.isSearching {
-                                self.filteredItems[index] = pat
+                        withAnimation {
+                            if let index = self.patientsList.firstIndex(where: {$0.id == pat.id}) {
+                                self.patientsList[index] = pat
+                                if !self.isSearching {
+                                    self.filteredItems[index] = pat
+                                }
+                                print("UPDATED PATIENT")
                             }
-                            print("UPDATED PATIENT")
-                        }
-                        if self.isSearching {
-                            if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
-                                self.filteredItems[index] = pat
+                            if self.isSearching {
+                                if let index = self.filteredItems.firstIndex(where: {$0.id == pat.id}) {
+                                    self.filteredItems[index] = pat
+                                }
                             }
                         }
                     }

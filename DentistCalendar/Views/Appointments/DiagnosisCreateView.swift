@@ -16,12 +16,10 @@ struct DiagnosisCreateView: View {
     @State var isErrorAlertPresented = false
     @State var error = ""
     @ObservedObject var data: AppointmentCreateViewModel
-    @FetchRequest(sortDescriptors: [])
-    var diagnosisList: FetchedResults<Diagnosis>
+    @FetchRequest(sortDescriptors: []) var diagnosisList: FetchedResults<Diagnosis>
     
     @State var searchText = ""
     @State var selectedDiagnosis: Diagnosis?
-    @State var selectedDiagnosisItem: DiagnosisItem?
     var body: some View {
         NavigationView{
             ZStack {
@@ -31,12 +29,25 @@ struct DiagnosisCreateView: View {
                         ForEach(diagnosisList.filter {
                             searchText.isEmpty ||
                                 $0.text!.localizedStandardContains(searchText)
-                        }, id: \.self) { (diag) in
-                            DiagnosisRow(selectedDiagnosis: $selectedDiagnosis, selectedDiagnosisItem: $selectedDiagnosisItem, diag: diag)
-                                .environmentObject(data)
+                        }, id: \.id) { (diag) in
+                            DiagnosisRow(diag: diag, action: {
+                                if let firstIndex = data.selectedDiagnosisList.firstIndex(where: {$0.key == diag.text!}) {
+                                    data.selectedDiagnosisList.remove(at: firstIndex)
+                                } else {
+                                    DispatchQueue.main.async {
+                                        data.selectedDiagnosisList.append(DiagnosisItem(key: diag.text!, amount: 1, price: diag.price!.description(withLocale: Locale.current)))
+                                    }
+                                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
+                                }
+                            }, infoAction: {
+                                selectedDiagnosis = diag
+                                
+                            })
+                            .id(diag.id)
                         }
                         .onDelete(perform: deleteDiagnosis)
                     }
+                    .environmentObject(data)
                     .listStyle(PlainListStyle())
                     
                     
@@ -49,12 +60,11 @@ struct DiagnosisCreateView: View {
                         addDiagnosis()
                     }, cancelAction: {
                         print("CANCEL")
-//                        if selectedDiagnosisItem != nil {
-//                            data.selectedDiagnosisList.append(selectedDiagnosisItem
-//                        }
-                        selectedDiagnosisItem = nil
+                        //                        if selectedDiagnosisItem != nil {
+                        //                            data.selectedDiagnosisList.append(selectedDiagnosisItem
+                        //                        }
                         selectedDiagnosis = nil
-                    } ,title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis, data: ObservedObject.init(wrappedValue: data))
+                    } ,title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis)
                     //                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
                     //                        addDiagnosis()
                     //                    }, title: "Услуга", message: "Введите данные услуги")
@@ -69,22 +79,26 @@ struct DiagnosisCreateView: View {
                 if let newValue = newValue {
                     self.diagnosisText = newValue.text ?? ""
                     self.diagnosisPrice = newValue.price!.description(withLocale: Locale.current)
-                    self.isAlertPresented = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0.05)) {
+                        self.isAlertPresented = true
+                    }
                 }
             })
             .navigationBarTitle(Text("Диагноз"), displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
-                           presentationMode.wrappedValue.dismiss()
-                   }, label: {
-                       Text("Готово")
-                        .bold()
-                   })
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Готово")
+                            .bold()
+                    })
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        isAlertPresented = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0.05)) {
+                            isAlertPresented = true
+                        }
                     }, label: {
                         Image(systemName: "plus")
                     })
@@ -93,7 +107,7 @@ struct DiagnosisCreateView: View {
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
-
+        
         .alert(isPresented: $isErrorAlertPresented, content: {
             Alert(title: Text("Ошибка"), message: Text(error), dismissButton: .cancel())
         })
@@ -149,11 +163,16 @@ struct DiagnosisCreateView: View {
                 }) {
                     let tempIndex = data.selectedDiagnosisList.firstIndex { $0.key == item.key}
                     if tempIndex != nil {
-                        data.selectedDiagnosisList.remove(at: tempIndex!)
+                        let item = data.selectedDiagnosisList[tempIndex!]
+                        item.key = diagnosisText
+                        item.price = decimalString
+                        print("ITEM ", item)
+                        data.selectedDiagnosisList[tempIndex!] = item
+                        //                        data.selectedDiagnosisList.remove(at: tempIndex!)
+                        //                        data.selectedDiagnosisList.append(DiagnosisItem(key: diagnosisText, amount: 1, price: decimalString))
                     }
                 }
                 
-                data.selectedDiagnosisList.append(DiagnosisItem(key: diagnosisText, amount: (selectedDiagnosisItem?.amount ?? 1), price: decimalString))
             }
             diagnosis.text = diagnosisText
             diagnosis.price = NSDecimalNumber(string: decimalString.isEmpty ? "0" : decimalString, locale: Locale.current)
@@ -166,7 +185,6 @@ struct DiagnosisCreateView: View {
         diagnosisText = ""
         diagnosisPrice = ""
         selectedDiagnosis = nil
-        selectedDiagnosisItem = nil
     }
     private func deleteDiagnosis(at offsets: IndexSet) {
         withAnimation{

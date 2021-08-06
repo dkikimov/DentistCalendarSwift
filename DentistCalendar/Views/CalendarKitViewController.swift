@@ -91,8 +91,8 @@ class CustomCalendarExampleController: DayViewController {
                 case "update":
                     if let index = self.generatedEvents.firstIndex(where: {$0.id == app.id}) {
                         //                        print("UPDATE APPOINTMENT", app)
-                        let event = self.generateEvent(appointment: app)
                         DispatchQueue.main.async {
+                            let event = self.generateEvent(appointment: app)
                             //                            print("ADDING EVENT", event.text)
                             self.generatedEvents[index] = event
                             if app.id == self.selectedAppointment.wrappedValue.id {
@@ -188,8 +188,6 @@ class CustomCalendarExampleController: DayViewController {
         //        print("LOADVIEW")
     }
     override func viewDidAppear(_ animated: Bool) {
-        observeAppointments()
-        observePatients()
         print("VIEWDIDAPPEAR")
         
     }
@@ -199,6 +197,9 @@ class CustomCalendarExampleController: DayViewController {
         dayView.autoScrollToFirstEvent = true
         print("TIMEZONE", dayView.calendar.timeZone)
         reloadData()
+        
+            observeAppointments()
+            observePatients()
         //        print("VIEWDIDLOAD")
         
     }

@@ -26,7 +26,6 @@ struct AlertControlView: UIViewControllerRepresentable {
     var title: String
     var message: String
     var selectedDiagnosis: Binding<Diagnosis?>? = nil
-    var data: ObservedObject<AppointmentCreateViewModel>?
     // Make sure that, this fuction returns UIViewController, instead of UIAlertController.
     // Because UIAlertController gets presented on UIViewController
     func makeUIViewController(context: UIViewControllerRepresentableContext<AlertControlView>) -> UIViewController {

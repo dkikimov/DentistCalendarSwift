@@ -96,10 +96,11 @@ struct AppointmentCreateView: View {
                     ToolbarItem(placement: .cancellationAction) {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
-                            DispatchQueue.main.async {
                                 if data.viewType == .createWithPatient {
-                                    group!.leave()
+                                    let queue = DispatchQueue(label: "appointmentCreate")
+                                    queue.async(group: group!) {
                                     data.cancellable?.cancel()
+                                    group!.leave()
                                 }
                             }
                             
@@ -276,7 +277,7 @@ struct AppointmentCreateView: View {
         .alert(isPresented: $data.isAlertPresented, content: {
             switch alertType {
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text(data.error), dismissButton: .cancel())
+                return Alert(title: Text("Ошибка"), message: Text(data.error.localized), dismissButton: .cancel())
             case .internet:
                 return Alert(title: Text("Подключите устройство к интернету"), message: Text("Добавление и изменение записей без доступа к интернету доступно только для пользователей Dentor Premium"), dismissButton: .default(Text("Перейти к покупке"), action: {
                     isFullScreenPresented = true

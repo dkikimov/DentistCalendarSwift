@@ -14,7 +14,7 @@ struct ActionButton: View {
     var color: Color = Color("PrimaryColor")
     var fontColor: Color = .white
     var fontWeight: Font.Weight = .semibold
-    var font: Font = .title3
+    var font: Font = .body
     
     
     
@@ -47,6 +47,7 @@ struct ActionButton: View {
                                 .fontWeight(fontWeight)
                                 .font(font)
                                 .foregroundColor(fontColor)
+                                .padding()
                         }
 
                             
@@ -59,13 +60,14 @@ struct ActionButton: View {
             
 
         })
-        .frame(height: 60)
+//        .frame(height: 60)
         .frame(maxWidth: maxWidth)
         .background(color)
         .foregroundColor(.white)
-        .cornerRadius(10)
+        .clipShape(Rectangle())
+        .cornerRadius(8)
         .padding(.horizontal, 20)
-        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 5, y: 5)
+//        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 5, y: 5)
         
     }
 }

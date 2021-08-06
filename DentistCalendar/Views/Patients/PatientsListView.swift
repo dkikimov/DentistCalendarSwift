@@ -251,8 +251,6 @@ struct PatientsListSearch: View {
                 print("LISTDATA", listData.patientsList)
                 print("INDEX", first)
                 listData.deletePatient(id: id)
-                //                self.listData.patientsList.remove(atOffsets: offsets)
-                print("DELETED OK", listData.patientsList)
             }
             
         

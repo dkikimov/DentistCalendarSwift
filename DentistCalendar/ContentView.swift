@@ -55,8 +55,9 @@ import UIKit
 
 struct ContentView: View {
     @AppStorage("firstStart")  var isOnboardingPresented = true
-//    @State var isOnboardingPresented: Bool = true
-
+    //    @State var isOnboardingPresented: Bool = true
+    //    @State var viewContext = PersistenceController.shared.container.viewContext
+    
     @EnvironmentObject var sessionManager: SessionManager
     var calendar = Calendar(identifier: .gregorian)
     init() {
@@ -69,38 +70,58 @@ struct ContentView: View {
                     .transition(.move(edge: .bottom))
                     .onAppear {
                         DispatchQueue.main.async {
-                            sessionManager.signOut(compelition: {_ in})
+                            signOutOnStart()
                         }
+                        //                        for i in 0...100 {
+                        //                            let newDiag = Diagnosis(context: viewContext)
+                        //                            newDiag.text = String("ITER \(i)")
+                        //                            newDiag.price = NSDecimalNumber(value: i)
+                        //                            saveContext()
+                        //                        }
                     }
             } else {
                 switch sessionManager.authState {
                 case .login:
                     LoginView()
                         .environmentObject(sessionManager)
-//                        .transition(.move(edge: .bottom))
+                //                        .transition(.move(edge: .bottom))
                 case .session:
                     CalendarDayView()
                         .environmentObject(sessionManager)
                         .environment(\.locale, Locale.init(identifier: Locale.preferredLanguages[0]))
                         .environment(\.calendar, calendar)
-//                        .transition(.move(edge: .bottom))
+                    //                        .transition(.move(edge: .bottom))
                     Print("Current Locale", Locale.preferredLanguages[0])
                 case .confirmCode(username: let username, password: let password):
                     ConfirmationView(viewType: .signUp, password: password, username: username)
                         .environmentObject(sessionManager)
-//                        .transition(.move(edge: .bottom))
+                //                        .transition(.move(edge: .bottom))
                 case .forgotCode(username: let username, newPassword: let newPassword):
                     ConfirmationView(viewType: .forgotPassword, password: newPassword, username: username)
                         .environmentObject(sessionManager)
-//                        .transition(.move(edge: .bottom))
+                //                        .transition(.move(edge: .bottom))
                 case AuthState.confirmSignUp(username: let username, password: let password):
                     ConfirmationView(viewType: .confirmSignUp, password: password, username: username)
-//                        .transition(.move(edge: .bottom))
+                //                        .transition(.move(edge: .bottom))
                 }
             }
         }
-//
+        //
     }
+    private func signOutOnStart() {
+        sessionManager.signOut(compelition: { res in
+                                if res != nil {
+                                    signOutOnStart()
+                                }})
+    }
+    //    private func saveContext() {
+    //        do {
+    //            try viewContext.save()
+    //
+    //        } catch(let error) {
+    //            print("Error when saving CoreData ", error)
+    //        }
+    //    }
 }
 
 

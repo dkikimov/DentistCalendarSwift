@@ -10,26 +10,30 @@ import SwiftUI
 struct DiagnosisRow: View {
     @EnvironmentObject var data: AppointmentCreateViewModel
     @State var isSelected = false
-    @Binding var selectedDiagnosis: Diagnosis?
-    @Binding var selectedDiagnosisItem: DiagnosisItem?
+//    @Binding var selectedDiagnosis: Diagnosis?
     var diag: Diagnosis
+    var action: () -> ()
+    var infoAction: () -> ()
     var body: some View {
         Button (action:{
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 isSelected.toggle()
-                if let firstIndex = data.selectedDiagnosisList.firstIndex(where: {$0.key == diag.text!}) {
-                    
-                    data.selectedDiagnosisList.remove(at: firstIndex)
-                    
-                } else {
-                    DispatchQueue.main.async {
-                        data.selectedDiagnosisList.append(DiagnosisItem(key: diag.text!, amount: 1, price: diag.price!.description(withLocale: Locale.current)))
-                    }
-                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
-                }
-            }
+                action()
+                // Попробовать вызывать экшн в родительском вью
+//                if let firstIndex = data.selectedDiagnosisList.firstIndex(where: {$0.key == diag.text!}) {
+//
+//                    data.selectedDiagnosisList.remove(at: firstIndex)
+//
+//                } else {
+//                    DispatchQueue.main.async {
+//                        data.selectedDiagnosisList.append(DiagnosisItem(key: diag.text!, amount: 1, price: diag.price!.description(withLocale: Locale.current)))
+//                    }
+//                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
+//                }
+//            }
         },label: {
             HStack {
+//                Print("DIAGNOSIS ROW UPDATE")
                 Text(diag.text ?? "Error")
                     .foregroundColor(isSelected ? .blue : Color("Black1"))
                     .lineLimit(3)
@@ -41,7 +45,8 @@ struct DiagnosisRow: View {
                     .multilineTextAlignment(.trailing)
                     .fixedSize(horizontal: false, vertical: true)
                 Button {
-                    self.selectedDiagnosis = diag
+                    infoAction()
+//                    self.selectedDiagnosis = diag
 //                    self.selectedDiagnosisItem = data.selectedDiagnosisList[diag.text!]
 //                    data.selectedDiagnosisList.removeValue(forKey: diag.text!)
                     

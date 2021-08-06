@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ApphudSDK
-import Appodeal
 import StoreKit
 //import Adapty
 //"В будущем: генерируйте документы и выписки"
