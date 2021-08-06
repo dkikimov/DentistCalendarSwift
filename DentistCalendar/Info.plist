@@ -73,7 +73,7 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>$(PRODUCT_NAME) запрашивает доступ к календарю для получения событий и записей.</string>
+	<string>$(PRODUCT_NAME) requests access to the calendar to get events and records.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>SKAdNetworkItems</key>
