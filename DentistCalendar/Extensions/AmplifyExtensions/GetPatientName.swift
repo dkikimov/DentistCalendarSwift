@@ -9,15 +9,14 @@ import Foundation
 import Amplify
 
 public func getPatientName(patientID: String) -> String {
-//    var result = ""
-//    Amplify.DataStore.query(Patient.self, byId: patientID) { res in
-//        switch res {
-//        case .success(let patient):
-//            result = (patient?.fullname ?? "")
-//        case .failure(let err):
-//            presentErrorAlert(message: err.localizedDescription)
-//        }
-//    }
-//    return result
-    return "error"
+    var result = ""
+    Amplify.DataStore.query(Patient.self, byId: patientID) { res in
+        switch res {
+        case .success(let patient):
+            result = (patient?.fullname ?? "")
+        case .failure(let err):
+            presentErrorAlert(message: err.localizedDescription)
+        }
+    }
+    return result
 }

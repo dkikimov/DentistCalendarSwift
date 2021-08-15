@@ -16,6 +16,7 @@ struct CenteringColumnPreferenceKey: PreferenceKey {
     static func reduce(value: inout [CenteringColumnPreference], nextValue: () -> [CenteringColumnPreference]) {
         value.append(contentsOf: nextValue())
     }
+
 }
 
 struct CenteringColumnPreference: Equatable {

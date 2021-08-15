@@ -147,13 +147,13 @@ struct BuySubscriptionView: View {
                         }
                         HStack(spacing: 5) {
                             Spacer()
-                            Link(destination: URL(string: "https://dentor-website.vercel.app/terms_of_use.html")!) {
+                            Link(destination: URL(string: "https://dentor.vercel.app/terms_of_use.html")!) {
                                 Text("Условия использования")
                                     .font(.caption2)
                                     .bold()
                                     .foregroundColor(Color("Black1"))
                             }
-                            Link(destination: URL(string: "https://dentor-website.vercel.app/privacy_policy.html")!) {
+                            Link(destination: URL(string: "https://dentor.vercel.app/privacy_policy.html")!) {
                                 Text("Политика конфиденциальности")
                                     .font(.caption2)
                                     .bold()
