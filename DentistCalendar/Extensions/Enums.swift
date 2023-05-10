@@ -16,12 +16,12 @@ public enum AppointmentType {
     case createWithPatient
     case edit
     case editCalendar
-    case detailView
+    case patientDetailView
 }
 
 public enum Tabs{
-        case tab1, tab2
-    }
+    case tab1, tab2
+}
 
 public enum InternetConnectionType {
     case enabled
@@ -48,7 +48,11 @@ public enum DestinationTypes: CaseIterable, Identifiable {
         case .calendar: return "calendar"
         case .patients: return "person.3.fill"
         case .settings: return "gearshape.fill"
-        
         }
     }
+}
+
+
+public enum ConfigKeys: String {
+    case free_version_max_appointments
 }

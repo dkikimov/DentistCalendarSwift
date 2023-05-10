@@ -37,7 +37,6 @@ struct ConfirmationView: View {
                 Text("Одноразовый код был отправлен вам на почту").font(.body).foregroundColor(.gray)
             }
             
-//            PassCodeInputField(inputModel: model)
             CodeInputView(inputModel: model)
             Spacer()
                 .frame(height: 10)
@@ -107,7 +106,7 @@ struct ConfirmationView: View {
         })
     }
 }
-//
+
 struct ConfirmationView_Previews: PreviewProvider {
     static var previews: some View {
         ConfirmationView(viewType: .confirmSignUp, username: "as")

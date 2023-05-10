@@ -11,19 +11,15 @@ struct CodeInputView: View {
     @ObservedObject var inputModel: PassCodeInputModel
     var body: some View {
         HStack(spacing: 15){
-            
             ForEach(0..<6,id: \.self){index in
-                
-                // displaying code....
-                
                 CodeView(code: getCodeAtIndex(index: index))
             }
             TextField("", text: $inputModel.code)
                 .frame(width: 0, height: 0)
                 .keyboardType(.numberPad)
-            .introspectTextField { textField in
-                textField.becomeFirstResponder()
-            }
+                .introspectTextField { textField in
+                    textField.becomeFirstResponder()
+                }
         }
         .padding()
         .padding(.horizontal,20)

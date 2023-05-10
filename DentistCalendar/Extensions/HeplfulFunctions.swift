@@ -14,7 +14,6 @@ let emailRegex = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'
     "9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
     "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
 let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$"
-//(?:(?:(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_])|(?:(?=.*?[0-9])|(?=.*?[A-Z])|(?=.*?[-!@#$%&*ˆ+=_])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_]))[A-Za-z0-9-!@#$%&*ˆ+=_]{6,15}
 
 func convertDiagnosisString(str: String, _ onlyTitle: Bool = false, returnEmpty: Bool = true) -> String {
     
@@ -45,7 +44,6 @@ func checkPassword(a: String, b: String) -> (Bool, String?) {
     }
     
     return (true, nil)
-    //        return res
 }
 func checkEmail(_ email: String) -> (Bool, String?) {
     let status = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
@@ -68,11 +66,6 @@ func parsePatientString(patient: String) -> Patient? {
     }
     return nil
 }
-//func parseCalendarString(str: String, dateStart: String, dateEnd: String) -> Appointment {
-//    let splitedStr = str.split(separator: " | ")
-//    var newApp = Appointment(title: str[0], patientID: str[1], toothNumber: str[2], diagnosis: str[3], price: str[4], dateStart: dateStart, dateEnd: dateEnd)
-//    return newApp
-//}
 
 func findPatientByID(id: String) -> Patient?{
     var result:Patient?
@@ -105,8 +98,6 @@ func countBilling(appointment: Appointment) -> (Decimal, Decimal, [Service]) {
                     dataString = String(dataString[..<index])
                 }
                 let diagData = dataString.split(separator: ":")
-
-                //                print("FOREACH B", b )
                 if diagData.count == 2 {
                     sumPayments += (String(diagData[1]).decimalValue * amount.decimalValue)
                     diagnosisList.append(Service(title: String(diagData[0]), price: String(diagData[1]).decimalValue, amount: amount))

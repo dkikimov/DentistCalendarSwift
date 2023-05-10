@@ -18,7 +18,6 @@ class PatientCreateViewModel : ObservableObject {
     
     @Published var isLoading = false
     var error = ""
-    //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     
     func createPatient(patientData: PatientsListViewModel,completion: @escaping(Bool) -> ()){
         self.isLoading = true
@@ -34,8 +33,6 @@ class PatientCreateViewModel : ObservableObject {
             isLoading = false
             return
         }
-        //        print("CURRENT NUMBER", patientNumber)
-        //        print(patientNumber.replacingOccurrences(of: " ", with: "").isValidPhoneNumber())
         var finalPhone: String = ""
         if !patientNumber.isEmpty {
             do {
@@ -54,8 +51,6 @@ class PatientCreateViewModel : ObservableObject {
         Amplify.DataStore.save(newPatient) { result in
             switch result{
             case .success(_):
-                //                    patientData.patientsList.append(patient)
-                //                    presentSuccessAlert(message: "Пациент успешно добавлен!")
                 DispatchQueue.main.async {
                     completion(true)
                 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleMobileAds
 import PhoneNumberKit
+import FirebaseAnalytics
 struct PatientsDetailView: View {
     @StateObject var detailData: PatientDetailViewModel
     @StateObject var listData: PatientsListViewModel
@@ -36,11 +37,6 @@ struct PatientsDetailView: View {
                                 Text("Изменить").frame(height: 25).foregroundColor(.white).padding([.vertical, .horizontal], 10)
                                 Spacer()
                             }).background(Color("Blue2")).cornerRadius(40)
-                        //                        Link(destination: URL(string: "tel:\(String(describing: detailData.patient.phone?.replacingOccurrences(of: " ", with: "")))")!) {
-                        //                            Image(systemName: "phone.fill").frame(width: 50, height: 45).padding([.vertical, .horizontal], 10).foregroundColor(.white)
-                        //                        }
-                        //                        .background(Color("Green")).frame(width: 50, height: 45).clipShape(Circle())
-                        //                        .disabled(detailData.patient.phone?.isEmpty ?? true)
                         Button(action: {
                             let phone = "tel://"
                             let phoneNumberformatted = phone + (detailData.patient.phone ?? "")
@@ -62,22 +58,9 @@ struct PatientsDetailView: View {
                         Print(detailData.appointments)
                         ForEach(Array(zip(detailData.appointments.indices, detailData.appointments)), id: \.0) { index, item in
                             PatientDetailCard(appointment: item,
-//                                                Binding(
-//                                get: {
-//                                    if detailData.appointments[index] != nil {
-//                                        detailData.appointments[index]
-//                                    } else {
-//                                        Appointment(id: "1", title: "", patientID: "", owner: "", toothNumber: "", diagnosis: "", price: 0, dateStart: "0", dateEnd: "0", payments: nil)
-//                                    }
-//
-//
-//                                },
-//                                set: {
-//                                    detailData.appointments[index] = $0
-//                                }),
                                               detailViewModel: detailData, index: index, detailButtonAction: {
                                 detailData.selectedAppointment = detailData.appointments[index]
-                                detailData.viewType = .detailView
+                                detailData.viewType = .patientDetailView
                                 detailData.isModalPresented.toggle()
                             }, moreButtonAction: {
                                 detailData.selectedAppointment = detailData.appointments[index]
@@ -99,8 +82,6 @@ struct PatientsDetailView: View {
                 }
                 .padding(.top, 5)
                 .padding(.bottom, 20)
-                
-                //                .onAppear(perform: detailData.fetchAppointments)
                 .alert(isPresented: $detailData.isAlertPresented, content: {
                     Alert(title: Text("Ошибка"), message: Text(detailData.error), dismissButton: .cancel())
                 })
@@ -118,7 +99,7 @@ struct PatientsDetailView: View {
                     ])
                 }
                 .sheet(isPresented: $detailData.isModalPresented, content: {
-                    if detailData.viewType == .detailView {
+                    if detailData.viewType == .patientDetailView {
                         AppointmentCalendarView(appointment: detailData.selectedAppointment!, false)
                     } else {
                         AppointmentCreateView(patient: detailData.patient, isAppointmentPresented: $detailData.isModalPresented, viewType: detailData.viewType, appointment: detailData.selectedAppointment)
@@ -130,11 +111,6 @@ struct PatientsDetailView: View {
                 })
                 
             }
-            
-            
-            
-            
-            
             VStack {
                 Spacer()
                 HStack{
@@ -149,31 +125,13 @@ struct PatientsDetailView: View {
         }
         .onAppear(perform: {
             showInterstitial(placement: "PatientDetailView")
+            Analytics.logEvent("patient_detailview_opened", parameters: nil)
         })
     
         .navigationTitle("Карта пациента")
         .navigationBarTitleDisplayMode(.inline)
-            //        .onAppear(perform: {
-            //            print("PATIENT", patient.appointments!)
-            //            if patient.appointments != nil {
-            //                self.appointments = Array(patient.appointments!)
-            //            }
-            //
-            //        })
             
         
         .background(Color("Gray2"))
     }
-    //        .onAppear(perform: self.listData.interstital.showAd)
-    
-    
-    
 }
-
-
-//
-//struct PatientsDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PatientsDetailView(patientInput: PatientData(id: "123", fullname: "Кикимов Даниил", phone: "91231023", user: "123123"))
-//    }
-//}

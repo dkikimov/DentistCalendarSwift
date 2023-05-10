@@ -1,6 +1,5 @@
 import Foundation
 
-/// TODO add documentation
 public struct Alarm {
     public var subComponents: [CalendarComponent] = []
     public var otherAttrs = [String:String]()
@@ -8,7 +7,7 @@ public struct Alarm {
 
 extension Alarm: IcsElement {
     public mutating func addAttribute(attr: String, _ value: String) {
-        switch attr { // TODO switch not needed, it'll always be default
+        switch attr {
             default:
                 otherAttrs[attr] = value
         }

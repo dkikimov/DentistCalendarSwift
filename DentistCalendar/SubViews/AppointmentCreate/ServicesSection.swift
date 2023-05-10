@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import AudioToolbox
-import SwiftUIX
 
 
 struct BottomLinedTextField: UIViewRepresentable {
@@ -28,24 +26,12 @@ struct BottomLinedTextField: UIViewRepresentable {
         textField.placeholder = "0"
         textField.keyboardType = .decimalPad
         textField.delegate = context.coordinator
-//        _ = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: textField)
-//            .compactMap {
-//                guard let field = $0.object as? UITextField else {
-//                    return nil
-//                }
-//                return field.text
-//            }
-//            .sink {
-//                self.text = $0
-//            }
         return textField
     }
     func updateUIView(_ uiView: UIViewType, context: Context) {
         DispatchQueue.main.async {
             uiView.text = text
         }
-//        uiView.frame.size.width = uiView.intrinsicContentSize.width
-
     }
     
 }
@@ -96,6 +82,7 @@ struct ServicesSection: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
             }
+            
             ForEach(data.selectedDiagnosisList) { diag in
                 ServiceRow(item: diag)
                     .environmentObject(data)
@@ -104,8 +91,6 @@ struct ServicesSection: View {
                 DispatchQueue.main.async {
                     if let first = indexSet.first {
                         print("INDEX SET IS ", first)
-                        
-//                        let key = data.selectedDiagnosisList.keys.sorted()[first]
                         data.sumPrices -= (data.selectedDiagnosisList[first].price.decimalValue * Decimal(data.selectedDiagnosisList[first].amount))
                         data.selectedDiagnosisList.remove(at: first)
                     }
@@ -128,39 +113,6 @@ struct ServicesSection: View {
             })
         }
     }
-    
-//    func bindingPrice(for key: String) -> Binding<String> {
-//        return .init(
-//            get: {
-//                return self.data.selectedDiagnosisList[key]?.price ?? ""
-//            },
-//            set: {
-//                self.data.selectedDiagnosisList[key]!.price = $0
-//                 data.generateMoneyData.call()
-//            })
-//    }
-//
-//    func bindingAmount(for key: String) -> Binding<Int> {
-//        return .init(
-//            get: {
-//                self.data.selectedDiagnosisList[key]!.amount
-//
-//            }, set: {
-//                //                data.sumPrices -= Decimal(string: self.data.selectedDiagnosisList[key]!.price) ?? 0
-//                //                data.sumPrices += Decimal(string: $0) ?? 0
-//
-//
-//                self.data.selectedDiagnosisList[key]!.amount = $0
-//
-////                    let decimalNumber = Decimal($0)
-////                    let amount = Decimal(data.selectedDiagnosisList[key]!.amount)
-////                    let price = data.selectedDiagnosisList[key]!.price.decimalValue
-////                    data.sumPrices -= (price * amount)
-////                    data.sumPrices += (price * decimalNumber)
-//
-//                                data.generateMoneyData.call()
-//            })
-//    }
 }
 
 struct ServicesSection_Previews: PreviewProvider {

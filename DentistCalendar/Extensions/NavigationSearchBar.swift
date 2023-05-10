@@ -307,50 +307,6 @@ extension UITextField {
     func getClearButton() -> UIButton? { return value(forKey: "clearButton") as? UIButton }
 }
 
-
-
-
-
-
-
-
-
-//struct ContentView: View {
-//    @State var filteredItems = apps
-//
-//    var body: some View {
-//
-//        CustomNavigationView(view: AnyView(Home(filteredItems: $filteredItems)), placeHolder: "Apps,Games", largeTitle: true, title: "Kavsoft",
-//
-//            onSearch: { (txt) in
-//
-//            // filterting Data...
-//            if txt != ""{
-//                self.filteredItems = apps.filter{$0.name.lowercased().contains(txt.lowercased())}
-//            }
-//            else{
-//                self.filteredItems = apps
-//            }
-//
-//        }, onCancel: {
-//            // Do Your Own Code When Search And Canceled....
-//            self.filteredItems = apps
-//
-//        })
-//        .ignoresSafeArea()
-//    }
-//}
-// Home
-
-
-// Card View
-
-
-// Copy This...
-// Custom Navigation View
-
-import SwiftUI
-
 struct CustomNavigationView: UIViewControllerRepresentable {
     
     
@@ -358,20 +314,14 @@ struct CustomNavigationView: UIViewControllerRepresentable {
         return CustomNavigationView.Coordinator(parent: self)
     }
     
-    // Just Change Your View That Requires Search Bar...
     var view: AnyView
-    
-    // Ease Of Use.....
     
     var largeTitle: Bool
     var title: String
     var placeHolder: String
     
-    // onSearch And OnCancel Closures....
     var onSearch: (String)->()
     var onCancel: ()->()
-    
-    // requre closure on Call...
     
     init(view: AnyView,placeHolder: String? = "Search".localized, largeTitle: Bool? = true, title: String, onSearch: @escaping (String)->(), onCancel: @escaping ()->()) {
       
@@ -383,63 +333,39 @@ struct CustomNavigationView: UIViewControllerRepresentable {
         self.onCancel = onCancel
     }
     
-    // Integrating UIKit Navigation Controller With SwiftUI View...
     func makeUIViewController(context: Context) -> UINavigationController {
-        
-        // requires SwiftUI View...
         
         let childView = UIHostingController(rootView: view)
         
         let controller = UINavigationController(rootViewController: childView)
         
-        // Nav Bar Data...
         
         controller.navigationBar.topItem?.title = title
         controller.navigationBar.prefersLargeTitles = largeTitle
         
-        // search Bar....
-        
         let searchController = UISearchController()
 
-//        searchController.searchBar.searchBarStyle = .default
         searchController.searchBar.placeholder = placeHolder
-        // setting delegate...
         searchController.searchBar.delegate = context.coordinator
-        
-        // setting Search Bar In NavBar...
-        // disabling hide on scroll...
-        
-        // disabling dim bg..
-//        print("SYSTEM BACKGROUND ", UIColor.systemBackground.cgColor)
+
         searchController.obscuresBackgroundDuringPresentation = false
         controller.navigationBar.topItem?.hidesSearchBarWhenScrolling = true
         controller.navigationBar.topItem?.searchController = searchController
-//        searchController.searchBar.setTextField(color: UIColor(named: "SearchBackground")!)
-//        searchController.searchBar.setPlaceholderText(color: UIColor(named: "SearchPlaceholder")!)
-//        searchController.searchBar.setSearchImage(color: UIColor(named: "SearchPlaceholder")!)
-//        searchController.searchBar.setClearButton(color: UIColor(named: "SearchPlaceholder")!)
         
         searchController.searchBar.searchTextField.tintColor = .systemBlue
         searchController.searchBar.backgroundImage = UIImage()
-//        searchController.searchBar.barTintColor = .systemBlue
-//        searchController.searchBar.tintColor = .systemBlue
         searchController.searchBar.searchTextField.backgroundColor = .systemGray6
         searchController.searchBar.searchTextField.clipsToBounds = true
 
         searchController.searchBar.searchTextField.tintColor = .systemBlue
-//        searchController.searchBar.searchTextField.textColor = .white
         return controller
     }
     
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        
-        // Updating Real Time...
         uiViewController.navigationBar.topItem?.title = title
         uiViewController.navigationBar.topItem?.searchController?.searchBar.placeholder = placeHolder
         uiViewController.navigationBar.prefersLargeTitles = largeTitle
     }
-    
-    // search Bar Delegate...
     
     class Coordinator: NSObject,UISearchBarDelegate{
         
@@ -450,12 +376,10 @@ struct CustomNavigationView: UIViewControllerRepresentable {
         }
         
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // when text changes....
             self.parent.onSearch(searchText)
         }
         
         func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            // when cancel button is clicked...
             self.parent.onCancel()
         }
     }

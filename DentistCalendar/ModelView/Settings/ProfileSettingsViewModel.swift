@@ -12,8 +12,6 @@ import Amplify
 class ProfileSettingsViewModel: ObservableObject {
     let firstNameData = UserDefaults.standard.string(forKey: "firstname") ?? ""
     let surnameData = UserDefaults.standard.string(forKey: "surname") ?? ""
-//    let fullname = UserDefaults.standard.string(forKey: "fullname")?.split(separator: " ") ?? ["",""]
-//    let fullname = "123 asdas".split(separator: " ")
     var realFirstName: String
     var realSecondName: String
     
@@ -39,7 +37,6 @@ class ProfileSettingsViewModel: ObservableObject {
     }
     func updateFullname() {
         self.isLoading = true
-//        let finalName = secondName.trimmingCharacters(in: .whitespaces) + " " + firstName.trimmingCharacters(in: .whitespaces)
         let f = firstName.trimmingCharacters(in: .whitespaces)
         let s = secondName.trimmingCharacters(in: .whitespaces)
         guard f.count <= userNameMaxLength else {
@@ -56,11 +53,9 @@ class ProfileSettingsViewModel: ObservableObject {
             if let error = error {
                 presentErrorAlert(message: error)
             } else if success {
-//                presentSuccessAlert(message: "Имя успешно изменено!")
                 DispatchQueue.main.async {
                     UserDefaults.standard.setValue(s, forKey: "surname")
                     UserDefaults.standard.setValue(f, forKey: "firstname")
-//                    UserDefaults.standard.setValue(s + " " + f , forKey: "fullname")
                 }
             }
         }
@@ -86,7 +81,6 @@ class ProfileSettingsViewModel: ObservableObject {
                 }
             } else {
                 DispatchQueue.main.async {
-//                    presentSuccessAlert(message: "Пароль успешно изменен!")
                     mode.wrappedValue.dismiss()
                 }
             }
@@ -101,14 +95,9 @@ class ProfileSettingsViewModel: ObservableObject {
                 do {
                     let updateResult = try result.get()
                     switch updateResult.nextStep {
-//                    case .confirmAttributeWithCode(let deliveryDetails, let info):
-//                        print("Confirm the attribute with details send to - \(deliveryDetails) \(info)")
-//                    case .done:
-//                        print("Update completed")
                     default: break
                     }
                 } catch {
-                    print("Update attribute failed with error \(error)")
                     res = false
                     DispatchQueue.main.async {
                         completion(res, error.localizedDescription)

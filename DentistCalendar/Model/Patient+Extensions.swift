@@ -68,6 +68,17 @@ extension PaymentModel: Hashable {
     }
 }
 
+extension DiagnosisItem: Equatable {
+    public static func ==(lhs: DiagnosisItem, rhs: DiagnosisItem) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension DiagnosisItem: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 
 struct Service {
     var title: String

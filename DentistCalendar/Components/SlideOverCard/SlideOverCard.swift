@@ -1,10 +1,3 @@
-//
-//  SlideOverCard.swift
-//
-//
-//  Created by João Gabriel Pozzobon dos Santos on 30/10/20.
-//
-
 import SwiftUI
 
 public struct SlideOverCard<Content: View>: View {
@@ -69,10 +62,6 @@ public struct SlideOverCard<Content: View>: View {
             UIApplication.shared.endEditing()
         })
         .animation(.spring(response: 0.3, dampingFraction: 1))
-//        .animation(.interpolatingSpring(stiffness: 250.0, damping: 50.0, initialVelocity: 5))
-
-//        .animation(.spring(response: 0.5, dampingFraction: 1.2, blendDuration: 0.3))
-//        .animation(.interpolatingSpring(stiffness: 125, damping: 30.0, initialVelocity: 5.0))
     }
     
     private var container: some View {
@@ -98,11 +87,9 @@ public struct SlideOverCard<Content: View>: View {
             }
             
             content
-//                .padding([.horizontal, options.contains(.hideExitButton) ? .vertical : .bottom], 14)
         }
         .padding(20)
         .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
-//                        .fill(Color(.systemGray6)))
                         .fill(Color("White1")))
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .offset(x: 0, y: viewOffset/pow(2, abs(viewOffset)/500+1))

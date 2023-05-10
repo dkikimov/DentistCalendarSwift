@@ -12,7 +12,6 @@ import StackConsentManager
 import Appodeal
 import Firebase
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     private struct AppodealConstants {
@@ -38,7 +37,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         Appodeal.setTestingEnabled(AppodealConstants.testMode)
         Appodeal.setAutocache(true, types: .interstitial)
         Appodeal.setAutocache(false, types: .rewardedVideo)
-
+        
         // Initialise Appodeal SDK with consent report
         if STKConsentManager.shared().consent != nil {
             Appodeal.initialize(

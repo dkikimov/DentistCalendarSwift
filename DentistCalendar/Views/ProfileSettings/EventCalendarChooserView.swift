@@ -49,14 +49,3 @@ struct EventCalendarChooserView: UIViewControllerRepresentable {
         }
     }
 }
-
-//struct EventCalendarChooserView: View{
-//    @Environment(\.presentationMode) var presentationMode
-//    @Binding var calendars: Set<EKCalendar>?
-//
-//    let eventStore: EKEventStore
-//    var fetchEvents: () -> Void
-//    var body: some View {
-//        Text("Hi")
-//    }
-//}

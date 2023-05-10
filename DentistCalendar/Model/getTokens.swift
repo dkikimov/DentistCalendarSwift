@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import JWTDecode
 func getToken() -> String? {
     return ""
 }

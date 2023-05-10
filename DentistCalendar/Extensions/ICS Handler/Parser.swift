@@ -1,6 +1,5 @@
 import Foundation
 
-/// TODO add documentation
 internal class Parser {
     let icsContent: [String]
 
@@ -53,7 +52,6 @@ internal class Parser {
             }
 
             guard let (key, value) = line.toKeyValuePair(splittingOn: ":") else {
-                // print("(key, value) is nil") // DEBUG
                 continue
             }
 

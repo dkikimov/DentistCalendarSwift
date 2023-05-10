@@ -10,10 +10,12 @@ import Combine
 import PhoneNumberKit
 import ApphudSDK
 import Appodeal
+import FirebaseAnalytics
+
 func stringFromDate(date: Date, formatString: String = "d MMMM YYYY HH:mm") -> String {
-    let dateFormatter = DateFormatter() //Set timezone that you want
+    let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale.current
-    dateFormatter.dateFormat = formatString //Specify your format that you want
+    dateFormatter.dateFormat = formatString
     let strDate = dateFormatter.string(from: date)
     return strDate  
     
@@ -40,34 +42,26 @@ struct AppointmentCreateView: View {
     @StateObject var internetConnectionManager = InternetConnectionManager()
     
     @Environment(\.presentationMode) var presentationMode
-    //    @ObservedObject var data: AppointmentCreateViewModel
-    
-    /// editCalendar, edit and create in PatientDetailView
     init(patient: Patient?, isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, appointment: Appointment?, appointmentCalendar: Binding<Appointment>? = nil) {
         _isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil))
-        //        data = AppointmentCreateViewModel(patient: patient, viewType: viewType, appointment: appointment, dateStart: nil, dateEnd: nil, group: nil)
         
         self.appointmentCalendar = appointmentCalendar
         
     }
     
-    /// createWithPatient
     init(isAppointmentPresented: Binding<Bool>, viewType: AppointmentType, dateStart: Date?, dateEnd: Date?, group: DispatchGroup) {
         _isModalPresented = isAppointmentPresented
         persistenceContainer = PersistenceController.shared
         _data = StateObject(wrappedValue: AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group))
-        //       data = AppointmentCreateViewModel(patient: nil, viewType: viewType, appointment: nil, dateStart: dateStart, dateEnd: dateEnd, group: group)
-        //        print("DATE START", dateStart)
         self.group = group
         
     }
     var body: some View {
         NavigationView {
-            
             ZStack {
-                
+
                 if isBillingAlertPresented {
                     AlertControlView(fields: [
                         .init(text: $text, placeholder: "Сумма", keyboardType: .decimalPad, autoCapitalizationType: .none)
@@ -78,7 +72,6 @@ struct AppointmentCreateView: View {
                     }, title: "Платеж", message: "Введите данные платежа")
                 }
                 VStack {
-//                    ListContent()
 
                     if data.segmentedMode == .withPatient {
                         ListContent()
@@ -86,8 +79,6 @@ struct AppointmentCreateView: View {
                         ListContent()
                     }
                 }
-                
-                //            }
                 .environmentObject(data)
                 .listStyle(GroupedListStyle())
                 .navigationBarTitle(data.viewType == .create || data.viewType == .createWithPatient ? "Создание записи" : "Изменение записи", displayMode: .inline)
@@ -97,16 +88,16 @@ struct AppointmentCreateView: View {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                                 if data.viewType == .createWithPatient {
-                                    let queue = DispatchQueue(label: "appointmentCreate")
-                                    queue.async(group: group!) {
                                     data.cancellable?.cancel()
-                                    group!.leave()
-                                }
+                                        DispatchQueue.main.async {
+                                            group?.leave()
+                                        }
                             }
                             
                         }, label: {
                             Text("Отменить")
                                 .bold()
+                                .foregroundColor(.white)
                         })
                     }
                 }
@@ -114,33 +105,6 @@ struct AppointmentCreateView: View {
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
-//        .slideOverCard(isPresented: $isDatePickerPresented, onDismiss: {
-//        }, content: {
-//            VStack {
-//                Text("Выберите дату начала приема")
-//                    .bold()
-//                    .font(.title3)
-//                    .frame(maxWidth: .infinity)
-//                    .multilineTextAlignment(.leading)
-//
-//                    DatePicker("Выберите начало приема", selection: $datePickerDate, displayedComponents: [.date, .hourAndMinute])
-//                        .datePickerStyle(GraphicalDatePickerStyle())
-//            }
-//            .frame(maxWidth: .infinity)
-//
-//        })
-//        .halfModalSheet(isPresented: $data.isFirstDatePresented, height: UIScreen.main.bounds.width + 100) {
-//            VStack {
-//                Text("Начало приема")
-//                    .bold()
-//                    .font(.title3)
-//
-//                DatePicker("", selection: $data.dateStart, displayedComponents: [.date, .hourAndMinute])
-//                    .datePickerStyle(GraphicalDatePickerStyle())
-//                    .labelsHidden()
-//            }
-//            .padding(.top)
-//        }
         .slideOverCard(isPresented: $data.isFirstDatePresented) {
             VStack {
                 Text("Начало приема")
@@ -164,9 +128,10 @@ struct AppointmentCreateView: View {
         }
                 .onDisappear(perform: {
                     if data.didSave {
-        //                showInterstitial(placement: "AppointmentCreateView")
                         showRewardedVideo {}
-        
+                        Analytics.logEvent("appointment_created", parameters: [
+                            "isUpdated": (data.viewType == .edit || data.viewType == .editCalendar)
+                        ])
                     }
                 })
         
@@ -208,10 +173,7 @@ struct AppointmentCreateView: View {
     func ListContent() -> some View {
         List {
             if data.viewType == .createWithPatient  {
-                //                    PickerCalendarSection(data: $data)
                 PickerCalendarSection(segmentedMode: $data.segmentedMode)
-                //                    PickerCalendarSec
-                
             }
             if data.viewType == .createWithPatient && data.segmentedMode == .withPatient {
                 PatientCreateSection()
@@ -236,14 +198,12 @@ struct AppointmentCreateView: View {
                     .transition(.opacity)
             }) {
                 Button(action: {
-//                    showRewardedVideo {
                         if internetConnectionManager.isInternetEnabled() {
                             saveAppointment()
                         } else {
                             alertType = .internet
                             data.isAlertPresented = true
                         }
-//                    }
                 }, label: {
                     Text("Сохранить")
                 })
@@ -269,11 +229,6 @@ struct AppointmentCreateView: View {
                 }
             }
         }
-        //        .onChange(of: isFullScreenPresented) { newValue in
-        //            if newValue == false {
-        //                checkInternetConnection()
-        //            }
-        //        }
         .alert(isPresented: $data.isAlertPresented, content: {
             switch alertType {
             case .error:
@@ -336,20 +291,8 @@ struct AppointmentCreateView: View {
                         return
                     }
                 }
-                //                guard phoneNumber.isEmpty || phoneNumberKit.isValidPhoneNumber(phoneFormattedNumber) else {
-                //                    print("NUMBER", phoneNumber, phoneFormattedNumber)
-                //                    data.error = "Введите корректный номер".localized
-                //                    data.isAlertPresented = true
-                //                    return
-                //                }
-                
                 data.createAppointmentAndPatient(isModalPresented: self.$isModalPresented, phoneNumber: phoneFormattedNumber)
             }
-            //                            guard !data.toothNumber.isEmpty else {
-            //                                data.error = "Введите номер зуба".localized
-            //                                data.isAlertPresented = true
-            //                                return
-            //                            }
             else if data.viewType == .create {
                 data.createAppointment(isModalPresented: self.$isModalPresented, patientDetailData: patientDetailData)
             }
@@ -379,10 +322,3 @@ struct AppointmentCreateView: View {
         
     }
 }
-
-
-//struct AppointmentCreateView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppointmentCreateView()
-//    }
-//}

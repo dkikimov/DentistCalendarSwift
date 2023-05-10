@@ -37,25 +37,20 @@ class EventAddViewModel: ObservableObject {
     func getEvents(){
         requestAccess { (status, err) in
             if err != nil {
-                print("ERROR REQUESTING ACCESS", err!)
                 return
             }
             if status {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
-                // Create start and end date NSDate instances to build a predicate for which events to select
                 let startDate = Date().addingTimeInterval(-2678400)
                 let endDate = Date().addingTimeInterval(7776000)
                 
-                    
-                    // Use an event store instance to create and properly configure an NSPredicate
-                    //                    print("CALENDARS", self.calendars)
-                    DispatchQueue.main.async {
-                        let eventsPredicate = self.eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: Array(self.calendars ?? []))
-                        self.eventsList = self.eventStore.events(matching: eventsPredicate)
-                        self.selectedEvents = self.eventsList.map { $0 }
-                    }
+                DispatchQueue.main.async {
+                    let eventsPredicate = self.eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: Array(self.calendars ?? []))
+                    self.eventsList = self.eventStore.events(matching: eventsPredicate)
+                    self.selectedEvents = self.eventsList.map { $0 }
+                }
                 
             }
             
@@ -64,7 +59,6 @@ class EventAddViewModel: ObservableObject {
     }
     func addEvents(_ presentationMode: Binding<PresentationMode>) {
         isLoading = true
-//        let perEvent = Float(100 / selectedEvents.count)
         
         for i in selectedEvents {
             let data = i.title
@@ -78,7 +72,6 @@ class EventAddViewModel: ObservableObject {
                 if let tag = tag, tags.contains(tag) {
                     if let range = Range(tokenRange, in: data!) {
                         let name = data![range]
-                        print("\(name): \(tag)")
                         if tag == .personalName {
                             patientName = String(name)
                             isWithPatient = true
@@ -96,27 +89,19 @@ class EventAddViewModel: ObservableObject {
                         let matchResult = data![range]
                         phone = String(matchResult)
                         isWithPatient = true
-                        print("result: \(matchResult), range: \(result.range)")
                     }
                 }
                 
             } catch {
-                print("handle error")
                 isLoading = false
             }
-            //                if data.count > 1 {
-            //                    if phoneNumberKit.isValidPhoneNumber(String(data[1])) {
-            //                        phone = String(data[1])
-            //                    }
-            //                }
             if isWithPatient {
                 Amplify.DataStore.query(Patient.self, where: Patient.keys.fullname == patientName) { res in
                     switch res {
                     case .success(let patients):
                         if patients.count > 0 {
                             let newAppointment = Appointment(title: patients[0].fullname, patientID: patients[0].id, toothNumber: "", diagnosis: "", dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
-                           _ = Amplify.DataStore.save(newAppointment)
-                            //                            Amplify.API.mutate(request: .create(newAppointment))
+                            _ = Amplify.DataStore.save(newAppointment)
                         } else if patients.count == 0{
                             let newPatient = Patient(fullname: String(patientName.capitalized.prefix(patientNameMaxLength)), phone: phone.replacingOccurrences(of: " ", with: ""))
                             
@@ -124,9 +109,8 @@ class EventAddViewModel: ObservableObject {
                                 switch result {
                                 case .success(let pat):
                                     let newAppointment = Appointment(title: patientName, patientID: pat.id, toothNumber: "", diagnosis: "", dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
-                                   _ = Amplify.DataStore.save(newAppointment)
-                                //                                    Amplify.API.mutate(request: .create(newAppointment))
-                                
+                                    _ = Amplify.DataStore.save(newAppointment)
+                                    
                                 case .failure(let error):
                                     print("ERROR SAVING PATIENT", error.errorDescription)
                                     
@@ -137,25 +121,17 @@ class EventAddViewModel: ObservableObject {
                         }
                         break
                     case .failure(let error):
-                        print("ERROR IN ADD EVENTS", error.errorDescription)
+                        break
                     }
                     isLoading = false
                     
                 }
             } else {
                 let newAppointment = Appointment(title: data!, dateStart: strFromDate(date: i.startDate), dateEnd: strFromDate(date: i.endDate))
-               _ = Amplify.DataStore.save(newAppointment)
-                //                Amplify.API.mutate(request: .create(newAppointment))
-                
+                _ = Amplify.DataStore.save(newAppointment)
             }
             
         }
-        
-        //        hudCoordinator.showHUD {
-        //            hud.dismiss(afterDelay: 1)
-        //
-        //            return hud
-        //        }
         DispatchQueue.main.async {
             self.isLoading = false
             presentSuccessAlert(message: "Записи были успешно импортированы!")

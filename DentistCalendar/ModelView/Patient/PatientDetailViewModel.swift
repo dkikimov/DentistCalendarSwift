@@ -24,9 +24,9 @@ class PatientDetailViewModel : ObservableObject {
     @Published var isDetailViewPresented: Bool = false
     @Published var isLoading = false
     @Published var error = ""
+    
     @State var patient: Patient
     var observationToken: AnyCancellable?
-    //    @Published var patient = PatientData(id: "1", fullname: "123", phone: "123", user: "123")
     init(patient: Patient) {
         self.patient = patient
         fetchAppointments()
@@ -42,7 +42,6 @@ class PatientDetailViewModel : ObservableObject {
             case .success(let appointments):
                 self.appointments = appointments
             case .failure(let err):
-                print("DETAILVIEWMODEL ERROR", err)
                 self.error = err.errorDescription
                 self.isAlertPresented = true
             }
@@ -54,7 +53,6 @@ class PatientDetailViewModel : ObservableObject {
             Amplify.DataStore.delete(Appointment.self, withId: appoint.id) { res in
                 switch res {
                 case .success:
-                    //                    presentSuccessAlert(message: "Запись успешно удалена!")
                     DispatchQueue.main.async {
                         self.appointments = self.appointments.filter({ (app) -> Bool in
                             app.id != appoint.id
@@ -74,7 +72,6 @@ class PatientDetailViewModel : ObservableObject {
                     print("ERROR IN OBSERVE PATIENTS", error.errorDescription)
                 }
             } receiveValue: { (changes) in
-//                print("CHANGES ", changes)
                 guard let app = try? changes.decodeModel(as: Appointment.self) else {return}
                 var resultAppointment = app
                 if app.patientID == self.patient.id {
@@ -92,7 +89,6 @@ class PatientDetailViewModel : ObservableObject {
                                         return
                                     }
                                 }
-//                                self.appointments[index] = Appointment(id: "123", title: "ЛОЛ КЕК", patientID: "", owner: "", toothNumber: "13", diagnosis: "13", price: 13, dateStart: "123", dateEnd: "123", payments: nil)
                                 let sumData = countBilling(appointment: resultAppointment)
                                 self.sumServices[index] = (sumData.0.currencyFormatted , sumData.1.currencyFormatted)
                                 self.appointments[index] = resultAppointment
@@ -107,9 +103,9 @@ class PatientDetailViewModel : ObservableObject {
             }
     }
     func binded(app: Appointment) -> Binding<Appointment> {
-            Binding(
-                get: { self.appointments[self.appointments.firstIndex(of: app)!] },
-                set: { self.appointments[self.appointments.firstIndex(of: app)!] = $0 }
-            )
-        }
+        Binding(
+            get: { self.appointments[self.appointments.firstIndex(of: app)!] },
+            set: { self.appointments[self.appointments.firstIndex(of: app)!] = $0 }
+        )
+    }
 }

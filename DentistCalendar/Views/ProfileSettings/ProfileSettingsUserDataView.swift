@@ -17,8 +17,6 @@ struct ProfileSettingsUserDataView: View {
                 SecureField("Текущий пароль", text:$profileData.currentPassword)
                 SecureField("Новый пароль", text: $profileData.password)
                 SecureField("Повторите новый пароль", text: $profileData.repeatPassword)
-//                CustomTextField(label: "Текущий пароль", title: "Пароль", text: $profileData.currentPassword, isSecure: true, keyboardType: .default)
-//                    .navigationBarTitle("Изменение пароля", displayMode: .inline)
                 VStack(spacing: 15){
                     Button(action: {
                         profileData.updatePassword(mode: mode, sessionManager: sessionManager)
@@ -53,12 +51,11 @@ struct ProfileSettingsUserDataView: View {
                         mode.wrappedValue.dismiss()
                     }, label: {
                         Text("Отменить")
+                            .foregroundColor(.white)
                     })
                 }
         }
         }
-
-//            .listStyle(GroupedListStyle())
             
     }
 }

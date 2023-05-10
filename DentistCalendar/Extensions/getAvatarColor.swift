@@ -6,8 +6,6 @@
 //
 
 func getAvatarColor(name: Int) -> AvatarColor {
-//    let name = name.unicodeScalarCodePoint()
-    print("INT ", name)
     if name == 0 {
         return AvatarColor(background: "#E9F5FF", color: "#2A86FF")
     }

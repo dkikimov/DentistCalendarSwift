@@ -8,9 +8,6 @@
 import SwiftUI
 import PhoneNumberKit
 struct PatientsListRow: View {
-//    @State var fullname: String
-//    @State var id: String
-//    @State var phoneNumber: String
     var patient: Patient
     var body: some View {
         HStack (spacing: 10){

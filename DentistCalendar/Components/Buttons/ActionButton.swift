@@ -40,34 +40,33 @@ struct ActionButton: View {
     }
     var body: some View {
         Button(action: action, label: {
-                ZStack {
-                    if !isLoading  {
-                        HStack {
-                            Text(buttonLabel.localized)
-                                .fontWeight(fontWeight)
-                                .font(font)
-                                .foregroundColor(fontColor)
-                                .padding()
-                        }
-
-                            
-                    } else {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: fontColor))
+            ZStack {
+                if !isLoading  {
+                    HStack {
+                        Text(buttonLabel.localized)
+                            .fontWeight(fontWeight)
+                            .font(font)
+                            .foregroundColor(fontColor)
                     }
+                    
+                    
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: fontColor))
+                        .font(font)
                 }
-                .frame(maxWidth: .infinity)
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
             
-
-        })
-//        .frame(height: 60)
+            
+        }))
         .frame(maxWidth: maxWidth)
         .background(color)
         .foregroundColor(.white)
         .clipShape(Rectangle())
         .cornerRadius(8)
         .padding(.horizontal, 20)
-//        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 5, y: 5)
         
     }
 }

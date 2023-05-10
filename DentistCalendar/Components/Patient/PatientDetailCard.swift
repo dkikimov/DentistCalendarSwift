@@ -17,7 +17,7 @@ func stringToDate(date: String) -> String {
 }
 /// TODO: Fix Index Bug
 struct PatientDetailCard: View {
-     var appointment: Appointment
+    var appointment: Appointment
     @ObservedObject var detailViewModel: PatientDetailViewModel
     var index: Int
     var detailButtonAction: () -> Void
@@ -43,9 +43,8 @@ struct PatientDetailCard: View {
                         .foregroundColor(Color("Gray1")).padding(.horizontal, 10)
                     
                     Text("Услуги: ") +
-                        Text(convertDiagnosisString(str: appointment.diagnosis!))
+                    Text(convertDiagnosisString(str: appointment.diagnosis!))
                         .fontWeight(.bold)
-//                        .lineLimit(3)
                 }.lineLimit(3)
                 HStack(alignment: VerticalAlignment.firstTextBaseline, spacing:3){
                     Image(systemName: "calendar").resizable().aspectRatio(contentMode: .fit).frame(width: 18, height: 18).offset(y: 2)
@@ -72,8 +71,8 @@ struct PatientDetailCard: View {
                             ProgressView(
                                 value: detailViewModel.sumServices[index, default: ("0", "0")].0.getNumber,
                                 total: detailViewModel.sumServices[index, default: ("0", "0")].1.getNumber)
-                                .scaleEffect(x: 1, y: 1.5, anchor: .center)
-                                .progressViewStyle(LinearProgressViewStyle())
+                            .scaleEffect(x: 1, y: 1.5, anchor: .center)
+                            .progressViewStyle(LinearProgressViewStyle())
                         }
                         .padding(.horizontal)
                     }
@@ -85,7 +84,6 @@ struct PatientDetailCard: View {
             .padding(20)
             .background(Color("White1"))
             .cornerRadius(20)
-            
             .foregroundColor(Color("Black1"))
         })
         .overlay(
@@ -105,50 +103,12 @@ struct PatientDetailCard: View {
         )
         .onAppear(perform: {
             let res = countBilling(appointment: appointment)
-//            self.servicePaid = Double(truncating: res.0 as NSNumber)
-//            self.serviceSum = Double(truncating: res.1 as NSNumber)
             self.servicePaid = res.0
             self.serviceSum = res.1
-//            print("SERVICE SUM", serviceSum)
-//            print("SERVICE PAID", servicePaid)
             if serviceSum < servicePaid {
                 self.serviceSum = servicePaid
             }
             self.detailViewModel.sumServices[index] = (self.servicePaid.currencyFormatted, self.serviceSum.currencyFormatted)
         })
-//        .onChange(of: appointment, perform: { newApp in
-//            let res = countBilling(appointment: appointment)
-//            self.servicePaid = Double(truncating: res.1 as NSNumber)
-//            self.serviceSum = Double(truncating: res.0 as NSNumber)
-//            print("SERVICE SUM", serviceSum)
-//            print("SERVICE PAID", servicePaid)
-//            if serviceSum < servicePaid {
-//                self.serviceSum = servicePaid
-//            }
-//        })
-        //        .onChange(of: appointment, perform: {
-        //            let res = countBilling(appointment: appointment)
-        //            self.servicePaid = Double(truncating: res.1 as NSNumber)
-        //            self.serviceSum = Double(truncating: res.0 as NSNumber)
-        //            print("SERVICE SUM", serviceSum)
-        //            print("SERVICE PAID", servicePaid)
-        //            if serviceSum < servicePaid {
-        //                self.serviceSum = servicePaid
-        //            }
-        //        })
     }
-    
 }
-
-//struct PatientDetailCard_Previews: PreviewProvider {
-//    static var previews: some View {
-////        PatientDetailCard(toothNumber: "31", diagnosis: "Пульпит, Пульпит, Пульпит, Пульпит, Пульпит, Пульпит, Пульпит, ", date: "2020-10-15", time: "23:00", price: 25000)
-//        PatientDetailCard(appointment: Appointment.init(id: "1", title: "Вася Пупкин", patientID: "1", owner: "1", toothNumber: "13 П, 16 Д", diagnosis: "Пульпит, восстановление, кариес", price: 100000, dateStart: "1620662138", dateEnd: "1620665738", payments: nil)) {
-//
-//        } moreButtonAction: {
-//
-//        }
-//
-//    }
-//}
-

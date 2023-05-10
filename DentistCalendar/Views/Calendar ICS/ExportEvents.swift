@@ -28,7 +28,6 @@ struct ExportEvents: View {
         }
         
         .navigationBarTitle("Экспорт", displayMode: .large)
-//        .navigationBarColor(backgroundColor: .white, tintColor: .systemBlue)
         .fileExporter(
             isPresented: $isExporting,
             document: document,
@@ -41,12 +40,6 @@ struct ExportEvents: View {
             case .failure(let err):
                 presentErrorAlert(message: err.localizedDescription)
             }
-//            if case .success = result {
-//                print("SUCCESS")
-//                setNavigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-//            } else {
-//                print("eRROR")
-//            }
         }.onChange(of: isExporting, perform: { (newValue) in
             if newValue == false {
                 setNavigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
@@ -63,14 +56,13 @@ struct ExportEvents: View {
     
     func generateICS() {
         var eventsArray = [ICSEvent]()
-        //        let calendar = Calendar(withComponents: [event])
         var fetchedAppointments = [Appointment]()
         Amplify.DataStore.query(Appointment.self, where: Appointment.keys.dateStart >= strFromDate(date: startDate) && Appointment.keys.dateEnd <= strFromDate(date: endDate)) { res in
             switch res {
             case .success(let appointments):
                 fetchedAppointments = appointments
             case .failure(let error):
-                print("EXPORT EVENTS ERROR", error.errorDescription)
+                break
             }
         }
         for app in fetchedAppointments {
@@ -87,28 +79,9 @@ struct ExportEvents: View {
                 event.addAttribute(attr: "patientData", generatePatientString(patient: findPatientByID(id: app.patientID!)))
             }
             eventsArray.append(event)
-            
-            //            let timezone = TimeZone.current
-            //
-            //            let start = DateComponents(from: Date(timeIntervalSince1970: event.dateStart))
-            //            //        let start = DateComponents(calendar: Calendar.init(identifier: .gregorian),
-            //            //                                   timeZone: timezone,
-            //            //                                   year: 2020,
-            //            //                                   month: 5,
-            //            //                                   day: 9,
-            //            //                                   hour: 22,
-            //            //                                   minute: 0,
-            //            //                                   second: 0)
-            //
-            //            let end = DateComponents(from: Date(timeIntervalSince1970: event.dateEnd))
-            //            let newEvent = VEvent(summary: generateCalendarString(event: event), dtstart: start, dtend: end)
-            //            calendar.events.append(newEvent)
         }
-        
-        //        print("CALENDAR", ICSCalendar(withComponents: eventsArray).toCal())
         self.document = ExportDocument(message: ICSCalendar(withComponents: eventsArray).toCal())
         self.isExporting = true
-        //        print("CALENDAR", calendar.icalString())
     }
 }
 struct ExportEvents_Previews: PreviewProvider {

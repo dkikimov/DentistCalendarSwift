@@ -47,7 +47,6 @@ struct SignInWithAppleView: View {
         .frame(minWidth: 0, maxWidth: 420)
         .padding()
         .cornerRadius(15)
-        //        .padding(.horizontal, 20)
         .shadow(color: Color.black.opacity(0.13), radius: 8, x: 5, y: 5)
     }
 }

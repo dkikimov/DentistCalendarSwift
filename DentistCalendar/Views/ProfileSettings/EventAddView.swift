@@ -57,8 +57,6 @@ struct EventAddView: View {
                 EventCalendarChooserView(calendars: $data.calendars, eventStore: data.eventStore, fetchEvents: data.getEvents)
             })
         }
-        
-        //        .environment(\.editMode, $data.isEditMode)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
@@ -66,10 +64,11 @@ struct EventAddView: View {
                 }, label: {
                     data.isLoading ?  Text("Загрузка...") : Text("Добавить")
                 })
+                    .foregroundColor(.white)
+
             }
         }
         .navigationBarTitle("Импорт записей", displayMode: .inline)
-        //        .onAppear(perform: data.getEvents)
         
     }
     

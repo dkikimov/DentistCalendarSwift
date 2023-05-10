@@ -50,14 +50,12 @@ struct RefreshScrollView<Content: View>: View {
     
     func calculate(_ values: [MCRefreshablePreferenceTypes.MCRefreshablePreferenceData]) {
         DispatchQueue.main.async {
-            /// 计算croll offset
             let movingBounds = values.first(where: { $0.viewType == .movingPositionView })?.bounds ?? .zero
             let fixedBounds = values.first(where: { $0.viewType == .fixedPositionView })?.bounds ?? .zero
             
             self.offset = movingBounds.minY - fixedBounds.minY
             
             self.rotation = self.headerRotation(self.offset)
-            /// 触发刷新
             if !self.refreshing, self.offset > self.threshold, self.preOffset <= self.threshold {
                 self.refreshing = true
             }
@@ -85,7 +83,6 @@ struct RefreshScrollView<Content: View>: View {
         }
     }
     
-    /// 位置固定不变的view
     struct FixedPositionView: View {
         var body: some View {
             GeometryReader { proxy in
@@ -97,7 +94,6 @@ struct RefreshScrollView<Content: View>: View {
         }
     }
     
-    /// 位置随着滑动变化的view，高度为0
     struct MovingPositionView: View {
         var body: some View {
             GeometryReader { proxy in

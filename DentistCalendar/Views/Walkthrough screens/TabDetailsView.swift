@@ -14,19 +14,10 @@ struct TabDetailsView: View {
     
     var body: some View {
         VStack {
-            
-//            GIFPlayer(gifName: imageUrl)
             LoopingPlayer(videoName: imageUrl)
                 .hidden(imageUrl.isEmpty)
                 .shadow(color: Color.black.opacity(0.13), radius: 8, x: 5, y: 5)
-
-//            Image(imageUrl)
-//                .renderingMode(.original)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(maxWidth: .infinity, maxHeight: 500)
-//                .clipped()
-//
+            
             Text(title.localized)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .clipped()

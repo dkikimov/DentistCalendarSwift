@@ -14,7 +14,7 @@ struct ImportEvents: View {
     @State var isImportPresented = false
     @State var error = ""
     @State var isAlertPresented = false
-    //    @State var patientsList = [Patient]()
+    
     var body: some View {
         Form {
             Section(footer: Text("При импорте из календаря используются данные, созданные до 1 месяца назад относительно сегодняшнего дня и до 3 месяцев после")) {
@@ -48,19 +48,17 @@ struct ImportEvents: View {
                         do { selectedFile.stopAccessingSecurityScopedResource() }
                         presentSuccessAlert(message: "Записи были успешно импортированы!")
                     } else {
-                        // Handle denied access
                         presentErrorAlert(message: "Доступ к файлу запрещен")
 
                     }
                 } catch {
-                    // Handle failure.
                     print("Unable to read file contents")
                     presentErrorAlert(message: error.localizedDescription)
                     print(error.localizedDescription)
                 }
                 importEventsFromFile(file: url)
             case .failure(let error):
-                print("ERROR", error.localizedDescription)
+                break
             }
         }
         .onChange(of: isImportPresented, perform: { (newValue) in
@@ -75,19 +73,13 @@ struct ImportEvents: View {
     }
     func importEventsFromFile(file: URL) {
         let cals = iCal.load(string: data!)
-        //        let calendar = ICSCalendar(withComponents: cals)
-        //        calendar.subComponents.
-        
         for cal in cals {
             for event in cal.subComponents where event is ICSEvent {
-                //                print(event as! ICSEvent)
-                //            print(event)
                 createAppointmentFromFile(event: event as! ICSEvent)
             }
         }
     }
     func createAppointmentFromFile(event: ICSEvent) {
-        //    var newApp: Appointment = Appointment(title: event.summary!, dateStart: event.dtstart!, dateEnd: event.dtend!)
         var newApp: Appointment = Appointment(title: event.summary!, dateStart: strFromDate(date: event.dtstart!), dateEnd: strFromDate(date: event.dtend!))
         if (event.otherAttrs["patientID"] != nil) {
             Amplify.DataStore.query(Patient.self, byId: event.otherAttrs["patientID"]!) { res in

@@ -10,9 +10,6 @@ import UniformTypeIdentifiers
 extension UTType {
     static var ics: UTType {
         UTType(exportedAs: "com.daniilkikimov.dentor.ics")
-//        UTType(
-
-//        UTType(importedAs: "com.katsushooter.DentistCalendar.ics")
     }
 }
 extension UTType {
@@ -21,8 +18,6 @@ extension UTType {
     }
 }
 struct ExportDocument: FileDocument {
-    
-    //    let type = UTType(filenameExtension: "opml")
     static var readableContentTypes: [UTType] { [.ics] }
     static var writableContentTypes: [UTType] { [.ics] }
     var message: String
@@ -39,10 +34,6 @@ struct ExportDocument: FileDocument {
         }
         message = string
     }
-//    func write(to fileWrapper: inout FileWrapper, contentType: UTType) throws {
-//        // Create a FileWrapper with the updated contents and set fileWrapper to it.
-//        // This is possible because fileWrapper is an inout parameter.
-//    }
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         return FileWrapper(regularFileWithContents: message.data(using: .utf8)!)
     }

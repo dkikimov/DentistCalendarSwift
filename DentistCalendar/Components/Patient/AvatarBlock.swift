@@ -20,7 +20,6 @@ struct AvatarBlock: View {
     init(fullname: String) {
         let color = getAvatarColor(name: getAverageCharacterNumber(name: fullname) % 5)
         
-//        let b = getAvatarColor(name: Character(String(fullname[0])[0])).
         backgroundColor = UIColor.hexStringToColor(hex: color.background )
         foregroundColor = UIColor.hexStringToColor(hex: color.color)
         if fullname.count == 2 {

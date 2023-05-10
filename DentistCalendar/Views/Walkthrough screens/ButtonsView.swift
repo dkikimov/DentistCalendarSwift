@@ -30,7 +30,7 @@ struct BlueButton: View {
         
     }
 }
-// а расположение то что они рядом норм?
+
 struct ButtonsView: View {
     @Binding var selection: Int
     @Binding var isShown: Bool
@@ -38,38 +38,7 @@ struct ButtonsView: View {
     var backgroundColor = Color.blue
     var foregroundColor = Color.white
     var body: some View {
-        //        VStack {
-        //            Spacer()
-        //            HStack {
-        //    //            Button {
-        //    //                buttonAction("Пропустить") // тут не надо, тут по дефу localized
-        //    //
-        //    //            } label: {
-        //    //                Text("Пропустить")
-        //    //                    .foregroundColor(.white)
-        //    //            }.padding()
-        //    //            Spacer()
-        //                Button {
-        //                    buttonAction()
-        //                } label: {
-        //                    Image(systemName: .arrowRightCircleFill)
-        //                        .font(.largeTitle)
-        //                        .foregroundColor(.white)
-        //                }
-        //                .padding()
-        //    //            .frame(width: 50, height: 50)
-        //    //            .cornerRadius(25)
-        //    //            BlueButton(buttonLabel: buttonLabel, action: {
-        //    //                buttonAction()
-        //    //            }, backgroundColor: backgroundColor, foregroundColor: foregroundColor)
-        //    //            ForEach(buttons, id: \.self) { buttonLabel in
-        //    //                BlueButton(buttonLabel: buttonLabel, action: {
-        //    //                    buttonAction(buttonLabel)
-        //    //                }, backgroundColor: backgroundColor, foregroundColor: foregroundColor)
-        //    //            }
-        //            }
-        //            Spacer()
-        //        }
+
         GeometryReader { geom in
             VStack(spacing: 12) {
                 HStack {
@@ -80,15 +49,6 @@ struct ButtonsView: View {
                     
                     Spacer()
                 }
-//                Button(action: {
-//                    DispatchQueue.main.async {
-//                        isShown = false
-//                    }
-//                }, label: {
-//                    Text("Пропустить")
-//                        .bold()
-//                        .foregroundColor(.systemGray6)
-//                })
                 Spacer()
             }
         }
@@ -115,9 +75,3 @@ struct ButtonsView: View {
         }
     }
 }
-
-//struct ButtonsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ButtonsView()
-//    }
-//}

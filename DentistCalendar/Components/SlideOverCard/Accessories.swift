@@ -1,10 +1,3 @@
-//
-//  Accessories.swift
-//  
-//
-//  Created by João Gabriel Pozzobon dos Santos on 24/04/21.
-//
-
 import SwiftUI
 
 public struct SOCActionButton: ButtonStyle {

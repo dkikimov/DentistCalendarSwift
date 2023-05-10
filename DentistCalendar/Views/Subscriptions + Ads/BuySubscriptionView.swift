@@ -8,15 +8,13 @@
 import SwiftUI
 import ApphudSDK
 import StoreKit
-//import Adapty
+
 //"В будущем: генерируйте документы и выписки"
 struct BuySubscriptionView: View {
-    let benefitsList = ["Больше никакой рекламы", "Синхронизируйте ваши данные", "Используйте на нескольких устройствах", "Экспортируйте ваши данные", "Создавайте и редактируйте записи без доступа в Интернет"]
+    let benefitsList = ["Больше никакой рекламы", "Создавайте неограниченное количество записей", "Синхронизируйте ваши данные", "Используйте на нескольких устройствах", "Экспортируйте ваши данные", "Создавайте и редактируйте записи без доступа в Интернет"]
     @Environment(\.presentationMode) var presentationMode
     @State var paywall: ApphudPaywall?
     @State var products = [ApphudProduct]()
-    //    @State var paywall: PaywallModel?
-    //    @State var selectedProduct: ProductModel?
     @State var selectedProduct: ApphudProduct?
     @State var error = ""
     @State var title = "Ошибка"
@@ -24,9 +22,8 @@ struct BuySubscriptionView: View {
     @StateObject var networkManager = InternetConnectionManager()
     @State var introductoryPrice: SKProductDiscount?
     @State var isEligibleForOffer: Bool = false
-    //    @EnvironmentObject private var store: Store
-    //    @ObservedObject var productsStore : ProductsStore
     
+    var group: DispatchGroup?
     
     var body: some View {
         NavigationView {
@@ -53,10 +50,7 @@ struct BuySubscriptionView: View {
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
-                        
-                        //                        if Apphud.checkEligibilityForIntroductoryOffer(product: selectedProduct!) {
                         if isEligibleForOffer && introductoryPrice != nil {
-                            //                                Text("Ваши первые") + Text(" \(introductoryPrice!.price.intValue)") + Text(" \(introductoryPrice!.subscriptionPeriod.localizedPeriod()) ") + Text("бесплатны")
                             Text("Ваши первые \(introductoryPrice!.subscriptionPeriod.localizedPeriod()) бесплатны. Оплата только по истечению пробного периода.")
                                 .bold()
                                 .foregroundColor(.gray)
@@ -64,12 +58,8 @@ struct BuySubscriptionView: View {
                                 .padding(.top, 8)
                                 .animation(.easeInOut)
                                 .transition(.opacity)
-
+                            
                         }
-                        
-                        
-                        //
-                        //                        }
                     }
                     
                     VStack {
@@ -114,18 +104,18 @@ struct BuySubscriptionView: View {
                                 .padding()
                         }
                         
-                        
-                        
                         HStack {
                             Spacer()
                             Button(action: {
                                 Apphud.restorePurchases { subscriptions, nonRenewingPurch, err in
-                                    //                                    DispatchQueue.main.asyncAfter(deadline: .now + .seconds(1)) {
                                     if Apphud.hasActiveSubscription() {
                                         self.title = "Успех!"
                                         self.error = "Покупки успешно восстановлены!"
                                         self.isAlertPresented = true
                                         presentationMode.wrappedValue.dismiss()
+                                        DispatchQueue.main.async {
+                                            group?.leave()
+                                        }
                                     }
                                     else if let err = err {
                                         self.title = "Ошибка"
@@ -136,7 +126,6 @@ struct BuySubscriptionView: View {
                                         self.error = "Покупки не были найдены"
                                         self.isAlertPresented = true
                                     }
-                                    //                                    }
                                 }
                             }, label: {
                                 Text("Восстановить покупки")
@@ -186,8 +175,10 @@ struct BuySubscriptionView: View {
                             }
                             Apphud.purchase(selectedProduct!) { result in
                                 if let subscription = result.subscription, subscription.isActive(){
-                                    print("HAVE SUBSCRIPTION")
                                     presentationMode.wrappedValue.dismiss()
+                                    DispatchQueue.main.async {
+                                        group?.leave()
+                                    }
                                 } else if let purchase = result.nonRenewingPurchase, purchase.isActive(){
                                     // has active non-renewing purchase
                                 } else {
@@ -206,18 +197,12 @@ struct BuySubscriptionView: View {
                         .foregroundColor(.white)
                         .clipShape(Rectangle())
                         .cornerRadius(8)
-                        //                        GeometryReader { geom in
-                        //                            ActionButton(buttonLabel: "Подписаться", maxWidth: geom.size.width + 50) {
-                        //
-                        //                            }
-                        //                        }
                         Spacer()
                     }
                     Spacer()
                 }
                 .padding()
             }
-            //            .transition(.easeInOut)
             .onChange(of: networkManager.isInternetConnected) { isInternetConnected in
                 checkInternetConnection(isInternetConnected)
             }
@@ -229,53 +214,42 @@ struct BuySubscriptionView: View {
             .navigationBarColor(backgroundColor: UIColor(named: "White1")!, tintColor: UIColor(named: "Black1")!, shadowColor: .clear, buttonsColor: UIColor(named: "Gray1"))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    
-//                    HStack {
-                        CloseButton(presentationMode: presentationMode)
-//                    }
+                    CloseButton(presentationMode: presentationMode, action: {
+                        DispatchQueue.main.async {
+                            group?.leave()
+                        }
+                    })
                 }
-                
             }
             .onAppear {
                 checkInternetConnection(networkManager.isInternetConnected)
             }
             
         }
-        //        }.frame(maxHeight: UIScreen.main.bounds.height)
     }
     private func getProducts() {
         Apphud.getPaywalls { (paywalls, error) in
             if error == nil {
-                // retrieve current paywall with identifier
                 self.paywall = paywalls?.first(where: { $0.identifier == "default_paywall" })
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0.35)) {
                     if let paywallProducts = paywall?.products {
                         self.products = paywallProducts
-    //                    withAnimation {
                         withAnimation {
-                                self.selectedProduct = products.first
-                            }
-                        
-    //                    }
+                            self.selectedProduct = products.first
+                        }
                         self.introductoryPrice = selectedProduct?.skProduct?.introductoryPrice
                         checkIntroductoryOffer()
                     }
                 }
                 
-                //                                            }
-                
             }
-            
         }
-        
-        
     }
     
     private func checkIntroductoryOffer() {
         if let skProduct = selectedProduct?.skProduct {
             Apphud.checkEligibilityForIntroductoryOffer(product: skProduct) { res in
                 withAnimation {
-                    print("isEligibleForOffer", res)
                     self.isEligibleForOffer = res
                 }
             }
@@ -287,20 +261,3 @@ struct BuySubscriptionView: View {
         }
     }
 }
-//struct BuySubscriptionView: View {
-//    @State var selectedDate = Date()
-//    var body: some View {
-//        Form {
-//            DatePicker("When is your birthday?", selection: $selectedDate, displayedComponents: .date)
-//                .datePickerStyle(GraphicalDatePickerStyle())
-//        }
-//    }
-//}
-
-//struct BuySubscriptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BuySubscriptionView()
-//            .environmentObject(EnvironmentObject.pre)
-//
-//    }
-//}

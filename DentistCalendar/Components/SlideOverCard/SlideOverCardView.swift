@@ -1,10 +1,3 @@
-//
-//  SlideOverCardView.swift
-//  
-//
-//  Created by João Gabriel Pozzobon dos Santos on 25/04/21.
-//
-
 import SwiftUI
 
 @available(*, deprecated, renamed: "SlideOverCard")

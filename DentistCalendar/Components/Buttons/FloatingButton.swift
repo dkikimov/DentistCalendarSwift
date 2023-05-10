@@ -24,8 +24,6 @@ struct FloatingButton: View {
             .foregroundColor(.white)
             .clipShape(Circle())
         }
-        
-        
     }
 }
 

@@ -28,7 +28,7 @@ struct DiagnosisCreateView: View {
                     List {
                         ForEach(diagnosisList.filter {
                             searchText.isEmpty ||
-                                $0.text!.localizedStandardContains(searchText)
+                            $0.text!.localizedStandardContains(searchText)
                         }, id: \.id) { (diag) in
                             DiagnosisRow(diag: diag, action: {
                                 if let firstIndex = data.selectedDiagnosisList.firstIndex(where: {$0.key == diag.text!}) {
@@ -37,7 +37,6 @@ struct DiagnosisCreateView: View {
                                     DispatchQueue.main.async {
                                         data.selectedDiagnosisList.append(DiagnosisItem(key: diag.text!, amount: 1, price: diag.price!.description(withLocale: Locale.current)))
                                     }
-                                    print("SELECTED DIAGNOSIS LIST", data.selectedDiagnosisList)
                                 }
                             }, infoAction: {
                                 selectedDiagnosis = diag
@@ -49,8 +48,6 @@ struct DiagnosisCreateView: View {
                     }
                     .environmentObject(data)
                     .listStyle(PlainListStyle())
-                    
-                    
                 }
                 if isAlertPresented {
                     AlertControlView(fields: [
@@ -59,15 +56,8 @@ struct DiagnosisCreateView: View {
                     ], showAlert: $isAlertPresented, action: {
                         addDiagnosis()
                     }, cancelAction: {
-                        print("CANCEL")
-                        //                        if selectedDiagnosisItem != nil {
-                        //                            data.selectedDiagnosisList.append(selectedDiagnosisItem
-                        //                        }
                         selectedDiagnosis = nil
                     } ,title: "Услуга", message: "Введите данные услуги", selectedDiagnosis: $selectedDiagnosis)
-                    //                    AlertControlView(textString: $diagnosisText, priceString: $diagnosisPrice, showAlert: $isAlertPresented, action: {
-                    //                        addDiagnosis()
-                    //                    }, title: "Услуга", message: "Введите данные услуги")
                 }
             }
             .onDisappear(perform: {
@@ -92,6 +82,7 @@ struct DiagnosisCreateView: View {
                     }, label: {
                         Text("Готово")
                             .bold()
+                            .foregroundColor(.white)
                     })
                 }
                 ToolbarItem(placement: .primaryAction) {
@@ -101,6 +92,7 @@ struct DiagnosisCreateView: View {
                         }
                     }, label: {
                         Image(systemName: "plus")
+                            .foregroundColor(.white)
                     })
                 }
             }
@@ -168,8 +160,6 @@ struct DiagnosisCreateView: View {
                         item.price = decimalString
                         print("ITEM ", item)
                         data.selectedDiagnosisList[tempIndex!] = item
-                        //                        data.selectedDiagnosisList.remove(at: tempIndex!)
-                        //                        data.selectedDiagnosisList.append(DiagnosisItem(key: diagnosisText, amount: 1, price: decimalString))
                     }
                 }
                 

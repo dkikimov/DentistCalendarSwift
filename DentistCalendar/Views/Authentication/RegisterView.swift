@@ -20,10 +20,7 @@ struct RegisterView: View {
                 CustomTextField(label: "Фамилия", title: "Петров".localized, text: $registerData.secondName, isSecure: false, keyboardType: .default).disableAutocorrection(true).padding(.horizontal, 20)
                     CustomTextField(label: "Email", title: "example@gmail.com", text: $registerData.emailAddress, isSecure: false, keyboardType: .emailAddress).autocapitalization(.none).padding(.horizontal, 20)
                     CustomTextField(label: "Пароль", title: "example123", text: $registerData.password, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
-                    CustomTextField(label: "Повторите пароль", title: "example123", text: $registerData.repeatPassword, isSecure: true, keyboardType: .default).padding(.horizontal, 20)
-//                    CustomButton(action: {
-//                        registerData.register(sessionManager: self.sessionManager)
-//                    }, imageName: "arrowshape.zigzag.forward", label: "Зарегистрироваться", isLoading: $registerData.isLoading)
+                    CustomTextField(label: "Повторите пароль", title: "example123", text: $registerData.repeatPassword, isSecure: true, keyboardType: .default).padding(.horizontal, 20) $registerData.isLoading)
                 ActionButton(buttonLabel: "Зарегистрироваться", isLoading: $registerData.isLoading, action: {
                     registerData.register(sessionManager: self.sessionManager)
                 })
@@ -41,9 +38,3 @@ struct RegisterView: View {
     }
     
 }
-
-//struct RegisterView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RegisterView()
-//    }
-//}

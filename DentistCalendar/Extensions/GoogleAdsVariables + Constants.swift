@@ -5,11 +5,6 @@
 //  Created by Даник 💪 on 03.01.2021.
 //
 
-//let nativeAd = "ca-app-pub-4771086826108788/6460720540"
-//let pageAd = "ca-app-pub-4771086826108788/9337454886"
-//let bannerAd = "ca-app-pub-4771086826108788/2378306621"
-//let videoAd = "ca-app-pub-4771086826108788/4953139702"
-
 // TEST
 let nativeAd = "ca-app-pub-3940256099942544/3986624511"
 let bannerAd = "ca-app-pub-3940256099942544/2934735716"

@@ -1,11 +1,3 @@
-//
-//  HalfModalView.swift
-//  HalfModalView
-//
-//  Created by Christopher Guirguis on 3/11/20.
-//  Copyright © 2020 Christopher Guirguis. All rights reserved.
-//
-
 import SwiftUI
 
 extension UIApplication {
@@ -38,7 +30,6 @@ struct HalfModalView<Content: View> : View {
         }
     }
     
-    //    var modalHeight:CGFloat = UIScreen.main.bounds.width + 50
     
     var modalHeight:CGFloat
     var content: () -> Content
@@ -50,7 +41,6 @@ struct HalfModalView<Content: View> : View {
             .onEnded(onDragEnded)
         return
             ZStack {
-                //Background
                 if isShown {
                     Color.black.opacity( 0.5 * fraction_progress(lowerLimit: 0, upperLimit: Double(modalHeight), current: Double(dragState.translation.height), inverted: true))
                         .edgesIgnoringSafeArea(.all)

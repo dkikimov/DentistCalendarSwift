@@ -1,120 +1,9 @@
-////
-////  Store.swift
-////  DentistCalendar
-////
-////  Created by Даник 💪 on 04.01.2021.
-////
 //
-//import StoreKit
+//  Store.swift
+//  DentistCalendar
 //
+//  Created by Даник 💪 on 04.01.2021.
 //
-//typealias FetchCompletionHandler = (([SKProduct]) -> Void)
-//typealias PurchaseCompletionHandler = ((SKPaymentTransaction) -> Void)
-//
-//class Store: NSObject, ObservableObject {
-//    private let allProductIdentifier = Set([
-//        "com.katsushooter.DentistCalendar.1monthPremium"
-//        ])
-//    @Published var isUnlocked = false
-//    private var completedPurchases = [String]()
-//    private var productsRequest: SKProductsRequest?
-//    private var fetchedProducts = [SKProduct]()
-//    private var fetchCompletionHandler: FetchCompletionHandler?
-//    private var purchaseCompletionHandler: PurchaseCompletionHandler?
-//
-//
-//    override init() {
-//        super.init()
-//        startObservingPaymentQueue()
-//        fetchProducts { (products) in
-//            print(products)
-//        }
-//    }
-//    private func startObservingPaymentQueue() {
-//        SKPaymentQueue.default().add(self)
-//    }
-//    private func fetchProducts(_ completion: @escaping FetchCompletionHandler) {
-//        guard self.productsRequest == nil else {return}
-//        fetchCompletionHandler = completion
-//
-//        productsRequest = SKProductsRequest(productIdentifiers: allProductIdentifier)
-//        productsRequest?.delegate = self
-//        productsRequest?.start()
-//    }
-//
-//    private func buy(_ product: SKProduct, completion: @escaping PurchaseCompletionHandler) {
-//        purchaseCompletionHandler = completion
-//
-//        let payment = SKPayment(product: product)
-//        SKPaymentQueue.default().add(payment)
-//    }
-//}
-//
-//extension Store {
-//    func purchaseProduct(_ product: SKProduct) {
-//        startObservingPaymentQueue()
-//        buy(product) { _ in
-//
-//        }
-//    }
-//}
-//
-//extension Store: SKPaymentTransactionObserver {
-//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-//        for transaction in transactions {
-//            var shouldFinishTransaction = false
-//            switch transaction.transactionState {
-//
-//            case .purchased,.restored:
-//                completedPurchases.append(transaction.payment.productIdentifier)
-//                shouldFinishTransaction = true
-//            case .failed:
-//                shouldFinishTransaction = true
-//
-//            case .deferred, .purchasing:
-//                break
-//            @unknown default:
-//                break
-//            }
-//            if shouldFinishTransaction {
-//                SKPaymentQueue.default().finishTransaction(transaction)
-//                DispatchQueue.main.async {
-//                    self.purchaseCompletionHandler?(transaction)
-//                    self.purchaseCompletionHandler = nil
-//                }
-//            }
-//        }
-//    }
-//
-//
-//}
-//extension Store: SKProductsRequestDelegate {
-//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-//        let loadedProducts = response.products
-//        let invalidProducts = response.invalidProductIdentifiers
-//
-//        guard !loadedProducts.isEmpty else {
-//            print("Could not load the products!")
-//            if !invalidProducts.isEmpty {
-//                print("Invalid products found \(invalidProducts)")
-//            }
-//            self.productsRequest = nil
-//            return
-//        }
-//        fetchedProducts = loadedProducts
-//
-//        DispatchQueue.main.async {
-//            self.fetchCompletionHandler?(loadedProducts)
-//
-//            self.fetchCompletionHandler = nil
-//            self.productsRequest = nil
-//
-//        }
-//    }
-//
-//
-//}
-
 
 import UIKit
 import StoreKit
@@ -141,8 +30,6 @@ class IAPManager : NSObject{
     
     private var refreshSubscriptionSuccessBlock : SuccessBlock?
     private var refreshSubscriptionFailureBlock : FailureBlock?
-    
-    // MARK:- Main methods
     
     @objc func startWith(arrayOfIds : Set<String>!, sharedSecret : String, callback : @escaping  ProductsBlock){
         SKPaymentQueue.default().add(self)
@@ -184,9 +71,6 @@ class IAPManager : NSObject{
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    /* It's the most simple way to send verify receipt request. Consider this code as for learning purposes. You shouldn't use current code in production apps.
-     This code doesn't handle errors.
-     */
     func refreshSubscriptionsStatus(callback : @escaping SuccessBlock, failure : @escaping FailureBlock){
         
         self.refreshSubscriptionSuccessBlock = callback
@@ -340,7 +224,6 @@ extension IAPManager: SKPaymentTransactionObserver {
             self.successBlock?()
             self.cleanUp()
         }) { (error) in
-            // couldn't verify receipt
             self.failureBlock?(error)
             self.cleanUp()
         }
@@ -369,55 +252,3 @@ class ProductsStore : ObservableObject {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-//import StoreKit
-//
-//class Purchases: NSObject {
-//    static let `default` = Purchases()
-//
-//    private let productIdentifiers = Set<String>(
-//        arrayLiteral: "com.katsushooter.dentorapp.premium.1month", "premium.3month"
-//    )
-//
-//    private var productRequest: SKProductsRequest?
-//
-//    func initialize() {
-//        requestProducts()
-//    }
-//
-//    private func requestProducts() {
-//            productRequest?.cancel()
-//
-//            let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
-//            productRequest.delegate = self
-//            productRequest.start()
-//
-//            self.productRequest = productRequest
-//    }
-//}
-//
-//
-//extension Purchases: SKProductsRequestDelegate {
-//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-//        guard !response.products.isEmpty else {
-//            print("Found 0 products")
-//            return
-//        }
-//
-//        for product in response.products {
-//            print("Found product: \(product.productIdentifier)")
-//        }
-//    }
-//
-//    func request(_ request: SKRequest, didFailWithError error: Error) {
-//        print("Failed to load products with error:\n \(error)")
-//    }
-//}

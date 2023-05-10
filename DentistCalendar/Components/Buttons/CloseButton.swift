@@ -11,36 +11,14 @@ struct CloseButton: View {
     
     var presentationMode: Binding<PresentationMode>
     var color: Color?
+    var action: () -> () = {}
     var body: some View {
         Button(action: {
+            action()
             presentationMode.wrappedValue.dismiss()
         }, label: {
-//            SOCExitButton()
-//            ZStack {
-//                Circle()
-//                    .fill(Color(white: colorScheme == .dark ? 0.19 : 0.93))
-//                Image(systemName: "xmark")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .font(Font.body.weight(.bold))
-//                    .scaleEffect(0.416)
-//                    .foregroundColor(Color(white: colorScheme == .dark ? 0.62 : 0.51))
-//            }
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2, weight: .bold)
-                            .foregroundColor(color != nil ? color! : Color("CloseButtonGray"))
-            
-            
-            
+            SOCExitButton()
         })
-        .padding()
-//        .frame(width: 24, height: 24)
-        //        .buttonStyle(SOCExitButton())
+        .frame(width: 36, height: 36)
     }
 }
-
-//struct CloseButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CloseButton()
-//    }
-//}

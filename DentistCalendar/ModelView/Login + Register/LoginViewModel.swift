@@ -28,26 +28,6 @@ class LoginViewModel : ObservableObject {
             }
             self.isLoading = false
         }
-
-//        Api().login(email: emailAddress, password: password) { data, err in
-//
-//            if err != nil {
-//                self.error = err!
-//                self.isAlertPresented.toggle()
-//            }
-//
-//            if data != nil{
-//                UserDefaults.standard.set(data!.email, forKey: "email")
-//                UserDefaults.standard.set(data!.fullname, forKey: "fullname")
-//                UserDefaults.standard.set(data!.refreshToken, forKey: "refreshToken")
-//                UserDefaults.standard.set(data!.accessToken, forKey: "accessToken")
-//                UserDefaults.standard.set(data!.id, forKey: "id")
-//                self.status = true
-//            }
-//            self.isLoading = false
-//
-//
-//        }
     }
     
 }

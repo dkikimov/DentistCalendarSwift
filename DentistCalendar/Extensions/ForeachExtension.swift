@@ -22,11 +22,6 @@ extension Binding where
             }
             return self.wrappedValue[index]
         } set: { newValue in
-            
-            // It is possible that the index we are updating
-            // is beyond the end of our array so we first
-            // need to append items to the array to ensure
-            // we are within range.
             while index >= self.wrappedValue.endIndex {
                 self.wrappedValue.append(defaultValue)
             }

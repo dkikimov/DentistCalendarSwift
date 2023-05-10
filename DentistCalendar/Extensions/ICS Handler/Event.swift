@@ -1,20 +1,15 @@
 import Foundation
 
-/// TODO add documentation
 public struct ICSEvent {
     public var subComponents: [CalendarComponent] = []
     public var otherAttrs = [String:String]()
 
-    // required
     public var uid: String!
     public var dtstamp: Date!
 
-    // optional
-    // public var organizer: Organizer? = nil
     public var location: String?
     public var summary: String?
     public var descr: String?
-    // public var class: some enum type?
     public var dtstart: Date?
     public var dtend: Date?
 
@@ -71,8 +66,6 @@ extension ICSEvent: IcsElement {
             dtstart = value.toDate()
         case "DTEND":
             dtend = value.toDate()
-        // case "ORGANIZER":
-        //     organizer
         case "SUMMARY":
             summary = value
         case "DESCRIPTION":

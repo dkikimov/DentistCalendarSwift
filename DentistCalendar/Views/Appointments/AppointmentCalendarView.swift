@@ -8,6 +8,8 @@
 import SwiftUI
 import CalendarKit
 import Amplify
+import FirebaseAnalytics
+
 private func dateFormatter(date: String, _ time: Bool = false) -> String{
     let formatter = DateFormatter()
     formatter.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
@@ -21,7 +23,6 @@ private func dateFormatter(date: String, _ time: Bool = false) -> String{
 
 struct AppointmentCalendarView: View {
     @Environment(\.presentationMode) var presentationMode
-    //    @EnvironmentObject var internetConnectionManager: InternetConnectionManager
     @ObservedObject var data: AppointmentCalendarViewModel
     @State var diagnosisList = [Service]()
     @State var serviceSum: Decimal = 0
@@ -47,9 +48,6 @@ struct AppointmentCalendarView: View {
                             VStack(alignment: .leading) {
                                 Text("Услуги: ").font(.title2).bold()
                                 ServiceList(diagnosisList: diagnosisList)
-                                //                                Print(Decimal(0).formatted)
-                                //                                Print(Decimal(49.12).formatted)
-                                
                             }
                             Spacer(minLength: 25)
                             VStack(alignment: .leading) {
@@ -73,16 +71,16 @@ struct AppointmentCalendarView: View {
                     }
                     .padding()
                 }
-                        Button(action: {
-                            data.isActionSheetPresented = true
-                        }, label: {
-                            Text("Удалить")
-                                .foregroundColor(.red)
-                                .frame(height: 49)
-                                .frame(maxWidth: .infinity)
-                        })
-                    .overlay(Divider(), alignment: .top)
-                    .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing]))
+                Button(action: {
+                    data.isActionSheetPresented = true
+                }, label: {
+                    Text("Удалить")
+                        .foregroundColor(.red)
+                        .frame(height: 49)
+                        .frame(maxWidth: .infinity)
+                })
+                .overlay(Divider(), alignment: .top)
+                .background(Color("White2").edgesIgnoringSafeArea([.bottom, .leading, .trailing]))
             }
             
             .toolbar {
@@ -93,6 +91,7 @@ struct AppointmentCalendarView: View {
                         }
                     }, label: {
                         Text("Отменить")
+                            .foregroundColor(.white)
                     })
                 }
                 ToolbarItem(placement: .primaryAction) {
@@ -102,7 +101,7 @@ struct AppointmentCalendarView: View {
                         Text("Изменить")
                             .bold()
                             .foregroundColor(.white)
-                        }) : nil
+                    }) : nil
                 }
             }
             .actionSheet(isPresented: $data.isActionSheetPresented, content: {
@@ -130,22 +129,16 @@ struct AppointmentCalendarView: View {
                 self.diagnosisList = res.2
                 showInterstitial(placement: "AppointmentCalendarView")
                 print("SHOWING INTERSTITIAL")
-
+                Analytics.logEvent("appointment_calendarview_opened", parameters: nil)
+                
             })
             .navigationBarTitle(Text("Детали записи"), displayMode: .inline)
             .sheet(isPresented: $data.isSheetPresented, content: {
                 AppointmentCreateView(patient: nil, isAppointmentPresented: $data.isSheetPresented, viewType: .editCalendar, appointment: data.appointment, appointmentCalendar: $data.appointment)
                 
             })
+            .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
         }
         
     }
-    
-    
 }
-
-//struct AppointmentCalendarView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppointmentCalendarView(appointment: Appointment(id: "1", title: "Кикимов Даниил", patientID: "1", owner: "1", toothNumber: "1К", diagnosis: "Пульпит:20000:10000;Чистка зубов:5000:3000", price: 0, dateStart: "1608740728", dateEnd: "1608740928"), true, fullScreenIsCalendar: <#Binding<Bool>#>)
-//    }
-//}

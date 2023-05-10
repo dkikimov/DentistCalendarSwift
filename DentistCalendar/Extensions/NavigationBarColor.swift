@@ -4,56 +4,10 @@
 //
 //  Created by Даник 💪 on 9/26/20.
 //
-
-
-import SwiftUI
-import UIKit
-
-
-//struct NavigationBarModifier: ViewModifier {
-//
-//    var backgroundColor: UIColor?
-//
-//    init( backgroundColor: UIColor?) {
-//        self.backgroundColor = backgroundColor
-//        let coloredAppearance = UINavigationBarAppearance()
-//        coloredAppearance.configureWithTransparentBackground()
-//        coloredAppearance.backgroundColor = .clear
-//        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-//        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-//
-//        UINavigationBar.appearance().standardAppearance = coloredAppearance
-//        UINavigationBar.appearance().compactAppearance = coloredAppearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-//        UINavigationBar.appearance().tintColor = .white
-//
-//    }
-//
-//    func body(content: Content) -> some View {
-//        ZStack{
-//            content
-//            VStack {
-//                GeometryReader { geometry in
-//                    Color(self.backgroundColor ?? .clear)
-//                        .frame(height: geometry.safeAreaInsets.top)
-//                        .edgesIgnoringSafeArea(.top)
-//                    Spacer()
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//extension View {
-//
-//    func navigationBarColor(_ backgroundColor: UIColor?) -> some View {
-//        self.modifier(NavigationBarModifier(backgroundColor: backgroundColor))
-//    }
-//
-//}
 import SwiftUI
 import UIKit
 import SwiftUIX
+
 struct NavigationBarColor: ViewModifier {
     
     init(backgroundColor: UIColor, tintColor: UIColor, shadowColor: UIColor?, buttonsColor: UIColor?) {
@@ -86,7 +40,7 @@ struct NavigationBarColor: ViewModifier {
 func setNavigationBarColor(backgroundColor: UIColor, tintColor: UIColor) {
     let coloredAppearance = UINavigationBarAppearance()
     coloredAppearance.configureWithOpaqueBackground()
-
+    
     coloredAppearance.backgroundColor = backgroundColor
     coloredAppearance.titleTextAttributes = [.foregroundColor: tintColor]
     coloredAppearance.largeTitleTextAttributes = [.foregroundColor: tintColor]
@@ -96,19 +50,6 @@ func setNavigationBarColor(backgroundColor: UIColor, tintColor: UIColor) {
     UINavigationBar.appearance().tintColor = tintColor
 }
 
-
-
-//struct NavigationViewModifier: ViewModifier {
-//    var isEditAllowed: Bool
-//    init(isEditAllowed: Bool) {
-//        self.isEditAllowed = isEditAllowed
-//    }
-//    func body(content: Content) -> some View {
-//        NavigationView {
-//            content
-//        }
-//    }
-//}
 extension View {
     func navigationBarColor(backgroundColor: UIColor, tintColor: UIColor, shadowColor: UIColor? = nil, buttonsColor: UIColor? = nil) -> some View {
         self.modifier(NavigationBarColor(backgroundColor: backgroundColor, tintColor: tintColor, shadowColor: shadowColor, buttonsColor: buttonsColor))

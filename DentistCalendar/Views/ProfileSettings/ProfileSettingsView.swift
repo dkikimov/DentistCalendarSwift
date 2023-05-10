@@ -53,15 +53,6 @@ struct ProfileSettingsView: View {
                             .foregroundColor(Color("Black1"))
                     })
                 }
-                
-//                NavigationLink(destination: EventAddView()) {
-//                    Text("Импортировать записи из календаря")
-//                }
-//                NavigationLink(
-//                    destination: ImportEvents(),
-//                    label: {
-//                        Text("Импортировать записи из файла")
-//                    })
                 NavigationLink(destination: ImportEvents()) {
                     Text("Импортировать записи")
                 }
@@ -121,15 +112,7 @@ struct ProfileSettingsView: View {
                 }, label: {
                     Text("Выйти").foregroundColor(.red)
                 })
-                
-                
-                
             }
-            //            Button(action: {
-            //                fatalError
-            //            }, label: {
-            //                Text("Crash")
-            //            })
             .sheet(isPresented: $profileData.isPasswordPresented, content: {
                 ProfileSettingsUserDataView()
             })
@@ -155,15 +138,11 @@ struct ProfileSettingsView: View {
             }))
         })
         .navigationBarColor(backgroundColor: UIColor(named: "Blue")!, tintColor: .white)
-        //        .keyboardAdaptive()
         .navigationBarTitle("Настройки", displayMode: .large)
         .sheet(isPresented: $profileData.isSheetPresented, content: {
             BuySubscriptionView()
         })
         .transition(.opacity)
-        //        .alert(isPresented: $profileData.isAlertPresented, content: {
-        //            Alert(title: profileData.alertText == "Имя успешно изменено!" ? "Успех!" : "Ошибка", message: profileData.alertText, dismissButton: .cancel())
-        //        })
     }
 }
 

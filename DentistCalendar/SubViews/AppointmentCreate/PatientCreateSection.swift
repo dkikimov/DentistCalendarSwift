@@ -37,17 +37,9 @@ struct PatientCreateSection: View {
                 .frame(height:  65)
             }
             if data.selectedPatient == nil {
-//                PhoneNumberTextFieldView(phoneNumber: $data.phoneNumber)
                 iPhoneNumberField(text: $data.phoneNumber)
                     .maximumDigits(15)
                     .autofillPrefix(true)
-//                TextField(phoneNumberKit.getExampleNumber(forCountry: Locale.current.regionCode!)!.numberString, text: $phoneNumber)
-//                    .keyboardType(.phonePad)
-//                    .textContentType(.telephoneNumber)
-                //                            iPhoneNumberField("Номер", text: data.patientPhone)
-                //                                .flagHidden(true)
-                //                                .flagSelectable(false)
-                //                                .prefixHidden(false)
             }
             
         }
@@ -59,10 +51,6 @@ struct PatientCreateSection: View {
             self.tableView?.flashScrollIndicators()
         }
     }
-//    private func startTimerForShowScrollIndicator() {
-//        self.timerForShowScrollIndicator = Timer.sche
-//        self.timerForShowScrollIndicator = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.showScrollIndicatorsInContacts), userInfo: nil, repeats: true)
-//    }
     private func titleBinding() -> Binding<String> {
         return .init(
             get: {data.title},

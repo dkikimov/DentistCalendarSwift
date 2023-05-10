@@ -8,8 +8,6 @@
 import Foundation
 import StoreKit
 
-
-
 extension SKProduct {
     
     func subscriptionStatus() -> String {
@@ -48,7 +46,7 @@ class PeriodFormatter {
         formatter.zeroFormattingBehavior = .dropAll
         return formatter
     }
-
+    
     static func format(unit: NSCalendar.Unit, numberOfUnits: Int) -> String? {
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
@@ -65,7 +63,7 @@ class PeriodFormatter {
         default:
             return nil
         }
-
+        
         return componentFormatter.string(from: dateComponents)
     }
 }
