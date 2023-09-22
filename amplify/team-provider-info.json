@@ -1,0 +1,33 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dentor-staging-184413-authRole",
+      "UnauthRoleArn": "arn:aws:iam::585865392516:role/amplify-dentor-staging-184413-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::585865392516:role/amplify-dentor-staging-184413-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-dentor-staging-184413-deployment",
+      "UnauthRoleName": "amplify-dentor-staging-184413-unauthRole",
+      "StackName": "amplify-dentor-staging-184413",
+      "StackId": "arn:aws:cloudformation:us-east-2:585865392516:stack/amplify-dentor-staging-184413/25ba3cc0-e7f8-11eb-a13e-0642c5217bfe",
+      "AmplifyAppId": "d3fg8tn4ognujy"
+    },
+    "categories": {
+      "auth": {
+        "dentorprodb12e4c56": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dentorprod-dev-214633-authRole",
+      "UnauthRoleArn": "arn:aws:iam::585865392516:role/amplify-dentorprod-dev-214633-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::585865392516:role/amplify-dentorprod-dev-214633-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-dentorprod-dev-214633-deployment",
+      "UnauthRoleName": "amplify-dentorprod-dev-214633-unauthRole",
+      "StackName": "amplify-dentorprod-dev-214633",
+      "StackId": "arn:aws:cloudformation:us-east-2:585865392516:stack/amplify-dentorprod-dev-214633/276db970-f53b-11eb-9c8e-0a04953e1c5a",
+      "AmplifyAppId": "d3fg8tn4ognujy"
+    }
+  }
+}

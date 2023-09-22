@@ -1,0 +1,28 @@
+type Patient @model @auth(rules: [{ allow: owner }])
+ {
+id: ID!
+fullname: String! @assert(condition: ".length() <= 110")
+phone: String @assert(condition: ".length() <= 20")
+}
+
+type Appointment @model @auth(rules: [{ allow: owner }]) {
+id: ID!
+title: String @assert(condition: ".length() <= 110")
+patientID: ID
+toothNumber: String @assert(condition: ".length() <= 99")
+diagnosis: String
+dateStart: String!
+dateEnd: String!,
+payments: [Payment] @connection(keyName: "byAppointment", fields: ["id"]) @assert(condition: ".length() <= 20")
+}
+type Payment @model @auth(rules: [{ allow: owner }])
+@key(name: "byAppointment", fields: ["appointmentID"])
+{
+id: ID!
+appointmentID: ID!
+cost: String! @assert(condition: ".length() <= 15")
+date: String!
+}
+
+
+

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@aws-amplify/cli": "^4.13.2"
+  },
+  "devDependencies": {
+    "graphql-assert-transformer": "^1.0.2"
+  }
+}
