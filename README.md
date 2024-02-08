@@ -61,4 +61,4 @@ Swift, SwiftUI, AWS Amplify, Appodeal, Firebase Analytics
 
 ## Authors
 
-* [Kikimov Daniil](https://github.com/dkiimov/)
+* [Kikimov Daniil](https://github.com/dkikimov/)
