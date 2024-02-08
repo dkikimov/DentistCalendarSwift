@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <a href="https://github.com/dkikimov/DentistCalendarSwift">
+  <a href="https://github.com/dkikimov/Dentor">
     <img src="https://downloader.disk.yandex.ru/preview/b933fe5f7dfaeef68ebfc7805baa5351b1f8ac8735ef98aa553aae3843c74c3b/65c4fb4a/y-gvhl1fUECFtlnLKYtKpxkkOMbouq75YLTYxQb-fcExWH7JiBENp1qQxdAclU7-VbBgdjqWjHg-9hNVJR1Ncw%3D%3D?uid=0&filename=logo.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=128x128" alt="Logo" width="80" height="80">
   </a>
 
