@@ -24,7 +24,7 @@
 
 ## About The Project
 
-Dentists working as sole proprietors need to keep records of patients and their time management. But there are no simple and inexpensive solutions on the market. Therefore, the Dentist was invented, an application for managing patients for dentists and maintaining their own schedule. 
+Dentists working as sole proprietors need to keep records of patients and their schedules. But there are no simple and inexpensive solutions on the market. That's why the Dentor was invented. The purpose of the application is to make it possible to quickly create a record and have a convenient tool for working with patient data
 
 Features:
 
@@ -38,7 +38,7 @@ Introductory Walkthroughs will help you figure out the application
 
 ## Built With
 
-Swift, SwiftUI, AWS Amplify
+Swift, SwiftUI, AWS Amplify, Appodeal, Firebase Analytics
 
 ## Showcase
 ### Screenshots from Apple Store
